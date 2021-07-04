@@ -2,7 +2,18 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Table : ScriptableObject
+/// <summary>
+/// 对战桌面
+/// </summary>
+[DisallowMultipleComponent]
+public class Table : MonoBehaviour
 {
-    public new TranslatableSentence name;
+    [Header("我方场地")]
+    public Field myField;
+    [Header("敌方场地")]
+    public Field enemyField;
+    public void processCardEndDragEvent()
+    {
+
+    }
 }

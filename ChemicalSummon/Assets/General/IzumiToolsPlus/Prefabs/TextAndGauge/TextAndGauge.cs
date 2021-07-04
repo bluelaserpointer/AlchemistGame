@@ -1,0 +1,68 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using TMPro;
+using UnityEngine;
+using UnityEngine.UI;
+
+[DisallowMultipleComponent]
+public class TextAndGauge : MonoBehaviour
+{
+    [Header("Gauge value range / value")]
+    public Vector2 gaugeValueRange;
+    [SerializeField]
+    float gaugeValue;
+    [Header("Text")]
+    public string textPrefix;
+    public string stringFormatOption;
+    public string textSuffix;
+    [SerializeField]
+    bool showValueRateAsSuffix;
+    [Header("UI Target (Do not change)")]
+    public Slider slider;
+    public TextMeshProUGUI text;
+
+    //data
+    public float GaugeValue {
+        get => gaugeValue;
+        set
+        {
+            if(gaugeValue != value)
+            {
+                gaugeValue = value;
+                UpdateUI();
+            }
+        }
+    }
+    public float ValueRate => (gaugeValue - GaugeValueRangeMin) / (GaugeValueRangeMax - GaugeValueRangeMin);
+    public float GaugeValueRangeMin => gaugeValueRange.x;
+    public float GaugeValueRangeMax => gaugeValueRange.y;
+
+    private void Awake()
+    {
+        UpdateUI();
+    }
+    public void UpdateUI()
+    {
+        float valueRate = ValueRate;
+        slider.value = valueRate;
+        text.text = "";
+        if (textPrefix.Length > 0)
+            text.text += textPrefix;
+        if (stringFormatOption.Length > 0)
+            text.text += string.Format(stringFormatOption, gaugeValue);
+        else
+            text.text += gaugeValue;
+        if (textSuffix.Length > 0)
+            text.text += textSuffix;
+        if (showValueRateAsSuffix)
+            text.text += "(" + valueRate + "%)";
+    }
+    /// <summary>
+    /// add gauge value
+    /// </summary>
+    /// <param name="value"></param>
+    public void AddValue(float value)
+    {
+        GaugeValue += value;
+    }
+}

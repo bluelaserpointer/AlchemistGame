@@ -1,12 +1,11 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public enum Language { Chinese, English, Japanese }
 
-[CreateAssetMenu(menuName = "TranslatableSentence", fileName = "NewSentence")]
-public class TranslatableSentence : ScriptableObject
+[Serializable]
+public class TranslatableSentence
 {
     public static Language currentLanguage = Language.Chinese;
     [Serializable]
@@ -16,10 +15,10 @@ public class TranslatableSentence : ScriptableObject
         [TextArea]
         public string sentence;
     }
-
+    public string defaultString = "?missing?";
     public List<LanguageAndSentence> languageAndSentences;
     public override string ToString() {
         LanguageAndSentence pair = languageAndSentences.Find(eachPair => eachPair.language.Equals(currentLanguage));
-        return pair != null ? pair.sentence : "?language";
+        return pair != null ? pair.sentence : defaultString;
     }
 }
