@@ -1,5 +1,16 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
+/// <summary>
+/// 元素与数量
+/// </summary>
+[Serializable]
+public class ElementAndAmount
+{
+    public Element element;
+    [Min(1)]
+    public int amount;
+}
 /// <summary>
 /// 元素(静态数据)
 /// </summary>

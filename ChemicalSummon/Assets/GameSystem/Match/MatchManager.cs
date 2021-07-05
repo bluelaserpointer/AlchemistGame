@@ -20,7 +20,7 @@ public class MatchManager : MonoBehaviour
     [SerializeField]
     HandCardsArrange handCards;
 
-    [Header("Table&Card")]
+    [Header("Table(Field)")]
     [SerializeField]
     Table table;
     [SerializeField]
@@ -46,6 +46,14 @@ public class MatchManager : MonoBehaviour
     /// 对战桌面
     /// </summary>
     public static Table Table => instance.table;
+    /// <summary>
+    /// 我方场地
+    /// </summary>
+    public static CardField MyField => (CardField)Table.myField;
+    /// <summary>
+    /// 敌方场地
+    /// </summary>
+    public static Field EnemyField => Table.enemyField;
     /// <summary>
     /// 我方手牌
     /// </summary>
@@ -78,6 +86,8 @@ public class MatchManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        MyField.SetInteractable(true);
+        EnemyField.SetInteractable(false);
     }
     // Update is called once per frame
     void Update()
@@ -94,5 +104,12 @@ public class MatchManager : MonoBehaviour
     public void TurnEnd() {
         ++Turn;
         onTurnStart.Invoke();
+    }
+    public List<SubstanceCard> CheckSubstancesInField(Substance substance)
+    {
+        List<SubstanceCard> results = new List<SubstanceCard>();
+        //Search in my field and enemy exposed cards
+        //my field
+        return results;
     }
 }

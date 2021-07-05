@@ -12,8 +12,4 @@ public class Table : MonoBehaviour
     public Field myField;
     [Header("敌方场地")]
     public Field enemyField;
-    public void processCardEndDragEvent()
-    {
-
-    }
 }

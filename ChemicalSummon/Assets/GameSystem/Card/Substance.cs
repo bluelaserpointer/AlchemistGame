@@ -8,13 +8,12 @@ using UnityEngine;
 /// </summary>
 public enum ThreeState { Solid, Liquid, Gas }
 /// <summary>
-/// 元素与数量
+/// 物质与数量
 /// </summary>
 [Serializable]
-public class ElementAndAmount
+public struct SubstanceAndAmount
 {
-    public Element element;
-    [Min(1)]
+    public Substance substance;
     public int amount;
 }
 /// <summary>

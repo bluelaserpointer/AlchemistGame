@@ -9,12 +9,6 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewReaction", menuName = "Chemical/Reaction")]
 public class Reaction : ScriptableObject
 {
-    [Serializable]
-    public struct SubstanceAndAmount
-    {
-        public Substance substance;
-        public int amount;
-    }
     public TranslatableSentence description;
 
     public List<SubstanceAndAmount> leftSubstances, rightSubstances;

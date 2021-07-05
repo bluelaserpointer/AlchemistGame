@@ -8,15 +8,33 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class MonsterField : Field
 {
-    // Start is called before the first frame update
-    void Start()
+    /// <summary>
+    /// 格挡区卡槽
+    /// </summary>
+    [SerializeField]
+    List<ShieldCardSlot> shieldCardSlots;
+    /// <summary>
+    /// 格挡区卡槽
+    /// </summary>
+    public List<ShieldCardSlot> ShieldCardSlots => shieldCardSlots;
+    public override List<SubstanceCard> ExposedCards
     {
-        
+        get
+        {
+            List<SubstanceCard> exposedCards = new List<SubstanceCard>();
+            foreach (ShieldCardSlot slot in shieldCardSlots)
+            {
+                SubstanceCard top = slot.GetTop();
+                if (top != null)
+                {
+                    exposedCards.Add(top);
+                }
+            }
+            return exposedCards;
+        }
     }
-
-    // Update is called once per frame
-    void Update()
+    public override void SetInteractable(bool interactable)
     {
-        
+        ShieldCardSlots.ForEach(slot => slot.interactable = interactable);
     }
 }

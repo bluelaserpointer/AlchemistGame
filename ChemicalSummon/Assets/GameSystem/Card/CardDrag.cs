@@ -3,16 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-public interface ICardDrop
+public interface IObjectDrop<T>
 {
-    void CardDrop(SubstanceCard substanceCard);
-    void CardDisband();
+    bool AllowObjectDrop(T obj);
+    void ObjectDrop(T obj);
+    bool AllowObjectDisband();
+    void ObjectDisband();
 }
 public class CardDrag : Draggable
 {
     SubstanceCard substanceCard;
-    ICardDrop currentPlacement;
-    public ICardDrop CurrentPlacement => currentPlacement;
+    IObjectDrop<SubstanceCard> currentSlot;
+    public IObjectDrop<SubstanceCard> CurrentSlot => currentSlot;
     private void Awake()
     {
         substanceCard = GetComponent<SubstanceCard>();
@@ -30,20 +32,25 @@ public class CardDrag : Draggable
         gameObject.GetComponent<Image>().raycastTarget = true;
         base.OnEndDrag(eventData);
         substanceCard.EnableShadow(false);
-        //find card placement
-        List<RaycastResult> raycastResults = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventData, raycastResults);
-        foreach (RaycastResult eachResult in raycastResults)
+        //card slot: switch container slot
+        if(currentSlot == null || currentSlot.AllowObjectDisband()) //check dibandbility
         {
-            GameObject hitUI = eachResult.gameObject;
-            ICardDrop cardPlacement = hitUI.GetComponent<ICardDrop>();
-            if (cardPlacement != null)
+            List<RaycastResult> raycastResults = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, raycastResults);
+            foreach (RaycastResult eachResult in raycastResults)
             {
-                if (currentPlacement != null)
-                    currentPlacement.CardDisband();
-                cardPlacement.CardDrop(substanceCard);
-                currentPlacement = cardPlacement;
-                return;
+                GameObject hitUI = eachResult.gameObject;
+                IObjectDrop<SubstanceCard> cardSlot = hitUI.GetComponent<IObjectDrop<SubstanceCard>>();
+                if (cardSlot != null && cardSlot.AllowObjectDrop(substanceCard))
+                {
+                    if (currentSlot != null)
+                    {
+                        currentSlot.ObjectDisband();
+                    }
+                    cardSlot.ObjectDrop(substanceCard);
+                    currentSlot = cardSlot;
+                    return;
+                }
             }
         }
         //nothing

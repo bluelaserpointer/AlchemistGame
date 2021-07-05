@@ -8,15 +8,37 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class CardField : Field
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
+    [SerializeField]
+    List<ShieldCardSlot> shieldCardSlots;
+    [SerializeField]
+    List<StandbyCardSlot> standbyCardSlots;
+    /// <summary>
+    /// 格挡区卡槽
+    /// </summary>
+    public List<ShieldCardSlot> ShieldCardSlots => shieldCardSlots;
+    /// <summary>
+    /// 预留区卡槽
+    /// </summary>
+    public List<StandbyCardSlot> StandbyCardSlots => standbyCardSlots;
+    public override List<SubstanceCard> ExposedCards {
+        get
+        {
+            List<SubstanceCard> exposedCards = new List<SubstanceCard>();
+            foreach(ShieldCardSlot slot in shieldCardSlots)
+            {
+                SubstanceCard top = slot.GetTop();
+                if (top != null)
+                {
+                    exposedCards.Add(top);
+                }
+            }
+            return exposedCards;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public override void SetInteractable(bool interactable)
     {
-        
+        ShieldCardSlots.ForEach(slot => slot.interactable = interactable);
+        StandbyCardSlots.ForEach(slot => slot.interactable = interactable);
     }
 }
