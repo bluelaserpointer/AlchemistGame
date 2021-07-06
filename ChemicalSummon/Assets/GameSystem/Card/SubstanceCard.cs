@@ -54,6 +54,14 @@ public class SubstanceCard : MonoBehaviour
         }
     }
     /// <summary>
+    /// 挪动组件
+    /// </summary>
+    CardDrag cardDrag;
+    /// <summary>
+    /// 所在卡槽
+    /// </summary>
+    public CardSlot Slot => cardDrag.CurrentSlot;
+    /// <summary>
     /// 物质名
     /// </summary>
     public string Name => Substance.Name;
@@ -91,14 +99,26 @@ public class SubstanceCard : MonoBehaviour
     public string Description => Substance.Description.ToString();
     //information
     /// <summary>
-    /// 是否在手牌当中
+    /// 在手牌中
     /// </summary>
     public bool InHand => transform.parent.Equals(MatchManager.HandCards);
-    //public bool InMyField => 
+    /// <summary>
+    /// 在格挡区(不考虑敌我)
+    /// </summary>
+    public bool InShieldSlot => Slot.GetType().Equals(typeof(ShieldCardSlot));
+    /// <summary>
+    /// 在预留区(不考虑敌我)
+    /// </summary>
+    public bool InStandbySlot => Slot.GetType().Equals(typeof(StandbyCardSlot));
+    /// <summary>
+    /// 在场地(不考虑敌我)
+    /// </summary>
+    public bool InField => InShieldSlot || InStandbySlot;
     // Start is called before the first frame update
     void Awake()
     {
         uiEffect = GetComponent<UIShadow>();
+        cardDrag = GetComponent<CardDrag>();
     }
     public void EnableShadow(bool enable)
     {

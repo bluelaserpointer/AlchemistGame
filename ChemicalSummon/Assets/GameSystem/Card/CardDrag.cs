@@ -3,18 +3,15 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-public interface IObjectDrop<T>
-{
-    bool AllowObjectDrop(T obj);
-    void ObjectDrop(T obj);
-    bool AllowObjectDisband();
-    void ObjectDisband();
-}
+
+/// <summary>
+/// 卡牌挪动
+/// </summary>
 public class CardDrag : Draggable
 {
     SubstanceCard substanceCard;
-    IObjectDrop<SubstanceCard> currentSlot;
-    public IObjectDrop<SubstanceCard> CurrentSlot => currentSlot;
+    CardSlot currentSlot;
+    public CardSlot CurrentSlot => currentSlot;
     private void Awake()
     {
         substanceCard = GetComponent<SubstanceCard>();
@@ -25,35 +22,36 @@ public class CardDrag : Draggable
         substanceCard.EnableShadow(true);
         MatchManager.HandCards.Remove(gameObject);
         MatchManager.CardInfoDisplay.SetCard(substanceCard);
-        gameObject.GetComponent<Image>().raycastTarget = false;
     }
     public override void OnEndDrag(PointerEventData eventData)
     {
-        gameObject.GetComponent<Image>().raycastTarget = true;
         base.OnEndDrag(eventData);
         substanceCard.EnableShadow(false);
-        //card slot: switch container slot
-        if(currentSlot == null || currentSlot.AllowObjectDisband()) //check dibandbility
+        bool disbandable = currentSlot == null || currentSlot.AllowSlotClear(); //check dibandbility
+        List<RaycastResult> raycastResults = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, raycastResults);
+        foreach (RaycastResult eachResult in raycastResults)
         {
-            List<RaycastResult> raycastResults = new List<RaycastResult>();
-            EventSystem.current.RaycastAll(eventData, raycastResults);
-            foreach (RaycastResult eachResult in raycastResults)
-            {
-                GameObject hitUI = eachResult.gameObject;
-                IObjectDrop<SubstanceCard> cardSlot = hitUI.GetComponent<IObjectDrop<SubstanceCard>>();
-                if (cardSlot != null && cardSlot.AllowObjectDrop(substanceCard))
+            GameObject hitUI = eachResult.gameObject;
+            //card slot: switch container slot
+            CardSlot cardSlot = hitUI.GetComponent<CardSlot>();
+            if (cardSlot != null) {
+                if (!disbandable)
+                    continue;
+                if (cardSlot.AllowSlotSet(substanceCard.gameObject))
                 {
                     if (currentSlot != null)
                     {
-                        currentSlot.ObjectDisband();
+                        currentSlot.SlotClear();
                     }
-                    cardSlot.ObjectDrop(substanceCard);
+                    cardSlot.SlotSet(substanceCard.gameObject);
                     currentSlot = cardSlot;
                     return;
                 }
             }
+            //
         }
-        //nothing
+        //no target
         MatchManager.HandCards.Add(gameObject);
     }
 }

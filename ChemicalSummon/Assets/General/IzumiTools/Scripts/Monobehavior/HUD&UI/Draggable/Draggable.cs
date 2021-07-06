@@ -2,6 +2,9 @@
 using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
+/// <summary>
+/// Supports object drag and related events
+/// </summary>
 [DisallowMultipleComponent]
 public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
