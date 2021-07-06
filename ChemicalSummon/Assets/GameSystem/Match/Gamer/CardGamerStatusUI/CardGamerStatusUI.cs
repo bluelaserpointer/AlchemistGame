@@ -12,6 +12,7 @@ public class CardGamerStatusUI : TextAndGauge
     [Header("Animation")]
     public Animator drawCardAnimator;
     //data
+    public Gamer gamer;
     Deck deck;
     public Deck Deck => deck;
 

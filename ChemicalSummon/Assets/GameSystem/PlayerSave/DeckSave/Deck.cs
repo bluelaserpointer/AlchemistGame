@@ -4,6 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+/// <summary>
+/// 卡组
+/// </summary>
 [Serializable]
 public class Deck
 {

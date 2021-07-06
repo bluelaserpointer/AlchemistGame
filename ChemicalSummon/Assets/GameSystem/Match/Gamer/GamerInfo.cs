@@ -15,6 +15,10 @@ public class Gamer
     public float hp;
     public readonly GamerInfo gamerInfo;
     /// <summary>
+    /// 体力初始值
+    /// </summary>
+    public int InitialHP => gamerInfo.hp;
+    /// <summary>
     /// 是我方玩家
     /// </summary>
     public bool IsMe => MatchManager.MyGamer.Equals(this);

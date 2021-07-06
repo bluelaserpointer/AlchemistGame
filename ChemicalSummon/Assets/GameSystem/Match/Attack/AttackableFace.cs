@@ -5,10 +5,19 @@
 /// </summary>
 public class AttackableFace : MonoBehaviour, IAttackable
 {
-    [SerializeField]
     Field field;
+    /// <summary>
+    /// 所属场地
+    /// </summary>
     public Field Field => field;
+    /// <summary>
+    /// 游戏者
+    /// </summary>
     public Gamer Gamer => Field.Gamer;
+    private void Awake()
+    {
+        field = GetComponentInParent<Field>();
+    }
     public bool AllowAttack(SubstanceCard card)
     {
         return true;

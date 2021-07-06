@@ -24,6 +24,8 @@ public class MatchManager : MonoBehaviour
     Table table;
     [SerializeField]
     CardGamerStatusUI cardGamerStatusUI;
+    [SerializeField]
+    TextAndGauge enemyGamerStatusUI;
 
     [Header("Info")]
     [SerializeField]
@@ -42,7 +44,7 @@ public class MatchManager : MonoBehaviour
     /// 环境温度
     /// </summary>
     public static float DefaultTempreture => 27.0f;
-    Gamer myGamer, enemyGamer;
+    public Gamer myGamer, enemyGamer;
     /// <summary>
     /// 我方玩家
     /// </summary>
@@ -70,7 +72,11 @@ public class MatchManager : MonoBehaviour
     /// <summary>
     /// 我方信息栏
     /// </summary>
-    public static CardGamerStatusUI CardPlayerStatusUI => instance.cardGamerStatusUI;
+    public static CardGamerStatusUI MyGamerStatusUI => instance.cardGamerStatusUI;
+    /// <summary>
+    /// 敌方信息栏
+    /// </summary>
+    public static TextAndGauge EnemyGamerStatusUI => instance.enemyGamerStatusUI;
     int turn;
     /// <summary>
     /// 卡牌信息栏

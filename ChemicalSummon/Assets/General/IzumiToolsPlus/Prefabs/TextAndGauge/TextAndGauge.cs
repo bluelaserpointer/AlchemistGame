@@ -8,7 +8,8 @@ using UnityEngine.UI;
 public class TextAndGauge : MonoBehaviour
 {
     [Header("Gauge value range / value")]
-    public Vector2 gaugeValueRange;
+    [SerializeField]
+    Vector2 gaugeValueRange;
     [SerializeField]
     float gaugeValue;
     [Header("Text")]
@@ -34,11 +35,20 @@ public class TextAndGauge : MonoBehaviour
         }
     }
     public float ValueRate => (gaugeValue - GaugeValueRangeMin) / (GaugeValueRangeMax - GaugeValueRangeMin);
-    public float GaugeValueRangeMin => gaugeValueRange.x;
-    public float GaugeValueRangeMax => gaugeValueRange.y;
+    public float GaugeValueRangeMin {
+        get => slider.minValue;
+        set => slider.minValue = value;
+    }
+    public float GaugeValueRangeMax
+    {
+        get => slider.maxValue;
+        set => slider.maxValue = value;
+    }
 
     private void Awake()
     {
+        GaugeValueRangeMin = gaugeValueRange.x;
+        GaugeValueRangeMax = gaugeValueRange.y;
         UpdateUI();
     }
     public void UpdateUI()
