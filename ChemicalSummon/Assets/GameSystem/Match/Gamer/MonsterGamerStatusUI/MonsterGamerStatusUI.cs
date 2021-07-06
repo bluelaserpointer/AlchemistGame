@@ -7,7 +7,7 @@ public class MonsterGamerStatusUI : TextAndGauge
 {
     Gamer Gamer => MatchManager.EnemyGamer;
 
-    public void UpdateGamer()
+    public void Start()
     {
         GaugeValueRangeMax = Gamer.InitialHP;
         GaugeValue = Gamer.hp;

@@ -53,8 +53,7 @@ public class TextAndGauge : MonoBehaviour
     }
     public void UpdateUI()
     {
-        float valueRate = ValueRate;
-        slider.value = valueRate;
+        slider.value = gaugeValue;
         text.text = "";
         if (textPrefix.Length > 0)
             text.text += textPrefix;
@@ -65,7 +64,7 @@ public class TextAndGauge : MonoBehaviour
         if (textSuffix.Length > 0)
             text.text += textSuffix;
         if (showValueRateAsSuffix)
-            text.text += "(" + valueRate + "%)";
+            text.text += "(" + ValueRate + "%)";
     }
     /// <summary>
     /// add gauge value

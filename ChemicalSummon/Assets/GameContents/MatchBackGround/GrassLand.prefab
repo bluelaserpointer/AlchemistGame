@@ -4967,6 +4967,18 @@ WindZone:
   m_WindTurbulence: 1
   m_WindPulseMagnitude: 0.5
   m_WindPulseFrequency: 0.01
+--- !u!114 &6406240795598663840
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2306294747947404280}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 08b9d21145eba3243abcab8c70ec636a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &8654906150868651973
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5036,6 +5048,12 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8ddca2aebb59a53429f4a187fe819ae3, type: 3}
+--- !u!1 &2306294747947404280 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6349509858540094525, guid: 8ddca2aebb59a53429f4a187fe819ae3,
+    type: 3}
+  m_PrefabInstance: {fileID: 8654906150868651973}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &2306294747947404287 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 6349509858540094522, guid: 8ddca2aebb59a53429f4a187fe819ae3,

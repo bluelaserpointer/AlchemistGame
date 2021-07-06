@@ -14,4 +14,5 @@ public class PlayerSave
     /// 发现的反应式
     /// </summary>
     public List<Reaction> discoveredReactions = new List<Reaction>();
+    public CardPlayingGamerInfo selectedGamer;
 }

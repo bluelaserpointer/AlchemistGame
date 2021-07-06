@@ -21,7 +21,14 @@ public class CardGamerStatusUI : TextAndGauge
         MatchManager.instance.onTurnStart.AddListener(OnTurnStart);
         deck = new Deck(); //TODO: copy contents from PlayerSetting
         deck.onCardCountChange.AddListener(UpdateCardCountText);
+        faceIcon.sprite = gamer.gamerInfo.character.FaceIcon;
+        GaugeValueRangeMax = gamer.InitialHP;
+        GaugeValue = gamer.hp;
         UpdateCardCountText(); //inital input
+    }
+    private void Update()
+    {
+        GaugeValue = gamer.hp;
     }
     void UpdateCardCountText()
     {

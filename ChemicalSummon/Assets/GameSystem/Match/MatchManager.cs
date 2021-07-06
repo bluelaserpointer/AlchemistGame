@@ -15,6 +15,9 @@ public class MatchManager : MonoBehaviour
     public static MatchManager instance;
 
     //inspector
+    [Header("Match")]
+    public Match match;
+
     [Header("HandCards")]
     [SerializeField]
     HandCardsArrange handCards;
@@ -101,8 +104,14 @@ public class MatchManager : MonoBehaviour
     private void Awake()
     {
         instance = this;
+        //gamer
+        myGamer = new Gamer(match.MyGamerInfo);
+        enemyGamer = new Gamer(match.EnemyGamerInfo);
+        MyGamerStatusUI.gamer = myGamer;
         MyField.SetInteractable(true);
         EnemyField.SetInteractable(false);
+        //set background
+        Instantiate(match.BackGround);
     }
     // Update is called once per frame
     void Update()
