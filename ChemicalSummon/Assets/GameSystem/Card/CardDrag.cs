@@ -33,23 +33,41 @@ public class CardDrag : Draggable
         foreach (RaycastResult eachResult in raycastResults)
         {
             GameObject hitUI = eachResult.gameObject;
-            //card slot: switch container slot
             CardSlot cardSlot = hitUI.GetComponent<CardSlot>();
             if (cardSlot != null) {
-                if (!disbandable)
-                    continue;
-                if (cardSlot.AllowSlotSet(substanceCard.gameObject))
+                if (cardSlot.IsMySide)
                 {
-                    if (currentSlot != null)
+                    //switch container slot
+                    if (!disbandable)
+                        continue;
+                    if (cardSlot.AllowSlotSet(substanceCard.gameObject))
                     {
-                        currentSlot.SlotClear();
+                        if (currentSlot != null)
+                        {
+                            currentSlot.SlotClear();
+                        }
+                        cardSlot.SlotSet(substanceCard.gameObject);
+                        currentSlot = cardSlot;
+                        return;
                     }
-                    cardSlot.SlotSet(substanceCard.gameObject);
-                    currentSlot = cardSlot;
-                    return;
                 }
+                else if (cardSlot.IsEnemySide)
+                {
+                    //attack enemy card
+                    if (!cardSlot.AllowAttack(substanceCard))
+                        return;
+                    cardSlot.Attack(substanceCard);
+                }
+                continue;
             }
-            //
+            //attack face
+            AttackableFace face = hitUI.GetComponent<AttackableFace>();
+            if (face != null)
+            {
+                if (face.AllowAttack(substanceCard))
+                    face.Attack(substanceCard);
+                continue;
+            }
         }
         //no target
         MatchManager.HandCards.Add(gameObject);

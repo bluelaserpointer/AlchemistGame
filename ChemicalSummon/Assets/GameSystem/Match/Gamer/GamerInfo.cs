@@ -10,18 +10,25 @@ public abstract class GamerInfo : ScriptableObject
     public int hp;
     public Character character;
 }
-public class Gamer : IAttackTarget
+public class Gamer
 {
     public float hp;
     public readonly GamerInfo gamerInfo;
+    /// <summary>
+    /// 是我方玩家
+    /// </summary>
+    public bool IsMe => MatchManager.MyGamer.Equals(this);
+    /// <summary>
+    /// 是敌方玩家
+    /// </summary>
+    public bool IsEnemy => MatchManager.EnemyGamer.Equals(this);
+    /// <summary>
+    /// 场地
+    /// </summary>
+    public Field Field => MatchManager.GetField(this);
     public Gamer(GamerInfo gamerInfo)
     {
         this.gamerInfo = gamerInfo;
         hp = gamerInfo.hp;
-    }
-
-    public void Attack(float dmg)
-    {
-        hp -= dmg;
     }
 }

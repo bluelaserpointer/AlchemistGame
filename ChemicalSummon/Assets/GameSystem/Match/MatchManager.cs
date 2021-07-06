@@ -15,8 +15,7 @@ public class MatchManager : MonoBehaviour
     public static MatchManager instance;
 
     //inspector
-    [Header("Player HUD/UI")]
-    public Text turnText;
+    [Header("HandCards")]
     [SerializeField]
     HandCardsArrange handCards;
 
@@ -31,6 +30,7 @@ public class MatchManager : MonoBehaviour
     CardInfoDisplay cardInfoDisplay;
 
     [Header("Turn")]
+    public Text turnText;
     public UnityEvent onTurnStart;
 
     [Header("Demo&Test")]
@@ -42,6 +42,15 @@ public class MatchManager : MonoBehaviour
     /// 环境温度
     /// </summary>
     public static float DefaultTempreture => 27.0f;
+    Gamer myGamer, enemyGamer;
+    /// <summary>
+    /// 我方玩家
+    /// </summary>
+    public static Gamer MyGamer => instance.myGamer;
+    /// <summary>
+    /// 敌方玩家
+    /// </summary>
+    public static Gamer EnemyGamer => instance.enemyGamer;
     /// <summary>
     /// 对战桌面
     /// </summary>
@@ -97,6 +106,32 @@ public class MatchManager : MonoBehaviour
             demoEventInvoked = true;
             onDemoEvent.Invoke();
         }
+    }
+    /// <summary>
+    /// 获取该游戏者的场地
+    /// </summary>
+    /// <param name="gamer"></param>
+    /// <returns></returns>
+    public static Field GetField(Gamer gamer)
+    {
+        if (gamer.IsMe)
+            return MyField;
+        if (gamer.IsEnemy)
+            return EnemyField;
+        return null;
+    }
+    /// <summary>
+    /// 获取该场地的游戏者
+    /// </summary>
+    /// <param name="field"></param>
+    /// <returns></returns>
+    public static Gamer GetGamer(Field field)
+    {
+        if (field.IsMine)
+            return MyGamer;
+        if (field.IsEnemies)
+            return EnemyGamer;
+        return null;
     }
     /// <summary>
     /// 结束回合
