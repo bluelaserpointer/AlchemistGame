@@ -15,6 +15,8 @@ public class SubstanceCard : MonoBehaviour
     [SerializeField]
     Text nameText;
     [SerializeField]
+    TextMeshProUGUI amountText;
+    [SerializeField]
     Text symbolText;
     [SerializeField]
     Text molText;
@@ -51,6 +53,18 @@ public class SubstanceCard : MonoBehaviour
                 def = OriginalDEF;
                 attackText.text = atk.ToString();
             }
+        }
+    }
+    int cardAmount;
+    /// <summary>
+    /// 卡牌数
+    /// </summary>
+    public int CardAmount
+    {
+        get => cardAmount;
+        set {
+            cardAmount = value;
+            amountText.text = "x" + cardAmount.ToString();
         }
     }
     /// <summary>
@@ -119,6 +133,7 @@ public class SubstanceCard : MonoBehaviour
     {
         uiEffect = GetComponent<UIShadow>();
         cardDrag = GetComponent<CardDrag>();
+        CardAmount = 1;
     }
     public void EnableShadow(bool enable)
     {
@@ -167,6 +182,15 @@ public class SubstanceCard : MonoBehaviour
             GetThreeStateMark(threeState = newThreeState).color = Color.yellow;
             cardImage.sprite = Image;
         }
+    }
+    /// <summary>
+    /// 合并同种类的卡(不会检查是否同种类)
+    /// </summary>
+    /// <param name="substanceCard"></param>
+    public void UnionSameCard(SubstanceCard substanceCard)
+    {
+        CardAmount += substanceCard.CardAmount;
+        Destroy(substanceCard.gameObject);
     }
     static SubstanceCard baseSubstanceCard;
     /// <summary>

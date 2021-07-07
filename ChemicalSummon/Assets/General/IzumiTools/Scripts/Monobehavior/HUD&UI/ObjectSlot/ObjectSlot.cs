@@ -86,4 +86,5 @@ public class ObjectSlot : MonoBehaviour
     {
         return transform.childCount > 0 ? transform.GetChild(0).gameObject : null;
     }
+    public bool IsEmpty => transform.childCount == 0;
 }

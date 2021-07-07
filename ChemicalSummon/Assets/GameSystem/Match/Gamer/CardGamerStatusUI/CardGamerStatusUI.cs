@@ -83,7 +83,11 @@ public class CardGamerStatusUI : GamerStatusUI
     {
         if(currentDrawingCard != null)
         {
-            MatchManager.HandCards.Add(currentDrawingCard.gameObject);
+            GameObject duplicatedCard = MatchManager.HandCards.cards.Find(card => card.GetComponent<SubstanceCard>().Substance.Equals(currentDrawingCard.Substance));
+            if(duplicatedCard == null)
+                MatchManager.HandCards.Add(currentDrawingCard.gameObject);
+            else
+                duplicatedCard.GetComponent<SubstanceCard>().UnionSameCard(CurrentDrawingCard);
             currentDrawingCard = null;
         }
     }

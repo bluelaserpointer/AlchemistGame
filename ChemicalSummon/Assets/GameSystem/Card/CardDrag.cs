@@ -37,26 +37,40 @@ public class CardDrag : Draggable
             if (cardSlot != null) {
                 if (cardSlot.IsMySide)
                 {
-                    //switch container slot
-                    if (!disbandable)
-                        continue;
-                    if (cardSlot.AllowSlotSet(substanceCard.gameObject))
+                    if (cardSlot.IsEmpty)
                     {
-                        if (currentSlot != null)
+                        //switch container slot
+                        if (!disbandable)
+                            continue;
+                        if (cardSlot.AllowSlotSet(substanceCard.gameObject))
                         {
-                            currentSlot.SlotClear();
+                            if (currentSlot != null)
+                            {
+                                currentSlot.SlotClear();
+                            }
+                            cardSlot.SlotSet(substanceCard.gameObject);
+                            currentSlot = cardSlot;
+                            return;
                         }
-                        cardSlot.SlotSet(substanceCard.gameObject);
-                        currentSlot = cardSlot;
-                        return;
+                    }
+                    else
+                    {
+                        SubstanceCard existedCard = cardSlot.GetTop();
+                        if(existedCard.Substance.Equals(substanceCard.Substance))
+                        {
+                            //union same cards
+                            existedCard.UnionSameCard(substanceCard);
+                            return;
+                        }
                     }
                 }
                 else if (cardSlot.IsEnemySide)
                 {
                     //attack enemy card
                     if (!cardSlot.AllowAttack(substanceCard))
-                        return;
+                        continue;
                     cardSlot.Attack(substanceCard);
+                    return;
                 }
                 continue;
             }
@@ -64,8 +78,10 @@ public class CardDrag : Draggable
             AttackableFace face = hitUI.GetComponent<AttackableFace>();
             if (face != null)
             {
-                if (face.AllowAttack(substanceCard))
+                if (face.AllowAttack(substanceCard)) {
                     face.Attack(substanceCard);
+                    return;
+                }
                 continue;
             }
         }

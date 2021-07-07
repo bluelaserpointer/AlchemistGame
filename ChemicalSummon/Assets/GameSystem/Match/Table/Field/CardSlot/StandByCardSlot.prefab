@@ -13,14 +13,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrangePoint: {fileID: 6230298096541557555}
-  parent: {fileID: 6230298096541557555}
   returnToOriginalParentWhenDisband: 1
-  doArrangeRotation: 0
+  doArrangeRotation: 1
   arrangeLocalRotation: {x: 0, y: 0, z: 0}
-  returnToOriginalRotationWhenDisband: 0
+  returnToOriginalRotationWhenDisband: 1
   doArrangeScale: 1
   arrangeLocalScale: {x: 0.75, y: 0.75}
   returnToOriginalScaleWhenDisband: 1
+  interactable: 0
+  field: {fileID: 0}
 --- !u!1001 &1562323861018037529
 PrefabInstance:
   m_ObjectHideFlags: 0
