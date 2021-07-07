@@ -12,5 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f43b1ea945c19a14692ae5ff4893cc23, type: 3}
   m_Name: Lio
   m_EditorClassIdentifier: 
-  name: {fileID: 11400000, guid: 842e4aee2b16b7c4990b051ef4ddb911, type: 2}
+  name:
+    defaultString: Lio
+    languageAndSentences: []
   faceIcon: {fileID: 21300000, guid: 8bcc37b83ff7b4e4aba40a4cdb7d7671, type: 3}

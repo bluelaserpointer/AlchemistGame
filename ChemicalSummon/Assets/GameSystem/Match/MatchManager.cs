@@ -28,7 +28,7 @@ public class MatchManager : MonoBehaviour
     [SerializeField]
     CardGamerStatusUI cardGamerStatusUI;
     [SerializeField]
-    TextAndGauge enemyGamerStatusUI;
+    GamerStatusUI enemyGamerStatusUI;
 
     [Header("Info")]
     [SerializeField]
@@ -79,7 +79,7 @@ public class MatchManager : MonoBehaviour
     /// <summary>
     /// 敌方信息栏
     /// </summary>
-    public static TextAndGauge EnemyGamerStatusUI => instance.enemyGamerStatusUI;
+    public static GamerStatusUI EnemyGamerStatusUI => instance.enemyGamerStatusUI;
     int turn;
     /// <summary>
     /// 卡牌信息栏

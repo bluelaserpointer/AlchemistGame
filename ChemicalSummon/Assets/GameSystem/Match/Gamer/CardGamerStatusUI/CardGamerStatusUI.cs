@@ -3,8 +3,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
-public class CardGamerStatusUI : TextAndGauge
+public class CardGamerStatusUI : GamerStatusUI
 {
+    public TextMeshProUGUI gamerNameText;
     public TextMeshProUGUI lestCardsText;
     public Image faceIcon;
     public SwitchSprite drawableSign;
@@ -21,6 +22,7 @@ public class CardGamerStatusUI : TextAndGauge
         MatchManager.instance.onTurnStart.AddListener(OnTurnStart);
         deck = new Deck(); //TODO: copy contents from PlayerSetting
         deck.onCardCountChange.AddListener(UpdateCardCountText);
+        gamerNameText.text = gamer.gamerInfo.character.Name;
         faceIcon.sprite = gamer.gamerInfo.character.FaceIcon;
         GaugeValueRangeMax = gamer.InitialHP;
         GaugeValue = gamer.hp;
