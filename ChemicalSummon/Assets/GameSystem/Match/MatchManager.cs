@@ -29,6 +29,7 @@ public class MatchManager : MonoBehaviour
     CardGamerStatusUI cardGamerStatusUI;
     [SerializeField]
     GamerStatusUI enemyGamerStatusUI;
+    public UnityEvent fieldCardsChanged;
 
     [Header("Info")]
     [SerializeField]
@@ -123,6 +124,8 @@ public class MatchManager : MonoBehaviour
         onEnemyTurnStart.AddListener(EnemyGamerStatusUI.OnTurnStart);
         MyField.SetInteractable(true);
         EnemyField.SetInteractable(false);
+        MyField.cardsChanged.AddListener(fieldCardsChanged.Invoke);
+        EnemyField.cardsChanged.AddListener(fieldCardsChanged.Invoke);
         //set background
         Instantiate(match.BackGround);
     }
@@ -175,11 +178,20 @@ public class MatchManager : MonoBehaviour
         ++Turn;
         (IsMyTurn ? onMyTurnStart : onEnemyTurnStart).Invoke();
     }
-    public List<SubstanceCard> CheckSubstancesInField(Substance substance)
+    public static List<SubstanceCard> FindSubstancesFromMe(SubstanceAndAmount substanceAndAmount)
     {
-        List<SubstanceCard> results = new List<SubstanceCard>();
+        Substance requiredSubstance = substanceAndAmount.substance;
+        int requiredAmount = substanceAndAmount.amount;
         //Search in my field and enemy exposed cards
+        //TODO: distinguish search field priority
         //my field
-        return results;
+        List<SubstanceCard> results = MyField.FindSubstancesFromMe(requiredSubstance, requiredAmount);
+        //enemy exposed cards
+        if (results.Count < requiredAmount)
+            results.AddRange(EnemyField.FindSubstancesFromEnemy(requiredSubstance, requiredAmount - results.Count));
+        if (results.Count >= requiredAmount)
+            return results;
+        else
+            return null;
     }
 }

@@ -271,6 +271,121 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 157093153}
   m_CullTransparentMesh: 0
+--- !u!1 &295707215
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 295707216}
+  - component: {fileID: 295707220}
+  - component: {fileID: 295707219}
+  - component: {fileID: 295707218}
+  - component: {fileID: 295707217}
+  m_Layer: 5
+  m_Name: FusionPanel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &295707216
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295707215}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 2121452838}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 710.01, y: 107.4}
+  m_SizeDelta: {x: -1419.9778, y: -589.1131}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &295707217
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295707215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 59f8146938fff824cb5fd77236b75775, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Padding:
+    m_Left: 0
+    m_Right: 0
+    m_Top: 0
+    m_Bottom: 0
+  m_ChildAlignment: 0
+  m_Spacing: 0
+  m_ChildForceExpandWidth: 1
+  m_ChildForceExpandHeight: 1
+  m_ChildControlWidth: 1
+  m_ChildControlHeight: 0
+  m_ChildScaleWidth: 0
+  m_ChildScaleHeight: 1
+--- !u!114 &295707218
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295707215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
+  m_RaycastTarget: 1
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
+  m_Type: 1
+  m_PreserveAspect: 0
+  m_FillCenter: 1
+  m_FillMethod: 4
+  m_FillAmount: 1
+  m_FillClockwise: 1
+  m_FillOrigin: 0
+  m_UseSpriteMesh: 0
+  m_PixelsPerUnitMultiplier: 1
+--- !u!222 &295707219
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295707215}
+  m_CullTransparentMesh: 0
+--- !u!114 &295707220
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 295707215}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b195b447ccd4816498add701fe95be18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  prefabFusionButton: {fileID: 6263686372729916766, guid: 84a4ab2331c8f144a828bdd0d526ae99,
+    type: 3}
 --- !u!1 &362160156
 GameObject:
   m_ObjectHideFlags: 0
@@ -1170,6 +1285,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7beea297621a7f4fa1a09f13fca24bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationStopped:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1 &1191671758
 GameObject:
   m_ObjectHideFlags: 0
@@ -1772,12 +1890,26 @@ MonoBehaviour:
   table: {fileID: 1191671762}
   cardGamerStatusUI: {fileID: 1812768376978155726}
   enemyGamerStatusUI: {fileID: 2011292045741037444}
+  fieldCardsChanged:
+    m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 295707220}
+        m_MethodName: UpdateList
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   cardInfoDisplay: {fileID: 1541449892}
   turnText: {fileID: 1541968622}
   onMyTurnStart:
     m_PersistentCalls:
       m_Calls: []
-  onEnmeyTurnStart:
+  onEnemyTurnStart:
     m_PersistentCalls:
       m_Calls: []
   animatedTurnPanel: {fileID: 1124459156}
@@ -3403,6 +3535,7 @@ RectTransform:
   - {fileID: 1801764508}
   - {fileID: 1564237861}
   - {fileID: 1124459153}
+  - {fileID: 295707216}
   m_Father: {fileID: 0}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

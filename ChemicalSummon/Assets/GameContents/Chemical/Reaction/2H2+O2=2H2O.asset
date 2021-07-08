@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2H2+O2=2H2O
   m_EditorClassIdentifier: 
   description:
-    defaultString: ?missing?
+    defaultString: 2H2+O2=2H2O
     languageAndSentences: []
   leftSubstances:
   - substance: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}

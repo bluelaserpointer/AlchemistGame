@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// 场地，我方与敌方各一个
@@ -8,6 +9,10 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public abstract class Field : MonoBehaviour
 {
+    /// <summary>
+    /// 卡牌发生变化
+    /// </summary>
+    public UnityEvent cardsChanged;
     /// <summary>
     /// 是我方场地
     /// </summary>
@@ -21,6 +26,24 @@ public abstract class Field : MonoBehaviour
     /// </summary>
     public Gamer Gamer => MatchManager.GetGamer(this);
     /// <summary>
+    /// 所有卡牌
+    /// </summary>
+    public List<SubstanceCard> Cards {
+        get
+        {
+            List<SubstanceCard> cards = new List<SubstanceCard>();
+            foreach (CardSlot slot in GetComponentsInChildren<CardSlot>())
+            {
+                SubstanceCard card = slot.Card;
+                if (card != null)
+                {
+                    cards.Add(card);
+                }
+            }
+            return cards;
+        }
+    }
+    /// <summary>
     /// 已暴露卡牌(通常指存在于格挡区的卡牌，能被对方用作反应素材)
     /// </summary>
     public abstract List<SubstanceCard> ExposedCards { get; }
@@ -29,17 +52,54 @@ public abstract class Field : MonoBehaviour
     /// </summary>
     /// <param name="interactable"></param>
     public abstract void SetInteractable(bool interactable);
-    /*/// <summary>
-    /// 检测对应物质卡牌数
+    /// <summary>
+    /// 自己查看物质卡
     /// </summary>
     /// <param name="substance"></param>
+    /// <param name="amount"></param>
     /// <returns></returns>
-    public abstract List<SubstanceCard> CheckCards(Substance substance);*/
-    private void Awake()
+    public List<SubstanceCard> FindSubstancesFromMe(Substance substance, int amount)
     {
-        foreach(CardSlot slot in GetComponentsInChildren<CardSlot>())
+        List<SubstanceCard> results = new List<SubstanceCard>();
+        if (amount > 0)
         {
-            slot.field = this;
+            foreach (SubstanceCard card in Cards)
+            {
+                if (card.Substance.Equals(substance))
+                {
+                    results.Add(card);
+                    if (--amount == 0)
+                    {
+                        break;
+                    }
+                }
+            }
         }
+        return results;
+    }
+    /// <summary>
+    /// 对手查看物质卡(只能查看暴露(格挡区)的卡牌)
+    /// </summary>
+    /// <param name="substance"></param>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public List<SubstanceCard> FindSubstancesFromEnemy(Substance substance, int amount)
+    {
+        List<SubstanceCard> results = new List<SubstanceCard>();
+        if (amount > 0)
+        {
+            foreach (SubstanceCard card in ExposedCards)
+            {
+                if (card.Substance.Equals(substance))
+                {
+                    results.Add(card);
+                    if (--amount == 0)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        return results;
     }
 }

@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// Holds objects in particular angle/scale.
@@ -24,10 +25,11 @@ public class ObjectSlot : MonoBehaviour
     Vector2 arrangeLocalScale = Vector2.one;
     [SerializeField]
     bool returnToOriginalScaleWhenDisband;
-    [HideInInspector]
-    public bool interactable;
+    public UnityEvent onSet, onClear;
 
     //data
+    [HideInInspector]
+    public bool interactable;
     Transform ArrangePoint => arrangePoint ?? transform;
     GameObject topHolding;
     public GameObject TopHolding => topHolding;
@@ -47,6 +49,7 @@ public class ObjectSlot : MonoBehaviour
         obj.transform.SetParent(transform);
         oldParent = obj.transform.parent;
         DoAlignment();
+        onSet.Invoke();
     }
     public void DoAlignment()
     {
@@ -87,6 +90,7 @@ public class ObjectSlot : MonoBehaviour
             topHolding.transform.localScale = oldLocalScale;
         }
         topHolding = null;
+        onClear.Invoke();
     }
 
     public bool IsEmpty => transform.childCount == 0;

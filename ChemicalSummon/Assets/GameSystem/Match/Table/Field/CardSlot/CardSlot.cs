@@ -6,8 +6,11 @@
 [DisallowMultipleComponent]
 public class CardSlot : ObjectSlot, IAttackable
 {
-    [HideInInspector]
-    public Field field;
+    Field field;
+    /// <summary>
+    /// 所属场地
+    /// </summary>
+    public Field Field => field;
     /// <summary>
     /// 属于我方卡槽
     /// </summary>
@@ -16,7 +19,13 @@ public class CardSlot : ObjectSlot, IAttackable
     /// 属于敌方卡槽
     /// </summary>
     public bool IsEnemySide => IsBelongTo(MatchManager.EnemyField);
-    public SubstanceCard Card => TopHolding.GetComponent<SubstanceCard>();
+    public SubstanceCard Card => TopHolding == null ? null : TopHolding.GetComponent<SubstanceCard>();
+    private void Awake()
+    {
+        field = transform.GetComponentInParent<Field>();
+        onSet.AddListener(field.cardsChanged.Invoke);
+        onClear.AddListener(field.cardsChanged.Invoke);
+    }
     /// <summary>
     /// 是否属于这个场地
     /// </summary>

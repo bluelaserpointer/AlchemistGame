@@ -9,7 +9,15 @@ using UnityEngine;
 [CreateAssetMenu(fileName = "NewReaction", menuName = "Chemical/Reaction")]
 public class Reaction : ScriptableObject
 {
-    public TranslatableSentence description;
+    [SerializeField]
+    TranslatableSentence description;
 
-    public List<SubstanceAndAmount> leftSubstances, rightSubstances;
+    [SerializeField]
+    List<SubstanceAndAmount> leftSubstances;
+    [SerializeField]
+    List<SubstanceAndAmount> rightSubstances;
+
+    public string Description => description.ToString();
+    public List<SubstanceAndAmount> LeftSubstances => leftSubstances;
+    public List<SubstanceAndAmount> RightSubstances => rightSubstances;
 }
