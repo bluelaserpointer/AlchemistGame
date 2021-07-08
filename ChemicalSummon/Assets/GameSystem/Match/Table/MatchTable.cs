@@ -6,7 +6,7 @@ using UnityEngine;
 /// 对战桌面
 /// </summary>
 [DisallowMultipleComponent]
-public class Table : MonoBehaviour
+public class MatchTable : MonoBehaviour
 {
     [Header("我方场地")]
     public Field myField;

@@ -24,7 +24,7 @@ public class MatchManager : MonoBehaviour
 
     [Header("Table(Field)")]
     [SerializeField]
-    Table table;
+    MatchTable table;
     [SerializeField]
     CardGamerStatusUI cardGamerStatusUI;
     [SerializeField]
@@ -36,7 +36,9 @@ public class MatchManager : MonoBehaviour
 
     [Header("Turn")]
     public Text turnText;
-    public UnityEvent onTurnStart;
+    public UnityEvent onMyTurnStart;
+    public UnityEvent onEnemyTurnStart;
+    public Animator animatedTurnPanel;
 
     [Header("Demo&Test")]
     public UnityEvent onDemoEvent;
@@ -59,7 +61,7 @@ public class MatchManager : MonoBehaviour
     /// <summary>
     /// 对战桌面
     /// </summary>
-    public static Table Table => instance.table;
+    public static MatchTable Table => instance.table;
     /// <summary>
     /// 我方场地
     /// </summary>
@@ -88,18 +90,26 @@ public class MatchManager : MonoBehaviour
     /// <summary>
     /// 回合
     /// </summary>
-    public int Turn
+    public static int Turn
     {
-        get => turn;
+        get => instance.turn;
         set
         {
-            if (turn != value)
+            if (instance.turn != value)
             {
-                turn = value;
-                turnText.text = "Turn " + turn;
+                instance.turn = value;
+                instance.turnText.text = "Turn " + value;
+                instance.isMyTurn = !instance.isMyTurn;
+                instance.animatedTurnPanel.GetComponentInChildren<Text>().text = instance.isMyTurn ? "你的回合" : "敌方回合";
+                instance.animatedTurnPanel.GetComponent<AnimationStopper>().Play();
             }
         }
     }
+    bool isMyTurn = true;
+    /// <summary>
+    /// 是我方回合
+    /// </summary>
+    public static bool IsMyTurn => instance.isMyTurn;
 
     private void Awake()
     {
@@ -108,6 +118,9 @@ public class MatchManager : MonoBehaviour
         myGamer = new Gamer(match.MyGamerInfo);
         enemyGamer = new Gamer(match.EnemyGamerInfo);
         MyGamerStatusUI.gamer = myGamer;
+        EnemyGamerStatusUI.gamer = enemyGamer;
+        onMyTurnStart.AddListener(MyGamerStatusUI.OnTurnStart);
+        onEnemyTurnStart.AddListener(EnemyGamerStatusUI.OnTurnStart);
         MyField.SetInteractable(true);
         EnemyField.SetInteractable(false);
         //set background
@@ -151,9 +164,16 @@ public class MatchManager : MonoBehaviour
     /// <summary>
     /// 结束回合
     /// </summary>
-    public void TurnEnd() {
+    public static void TurnEnd() {
+        instance.TurnEnd_nonstatic();
+    }
+    /// <summary>
+    /// 结束回合非静态函数(用于按钮事件)
+    /// </summary>
+    public void TurnEnd_nonstatic()
+    {
         ++Turn;
-        onTurnStart.Invoke();
+        (IsMyTurn ? onMyTurnStart : onEnemyTurnStart).Invoke();
     }
     public List<SubstanceCard> CheckSubstancesInField(Substance substance)
     {

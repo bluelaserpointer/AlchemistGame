@@ -10,6 +10,12 @@ public class MonsterGamerStatusUI : GamerStatusUI
     TextMeshProUGUI gamerNameText;
     Gamer Gamer => MatchManager.EnemyGamer;
 
+    public override void OnTurnStart()
+    {
+        //TODO: attack
+        MatchManager.TurnEnd();
+    }
+
     public void Start()
     {
         gamerNameText.text = Gamer.gamerInfo.character.Name;

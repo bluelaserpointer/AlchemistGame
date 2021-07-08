@@ -13,13 +13,11 @@ public class CardGamerStatusUI : GamerStatusUI
     [Header("Animation")]
     public Animator drawCardAnimator;
     //data
-    public Gamer gamer;
     Deck deck;
     public Deck Deck => deck;
 
     private void Start()
     {
-        MatchManager.instance.onTurnStart.AddListener(OnTurnStart);
         deck = new Deck(); //TODO: copy contents from PlayerSetting
         deck.onCardCountChange.AddListener(UpdateCardCountText);
         gamerNameText.text = gamer.gamerInfo.character.Name;
@@ -45,7 +43,7 @@ public class CardGamerStatusUI : GamerStatusUI
     /// <summary>
     /// 回合开始时事件
     /// </summary>
-    public void OnTurnStart()
+    public override void OnTurnStart()
     {
         if(deck.CardCount > 0)
         {
