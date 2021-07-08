@@ -16,10 +16,7 @@ public class CardSlot : ObjectSlot, IAttackable
     /// 属于敌方卡槽
     /// </summary>
     public bool IsEnemySide => IsBelongTo(MatchManager.EnemyField);
-    public new SubstanceCard GetTop()
-    {
-        return transform.GetComponentInChildren<SubstanceCard>();
-    }
+    public SubstanceCard Card => TopHolding.GetComponent<SubstanceCard>();
     /// <summary>
     /// 是否属于这个场地
     /// </summary>
@@ -40,7 +37,7 @@ public class CardSlot : ObjectSlot, IAttackable
     }
     public bool AllowAttack(SubstanceCard card)
     {
-        return GetTop() != null;
+        return Card != null;
     }
 
     public void Attack(SubstanceCard card)

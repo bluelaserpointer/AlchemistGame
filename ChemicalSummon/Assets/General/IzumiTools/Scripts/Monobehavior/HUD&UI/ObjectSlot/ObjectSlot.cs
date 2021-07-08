@@ -29,8 +29,8 @@ public class ObjectSlot : MonoBehaviour
 
     //data
     Transform ArrangePoint => arrangePoint ?? transform;
-    GameObject holding;
-    public GameObject Holding => holding;
+    GameObject topHolding;
+    public GameObject TopHolding => topHolding;
     Transform oldParent;
     Vector3 oldLocalRotation;
     Vector3 oldLocalScale;
@@ -43,19 +43,26 @@ public class ObjectSlot : MonoBehaviour
     {
         if (!AllowSlotSet(obj))
             return;
-        holding = obj;
+        topHolding = obj;
         obj.transform.SetParent(transform);
         oldParent = obj.transform.parent;
-        obj.transform.position = ArrangePoint.position;
-        if (doArrangeRotation)
+        DoAlignment();
+    }
+    public void DoAlignment()
+    {
+        foreach(Transform childTransform in transform)
         {
-            oldLocalRotation = obj.transform.localEulerAngles;
-            obj.transform.localEulerAngles = arrangeLocalRotation;
-        }
-        if (doArrangeScale)
-        {
-            oldLocalScale = obj.transform.localScale;
-            obj.transform.localScale = arrangeLocalScale;
+            childTransform.position = ArrangePoint.position;
+            if (doArrangeRotation)
+            {
+                oldLocalRotation = childTransform.localEulerAngles;
+                childTransform.localEulerAngles = arrangeLocalRotation;
+            }
+            if (doArrangeScale)
+            {
+                oldLocalScale = childTransform.localScale;
+                childTransform.localScale = arrangeLocalScale;
+            }
         }
     }
     public virtual bool AllowSlotClear()
@@ -69,22 +76,18 @@ public class ObjectSlot : MonoBehaviour
             return;
         if (returnToOriginalParentWhenDisband)
         {
-            holding.transform.SetParent(oldParent);
+            topHolding.transform.SetParent(oldParent);
         }
         if (doArrangeRotation && returnToOriginalRotationWhenDisband)
         {
-            holding.transform.localEulerAngles = oldLocalRotation;
+            topHolding.transform.localEulerAngles = oldLocalRotation;
         }
         if (doArrangeScale && returnToOriginalScaleWhenDisband)
         {
-            holding.transform.localScale = oldLocalScale;
+            topHolding.transform.localScale = oldLocalScale;
         }
-        holding = null;
+        topHolding = null;
     }
 
-    public virtual GameObject GetTop()
-    {
-        return transform.childCount > 0 ? transform.GetChild(0).gameObject : null;
-    }
     public bool IsEmpty => transform.childCount == 0;
 }

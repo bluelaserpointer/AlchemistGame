@@ -55,7 +55,7 @@ public class CardDrag : Draggable
                     }
                     else
                     {
-                        SubstanceCard existedCard = cardSlot.GetTop();
+                        SubstanceCard existedCard = cardSlot.Card;
                         if(existedCard.Substance.Equals(substanceCard.Substance))
                         {
                             //union same cards
@@ -67,10 +67,17 @@ public class CardDrag : Draggable
                 else if (cardSlot.IsEnemySide)
                 {
                     //attack enemy card
-                    if (!cardSlot.AllowAttack(substanceCard))
-                        continue;
-                    cardSlot.Attack(substanceCard);
-                    return;
+                    if (cardSlot.AllowAttack(substanceCard))
+                    {
+                        cardSlot.Attack(substanceCard);
+                        //TODO: check attackbility from handcard
+                        if(currentSlot != null)
+                            currentSlot.DoAlignment(); //return to original position
+                        else
+                            MatchManager.HandCards.Add(gameObject);
+                        return;
+                    }
+                    continue;
                 }
                 continue;
             }
@@ -80,6 +87,11 @@ public class CardDrag : Draggable
             {
                 if (face.AllowAttack(substanceCard)) {
                     face.Attack(substanceCard);
+                    //TODO: check attackbility from handcard
+                    if (currentSlot != null)
+                        currentSlot.DoAlignment(); //return to original position
+                    else
+                        MatchManager.HandCards.Add(gameObject);
                     return;
                 }
                 continue;

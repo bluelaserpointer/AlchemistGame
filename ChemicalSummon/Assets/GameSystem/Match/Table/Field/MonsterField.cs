@@ -24,10 +24,10 @@ public class MonsterField : Field
             List<SubstanceCard> exposedCards = new List<SubstanceCard>();
             foreach (ShieldCardSlot slot in shieldCardSlots)
             {
-                SubstanceCard top = slot.GetTop();
-                if (top != null)
+                SubstanceCard card = slot.Card;
+                if (card != null)
                 {
-                    exposedCards.Add(top);
+                    exposedCards.Add(card);
                 }
             }
             return exposedCards;

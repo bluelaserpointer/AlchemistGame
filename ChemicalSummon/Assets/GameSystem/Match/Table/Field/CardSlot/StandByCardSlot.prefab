@@ -18,7 +18,7 @@ MonoBehaviour:
   arrangeLocalRotation: {x: 0, y: 0, z: 0}
   returnToOriginalRotationWhenDisband: 1
   doArrangeScale: 1
-  arrangeLocalScale: {x: 0.75, y: 0.75}
+  arrangeLocalScale: {x: 1.25, y: 1.25}
   returnToOriginalScaleWhenDisband: 1
   interactable: 0
   field: {fileID: 0}
