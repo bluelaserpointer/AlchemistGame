@@ -31,12 +31,14 @@ public class ObjectSlot : MonoBehaviour
     [HideInInspector]
     public bool interactable;
     Transform ArrangePoint => arrangePoint ?? transform;
-    GameObject topHolding;
-    public GameObject TopHolding => topHolding;
     Transform oldParent;
     Vector3 oldLocalRotation;
     Vector3 oldLocalScale;
 
+    public Transform GetTop()
+    {
+        return IsEmpty ? null : transform.GetChild(transform.childCount - 1);
+    }
     public virtual bool AllowSlotSet(GameObject obj)
     {
         return interactable;
@@ -45,7 +47,6 @@ public class ObjectSlot : MonoBehaviour
     {
         if (!AllowSlotSet(obj))
             return;
-        topHolding = obj;
         obj.transform.SetParent(transform);
         oldParent = obj.transform.parent;
         DoAlignment();
@@ -75,21 +76,25 @@ public class ObjectSlot : MonoBehaviour
 
     public virtual void SlotClear()
     {
-        if (!AllowSlotClear())
+        if (!AllowSlotClear() || IsEmpty)
             return;
+        Transform top = GetTop();
         if (returnToOriginalParentWhenDisband)
         {
-            topHolding.transform.SetParent(oldParent);
+            top.SetParent(oldParent);
+        }
+        else
+        {
+            top.SetParent(transform.GetComponentInParent<Canvas>().transform);
         }
         if (doArrangeRotation && returnToOriginalRotationWhenDisband)
         {
-            topHolding.transform.localEulerAngles = oldLocalRotation;
+            top.localEulerAngles = oldLocalRotation;
         }
         if (doArrangeScale && returnToOriginalScaleWhenDisband)
         {
-            topHolding.transform.localScale = oldLocalScale;
+            top.localScale = oldLocalScale;
         }
-        topHolding = null;
         onClear.Invoke();
     }
 

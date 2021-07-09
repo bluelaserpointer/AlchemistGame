@@ -10,8 +10,7 @@ using UnityEngine.UI;
 public class CardDrag : Draggable
 {
     SubstanceCard substanceCard;
-    CardSlot currentSlot;
-    public CardSlot CurrentSlot => currentSlot;
+    public CardSlot CurrentSlot => transform.parent.GetComponent<CardSlot>();
     private void Awake()
     {
         substanceCard = GetComponent<SubstanceCard>();
@@ -27,7 +26,7 @@ public class CardDrag : Draggable
     {
         base.OnEndDrag(eventData);
         substanceCard.EnableShadow(false);
-        bool disbandable = currentSlot == null || currentSlot.AllowSlotClear(); //check dibandbility
+        bool disbandable = CurrentSlot == null || CurrentSlot.AllowSlotClear(); //check dibandbility
         List<RaycastResult> raycastResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, raycastResults);
         foreach (RaycastResult eachResult in raycastResults)
@@ -35,6 +34,11 @@ public class CardDrag : Draggable
             GameObject hitUI = eachResult.gameObject;
             CardSlot cardSlot = hitUI.GetComponent<CardSlot>();
             if (cardSlot != null) {
+                if (cardSlot.Equals(CurrentSlot))
+                {
+                    CurrentSlot.DoAlignment();
+                    return;
+                }
                 if (cardSlot.IsMySide)
                 {
                     if (cardSlot.IsEmpty)
@@ -44,12 +48,11 @@ public class CardDrag : Draggable
                             continue;
                         if (cardSlot.AllowSlotSet(substanceCard.gameObject))
                         {
-                            if (currentSlot != null)
+                            if (CurrentSlot != null)
                             {
-                                currentSlot.SlotClear();
+                                CurrentSlot.SlotClear();
                             }
                             cardSlot.SlotSet(substanceCard.gameObject);
-                            currentSlot = cardSlot;
                             return;
                         }
                     }
@@ -71,8 +74,8 @@ public class CardDrag : Draggable
                     {
                         cardSlot.Attack(substanceCard);
                         //TODO: check attackbility from handcard
-                        if(currentSlot != null)
-                            currentSlot.DoAlignment(); //return to original position
+                        if(CurrentSlot != null)
+                            CurrentSlot.DoAlignment(); //return to original position
                         else
                             MatchManager.HandCards.Add(gameObject);
                         return;
@@ -88,8 +91,8 @@ public class CardDrag : Draggable
                 if (face.AllowAttack(substanceCard)) {
                     face.Attack(substanceCard);
                     //TODO: check attackbility from handcard
-                    if (currentSlot != null)
-                        currentSlot.DoAlignment(); //return to original position
+                    if (CurrentSlot != null)
+                        CurrentSlot.DoAlignment(); //return to original position
                     else
                         MatchManager.HandCards.Add(gameObject);
                     return;
@@ -98,6 +101,15 @@ public class CardDrag : Draggable
             }
         }
         //no target
-        MatchManager.HandCards.Add(gameObject);
+        if (CurrentSlot != null)
+        {
+            if (disbandable)
+            {
+                CurrentSlot.SlotClear();
+                MatchManager.HandCards.Add(gameObject);
+            }
+        }
+        else
+            MatchManager.HandCards.Add(gameObject);
     }
 }

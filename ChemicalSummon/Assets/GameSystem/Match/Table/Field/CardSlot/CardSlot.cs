@@ -19,7 +19,7 @@ public class CardSlot : ObjectSlot, IAttackable
     /// 属于敌方卡槽
     /// </summary>
     public bool IsEnemySide => IsBelongTo(MatchManager.EnemyField);
-    public SubstanceCard Card => TopHolding == null ? null : TopHolding.GetComponent<SubstanceCard>();
+    public SubstanceCard Card => IsEmpty ? null : GetTop().GetComponent<SubstanceCard>();
     private void Awake()
     {
         field = transform.GetComponentInParent<Field>();
