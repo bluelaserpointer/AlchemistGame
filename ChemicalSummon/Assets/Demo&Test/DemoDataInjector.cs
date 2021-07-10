@@ -12,6 +12,8 @@ public class DemoDataInjector : MonoBehaviour
     public List<Substance> substances;
     [Header("DiscoveredReactions")]
     public List<Reaction> reactions;
+    [Header("SampleConversation")]
+    public ConversationManager conversation;
     public void Inject()
     {
         //deck
@@ -19,5 +21,6 @@ public class DemoDataInjector : MonoBehaviour
         //reaction
         PlayerSave.instance = new PlayerSave();
         PlayerSave.instance.discoveredReactions.AddRange(reactions);
+        Instantiate(conversation, MatchManager.Table.GetComponentInParent<Canvas>().transform);
     }
 }

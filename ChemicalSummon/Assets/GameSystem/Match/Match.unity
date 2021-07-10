@@ -528,8 +528,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   arrangeOnAwake: 1
-  addInitialChildrenToCards: 1
-  cards: []
+  rightIsUpper: 1
+  newerIsUpper: 1
   arrangeRadius: 220
   arrangeDirection: 90
   arrangeAngleSpan: 15
@@ -1449,6 +1449,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
   reactions:
   - {fileID: 11400000, guid: 6487f0bafa1875c4ab10266b4020d402, type: 2}
+  conversation: {fileID: 8958360715705474449, guid: c827cb6528d7f2f4fa1d5e8f7488a997,
+    type: 3}
 --- !u!4 &1205043622
 Transform:
   m_ObjectHideFlags: 0

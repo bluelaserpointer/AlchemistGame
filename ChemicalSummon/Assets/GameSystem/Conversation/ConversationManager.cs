@@ -37,7 +37,10 @@ public class ConversationManager : MonoBehaviour
             return;
         ++speakingIndex;
         if (ConversationFinished)
+        {
             OnConversationFinish.Invoke();
+            Destroy(gameObject);
+        }
         else
         {
             speakerPortrait.sprite = CurrentSpeaking.Character.FaceIcon;

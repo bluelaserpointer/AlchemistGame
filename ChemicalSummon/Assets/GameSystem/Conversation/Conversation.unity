@@ -505,11 +505,42 @@ PrefabInstance:
       propertyPath: m_RaycastTarget
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 8958360715705474449, guid: c827cb6528d7f2f4fa1d5e8f7488a997,
+        type: 3}
+      propertyPath: autoDestroyOnConversationFinish
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8958360715705474449, guid: c827cb6528d7f2f4fa1d5e8f7488a997,
+        type: 3}
+      propertyPath: OnConversationFinish.m_PersistentCalls.m_Calls.Array.size
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8958360715705474449, guid: c827cb6528d7f2f4fa1d5e8f7488a997,
+        type: 3}
+      propertyPath: OnConversationFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8958360715705474449, guid: c827cb6528d7f2f4fa1d5e8f7488a997,
+        type: 3}
+      propertyPath: OnConversationFinish.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 313808766}
+    - target: {fileID: 8958360715705474449, guid: c827cb6528d7f2f4fa1d5e8f7488a997,
+        type: 3}
+      propertyPath: OnConversationFinish.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c827cb6528d7f2f4fa1d5e8f7488a997, type: 3}
 --- !u!224 &313808765 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 862756267282843736, guid: c827cb6528d7f2f4fa1d5e8f7488a997,
+    type: 3}
+  m_PrefabInstance: {fileID: 313808764}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &313808766 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 862756267282843737, guid: c827cb6528d7f2f4fa1d5e8f7488a997,
     type: 3}
   m_PrefabInstance: {fileID: 313808764}
   m_PrefabAsset: {fileID: 0}
