@@ -12,3 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7f26d62173eada74bacf6b3ac9ef09e2, type: 3}
   m_Name: SampleTalk
   m_EditorClassIdentifier: 
+  speakings:
+  - character: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}
+    sentence:
+      defaultString: This is sample speaking sentence.
+      languageAndSentences: []
+  - character: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}
+    sentence:
+      defaultString: This is second sample speaking sentence.
+      languageAndSentences: []
