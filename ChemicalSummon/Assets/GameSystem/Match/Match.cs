@@ -27,7 +27,7 @@ public class Match : ScriptableObject
     /// <summary>
     /// 我方游戏者信息
     /// </summary>
-    public virtual GamerInfo MyGamerInfo => PlayerSave.instance.selectedGamer;
+    public virtual GamerInfo MyGamerInfo => PlayerSave.SelectedGamer;
     /// <summary>
     /// 敌方游戏者信息
     /// </summary>

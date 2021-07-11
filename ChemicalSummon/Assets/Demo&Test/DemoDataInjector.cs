@@ -19,8 +19,7 @@ public class DemoDataInjector : MonoBehaviour
         //deck
         MatchManager.MyGamerStatusUI.Deck.AddRange(substances);
         //reaction
-        PlayerSave.instance = new PlayerSave();
-        PlayerSave.instance.discoveredReactions.AddRange(reactions);
+        reactions.ForEach(reaction => PlayerSave.AddDiscoveredReaction(reaction));
         Instantiate(conversation, MatchManager.Table.GetComponentInParent<Canvas>().transform);
     }
 }

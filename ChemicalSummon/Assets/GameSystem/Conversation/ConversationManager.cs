@@ -48,4 +48,5 @@ public class ConversationManager : MonoBehaviour
             speakingText.text = CurrentSpeaking.Sentence;
         }
     }
+    public static ConversationManager BaseConversation => Resources.Load<ConversationManager>("BaseConversation");
 }

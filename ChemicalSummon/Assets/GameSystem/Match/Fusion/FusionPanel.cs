@@ -12,7 +12,7 @@ public class FusionPanel : MonoBehaviour
     {
         foreach (Transform childTransform in transform)
             Destroy(childTransform.gameObject);
-        foreach(Reaction reaction in PlayerSave.instance.discoveredReactions)
+        foreach(Reaction reaction in PlayerSave.DiscoveredReactions)
         {
             List<SubstanceCard> consumingCards = new List<SubstanceCard>();
             bool condition = true;
