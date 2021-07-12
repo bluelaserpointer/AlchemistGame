@@ -116,6 +116,9 @@ public class MatchManager : ChemicalSummonManager
     private void Awake()
     {
         instance = this;
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.clip = Match.PickRandomBGM();
+        audioSource.Play();
         //gamer
         myGamer = new Gamer(Match.MySideCharacter);
         enemyGamer = new Gamer(Match.EnemySideCharacter);

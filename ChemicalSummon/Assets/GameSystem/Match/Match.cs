@@ -14,6 +14,8 @@ public class Match : ScriptableObject
     [SerializeField]
     MatchBackGround backGround;
     [SerializeField]
+    BGMRandomChooser bgmSets;
+    [SerializeField]
     Character enemySideCharacter;
 
     /// <summary>
@@ -32,4 +34,7 @@ public class Match : ScriptableObject
     /// 敌方游戏者信息
     /// </summary>
     public Character EnemySideCharacter => enemySideCharacter;
+    public AudioClip PickRandomBGM() {
+        return bgmSets == null ? null : bgmSets.PickRandom();
+    }
 }
