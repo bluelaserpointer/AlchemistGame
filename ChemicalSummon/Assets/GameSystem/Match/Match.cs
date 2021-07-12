@@ -14,7 +14,7 @@ public class Match : ScriptableObject
     [SerializeField]
     MatchBackGround backGround;
     [SerializeField]
-    Character enemyGamerInfo;
+    Character enemySideCharacter;
 
     /// <summary>
     /// 战斗名
@@ -27,9 +27,9 @@ public class Match : ScriptableObject
     /// <summary>
     /// 我方游戏者信息
     /// </summary>
-    public virtual Character MyGamerInfo => PlayerSave.SelectedGamer;
+    public virtual Character MySideCharacter => PlayerSave.SelectedCharacter;
     /// <summary>
     /// 敌方游戏者信息
     /// </summary>
-    public Character EnemyGamerInfo => enemyGamerInfo;
+    public Character EnemySideCharacter => enemySideCharacter;
 }

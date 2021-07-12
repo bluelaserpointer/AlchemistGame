@@ -116,8 +116,8 @@ public class MatchManager : MonoBehaviour
     {
         instance = this;
         //gamer
-        myGamer = new Gamer(match.MyGamerInfo);
-        enemyGamer = new Gamer(match.EnemyGamerInfo);
+        myGamer = new Gamer(match.MySideCharacter);
+        enemyGamer = new Gamer(match.EnemySideCharacter);
         MyGamerStatusUI.gamer = myGamer;
         EnemyGamerStatusUI.gamer = enemyGamer;
         onMyTurnStart.AddListener(MyGamerStatusUI.OnTurnStart);

@@ -26,11 +26,11 @@ public class PlayerSave : MonoBehaviour
     [SerializeField]
     List<Reaction> discoveredReactions;
     [SerializeField]
-    Character selectedGamer;
+    Character selectedCharacter;
     [SerializeField]
-    List<Character> enabledCardGamers;
+    List<Character> enabledCharacters;
     [SerializeField]
-    List<Character> allCardGamers;
+    List<Character> allCharacters;
 
     Deck activeDeck = new Deck();
     List<Deck> standbyDecks = new List<Deck>();
@@ -41,8 +41,8 @@ public class PlayerSave : MonoBehaviour
     /// <summary>
     /// 可用的游戏者
     /// </summary>
-    public static List<Character> EnabledCardGamers => Instance.enabledCardGamers;
-    public static List<Character> AllCardGamers => Instance.allCardGamers;
+    public static List<Character> EnabledCharacters => Instance.enabledCharacters;
+    public static List<Character> AllCharacters => Instance.allCharacters;
 
     /// <summary>
     /// 发现的反应式
@@ -51,7 +51,7 @@ public class PlayerSave : MonoBehaviour
     /// <summary>
     /// 选定的游戏者
     /// </summary>
-    public static Character SelectedGamer => Instance.selectedGamer;
+    public static Character SelectedCharacter => Instance.selectedCharacter;
     /// <summary>
     /// 当前卡组
     /// </summary>
