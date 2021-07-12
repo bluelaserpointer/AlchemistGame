@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
-public class GameTab : MonoBehaviour
+public class GameTab : Tab
 {
     //inspector
     [SerializeField]
@@ -15,16 +15,29 @@ public class GameTab : MonoBehaviour
     GameObject characterScreen;
     [SerializeField]
     CharacterPanel characterPanelSample;
+    [SerializeField]
+    Sprite tabButtonUnselectedSprite;
+    [SerializeField]
+    Sprite tabButtonSelectedSprite;
 
     //data
-    Tab tab;
     Transform characterListTransform;
     void Start()
     {
-        tab = GetComponentInChildren<Tab>();
-        tab.OnTabSelectChange.AddListener(UpdateCharacterScreen);
+        OnTabSelectChange.AddListener(UpdateScreen);
         characterListTransform = characterScreen.GetComponentInChildren<HorizontalLayoutGroup>().transform;
         InitCharacterScreen();
+    }
+    public void UpdateScreen()
+    {
+        foreach(ButtonAndContent pair in ButtonAndContents)
+        {
+            pair.button.GetComponent<Image>().sprite = pair.button.Equals(SelectedTabButton) ? tabButtonSelectedSprite : tabButtonUnselectedSprite;
+        }
+        if (characterScreen.Equals(SelectedTabContent))
+        {
+            UpdateCharacterScreen();
+        }
     }
     private void InitCharacterScreen()
     {

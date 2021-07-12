@@ -344,8 +344,8 @@ RectTransform:
   m_Children:
   - {fileID: 1691521712}
   - {fileID: 59539378}
-  - {fileID: 1827552680}
   - {fileID: 1440516224}
+  - {fileID: 1827552680}
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1652,7 +1652,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1751,7 +1751,7 @@ RectTransform:
   m_Children:
   - {fileID: 312271775}
   m_Father: {fileID: 86238910}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -1771,7 +1771,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -1901,7 +1901,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -2058,9 +2058,8 @@ GameObject:
   - component: {fileID: 1618445345}
   - component: {fileID: 1618445344}
   - component: {fileID: 1618445346}
-  - component: {fileID: 1618445347}
   m_Layer: 5
-  m_Name: Tab
+  m_Name: TabBackground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2150,29 +2149,6 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 1
---- !u!114 &1618445347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1618445342}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 087f2671964e6374ab2cbe446751afd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  reselectToDisable: 1
-  buttonAndContent:
-  - button: {fileID: 1762259724}
-    content: {fileID: 1653514561}
-  - button: {fileID: 1462619677}
-    content: {fileID: 226707900}
-  - button: {fileID: 1393414469}
-    content: {fileID: 167476435}
-  onTabSelectChange:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &1653514561
 GameObject:
   m_ObjectHideFlags: 0
@@ -2373,7 +2349,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
     m_SelectOnLeft: {fileID: 0}
@@ -2474,7 +2450,7 @@ RectTransform:
   - {fileID: 226707901}
   - {fileID: 167476436}
   m_Father: {fileID: 86238910}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2501,10 +2477,25 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 10cbcc387645ef248baabdf741b0ba20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  reselectToDisable: 1
+  buttonAndContents:
+  - button: {fileID: 1762259724}
+    content: {fileID: 1653514561}
+  - button: {fileID: 1462619677}
+    content: {fileID: 226707900}
+  - button: {fileID: 1393414469}
+    content: {fileID: 167476435}
+  onTabSelectChange:
+    m_PersistentCalls:
+      m_Calls: []
   itemScreen: {fileID: 1653514561}
   deckScreen: {fileID: 226707900}
   characterScreen: {fileID: 167476435}
   characterPanelSample: {fileID: 5001140756912060193, guid: 4c4f52e36ab20ee4a8a74237d380ad2d,
+    type: 3}
+  tabButtonUnselectedSprite: {fileID: 21300000, guid: 0959a4b3dcb1dcd4ea15f17eb35658a8,
+    type: 3}
+  tabButtonSelectedSprite: {fileID: 21300000, guid: 99896414c938bd2468ab5f085bfd1bfb,
     type: 3}
 --- !u!1 &1965275881
 GameObject:

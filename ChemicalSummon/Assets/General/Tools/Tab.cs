@@ -18,7 +18,7 @@ public class Tab : MonoBehaviour
         public GameObject content;
     }
     [SerializeField]
-    List<ButtonAndContent> buttonAndContent;
+    List<ButtonAndContent> buttonAndContents;
     [SerializeField]
     UnityEvent onTabSelectChange;
     //data
@@ -26,9 +26,10 @@ public class Tab : MonoBehaviour
     public Button SelectedTabButton => SelectedTabPair == null ? null : SelectedTabPair.button;
     public GameObject SelectedTabContent => SelectedTabPair == null ? null : SelectedTabPair.content;
     public UnityEvent OnTabSelectChange => onTabSelectChange;
+    public List<ButtonAndContent> ButtonAndContents => buttonAndContents;
     private void Awake()
     {
-        foreach(ButtonAndContent pair in buttonAndContent)
+        foreach(ButtonAndContent pair in buttonAndContents)
         {
             if (pair.content.activeSelf)
             {
