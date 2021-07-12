@@ -6,6 +6,7 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public class GameTab : MonoBehaviour
 {
+    //inspector
     [SerializeField]
     GameObject itemScreen;
     [SerializeField]
@@ -13,22 +14,34 @@ public class GameTab : MonoBehaviour
     [SerializeField]
     GameObject characterScreen;
     [SerializeField]
-    GameObject characterPanelSample;
-    // Start is called before the first frame update
+    CharacterPanel characterPanelSample;
+
+    //data
+    Tab tab;
+    Transform characterListTransform;
     void Start()
     {
-        Transform characterListTransform = characterScreen.GetComponentInChildren<HorizontalLayoutGroup>().transform;
-        foreach(Character character in PlayerSave.AllCharacters)
+        tab = GetComponentInChildren<Tab>();
+        tab.OnTabSelectChange.AddListener(UpdateCharacterScreen);
+        characterListTransform = characterScreen.GetComponentInChildren<HorizontalLayoutGroup>().transform;
+        InitCharacterScreen();
+    }
+    private void InitCharacterScreen()
+    {
+        foreach (Character character in PlayerSave.AllCharacters)
         {
-            GameObject characterPanel = Instantiate(characterPanelSample, characterListTransform);
-            characterPanel.GetComponentInChildren<Image>().sprite = character.FaceIcon;
-            characterPanel.GetComponentInChildren<Text>().text = character.Name;
+            CharacterPanel characterPanel = Instantiate(characterPanelSample, characterListTransform);
+            characterPanel.SetCharacter(character);
+            characterPanel.SelectButton.onClick.AddListener(() => { PlayerSave.SelectedCharacter = character; UpdateCharacterScreen(); });
         }
     }
-
-    // Update is called once per frame
-    void Update()
+    public void UpdateCharacterScreen()
     {
-        
+        foreach (Transform characterPanelTf in characterListTransform)
+        {
+            CharacterPanel panel = characterPanelTf.GetComponent<CharacterPanel>();
+            if (panel != null)
+                panel.UpdateUI();
+        }
     }
 }

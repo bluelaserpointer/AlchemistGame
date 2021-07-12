@@ -15,4 +15,5 @@ MonoBehaviour:
   name:
     defaultString: character4
     languageAndSentences: []
+  initialHP: 20
   faceIcon: {fileID: 21300000, guid: 6d1add860aefeab4fb2fccc0a51006ca, type: 3}

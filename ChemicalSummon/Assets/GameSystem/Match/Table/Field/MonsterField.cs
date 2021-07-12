@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 /// <summary>
 /// 怪物场地，只有怪物显示
@@ -8,6 +9,7 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class MonsterField : Field
 {
+    //inspector
     /// <summary>
     /// 格挡区卡槽
     /// </summary>
@@ -17,6 +19,9 @@ public class MonsterField : Field
     /// 格挡区卡槽
     /// </summary>
     public List<ShieldCardSlot> ShieldCardSlots => shieldCardSlots;
+    [SerializeField]
+    Image portrait;
+    //data
     public override List<SubstanceCard> ExposedCards
     {
         get
@@ -36,5 +41,9 @@ public class MonsterField : Field
     public override void SetInteractable(bool interactable)
     {
         ShieldCardSlots.ForEach(slot => slot.interactable = interactable);
+    }
+    private void Start()
+    {
+        portrait.sprite = MatchManager.EnemyGamer.character.FaceIcon;
     }
 }

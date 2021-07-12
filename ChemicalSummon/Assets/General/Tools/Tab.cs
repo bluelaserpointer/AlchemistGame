@@ -2,38 +2,58 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class Tab : MonoBehaviour
 {
+    //inspector
     [SerializeField]
     bool reselectToDisable = true;
     [Serializable]
-    public class ButtonAndGameObject
+    public class ButtonAndContent
     {
         public Button button;
-        public GameObject panel;
+        public GameObject content;
     }
     [SerializeField]
-    List<ButtonAndGameObject> buttonAndGameObjects;
+    List<ButtonAndContent> buttonAndContent;
+    [SerializeField]
+    UnityEvent onTabSelectChange;
+    //data
+    public ButtonAndContent SelectedTabPair { protected set; get; }
+    public Button SelectedTabButton => SelectedTabPair == null ? null : SelectedTabPair.button;
+    public GameObject SelectedTabContent => SelectedTabPair == null ? null : SelectedTabPair.content;
+    public UnityEvent OnTabSelectChange => onTabSelectChange;
     private void Awake()
     {
-        UpdateClickEvent();
-    }
-    public void UpdateClickEvent()
-    {
-        foreach(ButtonAndGameObject pair in buttonAndGameObjects)
+        foreach(ButtonAndContent pair in buttonAndContent)
         {
+            if (pair.content.activeSelf)
+            {
+                if (SelectedTabPair == null)
+                    SelectedTabPair = pair;
+                else
+                    pair.content.SetActive(false);
+            }
             pair.button.onClick.AddListener(() => {
-                if (pair.panel.activeSelf)
+                if (pair.Equals(SelectedTabPair))
                 {
                     if (reselectToDisable)
-                        buttonAndGameObjects.ForEach(allPair => allPair.panel.SetActive(false));
+                    {
+                        SelectedTabPair = null;
+                        pair.content.SetActive(false);
+                        onTabSelectChange.Invoke();
+                    }
                 }
                 else
                 {
-                    buttonAndGameObjects.ForEach(otherPair => otherPair.panel.SetActive(otherPair.panel.Equals(pair.panel)));
+                    if (SelectedTabPair != null)
+                        SelectedTabPair.content.SetActive(false);
+                    SelectedTabPair = pair;
+                    pair.content.SetActive(true);
+                    onTabSelectChange.Invoke();
                 }
             });
         }

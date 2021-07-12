@@ -5,7 +5,7 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 
 [SerializeField]
-public class ConversationManager : MonoBehaviour
+public class ConversationManager : ChemicalSummonManager
 {
     public static ConversationManager instance;
     //inspector

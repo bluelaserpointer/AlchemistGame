@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
-public class MapManager : MonoBehaviour
+public class MapManager : ChemicalSummonManager
 {
     public static MapManager instance;
     private void Awake()

@@ -4,13 +4,13 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
-public class TitleManager : MonoBehaviour
+public class TitleManager : ChemicalSummonManager
 {
     [SerializeField]
     Text versionText;
     // Start is called before the first frame update
     void Start()
     {
-        versionText.text = "Version " + ChemicalSummon.Version;
+        versionText.text = "Version " + ChemicalSummonManager.Version;
     }
 }

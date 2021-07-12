@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 /// <summary>
 /// 用户数据
@@ -31,6 +32,8 @@ public class PlayerSave : MonoBehaviour
     List<Character> enabledCharacters;
     [SerializeField]
     List<Character> allCharacters;
+    [SerializeField]
+    Match currentMatch;
 
     Deck activeDeck = new Deck();
     List<Deck> standbyDecks = new List<Deck>();
@@ -51,7 +54,10 @@ public class PlayerSave : MonoBehaviour
     /// <summary>
     /// 选定的游戏者
     /// </summary>
-    public static Character SelectedCharacter => Instance.selectedCharacter;
+    public static Character SelectedCharacter {
+        set => Instance.selectedCharacter = value;
+        get => Instance.selectedCharacter;
+    }
     /// <summary>
     /// 当前卡组
     /// </summary>
@@ -72,6 +78,10 @@ public class PlayerSave : MonoBehaviour
     /// 预留章节
     /// </summary>
     public static List<Chapter> AllChapters => Instance.allChapters;
+    /// <summary>
+    /// 当前战斗
+    /// </summary>
+    public static Match CurrentMatch => Instance.currentMatch;
     private void Update()
     {
         List<Chapter> currentlyOpendedChapters = new List<Chapter>();
@@ -101,5 +111,14 @@ public class PlayerSave : MonoBehaviour
             return false;
         DiscoveredReactions.Add(reaction);
         return true;
+    }
+    /// <summary>
+    /// 进入战斗
+    /// </summary>
+    /// <param name="match"></param>
+    public static void GotoMatch(Match match)
+    {
+        Instance.currentMatch = match;
+        SceneManager.LoadScene("Match");
     }
 }

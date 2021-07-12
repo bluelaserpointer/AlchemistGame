@@ -9,13 +9,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6c12ca1c641546746b579b28361f891a, type: 3}
-  m_Name: VS BronzeGolem
+  m_Script: {fileID: 11500000, guid: 1728fdea69f884842a59d0b83beab0bd, type: 3}
+  m_Name: VS Lio
   m_EditorClassIdentifier: 
   name:
-    defaultString: VS BronzeGolem
+    defaultString: VS Lio
     languageAndSentences: []
   backGround: {fileID: 6406240795598663840, guid: 8ac51af0fb67cd14b8759990e83946ea,
     type: 3}
-  enemySideCharacter: {fileID: 11400000, guid: a81c341e2dfdc5d45a8048f96255b94e, type: 2}
-  mySideCharacter: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}
+  enemySideCharacter: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}

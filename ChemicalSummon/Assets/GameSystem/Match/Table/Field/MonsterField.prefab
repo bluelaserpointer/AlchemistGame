@@ -49,7 +49,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a4252d2b2cab8946a06e852c2455767, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardsChanged:
+    m_PersistentCalls:
+      m_Calls: []
   shieldCardSlots: []
+  portrait: {fileID: 5747413525762528760}
 --- !u!1 &4353039847164375079
 GameObject:
   m_ObjectHideFlags: 0
@@ -304,4 +308,3 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 46a25062d5ae9a44cac9b763a3ca450a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  field: {fileID: 0}

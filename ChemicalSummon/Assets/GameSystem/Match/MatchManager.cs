@@ -10,14 +10,11 @@ using UnityEngine.UI;
 ///  , 管理回合
 /// </summary>
 [DisallowMultipleComponent]
-public class MatchManager : MonoBehaviour
+public class MatchManager : ChemicalSummonManager
 {
     public static MatchManager instance;
 
     //inspector
-    [Header("Match")]
-    public Match match;
-
     [Header("HandCards")]
     [SerializeField]
     HandCardsArrange handCards;
@@ -46,6 +43,10 @@ public class MatchManager : MonoBehaviour
     bool demoEventInvoked = false;
 
     //data
+    /// <summary>
+    /// 当前战斗
+    /// </summary>
+    public Match Match => PlayerSave.CurrentMatch;
     /// <summary>
     /// 环境温度
     /// </summary>
@@ -116,8 +117,8 @@ public class MatchManager : MonoBehaviour
     {
         instance = this;
         //gamer
-        myGamer = new Gamer(match.MySideCharacter);
-        enemyGamer = new Gamer(match.EnemySideCharacter);
+        myGamer = new Gamer(Match.MySideCharacter);
+        enemyGamer = new Gamer(Match.EnemySideCharacter);
         MyGamerStatusUI.gamer = myGamer;
         EnemyGamerStatusUI.gamer = enemyGamer;
         onMyTurnStart.AddListener(MyGamerStatusUI.OnTurnStart);
@@ -127,7 +128,7 @@ public class MatchManager : MonoBehaviour
         MyField.cardsChanged.AddListener(fieldCardsChanged.Invoke);
         EnemyField.cardsChanged.AddListener(fieldCardsChanged.Invoke);
         //set background
-        Instantiate(match.BackGround);
+        Instantiate(Match.BackGround);
     }
     // Update is called once per frame
     void Update()
