@@ -26,13 +26,23 @@ public class PlayerSave : MonoBehaviour
     [SerializeField]
     List<Reaction> discoveredReactions;
     [SerializeField]
-    CardPlayingGamerInfo selectedGamer;
+    Character selectedGamer;
+    [SerializeField]
+    List<Character> enabledCardGamers;
+    [SerializeField]
+    List<Character> allCardGamers;
 
-    Deck activeDeck;
+    Deck activeDeck = new Deck();
     List<Deck> standbyDecks = new List<Deck>();
     public Chapter activeChapter;
     public List<Chapter> openedChapters = new List<Chapter>();
-    public List<Chapter> standbyChapters = new List<Chapter>();
+    public List<Chapter> allChapters = new List<Chapter>();
+
+    /// <summary>
+    /// 可用的游戏者
+    /// </summary>
+    public static List<Character> EnabledCardGamers => Instance.enabledCardGamers;
+    public static List<Character> AllCardGamers => Instance.allCardGamers;
 
     /// <summary>
     /// 发现的反应式
@@ -41,7 +51,7 @@ public class PlayerSave : MonoBehaviour
     /// <summary>
     /// 选定的游戏者
     /// </summary>
-    public static CardPlayingGamerInfo SelectedGamer => Instance.selectedGamer;
+    public static Character SelectedGamer => Instance.selectedGamer;
     /// <summary>
     /// 当前卡组
     /// </summary>
@@ -61,12 +71,12 @@ public class PlayerSave : MonoBehaviour
     /// <summary>
     /// 预留章节
     /// </summary>
-    public static List<Chapter> StandbyChapters => Instance.standbyChapters;
+    public static List<Chapter> AllChapters => Instance.allChapters;
     private void Update()
     {
         List<Chapter> currentlyOpendedChapters = new List<Chapter>();
         //check new opened chapter
-        foreach(Chapter chapter in standbyChapters)
+        foreach(Chapter chapter in allChapters)
         {
             if(chapter.JudgeCanStart())
             {
@@ -78,7 +88,7 @@ public class PlayerSave : MonoBehaviour
                 }
             }
         }
-        standbyChapters.RemoveAll(chapter => currentlyOpendedChapters.Contains(chapter));
+        allChapters.RemoveAll(chapter => currentlyOpendedChapters.Contains(chapter));
     }
     /// <summary>
     /// 增加发现的反应式

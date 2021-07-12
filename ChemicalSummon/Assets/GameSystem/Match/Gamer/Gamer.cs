@@ -1,23 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
-/// <summary>
-/// 游戏者信息模板
-/// </summary>
-public abstract class GamerInfo : ScriptableObject
-{
-    public int hp;
-    public Character character;
-}
+﻿using System;
 public class Gamer
 {
     public float hp;
-    public readonly GamerInfo gamerInfo;
+    public readonly Character character;
     /// <summary>
     /// 体力初始值
     /// </summary>
-    public int InitialHP => gamerInfo.hp;
+    public int InitialHP => character.InitialHP;
     /// <summary>
     /// 是我方玩家
     /// </summary>
@@ -30,9 +19,9 @@ public class Gamer
     /// 场地
     /// </summary>
     public Field Field => MatchManager.GetField(this);
-    public Gamer(GamerInfo gamerInfo)
+    public Gamer(Character character)
     {
-        this.gamerInfo = gamerInfo;
-        hp = gamerInfo.hp;
+        this.character = character;
+        hp = InitialHP;
     }
 }

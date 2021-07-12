@@ -5,10 +5,17 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public class CardGamerStatusUI : GamerStatusUI
 {
-    public TextMeshProUGUI gamerNameText;
-    public TextMeshProUGUI lestCardsText;
-    public Image faceIcon;
-    public SwitchSprite drawableSign;
+    [SerializeField]
+    bool isMySide = true;
+
+    [SerializeField]
+    TextMeshProUGUI gamerNameText;
+    [SerializeField]
+    TextMeshProUGUI lestCardsText;
+    [SerializeField]
+    Image faceIcon;
+    [SerializeField]
+    SwitchSprite drawableSign;
 
     [Header("Animation")]
     public Animator drawCardAnimator;
@@ -18,10 +25,15 @@ public class CardGamerStatusUI : GamerStatusUI
 
     private void Start()
     {
-        deck = new Deck(); //TODO: copy contents from PlayerSetting
+        if(isMySide)
+            deck = new Deck(PlayerSave.ActiveDeck);
+        else
+        {
+            //TODO: install enemy deck
+        }
         deck.onCardCountChange.AddListener(UpdateCardCountText);
-        gamerNameText.text = gamer.gamerInfo.character.Name;
-        faceIcon.sprite = gamer.gamerInfo.character.FaceIcon;
+        gamerNameText.text = gamer.character.Name;
+        faceIcon.sprite = gamer.character.FaceIcon;
         GaugeValueRangeMax = gamer.InitialHP;
         GaugeValue = gamer.hp;
         UpdateCardCountText(); //inital input

@@ -10,7 +10,19 @@ using UnityEngine.Events;
 [Serializable]
 public class Deck
 {
-    List<Substance> substances = new List<Substance>();
+    readonly List<Substance> substances;
+    public Deck()
+    {
+        substances = new List<Substance>();
+    }
+    public Deck(List<Substance> initialSubstances)
+    {
+        substances = new List<Substance>(initialSubstances);
+    }
+    public Deck(Deck sampleDeck)
+    {
+        substances = new List<Substance>(sampleDeck.Substances);
+    }
     public List<Substance> Substances => substances;
     public int CardCount => Substances.Count;
 

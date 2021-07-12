@@ -72,8 +72,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   discoveredReactions:
   - {fileID: 11400000, guid: 6487f0bafa1875c4ab10266b4020d402, type: 2}
-  selectedGamer: {fileID: 11400000, guid: 1ce4caa01c56c2741b820b7081fcf042, type: 2}
+  selectedGamer: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}
+  enabledCardGamers:
+  - {fileID: 11400000, guid: 00d6169fe0a61a34dafa92d806eebf97, type: 2}
+  - {fileID: 11400000, guid: 92922b91b8af5814f9d7732a4338b6ad, type: 2}
+  - {fileID: 11400000, guid: 742c4138ff6a03a4baa35c5475992ebf, type: 2}
+  - {fileID: 11400000, guid: 26b9f623f4b9693498092fbf0d1519fd, type: 2}
+  allCardGamers:
+  - {fileID: 11400000, guid: 00d6169fe0a61a34dafa92d806eebf97, type: 2}
+  - {fileID: 11400000, guid: 92922b91b8af5814f9d7732a4338b6ad, type: 2}
+  - {fileID: 11400000, guid: 742c4138ff6a03a4baa35c5475992ebf, type: 2}
+  - {fileID: 11400000, guid: 26b9f623f4b9693498092fbf0d1519fd, type: 2}
   activeChapter: {fileID: 0}
   openedChapters: []
-  standbyChapters:
+  allChapters:
   - {fileID: 11400000, guid: 8473110f8258eed4ca22f4dc14ecc995, type: 2}

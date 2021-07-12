@@ -18,7 +18,7 @@ public class MonsterGamerStatusUI : GamerStatusUI
 
     public void Start()
     {
-        gamerNameText.text = Gamer.gamerInfo.character.Name;
+        gamerNameText.text = Gamer.character.Name;
         GaugeValueRangeMax = Gamer.InitialHP;
         GaugeValue = Gamer.hp;
     }

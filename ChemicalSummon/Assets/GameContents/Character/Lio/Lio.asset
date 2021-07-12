@@ -15,4 +15,5 @@ MonoBehaviour:
   name:
     defaultString: Lio
     languageAndSentences: []
+  initialHP: 40
   faceIcon: {fileID: 21300000, guid: 8bcc37b83ff7b4e4aba40a4cdb7d7671, type: 3}

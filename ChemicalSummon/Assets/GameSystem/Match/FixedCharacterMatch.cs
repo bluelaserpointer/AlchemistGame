@@ -9,9 +9,9 @@ using UnityEngine;
 public class FixedCharacterMatch : Match
 {
     [SerializeField]
-    GamerInfo myGamerInfo;
+    Character myGamerInfo;
     /// <summary>
     /// 我方游戏者
     /// </summary>
-    public override GamerInfo MyGamerInfo => myGamerInfo;
+    public override Character MyGamerInfo => myGamerInfo;
 }

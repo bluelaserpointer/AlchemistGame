@@ -17,5 +17,5 @@ MonoBehaviour:
     languageAndSentences: []
   backGround: {fileID: 6406240795598663840, guid: 8ac51af0fb67cd14b8759990e83946ea,
     type: 3}
-  enemyGamerInfo: {fileID: 11400000, guid: 1f4f1a6e0f7582d44871348c8ad69766, type: 2}
-  myGamerInfo: {fileID: 11400000, guid: 1ce4caa01c56c2741b820b7081fcf042, type: 2}
+  enemyGamerInfo: {fileID: 11400000, guid: a81c341e2dfdc5d45a8048f96255b94e, type: 2}
+  myGamerInfo: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}
