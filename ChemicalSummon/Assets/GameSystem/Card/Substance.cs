@@ -43,6 +43,8 @@ public class Substance : ChemicalObject
     [Min(-273.15f)]
     float boilingPoint;
     [SerializeField]
+    bool waterSoluble;
+    [SerializeField]
     TranslatableSentence description;
 
     //data
@@ -88,4 +90,8 @@ public class Substance : ChemicalObject
     /// 是否由单元素组成(能成为卡组牌的条件)
     /// </summary>
     public bool IsFromMonoElement => elements.Count == 1;
+    /// <summary>
+    /// 水溶
+    /// </summary>
+    public bool WaterSoluble => waterSoluble;
 }

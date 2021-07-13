@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Coffee.UIEffects;
 using TMPro;
 
 /// <summary>
@@ -28,7 +27,6 @@ public class SubstanceCard : MonoBehaviour
     Text meltingPointText, boilingPointText;
     [SerializeField]
     Image liquidMark, solidMark, gasMark;
-    UIShadow uiEffect;
 
     //data
     Substance substance;
@@ -131,13 +129,12 @@ public class SubstanceCard : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        uiEffect = GetComponent<UIShadow>();
         cardDrag = GetComponent<CardDrag>();
         CardAmount = 1;
     }
     public void EnableShadow(bool enable)
     {
-        uiEffect.enabled = enable;
+        //TODO: shadow
     }
     public Image GetThreeStateMark(ThreeState threeState)
     {
