@@ -12,6 +12,8 @@ public class Character : ScriptableObject
     int initialHP;
     [SerializeField]
     Sprite faceIcon;
+    [SerializeField]
+    Sprite portrait;
     //data
     /// <summary>
     /// 角色名称
@@ -25,4 +27,8 @@ public class Character : ScriptableObject
     /// 图标-脸
     /// </summary>
     public Sprite FaceIcon => faceIcon;
+    /// <summary>
+    /// 立绘
+    /// </summary>
+    public Sprite Portrait => portrait;
 }
