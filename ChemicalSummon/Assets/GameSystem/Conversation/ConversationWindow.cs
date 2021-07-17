@@ -67,7 +67,7 @@ public class ConversationWindow : MonoBehaviour
     }
     public static void Close()
     {
-        if (IsOpen)
+        if (!IsOpen)
             return;
         Destroy(instance.gameObject);
         instance = null;

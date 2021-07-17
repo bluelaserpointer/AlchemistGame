@@ -91,7 +91,7 @@ MonoBehaviour:
   m_PixelsPerUnitMultiplier: 1
 --- !u!1 &4866181469834681585
 GameObject:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -109,7 +109,7 @@ GameObject:
   m_IsActive: 1
 --- !u!224 &142119115056660574
 RectTransform:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -128,7 +128,7 @@ RectTransform:
   m_Pivot: {x: 0, y: 0.5}
 --- !u!222 &2450271238260244345
 CanvasRenderer:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
@@ -136,7 +136,7 @@ CanvasRenderer:
   m_CullTransparentMesh: 0
 --- !u!114 &7612784135909853925
 MonoBehaviour:
-  m_ObjectHideFlags: 0
+  m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
