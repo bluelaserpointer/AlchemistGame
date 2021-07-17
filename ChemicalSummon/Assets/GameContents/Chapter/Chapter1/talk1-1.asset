@@ -1,0 +1,29 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f26d62173eada74bacf6b3ac9ef09e2, type: 3}
+  m_Name: talk1-1
+  m_EditorClassIdentifier: 
+  speakings:
+  - character: {fileID: 11400000, guid: 9f3e1bd9e8bf5e14698ec45c31e5930d, type: 2}
+    sentence:
+      defaultString: "\u4ECE\u524D\uFF0C\u4E00\u4E2A\u5B81\u9759\u7684\u6751\u5B50\u91CC\uFF0C\u4F4F\u7740\u4E00\u4F4D\u70BC\u91D1\u672F\u58EB\u7684\u5973\u5B69\u3002"
+      languageAndSentences:
+      - language: 2
+        sentence: "\u6614\u3005\u3001\u9759\u304B\u306A\u6751\u306E\u4E2D\u306B\u3001\u4E00\u4EBA\u306E\u932C\u91D1\u8853\u5E2B\u306E\u5973\u306E\u5B50\u304C\u4F4F\u3093\u3067\u3044\u305F\u3002"
+  - character: {fileID: 11400000, guid: 9f3e1bd9e8bf5e14698ec45c31e5930d, type: 2}
+    sentence:
+      defaultString: "\u5979\u56E0\u7ECF\u5E38\u63A2\u7D22\u70BC\u91D1\u7684\u8FC7\u7A0B\u4E2D\u641E\u51FA\u7206\u70B8\uFF0C\u88AB\u79F0\u4E3A\"\u706B\u836F\u7684\u9B54\u5973\""
+      languageAndSentences: []
+  - character: {fileID: 11400000, guid: 00d6169fe0a61a34dafa92d806eebf97, type: 2}
+    sentence:
+      defaultString: "\u6211\u89C9\u5F97\u91D1\u8FD9\u4E2A\u4E1C\u897F\uFF0C\u8FD8\u662F\u9700\u8981\u901A\u8FC7\u7206\u70B8\u83B7\u5F97\uFF01\u6CA1\u8BD5\u8FC7\u7684\u9053\u8DEF\u624D\u5B58\u5728\u7740\u5B9D\u85CF\uFF01"
+      languageAndSentences: []

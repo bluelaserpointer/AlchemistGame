@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -7,7 +8,7 @@ using UnityEngine.Events;
 public class Conversation : ScriptableObject
 {
     [SerializeField]
-    List<Speaking> speakings;
+    List<EventNodeTalk> speakings;
 
-    public List<Speaking> Speakings => speakings;
+    public List<EventNodeTalk> Speakings => speakings;
 }

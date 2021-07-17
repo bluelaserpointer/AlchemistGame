@@ -15,6 +15,7 @@ public class TranslatableSentence
         [TextArea]
         public string sentence;
     }
+    [TextArea]
     public string defaultString = "?missing?";
     public List<LanguageAndSentence> languageAndSentences;
     public override string ToString() {

@@ -2,20 +2,33 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
-/// 模板章节
+/// 章节
 /// </summary>
 [Serializable]
-public abstract class Chapter : ScriptableObject
+public class Chapter : MonoBehaviour
 {
+    [SerializeField]
+    string chapterName;
+    [SerializeField]
+    UnityEvent onChapterStart;
+    public UnityEvent OnChapterStart => onChapterStart;
+    public string Name => chapterName;
     /// <summary>
     /// 判断是否开始章节
     /// </summary>
     /// <returns></returns>
-    public abstract bool JudgeCanStart();
+    public bool JudgeCanStart()
+    {
+        return true; //TODO: edit
+    }
     /// <summary>
     /// 开始章节
     /// </summary>
-    public abstract void Start();
+    public void Start()
+    {
+        OnChapterStart.Invoke();
+    }
 }

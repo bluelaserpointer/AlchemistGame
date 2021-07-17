@@ -24,6 +24,9 @@ public class PlayerSave : MonoBehaviour
     {
         instance = this;
     }
+    //inspector
+    [SerializeField]
+    Canvas dontDestroyCanvas;
     [SerializeField]
     List<Reaction> discoveredReactions;
     [SerializeField]
@@ -33,14 +36,16 @@ public class PlayerSave : MonoBehaviour
     [SerializeField]
     List<Character> allCharacters;
     [SerializeField]
-    Match currentMatch;
+    Match activeMatch;
 
     Deck activeDeck = new Deck();
     List<Deck> standbyDecks = new List<Deck>();
-    public Chapter activeChapter;
-    public List<Chapter> openedChapters = new List<Chapter>();
-    public List<Chapter> allChapters = new List<Chapter>();
+    Chapter activeChapter;
+    List<Chapter> openedChapters = new List<Chapter>();
+    List<Chapter> allChapters = new List<Chapter>();
 
+    //data
+    public static Canvas DontDestroyCanvas => Instance.dontDestroyCanvas;
     /// <summary>
     /// 可用的游戏者
     /// </summary>
@@ -81,24 +86,27 @@ public class PlayerSave : MonoBehaviour
     /// <summary>
     /// 当前战斗
     /// </summary>
-    public static Match CurrentMatch => Instance.currentMatch;
+    public static Match ActiveMatch => Instance.activeMatch;
+    Event activeEvent;
+    /// <summary>
+    /// 激活的事件
+    /// </summary>
+    public static Event ActiveEvent => Instance.activeEvent;
     private void Update()
     {
-        List<Chapter> currentlyOpendedChapters = new List<Chapter>();
         //check new opened chapter
         foreach(Chapter chapter in allChapters)
         {
-            if(chapter.JudgeCanStart())
+            if(!openedChapters.Contains(chapter) && chapter.JudgeCanStart())
             {
-                currentlyOpendedChapters.Add(chapter);
                 openedChapters.Add(chapter);
                 if(activeChapter == null)
                 {
                     activeChapter = chapter;
+                    chapter.Start();
                 }
             }
         }
-        allChapters.RemoveAll(chapter => currentlyOpendedChapters.Contains(chapter));
     }
     /// <summary>
     /// 增加发现的反应式
@@ -116,9 +124,18 @@ public class PlayerSave : MonoBehaviour
     /// 进入战斗
     /// </summary>
     /// <param name="match"></param>
-    public static void GotoMatch(Match match)
+    public static void StartMatch(Match match)
     {
-        Instance.currentMatch = match;
+        Instance.activeMatch = match;
         SceneManager.LoadScene("Match");
+    }
+    public static void StartEvent(Event newEvent) {
+        Instance.activeEvent = Instantiate(newEvent, DontDestroyCanvas.transform);
+        ActiveEvent.Progress();
+    }
+    public static void ProgressActiveEvent()
+    {
+        if (ActiveEvent != null)
+            ActiveEvent.Progress();
     }
 }

@@ -46,7 +46,7 @@ public class MatchManager : ChemicalSummonManager
     /// <summary>
     /// 当前战斗
     /// </summary>
-    public Match Match => PlayerSave.CurrentMatch;
+    public Match Match => PlayerSave.ActiveMatch;
     /// <summary>
     /// 环境温度
     /// </summary>
@@ -115,6 +115,7 @@ public class MatchManager : ChemicalSummonManager
 
     private void Awake()
     {
+        Init();
         instance = this;
         AudioSource audioSource = GetComponent<AudioSource>();
         audioSource.clip = Match.PickRandomBGM();
