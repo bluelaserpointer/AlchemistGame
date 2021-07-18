@@ -12,7 +12,7 @@ public abstract class EventNode : MonoBehaviour
     Text descriptionText;
     Text DescriptionText => descriptionText ?? (descriptionText = GetComponentInChildren<Text>());
     public abstract string PreferredGameObjectName { get; }
-    public Event BelongEvent => transform.parent.GetComponent<Event>();
+    public Event BelongEvent => transform.parent == null ? null : transform.parent.GetComponent<Event>();
     protected void HideDescriptionText(bool cond)
     {
         if(cond)
@@ -27,6 +27,8 @@ public abstract class EventNode : MonoBehaviour
     public abstract void Reach();
     public void OnValidate()
     {
+        if (BelongEvent == null) //prevent change object name in the prefab preview screen
+            return;
         gameObject.name = PreferredGameObjectName;
         OnDataEdit();
     }
