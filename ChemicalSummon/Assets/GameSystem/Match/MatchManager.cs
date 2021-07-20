@@ -43,8 +43,7 @@ public class MatchManager : ChemicalSummonManager
     public Animator animatedTurnPanel;
 
     [Header("Demo&Test")]
-    public UnityEvent onDemoEvent;
-    bool demoEventInvoked = false;
+    public UnityEvent onInit;
 
     //data
     /// <summary>
@@ -117,10 +116,12 @@ public class MatchManager : ChemicalSummonManager
     {
         Init();
         instance = this;
+        //set background and music
         matchNameText.text = Match.Name;
         AudioSource audioSource = GetComponent<AudioSource>();
         audioSource.clip = Match.PickRandomBGM();
         audioSource.Play();
+        Instantiate(Match.BackGround);
         //gamer
         myGamer = new Gamer(Match.MySideCharacter);
         myGamer.deck = new Deck(PlayerSave.ActiveDeck);
@@ -134,16 +135,13 @@ public class MatchManager : ChemicalSummonManager
         EnemyField.SetInteractable(false);
         MyField.cardsChanged.AddListener(fieldCardsChanged.Invoke);
         EnemyField.cardsChanged.AddListener(fieldCardsChanged.Invoke);
-        //set background
-        Instantiate(Match.BackGround);
-    }
-    // Update is called once per frame
-    void Update()
-    {
-        if(!demoEventInvoked)
+        //demo
+        onInit.Invoke();
+        //initial draw
+        for (int i = 0; i < 5; ++i)
         {
-            demoEventInvoked = true;
-            onDemoEvent.Invoke();
+            MyGamerStatusUI.DrawCard();
+            EnemyGamerStatusUI.DrawCard();
         }
     }
     /// <summary>

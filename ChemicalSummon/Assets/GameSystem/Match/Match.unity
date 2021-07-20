@@ -4174,7 +4174,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   animatedTurnPanel: {fileID: 1124459156}
-  onDemoEvent:
+  onInit:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1205043621}
