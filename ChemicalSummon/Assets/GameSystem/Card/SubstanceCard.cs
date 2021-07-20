@@ -48,6 +48,7 @@ public class SubstanceCard : MonoBehaviour
                 atk = OriginalATK;
                 def = OriginalDEF;
                 attackText.text = atk.ToString();
+                molText.text = substance.GetMol().ToString();
             }
         }
     }

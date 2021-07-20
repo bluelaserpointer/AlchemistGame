@@ -83,6 +83,19 @@ public class Substance : ChemicalObject
         return null;
     }
     /// <summary>
+    /// 计算Mol量
+    /// </summary>
+    /// <returns></returns>
+    public int GetMol()
+    {
+        int mol = 0;
+        foreach(ElementAndAmount elementAndAmount in elements)
+        {
+            mol += elementAndAmount.element.Mol;
+        }
+        return mol;
+    }
+    /// <summary>
     /// 说明
     /// </summary>
     public TranslatableSentence Description => description;
