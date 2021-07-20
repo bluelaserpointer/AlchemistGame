@@ -19,16 +19,20 @@ public class MatchManager : ChemicalSummonManager
     [SerializeField]
     HandCardsArrange handCards;
 
-    [Header("Table(Field)")]
+    [Header("Field")]
     [SerializeField]
-    MatchTable table;
+    CardField myField;
     [SerializeField]
-    CardGamerStatusUI cardGamerStatusUI;
+    CardField enemyField;
+    [SerializeField]
+    GamerStatusUI myGamerStatusUI;
     [SerializeField]
     GamerStatusUI enemyGamerStatusUI;
     public UnityEvent fieldCardsChanged;
 
     [Header("Info")]
+    [SerializeField]
+    Text matchNameText;
     [SerializeField]
     CardInfoDisplay cardInfoDisplay;
 
@@ -61,17 +65,13 @@ public class MatchManager : ChemicalSummonManager
     /// </summary>
     public static Gamer EnemyGamer => instance.enemyGamer;
     /// <summary>
-    /// 对战桌面
-    /// </summary>
-    public static MatchTable Table => instance.table;
-    /// <summary>
     /// 我方场地
     /// </summary>
-    public static CardField MyField => (CardField)Table.myField;
+    public static CardField MyField => instance.myField;
     /// <summary>
     /// 敌方场地
     /// </summary>
-    public static Field EnemyField => Table.enemyField;
+    public static CardField EnemyField => instance.enemyField;
     /// <summary>
     /// 我方手牌
     /// </summary>
@@ -79,7 +79,7 @@ public class MatchManager : ChemicalSummonManager
     /// <summary>
     /// 我方信息栏
     /// </summary>
-    public static CardGamerStatusUI MyGamerStatusUI => instance.cardGamerStatusUI;
+    public static GamerStatusUI MyGamerStatusUI => instance.myGamerStatusUI;
     /// <summary>
     /// 敌方信息栏
     /// </summary>
@@ -117,14 +117,17 @@ public class MatchManager : ChemicalSummonManager
     {
         Init();
         instance = this;
+        matchNameText.text = Match.Name;
         AudioSource audioSource = GetComponent<AudioSource>();
         audioSource.clip = Match.PickRandomBGM();
         audioSource.Play();
         //gamer
         myGamer = new Gamer(Match.MySideCharacter);
+        myGamer.deck = new Deck(PlayerSave.ActiveDeck);
         enemyGamer = new Gamer(Match.EnemySideCharacter);
-        MyGamerStatusUI.gamer = myGamer;
-        EnemyGamerStatusUI.gamer = enemyGamer;
+        enemyGamer.deck = new Deck(); // Load enemy deck from match data
+        MyGamerStatusUI.Gamer = myGamer;
+        EnemyGamerStatusUI.Gamer = enemyGamer;
         onMyTurnStart.AddListener(MyGamerStatusUI.OnTurnStart);
         onEnemyTurnStart.AddListener(EnemyGamerStatusUI.OnTurnStart);
         MyField.SetInteractable(true);

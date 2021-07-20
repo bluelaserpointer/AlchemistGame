@@ -24,6 +24,6 @@ public class AttackableFace : MonoBehaviour, IAttackable
     }
     public void Attack(SubstanceCard card)
     {
-        Gamer.hp -= card.atk;
+        Gamer.HP -= card.atk;
     }
 }

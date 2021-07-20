@@ -18,7 +18,7 @@ public class TextAndGauge : MonoBehaviour
     public string textSuffix;
     [SerializeField]
     bool showValueRateAsSuffix;
-    [Header("UI Target (Do not change)")]
+    [Header("UI Target")]
     public Slider slider;
     public TextMeshProUGUI text;
 

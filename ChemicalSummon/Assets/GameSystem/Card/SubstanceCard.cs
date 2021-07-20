@@ -14,7 +14,7 @@ public class SubstanceCard : MonoBehaviour
     [SerializeField]
     Text nameText;
     [SerializeField]
-    TextMeshProUGUI amountText;
+    Text amountText;
     [SerializeField]
     Text symbolText;
     [SerializeField]
@@ -25,8 +25,6 @@ public class SubstanceCard : MonoBehaviour
     TextMeshProUGUI attackText;
     [SerializeField]
     Text meltingPointText, boilingPointText;
-    [SerializeField]
-    Image liquidMark, solidMark, gasMark;
 
     //data
     Substance substance;
@@ -119,13 +117,9 @@ public class SubstanceCard : MonoBehaviour
     /// </summary>
     public bool InShieldSlot => Slot.GetType().Equals(typeof(ShieldCardSlot));
     /// <summary>
-    /// 在预留区(不考虑敌我)
-    /// </summary>
-    public bool InStandbySlot => Slot.GetType().Equals(typeof(StandbyCardSlot));
-    /// <summary>
     /// 在场地(不考虑敌我)
     /// </summary>
-    public bool InField => InShieldSlot || InStandbySlot;
+    public bool InField => InShieldSlot;
     // Start is called before the first frame update
     void Awake()
     {
@@ -135,19 +129,6 @@ public class SubstanceCard : MonoBehaviour
     public void EnableShadow(bool enable)
     {
         //TODO: shadow
-    }
-    public Image GetThreeStateMark(ThreeState threeState)
-    {
-        switch (threeState)
-        {
-            case ThreeState.Liquid:
-                return liquidMark;
-            case ThreeState.Solid:
-                return solidMark;
-            case ThreeState.Gas:
-                return gasMark;
-        }
-        return null;
     }
     public void UpdateThreeState()
     {
@@ -175,8 +156,6 @@ public class SubstanceCard : MonoBehaviour
         }
         if(init || !threeState.Equals(newThreeState))
         {
-            GetThreeStateMark(threeState).color = Color.white;
-            GetThreeStateMark(threeState = newThreeState).color = Color.yellow;
             cardImage.sprite = Image;
         }
     }

@@ -5,12 +5,12 @@ using UnityEngine;
 public class CallCardStockEnd : MonoBehaviour
 {
     [SerializeField]
-    CardGamerStatusUI cardPlayerStatusUI;
+    GamerStatusUI cardPlayerStatusUI;
     /// <summary>
-    /// 抽卡动画结束事件
+    /// (deprecated)抽卡动画结束事件
     /// </summary>
-    void CardStockEvent()
+    /*void CardStockEvent()
     {
         cardPlayerStatusUI.OnCardStock();
-    }
+    }*/
 }

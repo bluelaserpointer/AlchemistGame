@@ -10,16 +10,13 @@ public class CardField : Field
 {
     [SerializeField]
     List<ShieldCardSlot> shieldCardSlots;
-    [SerializeField]
-    List<StandbyCardSlot> standbyCardSlots;
     /// <summary>
     /// 格挡区卡槽
     /// </summary>
     public List<ShieldCardSlot> ShieldCardSlots => shieldCardSlots;
     /// <summary>
-    /// 预留区卡槽
+    /// 对手可见卡牌(在于格挡区)
     /// </summary>
-    public List<StandbyCardSlot> StandbyCardSlots => standbyCardSlots;
     public override List<SubstanceCard> ExposedCards {
         get
         {
@@ -39,6 +36,5 @@ public class CardField : Field
     public override void SetInteractable(bool interactable)
     {
         ShieldCardSlots.ForEach(slot => slot.interactable = interactable);
-        StandbyCardSlots.ForEach(slot => slot.interactable = interactable);
     }
 }

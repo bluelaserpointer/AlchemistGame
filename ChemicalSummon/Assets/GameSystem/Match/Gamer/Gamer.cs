@@ -1,12 +1,38 @@
 ﻿using System;
+using UnityEngine.Events;
+
 public class Gamer
 {
-    public float hp;
     public readonly Character character;
+    public Deck deck;
+    int hp;
+    int mol;
     /// <summary>
     /// 体力初始值
     /// </summary>
     public int InitialHP => character.InitialHP;
+    UnityEvent onHPChange = new UnityEvent();
+    UnityEvent onMolChange = new UnityEvent();
+    public UnityEvent OnHPChange => onHPChange;
+    public UnityEvent OnMolChange => onMolChange;
+    public int HP
+    {
+        get => hp;
+        set
+        {
+            hp = value;
+            OnHPChange.Invoke();
+        }
+    }
+    public int Mol
+    {
+        get => mol;
+        set
+        {
+            mol = value;
+            onMolChange.Invoke();
+        }
+    }
     /// <summary>
     /// 是我方玩家
     /// </summary>
