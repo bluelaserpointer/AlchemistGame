@@ -66,9 +66,9 @@ public class GamerStatusUI : MonoBehaviour
     public int CardDrawProcess => drawCardAnimator.GetInteger("CardDrawProcess");
     SubstanceCard currentDrawingCard;
     /// <summary>
-    /// (deprecated )刚刚抽到的卡牌
+    /// 最后抽到的卡牌
     /// </summary>
-    public SubstanceCard CurrentDrawingCard => currentDrawingCard;
+    public SubstanceCard LastDrawingCard => currentDrawingCard;
     public void DrawCard()
     {
         if (Deck.CardCount > 0)
@@ -78,8 +78,17 @@ public class GamerStatusUI : MonoBehaviour
             if (duplicatedCardTf == null)
                 MatchManager.HandCards.Add(currentDrawingCard.gameObject);
             else
-                duplicatedCardTf.GetComponent<SubstanceCard>().UnionSameCard(CurrentDrawingCard);
+                duplicatedCardTf.GetComponent<SubstanceCard>().UnionSameCard(LastDrawingCard);
         }
+    }
+    /// <summary>
+    /// 解放卡牌(回收摩尔能量)
+    /// </summary>
+    /// <param name="substanceCard"></param>
+    public void ReleaseCard(SubstanceCard substanceCard)
+    {
+        Destroy(substanceCard.gameObject);
+        gamer.Mol += substanceCard.Mol * substanceCard.CardAmount;
     }
     /// <summary>
     /// 回合开始时事件

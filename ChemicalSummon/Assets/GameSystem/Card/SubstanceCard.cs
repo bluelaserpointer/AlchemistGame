@@ -89,6 +89,7 @@ public class SubstanceCard : MonoBehaviour
     /// 卡牌图片
     /// </summary>
     public Sprite Image => Substance.GetImage(threeState);
+    public int Mol => substance.GetMol();
     /// <summary>
     /// 攻击力(最新值)
     /// </summary>
