@@ -85,7 +85,7 @@ public class CardDrag : Draggable
                 continue;
             }
             //attack face
-            AttackableFace face = hitUI.GetComponent<AttackableFace>();
+            AttackableGamer face = hitUI.GetComponent<AttackableGamer>();
             if (face != null)
             {
                 if (face.AllowAttack(substanceCard)) {

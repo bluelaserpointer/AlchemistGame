@@ -3,7 +3,7 @@
 /// <summary>
 /// 可攻击部位
 /// </summary>
-public class AttackableFace : MonoBehaviour, IAttackable
+public class AttackableGamer : MonoBehaviour, IAttackable
 {
     Field field;
     /// <summary>
@@ -16,7 +16,7 @@ public class AttackableFace : MonoBehaviour, IAttackable
     public Gamer Gamer => Field.Gamer;
     private void Awake()
     {
-        field = GetComponentInParent<Field>();
+        field = GetComponent<Field>();
     }
     public bool AllowAttack(SubstanceCard card)
     {
