@@ -17,6 +17,8 @@ public class Match : ScriptableObject
     BGMRandomChooser bgmSets;
     [SerializeField]
     Character enemySideCharacter;
+    [SerializeField]
+    List<Substance> enemyDeck;
 
     /// <summary>
     /// 战斗名
@@ -34,6 +36,10 @@ public class Match : ScriptableObject
     /// 敌方游戏者信息
     /// </summary>
     public Character EnemySideCharacter => enemySideCharacter;
+    /// <summary>
+    /// 敌方卡组
+    /// </summary>
+    public List<Substance> EnemyDeck => enemyDeck;
     public AudioClip PickRandomBGM() {
         return bgmSets == null ? null : bgmSets.PickRandom();
     }

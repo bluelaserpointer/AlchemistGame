@@ -126,7 +126,7 @@ public class MatchManager : ChemicalSummonManager
         myGamer = new Gamer(Match.MySideCharacter);
         myGamer.deck = new Deck(PlayerSave.ActiveDeck);
         enemyGamer = new Gamer(Match.EnemySideCharacter);
-        enemyGamer.deck = new Deck(); // Load enemy deck from match data
+        enemyGamer.deck = new Deck(Match.EnemyDeck);
         MyGamerStatusUI.Gamer = myGamer;
         EnemyGamerStatusUI.Gamer = enemyGamer;
         onMyTurnStart.AddListener(MyGamerStatusUI.OnTurnStart);
