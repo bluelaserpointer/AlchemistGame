@@ -936,7 +936,7 @@ RectTransform:
   m_GameObject: {fileID: 408298021}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 693492777}
   m_RootOrder: 0
@@ -1144,7 +1144,7 @@ MonoBehaviour:
   arrangeAngleSpan: 15
   cardAngleSpan: 5
   fixCardLocalScale: 1
-  cardLocalScale: {x: 1, y: 1, z: 1}
+  cardLocalScale: {x: 1.6, y: 1.6, z: 1.6}
 --- !u!1 &494407426
 GameObject:
   m_ObjectHideFlags: 0
@@ -1292,7 +1292,7 @@ RectTransform:
   m_GameObject: {fileID: 505640021}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 4759302606383170541}
   m_RootOrder: 1
@@ -2843,7 +2843,7 @@ RectTransform:
   m_GameObject: {fileID: 1122239893}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 693492777}
   m_RootOrder: 1
@@ -3553,7 +3553,7 @@ RectTransform:
   m_GameObject: {fileID: 1377545761}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 4759302606383170541}
   m_RootOrder: 2
@@ -3730,7 +3730,7 @@ RectTransform:
   m_GameObject: {fileID: 1443336853}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 693492777}
   m_RootOrder: 2
@@ -6382,7 +6382,7 @@ RectTransform:
   m_GameObject: {fileID: 4393528545626824816}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.2, y: 1.2, z: 1}
   m_Children: []
   m_Father: {fileID: 4759302606383170541}
   m_RootOrder: 0
