@@ -935,7 +935,7 @@ GameObject:
   - component: {fileID: 4286407852962979985}
   - component: {fileID: 4286407852962979984}
   m_Layer: 5
-  m_Name: MolSizeTextArea
+  m_Name: MolTextArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
