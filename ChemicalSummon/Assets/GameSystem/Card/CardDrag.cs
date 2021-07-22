@@ -85,7 +85,7 @@ public class CardDrag : Draggable
                 continue;
             }
             //release card to mol
-            if(hitUI.name.Equals("MolTextArea"))
+            if(hitUI.Equals(MatchManager.MySideStatusUI.StatusPanels.MolPanel.gameObject))
             {
                 MatchManager.MySideStatusUI.ReleaseCard(substanceCard);
                 return;
