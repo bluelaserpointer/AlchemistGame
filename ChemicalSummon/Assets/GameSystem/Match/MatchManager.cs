@@ -15,9 +15,6 @@ public class MatchManager : ChemicalSummonManager
     public static MatchManager instance;
 
     //inspector
-    [Header("HandCards")]
-    [SerializeField]
-    HandCardsArrange handCards;
 
     [Header("Field")]
     [SerializeField]
@@ -25,9 +22,9 @@ public class MatchManager : ChemicalSummonManager
     [SerializeField]
     CardField enemyField;
     [SerializeField]
-    GamerStatusUI myGamerStatusUI;
+    MySideStatusUI mySideStatusUI;
     [SerializeField]
-    GamerStatusUI enemyGamerStatusUI;
+    EnemySideStatusUI enemySideStatusUI;
     public UnityEvent fieldCardsChanged;
 
     [Header("Info")]
@@ -74,15 +71,15 @@ public class MatchManager : ChemicalSummonManager
     /// <summary>
     /// 我方手牌
     /// </summary>
-    public static HandCardsArrange HandCards => instance.handCards;
+    public static HandCardsArrange MyHandCards => MySideStatusUI.HandCards;
     /// <summary>
     /// 我方信息栏
     /// </summary>
-    public static GamerStatusUI MyGamerStatusUI => instance.myGamerStatusUI;
+    public static MySideStatusUI MySideStatusUI => instance.mySideStatusUI;
     /// <summary>
     /// 敌方信息栏
     /// </summary>
-    public static GamerStatusUI EnemyGamerStatusUI => instance.enemyGamerStatusUI;
+    public static EnemySideStatusUI EnemySideStatusUI => instance.enemySideStatusUI;
     int turn;
     /// <summary>
     /// 卡牌信息栏
@@ -127,10 +124,10 @@ public class MatchManager : ChemicalSummonManager
         myGamer.deck = new Deck(PlayerSave.ActiveDeck);
         enemyGamer = new Gamer(Match.EnemySideCharacter);
         enemyGamer.deck = new Deck(Match.EnemyDeck);
-        MyGamerStatusUI.Gamer = myGamer;
-        EnemyGamerStatusUI.Gamer = enemyGamer;
-        onMyTurnStart.AddListener(MyGamerStatusUI.OnTurnStart);
-        onEnemyTurnStart.AddListener(EnemyGamerStatusUI.OnTurnStart);
+        MySideStatusUI.Gamer = myGamer;
+        EnemySideStatusUI.Gamer = enemyGamer;
+        onMyTurnStart.AddListener(MySideStatusUI.OnTurnStart);
+        onEnemyTurnStart.AddListener(EnemySideStatusUI.OnTurnStart);
         MyField.SetInteractable(true);
         EnemyField.SetInteractable(false);
         MyField.cardsChanged.AddListener(fieldCardsChanged.Invoke);
@@ -140,8 +137,8 @@ public class MatchManager : ChemicalSummonManager
         //initial draw
         for (int i = 0; i < 5; ++i)
         {
-            MyGamerStatusUI.DrawCard();
-            EnemyGamerStatusUI.DrawCard();
+            MySideStatusUI.DrawCard();
+            EnemySideStatusUI.DrawCard();
         }
     }
     /// <summary>

@@ -1,28 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 /// <summary>
 /// 游戏者战斗中信息栏
 /// </summary>
-public class GamerStatusUI : MonoBehaviour
+public abstract class GamerStatusUI : MonoBehaviour
 {
     //inspecter
     [SerializeField]
     Image faceImage;
     [SerializeField]
-    Text HPText;
-    [SerializeField]
-    Text lestCardsText;
-    [SerializeField]
-    Text molText;
-    [SerializeField]
-    Text skillText;
-
-    [Header("Animation")]
-    public Animator drawCardAnimator;
-
+    StatusPanels statusPanels;
+    public StatusPanels StatusPanels => statusPanels;
     //data
     protected Gamer gamer;
     /// <summary>
@@ -36,34 +28,25 @@ public class GamerStatusUI : MonoBehaviour
             if (gamer == value)
                 return;
             gamer = value;
+            statusPanels.Gamer = gamer;
             UpdateUI();
         }
     }
+    public bool IsMySide => gamer.IsMe;
+    public bool IsEnemySide => gamer.IsEnemy;
     protected void UpdateUI()
     {
         if (gamer != null)
         {
             faceImage.sprite = gamer.character.FaceIcon;
-            HPText.text = gamer.HP.ToString();
-            molText.text = gamer.Mol.ToString();
-            gamer.OnHPChange.AddListener(() => HPText.text = gamer.HP.ToString());
-            gamer.OnMolChange.AddListener(() => molText.text = gamer.Mol.ToString());
         }
         else
         {
             faceImage.sprite = null;
-            HPText.text = "--";
         }
     }
-    //data
     public Deck Deck => gamer.deck;
 
-    private void Start()
-    {
-        Deck.onCardCountChange.AddListener(() => lestCardsText.text = Deck.CardCount.ToString());
-        lestCardsText.text = Deck.CardCount.ToString();
-    }
-    public int CardDrawProcess => drawCardAnimator.GetInteger("CardDrawProcess");
     SubstanceCard currentDrawingCard;
     /// <summary>
     /// 最后抽到的卡牌
@@ -73,13 +56,36 @@ public class GamerStatusUI : MonoBehaviour
     {
         if (Deck.CardCount > 0)
         {
-            currentDrawingCard = Deck.DrawRandomCard();
-            Transform duplicatedCardTf = MatchManager.HandCards.FindCard(card => card.GetComponent<SubstanceCard>().Substance.Equals(currentDrawingCard.Substance));
-            if (duplicatedCardTf == null)
-                MatchManager.HandCards.Add(currentDrawingCard.gameObject);
-            else
-                duplicatedCardTf.GetComponent<SubstanceCard>().UnionSameCard(LastDrawingCard);
+            AddHandCard(currentDrawingCard = Deck.DrawRandomCard());
         }
+    }
+    public SubstanceCard FindHandCard(Substance substance)
+    {
+        return gamer.handCards.Find(card => card.Substance.Equals(substance));
+    }
+    public SubstanceCard FindHandCard(SubstanceCard substanceCard)
+    {
+        return gamer.handCards.Find(card => card.IsSameSubstance(substanceCard));
+    }
+    /// <summary>
+    /// 加入手牌
+    /// </summary>
+    /// <param name="substanceCard"></param>
+    public virtual void AddHandCard(SubstanceCard substanceCard)
+    {
+        SubstanceCard duplicatedCard = FindHandCard(substanceCard);
+        if (duplicatedCard == null)
+            gamer.handCards.Add(substanceCard);
+        else
+            duplicatedCard.UnionSameCard(LastDrawingCard);
+    }
+    public void RemoveHandCard(Substance substance)
+    {
+       RemoveHandCard(FindHandCard(substance));
+    }
+    public virtual bool RemoveHandCard(SubstanceCard substanceCard)
+    {
+        return gamer.handCards.Remove(substanceCard);
     }
     /// <summary>
     /// 解放卡牌(回收摩尔能量)
@@ -89,6 +95,19 @@ public class GamerStatusUI : MonoBehaviour
     {
         Destroy(substanceCard.gameObject);
         gamer.Mol += substanceCard.Mol * substanceCard.CardAmount;
+    }
+    /// <summary>
+    /// 手牌总数
+    /// </summary>
+    /// <returns></returns>
+    public int GetHandCardCount()
+    {
+        int count = 0;
+        foreach(SubstanceCard card in Gamer.handCards)
+        {
+            count += card.CardAmount;
+        }
+        return count;
     }
     /// <summary>
     /// 回合开始时事件

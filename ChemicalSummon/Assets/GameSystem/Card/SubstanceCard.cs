@@ -111,10 +111,6 @@ public class SubstanceCard : MonoBehaviour
     public string Description => Substance.Description.ToString();
     //information
     /// <summary>
-    /// 在手牌中
-    /// </summary>
-    public bool InHand => transform.parent.Equals(MatchManager.HandCards);
-    /// <summary>
     /// 在格挡区(不考虑敌我)
     /// </summary>
     public bool InShieldSlot => Slot.GetType().Equals(typeof(ShieldCardSlot));
@@ -169,6 +165,10 @@ public class SubstanceCard : MonoBehaviour
     {
         CardAmount += substanceCard.CardAmount;
         Destroy(substanceCard.gameObject);
+    }
+    public bool IsSameSubstance(SubstanceCard substanceCard)
+    {
+        return substance.Equals(substanceCard.substance);
     }
     static SubstanceCard baseSubstanceCard;
     /// <summary>

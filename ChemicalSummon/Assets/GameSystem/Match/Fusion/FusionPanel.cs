@@ -43,7 +43,7 @@ public class FusionPanel : MonoBehaviour
                     {
                         SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.substance);
                         newCard.CardAmount = pair.amount;
-                        MatchManager.HandCards.Add(newCard.gameObject);
+                        MatchManager.MySideStatusUI.AddHandCard(newCard);
                     }
                 });
             }

@@ -1,10 +1,15 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine.Events;
 
 public class Gamer
 {
     public readonly Character character;
+    /// <summary>
+    /// 卡组
+    /// </summary>
     public Deck deck;
+    public List<SubstanceCard> handCards = new List<SubstanceCard>();
     int hp;
     int mol;
     /// <summary>
