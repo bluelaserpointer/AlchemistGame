@@ -11,6 +11,10 @@ public class CardSlot : ObjectSlot, IAttackable
     /// 所属场地
     /// </summary>
     public Field Field => field;
+
+    float heatTempreture;
+    public float HeatTempreture => heatTempreture;
+    public float Tempreture => MatchManager.DefaultTempreture + HeatTempreture;
     /// <summary>
     /// 属于我方卡槽
     /// </summary>

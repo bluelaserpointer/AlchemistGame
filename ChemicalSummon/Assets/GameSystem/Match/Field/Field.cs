@@ -34,6 +34,7 @@ public abstract class Field : MonoBehaviour
             return null;
         }
     }
+    public CardSlot[] Slots => GetComponentsInChildren<CardSlot>();
     /// <summary>
     /// 所有卡牌
     /// </summary>
@@ -41,7 +42,7 @@ public abstract class Field : MonoBehaviour
         get
         {
             List<SubstanceCard> cards = new List<SubstanceCard>();
-            foreach (CardSlot slot in GetComponentsInChildren<CardSlot>())
+            foreach (CardSlot slot in Slots)
             {
                 SubstanceCard card = slot.Card;
                 if (card != null)
@@ -56,11 +57,6 @@ public abstract class Field : MonoBehaviour
     /// 已暴露卡牌(通常指存在于格挡区的卡牌，能被对方用作反应素材)
     /// </summary>
     public abstract List<SubstanceCard> ExposedCards { get; }
-    /// <summary>
-    /// 设置是否可交互(回合切换等情况使用)
-    /// </summary>
-    /// <param name="interactable"></param>
-    public abstract void SetInteractable(bool interactable);
     /// <summary>
     /// 查看物质卡
     /// </summary>

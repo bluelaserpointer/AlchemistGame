@@ -18,7 +18,7 @@ public class Player : Gamer
             HandCardsDisplay.Add(substanceCard.gameObject);
         }
         else
-            duplicatedCard.UnionSameCard(LastDrawingCard);
+            duplicatedCard.UnionSameCard(substanceCard);
         OnHandCardsChanged.Invoke();
     }
     public override bool RemoveHandCard(SubstanceCard substanceCard)

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 using UnityEngine.UI;
+
 /// <summary>
 /// 所有战斗内公用功能的集合
 ///  - 寻找物体(我方手牌、我方信息栏...)
@@ -15,7 +16,6 @@ public class MatchManager : ChemicalSummonManager
     public static MatchManager instance;
 
     //inspector
-
     [Header("Field")]
     [SerializeField]
     CardField myField;
@@ -36,8 +36,10 @@ public class MatchManager : ChemicalSummonManager
 
     [Header("Turn")]
     public Text turnText;
-    public UnityEvent onMyTurnStart;
-    public UnityEvent onEnemyTurnStart;
+    public UnityEvent onMyFusionTurnStart;
+    public UnityEvent onEnemyFusionTurnStart;
+    public UnityEvent onMyAttackTurnStart;
+    public UnityEvent onEnemyAttackTurnStart;
     public Animator animatedTurnPanel;
 
     [Header("Demo&Test")]
@@ -72,6 +74,12 @@ public class MatchManager : ChemicalSummonManager
     /// 敌方信息栏
     /// </summary>
     public static Enemy Enemy => instance.enemy;
+    public enum TurnType
+    {
+        MyFusionTurn, MyAttackTurn, EnemyFusionTurn, EnemyAttackTurn
+    }
+    TurnType currentTurnType;
+    public static TurnType CurrentTurnType => instance.currentTurnType;
     int turn;
     /// <summary>
     /// 卡牌信息栏
@@ -80,27 +88,7 @@ public class MatchManager : ChemicalSummonManager
     /// <summary>
     /// 回合
     /// </summary>
-    public static int Turn
-    {
-        get => instance.turn;
-        set
-        {
-            if (instance.turn != value)
-            {
-                instance.turn = value;
-                instance.turnText.text = "Turn " + value;
-                instance.isMyTurn = !instance.isMyTurn;
-                instance.animatedTurnPanel.GetComponentInChildren<Text>().text = instance.isMyTurn ? "你的回合" : "敌方回合";
-                instance.animatedTurnPanel.GetComponent<AnimationStopper>().Play();
-            }
-        }
-    }
-    bool isMyTurn = true;
-    /// <summary>
-    /// 是我方回合
-    /// </summary>
-    public static bool IsMyTurn => instance.isMyTurn;
-
+    public static int Turn => instance.turn;
     private void Awake()
     {
         Init();
@@ -114,10 +102,10 @@ public class MatchManager : ChemicalSummonManager
         //gamer
         Player.Init(Match.MySideCharacter, new Deck(PlayerSave.ActiveDeck));
         Enemy.Init(Match.EnemySideCharacter, new Deck(Match.EnemyDeck));
-        onMyTurnStart.AddListener(Player.OnTurnStart);
-        onEnemyTurnStart.AddListener(Enemy.OnTurnStart);
-        MyField.SetInteractable(true);
-        EnemyField.SetInteractable(false);
+        onMyFusionTurnStart.AddListener(Player.OnFusionTurnStart);
+        onEnemyFusionTurnStart.AddListener(Enemy.OnFusionTurnStart);
+        onMyAttackTurnStart.AddListener(Player.OnAttackTurnStart);
+        onEnemyAttackTurnStart.AddListener(Enemy.OnAttackTurnStart);
         MyField.cardsChanged.AddListener(fusionPanel.UpdateList);
         Player.OnHandCardsChanged.AddListener(fusionPanel.UpdateList);
         //demo
@@ -140,7 +128,58 @@ public class MatchManager : ChemicalSummonManager
     /// </summary>
     public void TurnEnd_nonstatic()
     {
-        ++Turn;
-        (IsMyTurn ? onMyTurnStart : onEnemyTurnStart).Invoke();
+        ++turn;
+        if(turn == 0)
+        {
+            currentTurnType = TurnType.MyFusionTurn;
+        }
+        else if (turn == 1)
+        {
+            currentTurnType = TurnType.EnemyFusionTurn;
+        }
+        else
+        {
+            switch((turn - 2) % 4)
+            {
+                case 0:
+                    currentTurnType = TurnType.MyFusionTurn;
+                    break;
+                case 1:
+                    currentTurnType = TurnType.MyAttackTurn;
+                    break;
+                case 2:
+                    currentTurnType = TurnType.EnemyFusionTurn;
+                    break;
+                case 3:
+                    currentTurnType = TurnType.EnemyAttackTurn;
+                    break;
+            }
+        }
+        turnText.text = "Turn " + turn;
+        string turnMessage;
+        switch (CurrentTurnType)
+        {
+            case TurnType.MyFusionTurn:
+                onMyFusionTurnStart.Invoke();
+                turnMessage = "我方融合";
+                break;
+            case TurnType.MyAttackTurn:
+                onMyAttackTurnStart.Invoke();
+                turnMessage = "我方攻击";
+                break;
+            case TurnType.EnemyFusionTurn:
+                onEnemyFusionTurnStart.Invoke();
+                turnMessage = "敌方融合";
+                break;
+            case TurnType.EnemyAttackTurn:
+                onEnemyAttackTurnStart.Invoke();
+                turnMessage = "敌方攻击";
+                break;
+            default:
+                turnMessage = "";
+                break;
+        }
+        animatedTurnPanel.GetComponentInChildren<Text>().text = turnMessage;
+        animatedTurnPanel.GetComponent<AnimationStopper>().Play();
     }
 }

@@ -32,9 +32,4 @@ public class CardField : Field
             return exposedCards;
         }
     }
-
-    public override void SetInteractable(bool interactable)
-    {
-        ShieldCardSlots.ForEach(slot => slot.interactable = interactable);
-    }
 }

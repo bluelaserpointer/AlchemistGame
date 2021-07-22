@@ -12,6 +12,9 @@ public class SubstanceCard : MonoBehaviour
 {
     //inspector
     [SerializeField]
+    CardDrag cardDrag;
+
+    [SerializeField]
     Text nameText;
     [SerializeField]
     Text amountText;
@@ -44,10 +47,8 @@ public class SubstanceCard : MonoBehaviour
                 //molText.text = Mol;
                 meltingPointText.text = substance.MeltingPoint.ToString() + "℃";
                 boilingPointText.text = substance.BoilingPoint.ToString() + "℃";
-                InitThreeState();
-                atk = OriginalATK;
-                def = OriginalDEF;
-                attackText.text = atk.ToString();
+                cardImage.sprite = Image;
+                attackText.text = ATK.ToString();
                 molText.text = substance.GetMol().ToString();
             }
         }
@@ -62,17 +63,22 @@ public class SubstanceCard : MonoBehaviour
         set {
             cardAmount = value;
             amountText.text = "x" + cardAmount.ToString();
+            attackText.text = ATK.ToString();
         }
     }
-    /// <summary>
-    /// 挪动组件
-    /// </summary>
-    CardDrag cardDrag;
     Gamer gamer;
     /// <summary>
     /// 所属游戏者
     /// </summary>
     public Gamer Gamer => gamer;
+    /// <summary>
+    /// 我方卡牌
+    /// </summary>
+    public bool IsMySide => Gamer.Equals(MatchManager.Player);
+    /// <summary>
+    /// 敌方卡牌
+    /// </summary>
+    public bool IsEnemySide => Gamer.Equals(MatchManager.Enemy);
     /// <summary>
     /// 所在卡槽
     /// </summary>
@@ -93,18 +99,20 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 卡牌图片
     /// </summary>
-    public Sprite Image => Substance.GetImage(threeState);
+    public Sprite Image => Substance.Image;
+    /// <summary>
+    /// 摩尔
+    /// </summary>
     public int Mol => substance.GetMol();
     /// <summary>
     /// 攻击力(最新值)
     /// </summary>
-    [HideInInspector]
-    public int atk;
+    public int ATK => OriginalATK * CardAmount;
     /// <summary>
     /// 防御力(最新值)
     /// </summary>
     [HideInInspector]
-    public int def;
+    public int DEF => OriginalDEF * CardAmount;
     /// <summary>
     /// 原本攻击力
     /// </summary>
@@ -127,12 +135,6 @@ public class SubstanceCard : MonoBehaviour
     /// 在场地(不考虑敌我)
     /// </summary>
     public bool InField => InShieldSlot;
-    // Start is called before the first frame update
-    void Awake()
-    {
-        cardDrag = GetComponent<CardDrag>();
-        CardAmount = 1;
-    }
     public void EnableShadow(bool enable)
     {
         //TODO: shadow
@@ -147,24 +149,20 @@ public class SubstanceCard : MonoBehaviour
     }
     void UpdateThreeState(bool init)
     {
-        float tempreture = MatchManager.DefaultTempreture;
-        ThreeState newThreeState;
+        ThreeState newThreeState = GetStateInTempreture(Slot.Tempreture);
+        //TODO: if changed to non-solid state remove from shild slot
+    }
+    public ThreeState GetStateInTempreture(float tempreture)
+    {
         if (tempreture < Substance.MeltingPoint)
         {
-            newThreeState = ThreeState.Solid;
+            return ThreeState.Solid;
         }
         else if (tempreture < Substance.BoilingPoint)
         {
-            newThreeState = ThreeState.Liquid;
+            return ThreeState.Liquid;
         }
-        else
-        {
-            newThreeState = ThreeState.Gas;
-        }
-        if(init || !threeState.Equals(newThreeState))
-        {
-            cardImage.sprite = Image;
-        }
+        return ThreeState.Gas;
     }
     /// <summary>
     /// 合并同种类的卡(不会检查是否同种类)
@@ -193,7 +191,10 @@ public class SubstanceCard : MonoBehaviour
         }
         SubstanceCard card = Instantiate(baseSubstanceCard);
         card.Substance = substance;
+        card.CardAmount = 1;
         card.gamer = gamer;
+        if (gamer.Equals(MatchManager.Enemy))
+            card.cardDrag.enabled = false;
         return card;
     }
     public static List<SubstanceCard> FindInList(List<SubstanceCard> cards, Substance requiredSubstance, ref int requiredAmount)

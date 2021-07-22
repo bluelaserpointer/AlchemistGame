@@ -79,15 +79,16 @@ public abstract class Gamer : MonoBehaviour
     /// </summary>
     public UnityEvent OnHandCardsChanged => onHandCardsChanged;
 
-    SubstanceCard currentDrawingCard;
+    SubstanceCard lastDrawingCard;
     /// <summary>
     /// 最后抽到的卡牌
     /// </summary>
-    public SubstanceCard LastDrawingCard => currentDrawingCard;
+    public SubstanceCard LastDrawingCard => lastDrawingCard;
     public void Init(Character character, Deck deck)
     {
         this.character = character;
         this.deck = deck;
+        hp = InitialHP;
         faceImage.sprite = character.FaceIcon;
         statusPanels.SetData(this);
     }
@@ -95,7 +96,7 @@ public abstract class Gamer : MonoBehaviour
     {
         if (Deck.CardCount > 0)
         {
-            AddHandCard(currentDrawingCard = Deck.DrawRandomCard(this));
+            AddHandCard(lastDrawingCard = Deck.DrawRandomCard(this));
         }
     }
     public SubstanceCard FindHandCard(Substance substance)
@@ -114,9 +115,13 @@ public abstract class Gamer : MonoBehaviour
     {
         SubstanceCard duplicatedCard = FindHandCard(substanceCard);
         if (duplicatedCard == null)
+        {
             HandCards.Add(substanceCard);
+        }
         else
-            duplicatedCard.UnionSameCard(LastDrawingCard);
+        {
+            duplicatedCard.UnionSameCard(substanceCard);
+        }
         OnHandCardsChanged.Invoke();
     }
     public void RemoveHandCard(Substance substance)
@@ -155,9 +160,9 @@ public abstract class Gamer : MonoBehaviour
         return count;
     }
     /// <summary>
-    /// 回合开始时事件
+    /// 融合回合开始
     /// </summary>
-    public void OnTurnStart()
+    public virtual void OnFusionTurnStart()
     {
         DrawCard();
         /* //(deprecated) card draw animation
@@ -193,6 +198,13 @@ public abstract class Gamer : MonoBehaviour
             //TODO: Invoke gameover or ...
         }
         */
+    }
+    /// <summary>
+    /// 攻击回合开始
+    /// </summary>
+    public virtual void OnAttackTurnStart()
+    {
+
     }
     /// <summary>
     /// 获得可消耗为融合素材的所有卡牌(手牌+场地)

@@ -27,7 +27,7 @@ public class CardInfoDisplay : MonoBehaviour
             cardName.text = showingCard.Name;
             cardImage.sprite = showingCard.Image;
             cardDescription.text = showingCard.Description;
-            attackText.text = showingCard.atk.ToString();
+            attackText.text = showingCard.OriginalATK.ToString();
             meltingPointText.text = showingCard.Substance.MeltingPoint.ToString() + "℃";
             boilingPointText.text = showingCard.Substance.BoilingPoint.ToString() + "℃";
         }

@@ -31,7 +31,7 @@ public class Substance : ChemicalObject
     /// 三态卡牌图片
     /// </summary>
     [SerializeField]
-    Sprite imageOfSolid, imageOfLiquid, imageOfGas;
+    Sprite image;
     [SerializeField]
     int atk;
     [SerializeField]
@@ -48,6 +48,7 @@ public class Substance : ChemicalObject
     TranslatableSentence description;
 
     //data
+    public Sprite Image => image;
     /// <summary>
     /// 基础攻击力
     /// </summary>
@@ -64,24 +65,6 @@ public class Substance : ChemicalObject
     /// 沸点
     /// </summary>
     public float BoilingPoint => boilingPoint;
-    /// <summary>
-    /// 获取卡牌图片
-    /// </summary>
-    /// <param name="state"></param>
-    /// <returns></returns>
-    public Sprite GetImage(ThreeState state)
-    {
-        switch (state)
-        {
-            case ThreeState.Solid:
-                return imageOfSolid;
-            case ThreeState.Liquid:
-                return imageOfLiquid;
-            case ThreeState.Gas:
-                return imageOfGas;
-        }
-        return null;
-    }
     /// <summary>
     /// 计算Mol量
     /// </summary>

@@ -1079,6 +1079,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1f1d02b7c2365a3438f4021b1de2fc51, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cardDrag: {fileID: 6427983312728146768}
   nameText: {fileID: 4831306929130687294}
   amountText: {fileID: 8815216137556788536}
   symbolText: {fileID: 5989661377590499566}
@@ -1088,8 +1089,6 @@ MonoBehaviour:
   meltingPointText: {fileID: 8421303603597934479}
   boilingPointText: {fileID: 7405296944635201918}
   threeState: 0
-  atk: 0
-  def: 0
 --- !u!114 &7662852807735260117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2501,6 +2500,18 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5300347429294521130}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &6427983312728146768 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1205369461571188858, guid: e1bbe39279234fb44ba83d3864d2e26a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5300347429294521130}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9080898372516015160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 938a9dd7220aeef4dbe900f5231ec26f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &9080898372516015160 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4002373037830461202, guid: e1bbe39279234fb44ba83d3864d2e26a,

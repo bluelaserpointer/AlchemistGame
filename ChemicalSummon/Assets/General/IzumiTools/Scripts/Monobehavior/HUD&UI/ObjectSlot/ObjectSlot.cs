@@ -28,8 +28,6 @@ public class ObjectSlot : MonoBehaviour
     public UnityEvent onSet, onClear;
 
     //data
-    [HideInInspector]
-    public bool interactable;
     Transform ArrangePoint => arrangePoint ?? transform;
     Transform oldParent;
     Vector3 oldLocalRotation;
@@ -41,7 +39,7 @@ public class ObjectSlot : MonoBehaviour
     }
     public virtual bool AllowSlotSet(GameObject obj)
     {
-        return interactable;
+        return true;
     }
     public virtual void SlotSet(GameObject obj)
     {
@@ -71,7 +69,7 @@ public class ObjectSlot : MonoBehaviour
     }
     public virtual bool AllowSlotClear()
     {
-        return interactable;
+        return true;
     }
 
     public virtual void SlotClear()

@@ -21,13 +21,12 @@ MonoBehaviour:
     amount: 2
   - element: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
     amount: 1
-  imageOfSolid: {fileID: 21300000, guid: 4c6ab9d2b1078da4b8d994ffb0a78d03, type: 3}
-  imageOfLiquid: {fileID: 21300000, guid: 4c6ab9d2b1078da4b8d994ffb0a78d03, type: 3}
-  imageOfGas: {fileID: 21300000, guid: 4c6ab9d2b1078da4b8d994ffb0a78d03, type: 3}
+  image: {fileID: 21300000, guid: 4c6ab9d2b1078da4b8d994ffb0a78d03, type: 3}
   atk: 5
   def: 0
   meltingPoint: 0
   boilingPoint: 100
+  waterSoluble: 0
   description:
     defaultString: ?missing?
     languageAndSentences:

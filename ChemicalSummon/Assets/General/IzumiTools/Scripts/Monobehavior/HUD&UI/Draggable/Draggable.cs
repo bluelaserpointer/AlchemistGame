@@ -39,7 +39,7 @@ public class Draggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDra
     }
     public virtual void OnBeginDrag(PointerEventData eventData)
     {
-        if(rememberOffset)
+        if (rememberOffset)
         {
             offset = transform.position - toPosition(eventData);
         }
