@@ -22,9 +22,9 @@ public class MatchManager : ChemicalSummonManager
     [SerializeField]
     CardField enemyField;
     [SerializeField]
-    MySideStatusUI mySideStatusUI;
+    Player player;
     [SerializeField]
-    EnemySideStatusUI enemySideStatusUI;
+    Enemy enemy;
 
     [Header("Info")]
     [SerializeField]
@@ -52,15 +52,6 @@ public class MatchManager : ChemicalSummonManager
     /// 环境温度
     /// </summary>
     public static float DefaultTempreture => 27.0f;
-    public Gamer myGamer, enemyGamer;
-    /// <summary>
-    /// 我方玩家
-    /// </summary>
-    public static Gamer MyGamer => instance.myGamer;
-    /// <summary>
-    /// 敌方玩家
-    /// </summary>
-    public static Gamer EnemyGamer => instance.enemyGamer;
     /// <summary>
     /// 我方场地
     /// </summary>
@@ -72,15 +63,15 @@ public class MatchManager : ChemicalSummonManager
     /// <summary>
     /// 我方手牌
     /// </summary>
-    public static HandCardsArrange MyHandCards => MySideStatusUI.HandCards;
+    public static HandCardsArrange MyHandCards => Player.HandCardsDisplay;
     /// <summary>
     /// 我方信息栏
     /// </summary>
-    public static MySideStatusUI MySideStatusUI => instance.mySideStatusUI;
+    public static Player Player => instance.player;
     /// <summary>
     /// 敌方信息栏
     /// </summary>
-    public static EnemySideStatusUI EnemySideStatusUI => instance.enemySideStatusUI;
+    public static Enemy Enemy => instance.enemy;
     int turn;
     /// <summary>
     /// 卡牌信息栏
@@ -121,52 +112,22 @@ public class MatchManager : ChemicalSummonManager
         audioSource.Play();
         Instantiate(Match.BackGround);
         //gamer
-        myGamer = new Gamer(Match.MySideCharacter);
-        myGamer.deck = new Deck(PlayerSave.ActiveDeck);
-        enemyGamer = new Gamer(Match.EnemySideCharacter);
-        enemyGamer.deck = new Deck(Match.EnemyDeck);
-        MySideStatusUI.Gamer = myGamer;
-        EnemySideStatusUI.Gamer = enemyGamer;
-        onMyTurnStart.AddListener(MySideStatusUI.OnTurnStart);
-        onEnemyTurnStart.AddListener(EnemySideStatusUI.OnTurnStart);
+        Player.Init(Match.MySideCharacter, new Deck(PlayerSave.ActiveDeck));
+        Enemy.Init(Match.EnemySideCharacter, new Deck(Match.EnemyDeck));
+        onMyTurnStart.AddListener(Player.OnTurnStart);
+        onEnemyTurnStart.AddListener(Enemy.OnTurnStart);
         MyField.SetInteractable(true);
         EnemyField.SetInteractable(false);
         MyField.cardsChanged.AddListener(fusionPanel.UpdateList);
-        MySideStatusUI.OnHandCardsChanged.AddListener(fusionPanel.UpdateList);
+        Player.OnHandCardsChanged.AddListener(fusionPanel.UpdateList);
         //demo
         onInit.Invoke();
         //initial draw
         for (int i = 0; i < 5; ++i)
         {
-            MySideStatusUI.DrawCard();
-            EnemySideStatusUI.DrawCard();
+            Player.DrawCard();
+            Enemy.DrawCard();
         }
-    }
-    /// <summary>
-    /// 获取该游戏者的场地
-    /// </summary>
-    /// <param name="gamer"></param>
-    /// <returns></returns>
-    public static Field GetField(Gamer gamer)
-    {
-        if (gamer.IsMe)
-            return MyField;
-        if (gamer.IsEnemy)
-            return EnemyField;
-        return null;
-    }
-    /// <summary>
-    /// 获取该场地的游戏者
-    /// </summary>
-    /// <param name="field"></param>
-    /// <returns></returns>
-    public static Gamer GetGamer(Field field)
-    {
-        if (field.IsMine)
-            return MyGamer;
-        if (field.IsEnemies)
-            return EnemyGamer;
-        return null;
     }
     /// <summary>
     /// 结束回合

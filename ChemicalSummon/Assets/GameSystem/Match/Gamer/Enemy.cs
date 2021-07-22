@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
-public class EnemySideStatusUI : GamerStatusUI
+public class Enemy : Gamer
 {
     [SerializeField]
     Text handCardsAmountText;

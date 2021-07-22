@@ -19,7 +19,7 @@ public class CardDrag : Draggable
     {
         base.OnBeginDrag(eventData);
         substanceCard.EnableShadow(true);
-        MatchManager.MySideStatusUI.RemoveHandCard(substanceCard);
+        MatchManager.Player.RemoveHandCard(substanceCard);
         MatchManager.CardInfoDisplay.SetCard(substanceCard);
     }
     public override void OnEndDrag(PointerEventData eventData)
@@ -77,7 +77,7 @@ public class CardDrag : Draggable
                         if (CurrentSlot != null)
                             CurrentSlot.DoAlignment(); //return to original position
                         else
-                            MatchManager.MySideStatusUI.AddHandCard(substanceCard);
+                            MatchManager.Player.AddHandCard(substanceCard);
                         return;
                     }
                     continue;
@@ -85,9 +85,9 @@ public class CardDrag : Draggable
                 continue;
             }
             //release card to mol
-            if(hitUI.Equals(MatchManager.MySideStatusUI.StatusPanels.MolPanel.gameObject))
+            if(hitUI.Equals(MatchManager.Player.StatusPanels.MolPanel.gameObject))
             {
-                MatchManager.MySideStatusUI.ReleaseCard(substanceCard);
+                MatchManager.Player.ReleaseCard(substanceCard);
                 return;
             }
             //attack face
@@ -100,7 +100,7 @@ public class CardDrag : Draggable
                     if (CurrentSlot != null)
                         CurrentSlot.DoAlignment(); //return to original position
                     else
-                        MatchManager.MySideStatusUI.AddHandCard(substanceCard);
+                        MatchManager.Player.AddHandCard(substanceCard);
                     return;
                 }
                 continue;
@@ -112,10 +112,10 @@ public class CardDrag : Draggable
             if (disbandable)
             {
                 CurrentSlot.SlotClear();
-                MatchManager.MySideStatusUI.AddHandCard(substanceCard);
+                MatchManager.Player.AddHandCard(substanceCard);
             }
         }
         else
-            MatchManager.MySideStatusUI.AddHandCard(substanceCard);
+            MatchManager.Player.AddHandCard(substanceCard);
     }
 }

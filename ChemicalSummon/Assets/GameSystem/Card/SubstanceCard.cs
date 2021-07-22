@@ -68,6 +68,11 @@ public class SubstanceCard : MonoBehaviour
     /// 挪动组件
     /// </summary>
     CardDrag cardDrag;
+    Gamer gamer;
+    /// <summary>
+    /// 所属游戏者
+    /// </summary>
+    public Gamer Gamer => gamer;
     /// <summary>
     /// 所在卡槽
     /// </summary>
@@ -112,11 +117,7 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 在我方手牌
     /// </summary>
-    public bool InMyHandCards => MatchManager.MyGamer.handCards.Contains(this);
-    /// <summary>
-    /// 在敌方手牌
-    /// </summary>
-    public bool InEnemyHandCards => MatchManager.EnemyGamer.handCards.Contains(this);
+    public bool InHandCards => gamer.HandCards.Contains(this);
     //information
     /// <summary>
     /// 在格挡区(不考虑敌我)
@@ -184,7 +185,7 @@ public class SubstanceCard : MonoBehaviour
     /// </summary>
     /// <param name="substance"></param>
     /// <returns></returns>
-    public static SubstanceCard GenerateSubstanceCard(Substance substance)
+    public static SubstanceCard GenerateSubstanceCard(Substance substance, Gamer gamer)
     {
         if(baseSubstanceCard == null)
         {
@@ -192,6 +193,7 @@ public class SubstanceCard : MonoBehaviour
         }
         SubstanceCard card = Instantiate(baseSubstanceCard);
         card.Substance = substance;
+        card.gamer = gamer;
         return card;
     }
     public static List<SubstanceCard> FindInList(List<SubstanceCard> cards, Substance requiredSubstance, ref int requiredAmount)
@@ -221,10 +223,8 @@ public class SubstanceCard : MonoBehaviour
     {
         if (Slot != null)
             Slot.SlotClear();
-        else if (InMyHandCards)
-            MatchManager.MySideStatusUI.RemoveHandCard(this);
-        else if (InEnemyHandCards)
-            MatchManager.EnemySideStatusUI.RemoveHandCard(this);
+        else if (InHandCards)
+            gamer.RemoveHandCard(this);
         Destroy(gameObject);
     }
     /// <summary>

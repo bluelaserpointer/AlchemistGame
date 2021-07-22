@@ -10,7 +10,7 @@ using UnityEngine.Events;
 [Serializable]
 public class Deck
 {
-    readonly List<Substance> substances;
+    public readonly List<Substance> substances;
     public Deck()
     {
         substances = new List<Substance>();
@@ -38,7 +38,7 @@ public class Deck
         Substances.AddRange(newSubstances);
         onCardCountChange.Invoke();
     }
-    public SubstanceCard DrawRandomCard()
+    public SubstanceCard DrawRandomCard(Gamer gamer)
     {
         if(substances.Count == 0)
         {
@@ -46,6 +46,6 @@ public class Deck
         }
         Substance randomSubstance = substances.RemoveRandomElement();
         onCardCountChange.Invoke();
-        return SubstanceCard.GenerateSubstanceCard(randomSubstance);
+        return SubstanceCard.GenerateSubstanceCard(randomSubstance, gamer);
     }
 }

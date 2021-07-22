@@ -13,6 +13,6 @@ public class DemoDataInjector : MonoBehaviour
     public void Inject()
     {
         //deck
-        MatchManager.MyGamer.deck.AddRange(substances);
+        MatchManager.Player.Deck.AddRange(substances);
     }
 }

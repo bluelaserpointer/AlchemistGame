@@ -16,15 +16,24 @@ public abstract class Field : MonoBehaviour
     /// <summary>
     /// 是我方场地
     /// </summary>
-    public bool IsMine => MatchManager.MyField.Equals(this);
+    public bool IsMySide => MatchManager.MyField.Equals(this);
     /// <summary>
     /// 是敌方场地
     /// </summary>
-    public bool IsEnemies => MatchManager.EnemyField.Equals(this);
+    public bool IsEnemySide => MatchManager.EnemyField.Equals(this);
     /// <summary>
     /// 拥有该场地的游戏者
     /// </summary>
-    public Gamer Gamer => MatchManager.GetGamer(this);
+    public Gamer Gamer {
+        get
+        {
+            if (IsMySide)
+                return MatchManager.Player;
+            if (IsEnemySide)
+                return MatchManager.Enemy;
+            return null;
+        }
+    }
     /// <summary>
     /// 所有卡牌
     /// </summary>

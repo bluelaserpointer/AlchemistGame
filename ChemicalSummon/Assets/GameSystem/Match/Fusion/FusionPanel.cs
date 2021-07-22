@@ -12,7 +12,7 @@ public class FusionPanel : MonoBehaviour
     {
         foreach (Transform childTransform in transform)
             Destroy(childTransform.gameObject);
-        List<SubstanceCard> consumableCards = MatchManager.MySideStatusUI.GetConsumableCards();
+        List<SubstanceCard> consumableCards = MatchManager.Player.GetConsumableCards();
         foreach(Reaction reaction in PlayerSave.DiscoveredReactions)
         {
             bool condition = true;
@@ -55,9 +55,9 @@ public class FusionPanel : MonoBehaviour
                     }
                     foreach (SubstanceAndAmount pair in reaction.RightSubstances)
                     {
-                        SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.substance);
+                        SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.substance, MatchManager.Player);
                         newCard.CardAmount = pair.amount;
-                        MatchManager.MySideStatusUI.AddHandCard(newCard);
+                        MatchManager.Player.AddHandCard(newCard);
                     }
                 });
             }

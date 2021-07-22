@@ -205,9 +205,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 85845099}
-  - component: {fileID: 85845100}
   m_Layer: 5
-  m_Name: PlayerGamerStatusUI
+  m_Name: PlayerStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -234,21 +233,6 @@ RectTransform:
   m_AnchoredPosition: {x: -960, y: 0}
   m_SizeDelta: {x: 1920, y: 100}
   m_Pivot: {x: 0.5, y: 0}
---- !u!114 &85845100
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 85845098}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 93f9af053ca12b44d906d4d5b7e1efce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  faceImage: {fileID: 826195984}
-  statusPanels: {fileID: 1441858114}
-  handCards: {fileID: 415941675}
 --- !u!1 &277209061
 GameObject:
   m_ObjectHideFlags: 0
@@ -2094,6 +2078,61 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1144908630}
   m_CullTransparentMesh: 0
+--- !u!1 &1198014515
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1198014516}
+  - component: {fileID: 1198014517}
+  m_Layer: 5
+  m_Name: Enemy Panel
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &1198014516
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198014515}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 1944544762}
+  m_Father: {fileID: 2121452838}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 0}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1198014517
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1198014515}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ccf1f76973c235c4ca5dee3ba16b2fe8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  faceImage: {fileID: 681526756}
+  statusPanels: {fileID: 1024903846}
+  onHandCardsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  handCardsAmountText: {fileID: 721577738}
 --- !u!1 &1205043620
 GameObject:
   m_ObjectHideFlags: 0
@@ -2681,8 +2720,8 @@ MonoBehaviour:
   mainCanvas: {fileID: 2121452837}
   myField: {fileID: 4759302606383170542}
   enemyField: {fileID: 693492778}
-  mySideStatusUI: {fileID: 85845100}
-  enemySideStatusUI: {fileID: 1944544765}
+  player: {fileID: 2096314129}
+  enemy: {fileID: 1198014517}
   matchNameText: {fileID: 1940666222}
   cardInfoDisplay: {fileID: 1541449892}
   fusionPanel: {fileID: 295707220}
@@ -3787,10 +3826,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1944544762}
-  - component: {fileID: 1944544765}
   - component: {fileID: 1944544764}
   m_Layer: 5
-  m_Name: EnemyGamerStatusUI
+  m_Name: EnemyStatus
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3810,8 +3848,8 @@ RectTransform:
   - {fileID: 681526755}
   - {fileID: 3380611837470773287}
   - {fileID: 1863857945}
-  m_Father: {fileID: 2121452838}
-  m_RootOrder: 5
+  m_Father: {fileID: 1198014516}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -3843,21 +3881,6 @@ MonoBehaviour:
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
   m_ChildScaleHeight: 0
---- !u!114 &1944544765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1944544761}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ccf1f76973c235c4ca5dee3ba16b2fe8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  faceImage: {fileID: 681526756}
-  statusPanels: {fileID: 1024903846}
-  handCardsAmountText: {fileID: 721577738}
 --- !u!1 &1982576219
 GameObject:
   m_ObjectHideFlags: 0
@@ -4255,28 +4278,17 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2096314127}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
+  m_Script: {fileID: 11500000, guid: 93f9af053ca12b44d906d4d5b7e1efce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.392}
-  m_RaycastTarget: 1
-  m_Maskable: 1
-  m_OnCullStateChanged:
+  faceImage: {fileID: 826195984}
+  statusPanels: {fileID: 1441858114}
+  onHandCardsChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10907, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
+  handCardsDisplay: {fileID: 415941675}
 --- !u!222 &2096314130
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4380,7 +4392,7 @@ RectTransform:
   - {fileID: 1124459153}
   - {fileID: 742822861}
   - {fileID: 494407427}
-  - {fileID: 1944544762}
+  - {fileID: 1198014516}
   - {fileID: 2096314128}
   - {fileID: 2018608352}
   m_Father: {fileID: 0}

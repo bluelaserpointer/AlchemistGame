@@ -5,7 +5,7 @@ using UnityEngine;
 public class CallCardStockEnd : MonoBehaviour
 {
     [SerializeField]
-    GamerStatusUI cardPlayerStatusUI;
+    Gamer cardPlayerStatusUI;
     /// <summary>
     /// (deprecated)抽卡动画结束事件
     /// </summary>

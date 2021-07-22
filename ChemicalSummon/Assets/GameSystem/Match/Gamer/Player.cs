@@ -1,21 +1,21 @@
 ﻿using UnityEngine;
 
 [DisallowMultipleComponent]
-public class MySideStatusUI : GamerStatusUI
+public class Player : Gamer
 {
     [SerializeField]
-    HandCardsArrange handCards;
+    HandCardsArrange handCardsDisplay;
     /// <summary>
     /// 可见手牌
     /// </summary>
-    public HandCardsArrange HandCards => handCards;
+    public HandCardsArrange HandCardsDisplay => handCardsDisplay;
     public override void AddHandCard(SubstanceCard substanceCard)
     {
         SubstanceCard duplicatedCard = FindHandCard(substanceCard);
         if (duplicatedCard == null)
         {
-            gamer.handCards.Add(substanceCard);
-            HandCards.Add(substanceCard.gameObject);
+            HandCards.Add(substanceCard);
+            HandCardsDisplay.Add(substanceCard.gameObject);
         }
         else
             duplicatedCard.UnionSameCard(LastDrawingCard);
@@ -25,7 +25,7 @@ public class MySideStatusUI : GamerStatusUI
     {
         if(base.RemoveHandCard(substanceCard))
         {
-            HandCards.Remove(substanceCard.gameObject);
+            HandCardsDisplay.Remove(substanceCard.gameObject);
             return true;
         }
         return false;
