@@ -20,4 +20,14 @@ public class Reaction : ScriptableObject
     public string Description => description.ToString();
     public List<SubstanceAndAmount> LeftSubstances => leftSubstances;
     public List<SubstanceAndAmount> RightSubstances => rightSubstances;
+    public int GetRequiredAmount(Substance substance) {
+        foreach(SubstanceAndAmount pair in LeftSubstances)
+        {
+            if(pair.substance.Equals(substance))
+            {
+                return pair.amount;
+            }
+        }
+        return 0;
+    }
 }

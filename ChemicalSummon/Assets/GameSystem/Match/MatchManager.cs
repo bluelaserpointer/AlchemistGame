@@ -25,13 +25,14 @@ public class MatchManager : ChemicalSummonManager
     MySideStatusUI mySideStatusUI;
     [SerializeField]
     EnemySideStatusUI enemySideStatusUI;
-    public UnityEvent fieldCardsChanged;
 
     [Header("Info")]
     [SerializeField]
     Text matchNameText;
     [SerializeField]
     CardInfoDisplay cardInfoDisplay;
+    [SerializeField]
+    FusionPanel fusionPanel;
 
     [Header("Turn")]
     public Text turnText;
@@ -130,8 +131,8 @@ public class MatchManager : ChemicalSummonManager
         onEnemyTurnStart.AddListener(EnemySideStatusUI.OnTurnStart);
         MyField.SetInteractable(true);
         EnemyField.SetInteractable(false);
-        MyField.cardsChanged.AddListener(fieldCardsChanged.Invoke);
-        EnemyField.cardsChanged.AddListener(fieldCardsChanged.Invoke);
+        MyField.cardsChanged.AddListener(fusionPanel.UpdateList);
+        MySideStatusUI.OnHandCardsChanged.AddListener(fusionPanel.UpdateList);
         //demo
         onInit.Invoke();
         //initial draw
@@ -180,21 +181,5 @@ public class MatchManager : ChemicalSummonManager
     {
         ++Turn;
         (IsMyTurn ? onMyTurnStart : onEnemyTurnStart).Invoke();
-    }
-    public static List<SubstanceCard> FindSubstancesFromMe(SubstanceAndAmount substanceAndAmount)
-    {
-        Substance requiredSubstance = substanceAndAmount.substance;
-        int requiredAmount = substanceAndAmount.amount;
-        //Search in my field and enemy exposed cards
-        //TODO: distinguish search field priority
-        //my field
-        List<SubstanceCard> results = MyField.FindSubstancesFromMe(requiredSubstance, requiredAmount);
-        //enemy exposed cards
-        if (results.Count < requiredAmount)
-            results.AddRange(EnemyField.FindSubstancesFromEnemy(requiredSubstance, requiredAmount - results.Count));
-        if (results.Count >= requiredAmount)
-            return results;
-        else
-            return null;
     }
 }

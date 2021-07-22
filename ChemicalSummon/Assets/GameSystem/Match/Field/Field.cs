@@ -53,12 +53,12 @@ public abstract class Field : MonoBehaviour
     /// <param name="interactable"></param>
     public abstract void SetInteractable(bool interactable);
     /// <summary>
-    /// 自己查看物质卡
+    /// 查看物质卡
     /// </summary>
     /// <param name="substance"></param>
     /// <param name="amount"></param>
     /// <returns></returns>
-    public List<SubstanceCard> FindSubstancesFromMe(Substance substance, int amount)
+    public List<SubstanceCard> FindSubstances(Substance substance, ref int amount)
     {
         List<SubstanceCard> results = new List<SubstanceCard>();
         if (amount > 0)
@@ -68,7 +68,8 @@ public abstract class Field : MonoBehaviour
                 if (card.Substance.Equals(substance))
                 {
                     results.Add(card);
-                    if (--amount == 0)
+                    amount -= card.CardAmount;
+                    if (amount <= 0)
                     {
                         break;
                     }

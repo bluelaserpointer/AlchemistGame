@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class CardDrag : Draggable
 {
     SubstanceCard substanceCard;
-    public CardSlot CurrentSlot => transform.parent.GetComponent<CardSlot>();
+    public CardSlot CurrentSlot => transform.parent == null ? null : transform.parent.GetComponent<CardSlot>();
     private void Awake()
     {
         substanceCard = GetComponent<SubstanceCard>();

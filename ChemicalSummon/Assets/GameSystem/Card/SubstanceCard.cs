@@ -109,6 +109,14 @@ public class SubstanceCard : MonoBehaviour
     /// </summary>
     public int OriginalDEF => Substance.DEF;
     public string Description => Substance.Description.ToString();
+    /// <summary>
+    /// 在我方手牌
+    /// </summary>
+    public bool InMyHandCards => MatchManager.MyGamer.handCards.Contains(this);
+    /// <summary>
+    /// 在敌方手牌
+    /// </summary>
+    public bool InEnemyHandCards => MatchManager.EnemyGamer.handCards.Contains(this);
     //information
     /// <summary>
     /// 在格挡区(不考虑敌我)
@@ -185,5 +193,54 @@ public class SubstanceCard : MonoBehaviour
         SubstanceCard card = Instantiate(baseSubstanceCard);
         card.Substance = substance;
         return card;
+    }
+    public static List<SubstanceCard> FindInList(List<SubstanceCard> cards, Substance requiredSubstance, ref int requiredAmount)
+    {
+        List<SubstanceCard> results = new List<SubstanceCard>();
+        if (requiredAmount > 0)
+        {
+            foreach (SubstanceCard card in cards)
+            {
+                if (card.Substance.Equals(requiredSubstance))
+                {
+                    results.Add(card);
+                    requiredAmount -= card.CardAmount;
+                    if (requiredAmount <= 0)
+                    {
+                        break;
+                    }
+                }
+            }
+        }
+        return results;
+    }
+    /// <summary>
+    /// 安全丢弃该卡
+    /// </summary>
+    public void Dispose()
+    {
+        if (Slot != null)
+            Slot.SlotClear();
+        else if (InMyHandCards)
+            MatchManager.MySideStatusUI.RemoveHandCard(this);
+        else if (InEnemyHandCards)
+            MatchManager.EnemySideStatusUI.RemoveHandCard(this);
+        Destroy(gameObject);
+    }
+    /// <summary>
+    /// 减少叠加数(到零自动Dispose)
+    /// </summary>
+    /// <param name="amount"></param>
+    /// <returns></returns>
+    public int RemoveAmount(int amount)
+    {
+        if (CardAmount > amount)
+        {
+            CardAmount -= amount;
+            return 0;
+        }
+        amount -= CardAmount;
+        Dispose();
+        return amount;
     }
 }

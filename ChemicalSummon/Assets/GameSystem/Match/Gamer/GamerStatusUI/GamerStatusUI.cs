@@ -15,6 +15,9 @@ public abstract class GamerStatusUI : MonoBehaviour
     [SerializeField]
     StatusPanels statusPanels;
     public StatusPanels StatusPanels => statusPanels;
+
+    [SerializeField]
+    UnityEvent onHandCardsChanged;
     //data
     protected Gamer gamer;
     /// <summary>
@@ -32,6 +35,10 @@ public abstract class GamerStatusUI : MonoBehaviour
             UpdateUI();
         }
     }
+    /// <summary>
+    /// 手牌变化事件
+    /// </summary>
+    public UnityEvent OnHandCardsChanged => onHandCardsChanged;
     public bool IsMySide => gamer.IsMe;
     public bool IsEnemySide => gamer.IsEnemy;
     protected void UpdateUI()
@@ -78,6 +85,7 @@ public abstract class GamerStatusUI : MonoBehaviour
             gamer.handCards.Add(substanceCard);
         else
             duplicatedCard.UnionSameCard(LastDrawingCard);
+        OnHandCardsChanged.Invoke();
     }
     public void RemoveHandCard(Substance substance)
     {
@@ -85,7 +93,12 @@ public abstract class GamerStatusUI : MonoBehaviour
     }
     public virtual bool RemoveHandCard(SubstanceCard substanceCard)
     {
-        return gamer.handCards.Remove(substanceCard);
+        if(gamer.handCards.Remove(substanceCard))
+        {
+            OnHandCardsChanged.Invoke();
+            return true;
+        }
+        return false;
     }
     /// <summary>
     /// 解放卡牌(回收摩尔能量)
@@ -148,5 +161,16 @@ public abstract class GamerStatusUI : MonoBehaviour
             //TODO: Invoke gameover or ...
         }
         */
+    }
+    /// <summary>
+    /// 获得可消耗为融合素材的所有卡牌(手牌+场地)
+    /// </summary>
+    /// <returns></returns>
+    public List<SubstanceCard> GetConsumableCards()
+    {
+        List<SubstanceCard> cards = new List<SubstanceCard>();
+        cards.AddRange(gamer.handCards);
+        cards.AddRange(gamer.Field.Cards);
+        return cards;
     }
 }

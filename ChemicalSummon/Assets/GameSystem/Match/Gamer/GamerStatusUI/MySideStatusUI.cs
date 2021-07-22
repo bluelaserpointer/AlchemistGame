@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [DisallowMultipleComponent]
 public class MySideStatusUI : GamerStatusUI
@@ -21,6 +19,7 @@ public class MySideStatusUI : GamerStatusUI
         }
         else
             duplicatedCard.UnionSameCard(LastDrawingCard);
+        OnHandCardsChanged.Invoke();
     }
     public override bool RemoveHandCard(SubstanceCard substanceCard)
     {

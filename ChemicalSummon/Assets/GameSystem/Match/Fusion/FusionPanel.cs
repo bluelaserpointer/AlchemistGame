@@ -12,21 +12,36 @@ public class FusionPanel : MonoBehaviour
     {
         foreach (Transform childTransform in transform)
             Destroy(childTransform.gameObject);
+        List<SubstanceCard> consumableCards = MatchManager.MySideStatusUI.GetConsumableCards();
         foreach(Reaction reaction in PlayerSave.DiscoveredReactions)
         {
-            List<SubstanceCard> consumingCards = new List<SubstanceCard>();
             bool condition = true;
-            foreach(SubstanceAndAmount pair in reaction.LeftSubstances)
+            Dictionary<SubstanceCard, int> consumingCards = new Dictionary<SubstanceCard, int>();
+            foreach (SubstanceAndAmount pair in reaction.LeftSubstances)
             {
-                List<SubstanceCard> cards = MatchManager.FindSubstancesFromMe(pair);
-                if(cards == null)
+                Substance requiredSubstance = pair.substance;
+                int requiredAmount = pair.amount;
+                foreach (SubstanceCard card in consumableCards)
+                {
+                    if (card.Substance.Equals(requiredSubstance))
+                    {
+                        if(card.CardAmount >= requiredAmount)
+                        {
+                            consumingCards.Add(card, requiredAmount);
+                            requiredAmount = 0;
+                            break;
+                        }
+                        else
+                        {
+                            consumingCards.Add(card, card.CardAmount);
+                            requiredAmount -= card.CardAmount;
+                        }
+                    }
+                };
+                if(requiredAmount > 0)
                 {
                     condition = false;
                     break;
-                }
-                else
-                {
-                    consumingCards.AddRange(cards);
                 }
             }
             if(condition)
@@ -34,12 +49,11 @@ public class FusionPanel : MonoBehaviour
                 Button button = Instantiate(prefabFusionButton, transform);
                 button.GetComponentInChildren<Text>().text = reaction.Description;
                 button.onClick.AddListener(() => {
-                    foreach(SubstanceCard card in consumingCards)
+                    foreach (KeyValuePair<SubstanceCard, int> consume in consumingCards)
                     {
-                        card.Slot.SlotClear();
-                        Destroy(card.gameObject);
+                        consume.Key.RemoveAmount(consume.Value);
                     }
-                    foreach(SubstanceAndAmount pair in reaction.RightSubstances)
+                    foreach (SubstanceAndAmount pair in reaction.RightSubstances)
                     {
                         SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.substance);
                         newCard.CardAmount = pair.amount;
