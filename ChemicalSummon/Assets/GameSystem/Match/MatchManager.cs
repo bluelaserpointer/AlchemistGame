@@ -42,6 +42,10 @@ public class MatchManager : ChemicalSummonManager
     public UnityEvent onEnemyAttackTurnStart;
     public Animator animatedTurnPanel;
 
+    [Header("Prefab")]
+    [SerializeField]
+    AttackButton attackButton;
+
     [Header("Demo&Test")]
     public UnityEvent onInit;
 
@@ -89,6 +93,7 @@ public class MatchManager : ChemicalSummonManager
     /// 回合
     /// </summary>
     public static int Turn => instance.turn;
+    public static AttackButton AttackButtonPrefab => instance.attackButton;
     private void Awake()
     {
         Init();
@@ -128,6 +133,7 @@ public class MatchManager : ChemicalSummonManager
     /// </summary>
     public void TurnEnd_nonstatic()
     {
+        Player.RemoveAttackButtons();
         ++turn;
         if(turn == 0)
         {

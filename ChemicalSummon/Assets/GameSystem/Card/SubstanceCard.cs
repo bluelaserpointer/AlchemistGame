@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 
 /// <summary>
 /// 物质卡(动态数据)
@@ -113,6 +114,24 @@ public class SubstanceCard : MonoBehaviour
     /// </summary>
     [HideInInspector]
     public int DEF => OriginalDEF * CardAmount;
+
+    public void Battle(SubstanceCard attacker)
+    {
+        int deadAmount = OriginalATK == 0 ? CardAmount : attacker.ATK / OriginalATK;
+        int killAmount = attacker.OriginalATK == 0 ? attacker.CardAmount : ATK / attacker.OriginalATK;
+        int overDamage = attacker.ATK - ATK;
+        if (overDamage > 0)
+        {
+            gamer.HP -= overDamage;
+        }
+        else
+        {
+            //attacker.gamer.HP += overDamage; //attacker dont take damage
+        }
+        RemoveAmount(deadAmount);
+        attacker.RemoveAmount(killAmount);
+    }
+
     /// <summary>
     /// 原本攻击力
     /// </summary>

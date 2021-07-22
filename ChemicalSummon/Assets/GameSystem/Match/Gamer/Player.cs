@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Collections.Generic;
+using UnityEngine;
 
 [DisallowMultipleComponent]
 public class Player : Gamer
@@ -29,5 +30,47 @@ public class Player : Gamer
             return true;
         }
         return false;
+    }
+    public List<AttackButton> generatedAttackButtons = new List<AttackButton>();
+    public override void OnAttackTurnStart()
+    {
+        base.OnAttackTurnStart();
+        foreach(CardSlot slot in Field.Slots)
+        {
+            if (slot.IsEmpty)
+                continue;
+            SubstanceCard card = slot.Card;
+            AttackButton attackButton = Instantiate(MatchManager.AttackButtonPrefab, MatchManager.MainCanvas.transform);
+            generatedAttackButtons.Add(attackButton);
+            attackButton.transform.position = slot.transform.position + new Vector3(0, 200, 0);
+            attackButton.Button.onClick.AddListener(() =>
+            {
+                MatchManager.Enemy.Defense(card);
+                Destroy(attackButton.gameObject);
+            });
+        }
+    }
+    public void RemoveAttackButtons()
+    {
+        generatedAttackButtons.ForEach(button => Destroy(button.gameObject));
+        generatedAttackButtons.Clear();
+    }
+    public override void Defense(SubstanceCard attacker)
+    {
+        foreach (CardSlot slot in Field.Slots)
+        {
+            if (slot.IsEmpty)
+                continue;
+            SubstanceCard card = slot.Card;
+            AttackButton attackButton = Instantiate(MatchManager.AttackButtonPrefab, MatchManager.MainCanvas.transform);
+            generatedAttackButtons.Add(attackButton);
+            attackButton.transform.position = slot.transform.position + new Vector3(0, 200, 0);
+            attackButton.Button.onClick.AddListener(() =>
+            {
+                card.Battle(attacker);
+                RemoveAttackButtons();
+                MatchManager.Enemy.AttackTurnLoop();
+            });
+        }
     }
 }

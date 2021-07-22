@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 8206522556750678291}
   - component: {fileID: 8206522556750678290}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Swords
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -86,7 +86,7 @@ GameObject:
   - component: {fileID: 8206522557750020190}
   - component: {fileID: 8206522557750020189}
   m_Layer: 5
-  m_Name: Image
+  m_Name: Arrow
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -133,7 +133,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
-  m_RaycastTarget: 0
+  m_RaycastTarget: 1
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -158,9 +158,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8206522557886543698}
   - component: {fileID: 8206522557886543699}
+  - component: {fileID: 3003942481189182778}
   - component: {fileID: 149949800388292497}
   m_Layer: 5
-  m_Name: AttackSign
+  m_Name: AttackButton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -195,6 +196,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8206522557886543697}
   m_CullTransparentMesh: 0
+--- !u!114 &3003942481189182778
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8206522557886543697}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa66650c77dfd684f8379793849ceab9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowImage: {fileID: 8206522557750020189}
+  button: {fileID: 149949800388292497}
 --- !u!114 &149949800388292497
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -234,7 +249,7 @@ MonoBehaviour:
     m_SelectedTrigger: Selected
     m_DisabledTrigger: Disabled
   m_Interactable: 1
-  m_TargetGraphic: {fileID: 0}
+  m_TargetGraphic: {fileID: 8206522557750020189}
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []

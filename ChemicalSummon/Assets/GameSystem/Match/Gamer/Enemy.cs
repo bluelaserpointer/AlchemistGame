@@ -83,4 +83,41 @@ public class Enemy : Gamer
         //end turn
         MatchManager.TurnEnd();
     }
+    public override void OnAttackTurnStart()
+    {
+        base.OnAttackTurnStart();
+        attackedSlot.Clear();
+        AttackTurnLoop();
+    }
+    List<CardSlot> attackedSlot = new List<CardSlot>();
+    AttackButton generatedAttackSign;
+    public void AttackTurnLoop()
+    {
+        if(generatedAttackSign != null)
+            Destroy(generatedAttackSign.gameObject);
+        foreach (CardSlot slot in Field.Slots)
+        {
+            if (slot.IsEmpty || attackedSlot.Contains(slot))
+                continue;
+            attackedSlot.Add(slot);
+            generatedAttackSign = Instantiate(MatchManager.AttackButtonPrefab, MatchManager.MainCanvas.transform);
+            generatedAttackSign.transform.position = slot.transform.position;
+            generatedAttackSign.SetDirection(false);
+            MatchManager.Player.Defense(slot.Card);
+            return;
+        }
+        //no more slot can attack
+        MatchManager.TurnEnd();
+    }
+    public override void Defense(SubstanceCard attacker)
+    {
+        foreach(CardSlot slot in Field.Slots)
+        {
+            if (slot.IsEmpty)
+                continue;
+            slot.Card.Battle(attacker);
+            return;
+        }
+        HP -= attacker.ATK;
+    }
 }

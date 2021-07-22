@@ -217,4 +217,5 @@ public abstract class Gamer : MonoBehaviour
         cards.AddRange(Field.Cards);
         return cards;
     }
+    public abstract void Defense(SubstanceCard attacker);
 }

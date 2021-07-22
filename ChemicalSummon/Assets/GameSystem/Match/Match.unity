@@ -565,7 +565,6 @@ MonoBehaviour:
   onClear:
     m_PersistentCalls:
       m_Calls: []
-  interactable: 0
 --- !u!114 &408298024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -843,7 +842,6 @@ MonoBehaviour:
   onClear:
     m_PersistentCalls:
       m_Calls: []
-  interactable: 0
 --- !u!114 &505640024
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1851,7 +1849,6 @@ MonoBehaviour:
   onClear:
     m_PersistentCalls:
       m_Calls: []
-  interactable: 0
 --- !u!114 &1122239896
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2259,7 +2256,6 @@ MonoBehaviour:
   onClear:
     m_PersistentCalls:
       m_Calls: []
-  interactable: 0
 --- !u!114 &1377545764
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2448,7 +2444,6 @@ MonoBehaviour:
   onClear:
     m_PersistentCalls:
       m_Calls: []
-  interactable: 0
 --- !u!114 &1443336856
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2726,13 +2721,21 @@ MonoBehaviour:
   cardInfoDisplay: {fileID: 1541449892}
   fusionPanel: {fileID: 295707220}
   turnText: {fileID: 1541968622}
-  onMyTurnStart:
+  onMyFusionTurnStart:
     m_PersistentCalls:
       m_Calls: []
-  onEnemyTurnStart:
+  onEnemyFusionTurnStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onMyAttackTurnStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onEnemyAttackTurnStart:
     m_PersistentCalls:
       m_Calls: []
   animatedTurnPanel: {fileID: 1124459156}
+  attackButton: {fileID: 3003942481189182778, guid: 0ddc49cf84578ba41ac215603459e095,
+    type: 3}
   onInit:
     m_PersistentCalls:
       m_Calls:
@@ -4948,7 +4951,6 @@ MonoBehaviour:
   onClear:
     m_PersistentCalls:
       m_Calls: []
-  interactable: 0
 --- !u!1 &4393528545626824816
 GameObject:
   m_ObjectHideFlags: 0
