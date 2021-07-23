@@ -101,7 +101,7 @@ public class Enemy : Gamer
                 continue;
             attackedSlot.Add(slot);
             generatedAttackSign = Instantiate(MatchManager.AttackButtonPrefab, MatchManager.MainCanvas.transform);
-            generatedAttackSign.transform.position = slot.transform.position;
+            generatedAttackSign.transform.position = slot.transform.position + new Vector3(0, -150, 0);
             generatedAttackSign.SetDirection(false);
             MatchManager.Player.Defense(slot.Card);
             return;

@@ -3,14 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FusionPanel : MonoBehaviour
+public class FusionPanelButton : MonoBehaviour
 {
     [SerializeField]
     Button prefabFusionButton;
+    [SerializeField]
+    Text fusionCountText;
+    [SerializeField]
+    VerticalLayoutGroup fusionButtonList;
 
     public void UpdateList()
     {
-        foreach (Transform childTransform in transform)
+        int fusionCount = 0;
+        foreach (Transform childTransform in fusionButtonList.transform)
             Destroy(childTransform.gameObject);
         List<SubstanceCard> consumableCards = MatchManager.Player.GetConsumableCards();
         foreach(Reaction reaction in PlayerSave.DiscoveredReactions)
@@ -46,7 +51,8 @@ public class FusionPanel : MonoBehaviour
             }
             if(condition)
             {
-                Button button = Instantiate(prefabFusionButton, transform);
+                ++fusionCount;
+                Button button = Instantiate(prefabFusionButton, fusionButtonList.transform);
                 button.GetComponentInChildren<Text>().text = reaction.Description;
                 button.onClick.AddListener(() => {
                     foreach (KeyValuePair<SubstanceCard, int> consume in consumingCards)
@@ -62,5 +68,10 @@ public class FusionPanel : MonoBehaviour
                 });
             }
         }
+        fusionCountText.text = fusionCount + " Fusion";
+    }
+    public void OnFusionPanelButtonPress()
+    {
+        fusionButtonList.gameObject.SetActive(!fusionButtonList.gameObject.activeSelf);
     }
 }

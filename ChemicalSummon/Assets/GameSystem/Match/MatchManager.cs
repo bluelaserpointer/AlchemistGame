@@ -32,7 +32,7 @@ public class MatchManager : ChemicalSummonManager
     [SerializeField]
     CardInfoDisplay cardInfoDisplay;
     [SerializeField]
-    FusionPanel fusionPanel;
+    FusionPanelButton fusionPanel;
 
     [Header("Turn")]
     public Text turnText;
@@ -121,6 +121,7 @@ public class MatchManager : ChemicalSummonManager
             Player.DrawCard();
             Enemy.DrawCard();
         }
+        TurnEnd();
     }
     /// <summary>
     /// 结束回合
@@ -135,17 +136,17 @@ public class MatchManager : ChemicalSummonManager
     {
         Player.RemoveAttackButtons();
         ++turn;
-        if(turn == 0)
+        if(turn == 1)
         {
             currentTurnType = TurnType.MyFusionTurn;
         }
-        else if (turn == 1)
+        else if (turn == 2)
         {
             currentTurnType = TurnType.EnemyFusionTurn;
         }
         else
         {
-            switch((turn - 2) % 4)
+            switch((turn - 3) % 4)
             {
                 case 0:
                     currentTurnType = TurnType.MyFusionTurn;

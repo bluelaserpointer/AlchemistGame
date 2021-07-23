@@ -42,7 +42,7 @@ public class Player : Gamer
             SubstanceCard card = slot.Card;
             AttackButton attackButton = Instantiate(MatchManager.AttackButtonPrefab, MatchManager.MainCanvas.transform);
             generatedAttackButtons.Add(attackButton);
-            attackButton.transform.position = slot.transform.position + new Vector3(0, 200, 0);
+            attackButton.transform.position = slot.transform.position + new Vector3(0, 150, 0);
             attackButton.Button.onClick.AddListener(() =>
             {
                 MatchManager.Enemy.Defense(card);
@@ -55,8 +55,10 @@ public class Player : Gamer
         generatedAttackButtons.ForEach(button => Destroy(button.gameObject));
         generatedAttackButtons.Clear();
     }
+    SubstanceCard currentAttacker;
     public override void Defense(SubstanceCard attacker)
     {
+        currentAttacker = attacker;
         foreach (CardSlot slot in Field.Slots)
         {
             if (slot.IsEmpty)
@@ -64,13 +66,19 @@ public class Player : Gamer
             SubstanceCard card = slot.Card;
             AttackButton attackButton = Instantiate(MatchManager.AttackButtonPrefab, MatchManager.MainCanvas.transform);
             generatedAttackButtons.Add(attackButton);
-            attackButton.transform.position = slot.transform.position + new Vector3(0, 200, 0);
+            attackButton.transform.position = slot.transform.position + new Vector3(0, 150, 0);
             attackButton.Button.onClick.AddListener(() =>
             {
+                currentAttacker = null;
                 card.Battle(attacker);
                 RemoveAttackButtons();
                 MatchManager.Enemy.AttackTurnLoop();
             });
         }
+    }
+    public void CancelDefence()
+    {
+        HP -= currentAttacker.ATK;
+        currentAttacker = null;
     }
 }
