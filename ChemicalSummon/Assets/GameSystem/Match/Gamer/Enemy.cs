@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -30,58 +31,94 @@ public class Enemy : Gamer
             this.atk = atk;
         }
     }
+    List<SubstanceCardAndATK> highestATKs = new List<SubstanceCardAndATK>();
+    List<CardSlot> lestEmptySlots = new List<CardSlot>();
+    public void OnFusionTurnLoop(int step)
+    {
+        CardSlot[] slots = Field.Slots;
+        switch (step)
+        {
+            case 0: //back all cards & find highestATK
+                MatchManager.MatchLogDisplay.AddAction(() =>
+                {
+                    foreach (CardSlot slot in slots)
+                    {
+                        if (!slot.IsEmpty)
+                        {
+                            SubstanceCard card = slot.Card;
+                            slot.SlotClear();
+                            AddHandCard(card);
+                        }
+                    }
+                    //find highestATK
+                    highestATKs.Clear();
+                    foreach (SubstanceCard card in HandCards)
+                    {
+                        int atk = card.ATK;
+                        for (int i = 0; ; ++i)
+                        {
+                            if (i == highestATKs.Count)
+                            {
+                                highestATKs.Add(new SubstanceCardAndATK(card, atk));
+                                break;
+                            }
+                            if (atk > highestATKs[i].atk)
+                            {
+                                highestATKs.Insert(i, new SubstanceCardAndATK(card, atk));
+                                break;
+                            }
+                        }
+                    }
+                    lestEmptySlots.Clear();
+                    lestEmptySlots.AddRange(slots);
+                    OnFusionTurnLoop(step + 1);
+                });
+                break;
+            case 1:
+                //place strongest card
+                bool foundSlot = false;
+                for (int i = 0; i < highestATKs.Count; ++i)
+                {
+                    SubstanceCardAndATK highestATKPair = highestATKs[i];
+                    SubstanceCard card = highestATKPair.card;
+                    foreach (CardSlot slot in lestEmptySlots)
+                    {
+                        if (!card.GetStateInTempreture(slot.Tempreture).Equals(ThreeState.Solid))
+                            continue;
+                        foundSlot = true;
+                        highestATKs.RemoveAt(i);
+                        MatchManager.MatchLogDisplay.AddAction(() =>
+                        {
+                            lestEmptySlots.Remove(slot);
+                            RemoveHandCard(card);
+                            slot.SlotSet(highestATKPair.card.gameObject);
+                            OnFusionTurnLoop((highestATKs.Count > 0 && lestEmptySlots.Count > 0) ? 1 : 2);
+                        });
+                        break;
+                    }
+                    if(foundSlot)
+                    {
+                        break;
+                    }
+                    //no slot can place in
+                    highestATKs.RemoveAt(i);
+                    --i;
+                }
+                if(!foundSlot)
+                    OnFusionTurnLoop(2);
+                break;
+            case 2:
+                MatchManager.MatchLogDisplay.AddAction(() =>
+                {
+                    MatchManager.TurnEnd();
+                });
+                break;
+        }
+    }
     public override void OnFusionTurnStart()
     {
         base.OnFusionTurnStart(); //card draw
-        CardSlot[] slots = Field.Slots;
-        //back all cards
-        foreach (CardSlot slot in slots)
-        {
-            if (!slot.IsEmpty)
-            {
-                SubstanceCard card = slot.Card;
-                slot.SlotClear();
-                AddHandCard(card);
-            }
-        }
-        //find highestATK
-        List<SubstanceCardAndATK> highestATKs = new List<SubstanceCardAndATK>();
-        foreach(SubstanceCard card in HandCards)
-        {
-            int atk = card.ATK;
-            for (int i = 0; ; ++i)
-            {
-                if (i == highestATKs.Count)
-                {
-                    highestATKs.Add(new SubstanceCardAndATK(card, atk));
-                    break;
-                }
-                if (atk > highestATKs[i].atk)
-                {
-                    highestATKs.Insert(i, new SubstanceCardAndATK(card, atk));
-                    break;
-                }
-            }
-        }
-        //place strongest card
-        List<CardSlot> lestEmptySlots = new List<CardSlot>(slots);
-        foreach(SubstanceCardAndATK highestATKPair in highestATKs)
-        {
-            SubstanceCard card = highestATKPair.card;
-            RemoveHandCard(card);
-            foreach(CardSlot slot in lestEmptySlots)
-            {
-                if (!card.GetStateInTempreture(slot.Tempreture).Equals(ThreeState.Solid))
-                    continue;
-                slot.SlotSet(highestATKPair.card.gameObject);
-                lestEmptySlots.Remove(slot);
-                break;
-            }
-            if (lestEmptySlots.Count == 0)
-                break;
-        }
-        //end turn
-        MatchManager.TurnEnd();
+        OnFusionTurnLoop(0);
     }
     public override void OnAttackTurnStart()
     {

@@ -36,7 +36,6 @@ public class TurnEndButton : MonoBehaviour
         {
             case MatchManager.TurnType.EnemyAttackTurn: //player block
                 MatchManager.Player.CancelDefence();
-                MatchManager.Enemy.AttackTurnLoop();
                 break;
             case MatchManager.TurnType.MyAttackTurn:
             case MatchManager.TurnType.MyFusionTurn:

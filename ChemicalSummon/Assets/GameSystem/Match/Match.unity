@@ -1317,6 +1317,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 24894b0768b7af74baa67cb2cd9c9002, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gamerActionPrefab: {fileID: 7175262775775494320, guid: b5b08a55afc86504b98c747ff8cdc81d,
+    type: 3}
 --- !u!114 &742822865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2747,6 +2749,7 @@ MonoBehaviour:
   matchNameText: {fileID: 1940666222}
   cardInfoDisplay: {fileID: 1541449892}
   fusionPanel: {fileID: 810751219}
+  matchLogDisplay: {fileID: 742822864}
   turnText: {fileID: 1541968622}
   onMyFusionTurnStart:
     m_PersistentCalls:
@@ -2983,15 +2986,15 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1548217363}
-        m_MethodName: TurnEnd_nonstatic
+      - m_Target: {fileID: 1599342925}
+        m_MethodName: OnButtonPress
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: ReverseCardAppear
+          m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1599342922

@@ -33,6 +33,8 @@ public class MatchManager : ChemicalSummonManager
     CardInfoDisplay cardInfoDisplay;
     [SerializeField]
     FusionPanelButton fusionPanel;
+    [SerializeField]
+    MatchLogDisplay matchLogDisplay;
 
     [Header("Turn")]
     public Text turnText;
@@ -89,6 +91,10 @@ public class MatchManager : ChemicalSummonManager
     /// 卡牌信息栏
     /// </summary>
     public static CardInfoDisplay CardInfoDisplay => instance.cardInfoDisplay;
+    /// <summary>
+    /// 行动历史栏
+    /// </summary>
+    public static MatchLogDisplay MatchLogDisplay => instance.matchLogDisplay;
     /// <summary>
     /// 回合
     /// </summary>

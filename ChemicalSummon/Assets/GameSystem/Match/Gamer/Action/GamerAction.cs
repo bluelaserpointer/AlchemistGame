@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,5 +8,25 @@ public class GamerAction : MonoBehaviour
     [SerializeField]
     Image icon;
 
+    public Action action;
 
+    bool finished;
+    float generalWaitTime = 0.75F;
+    float awakenTime;
+    public void DoAction()
+    {
+        action.Invoke();
+    }
+    private void Awake()
+    {
+        awakenTime = Time.timeSinceLevelLoad;
+    }
+    private void Update()
+    {
+        if(!finished && Time.timeSinceLevelLoad - awakenTime > generalWaitTime)
+        {
+            DoAction();
+            finished = true;
+        }
+    }
 }

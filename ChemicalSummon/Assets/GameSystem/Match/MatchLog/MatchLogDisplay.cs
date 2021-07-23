@@ -1,19 +1,17 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
 public class MatchLogDisplay : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    [SerializeField]
+    GamerAction gamerActionPrefab;
 
-    // Update is called once per frame
-    void Update()
+    public void AddAction(Action action)
     {
-        
+        GamerAction gamerAction = Instantiate(gamerActionPrefab, transform);
+        gamerAction.action = action;
     }
 }

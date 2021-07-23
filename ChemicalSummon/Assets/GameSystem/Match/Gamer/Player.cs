@@ -78,7 +78,9 @@ public class Player : Gamer
     }
     public void CancelDefence()
     {
+        RemoveAttackButtons();
         HP -= currentAttacker.ATK;
         currentAttacker = null;
+        MatchManager.Enemy.AttackTurnLoop();
     }
 }
