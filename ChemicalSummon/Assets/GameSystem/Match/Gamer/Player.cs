@@ -50,6 +50,7 @@ public class Player : Gamer
             attackButton.Button.onClick.AddListener(() =>
             {
                 MatchManager.Enemy.Defense(card);
+                generatedAttackButtons.Remove(attackButton);
                 Destroy(attackButton.gameObject);
             });
         }

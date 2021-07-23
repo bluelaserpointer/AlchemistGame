@@ -10,7 +10,6 @@ public class AttackButton : MonoBehaviour
     Image arrowImage;
     [SerializeField]
     Button button;
-
     public Button Button => button;
     public void SetDirection(bool upside)
     {

@@ -13,13 +13,14 @@ public class TurnEndButton : MonoBehaviour
 
     private void Start()
     {
+        Color originalColor = buttonImage.color;
         MatchManager.instance.onMyFusionTurnStart.AddListener(() => {
             buttonText.text = "StartAttack";
-            buttonImage.color = Color.cyan;
+            buttonImage.color = originalColor;
         });
         MatchManager.instance.onMyAttackTurnStart.AddListener(() => {
             buttonText.text = "EndAttack";
-            buttonImage.color = Color.cyan;
+            buttonImage.color = originalColor;
         });
         MatchManager.instance.onEnemyFusionTurnStart.AddListener(() => {
             buttonText.text = "";
