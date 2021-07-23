@@ -38,6 +38,7 @@ public class MatchManager : ChemicalSummonManager
 
     [Header("Turn")]
     public Text turnText;
+    public UnityEvent onTurnStart;
     public UnityEvent onMyFusionTurnStart;
     public UnityEvent onEnemyFusionTurnStart;
     public UnityEvent onMyAttackTurnStart;
@@ -113,6 +114,7 @@ public class MatchManager : ChemicalSummonManager
         //gamer
         Player.Init(Match.MySideCharacter, new Deck(PlayerSave.ActiveDeck));
         Enemy.Init(Match.EnemySideCharacter, new Deck(Match.EnemyDeck));
+        onTurnStart.AddListener(Player.Field.UpdateCardsDraggable);
         onMyFusionTurnStart.AddListener(Player.OnFusionTurnStart);
         onEnemyFusionTurnStart.AddListener(Enemy.OnFusionTurnStart);
         onMyAttackTurnStart.AddListener(Player.OnAttackTurnStart);
@@ -170,6 +172,7 @@ public class MatchManager : ChemicalSummonManager
         }
         turnText.text = "Turn " + turn;
         string turnMessage;
+        onTurnStart.Invoke();
         switch (CurrentTurnType)
         {
             case TurnType.MyFusionTurn:

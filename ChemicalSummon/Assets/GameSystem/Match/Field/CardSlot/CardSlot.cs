@@ -24,10 +24,14 @@ public class CardSlot : ObjectSlot, IAttackable
     /// </summary>
     public bool IsEnemySide => IsBelongTo(MatchManager.EnemyField);
     public SubstanceCard Card => IsEmpty ? null : GetTop().GetComponent<SubstanceCard>();
+    public bool CardDraggable => Field.CardsDraggable;
     private void Awake()
     {
         field = transform.GetComponentInParent<Field>();
-        onSet.AddListener(field.cardsChanged.Invoke);
+        onSet.AddListener(() => {
+            Card.SetDraggable(CardDraggable);
+            field.cardsChanged.Invoke();
+        });
         onClear.AddListener(field.cardsChanged.Invoke);
     }
     /// <summary>
@@ -50,11 +54,10 @@ public class CardSlot : ObjectSlot, IAttackable
     }
     public bool AllowAttack(SubstanceCard card)
     {
-        return Card != null;
+        return false; //implement special attack
     }
 
     public void Attack(SubstanceCard card)
     {
-        throw new System.NotImplementedException();
     }
 }

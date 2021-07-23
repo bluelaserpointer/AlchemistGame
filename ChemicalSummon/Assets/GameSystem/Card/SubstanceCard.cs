@@ -263,4 +263,8 @@ public class SubstanceCard : MonoBehaviour
         Dispose();
         return amount;
     }
+    public void SetDraggable(bool cond)
+    {
+        cardDrag.enabled = cond;
+    }
 }

@@ -31,6 +31,10 @@ public class Player : Gamer
         }
         return false;
     }
+    public override void OnFusionTurnStart()
+    {
+        base.OnFusionTurnStart();
+    }
     public List<AttackButton> generatedAttackButtons = new List<AttackButton>();
     public override void OnAttackTurnStart()
     {
