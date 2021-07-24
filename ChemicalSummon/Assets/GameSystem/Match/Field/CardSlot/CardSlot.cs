@@ -52,6 +52,17 @@ public class CardSlot : ObjectSlot, IAttackable
     {
         return field.Equals(slot.field);
     }
+    public override bool AllowSlotSet(GameObject obj)
+    {
+        SubstanceCard substanceCard = obj.GetComponent<SubstanceCard>();
+        if (substanceCard != null && !substanceCard.GetStateInTempreture(Tempreture).Equals(ThreeState.Solid))
+        {
+            MatchManager.MessagePanel.gameObject.SetActive(true);
+            MatchManager.MessagePanel.ShowMessage("非固体无法放置");
+            return false;
+        }
+        return true;
+    }
     public bool AllowAttack(SubstanceCard card)
     {
         return false; //implement special attack
