@@ -71,4 +71,15 @@ public class CardSlot : ObjectSlot, IAttackable
     public void Attack(SubstanceCard card)
     {
     }
+    public void Damage(int dmg, bool penetration)
+    {
+        if(!IsEmpty)
+        {
+            Card.Damage(dmg, penetration);
+        }
+        else if (penetration)
+        {
+            Field.Gamer.HP -= dmg;
+        }
+    }
 }

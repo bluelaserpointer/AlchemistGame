@@ -83,6 +83,8 @@ public class Player : Gamer
     }
     public void CancelDefence()
     {
+        if (currentAttacker == null)
+            return;
         RemoveAttackButtons();
         HP -= currentAttacker.ATK;
         currentAttacker = null;

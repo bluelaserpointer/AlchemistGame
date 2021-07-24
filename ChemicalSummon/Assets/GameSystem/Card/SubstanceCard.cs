@@ -117,19 +117,21 @@ public class SubstanceCard : MonoBehaviour
 
     public void Battle(SubstanceCard attacker)
     {
-        int deadAmount = OriginalATK == 0 ? CardAmount : attacker.ATK / OriginalATK;
-        int killAmount = attacker.OriginalATK == 0 ? attacker.CardAmount : ATK / attacker.OriginalATK;
-        int overDamage = attacker.ATK - ATK;
-        if (overDamage > 0)
+        Damage(attacker.ATK, true);
+        attacker.Damage(ATK, false); //counter
+    }
+    public void Damage(int dmg, bool penetration)
+    {
+        if (dmg <= 0)
+            return;
+        int deadAmount = OriginalATK == 0 ? CardAmount : dmg / OriginalATK;
+        if(penetration)
         {
-            gamer.HP -= overDamage;
-        }
-        else
-        {
-            //attacker.gamer.HP += overDamage; //attacker dont take damage
+            int overDamage = dmg - ATK;
+            if (overDamage > 0)
+                gamer.HP -= overDamage;
         }
         RemoveAmount(deadAmount);
-        attacker.RemoveAmount(killAmount);
     }
 
     /// <summary>

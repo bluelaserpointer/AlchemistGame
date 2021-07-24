@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum DamageType { Explosion, Heat, Electronic, None }
 /// <summary>
 /// 反应式(静态数据)
 /// </summary>
@@ -17,9 +18,16 @@ public class Reaction : ScriptableObject
     [SerializeField]
     List<SubstanceAndAmount> rightSubstances;
 
+    [SerializeField]
+    DamageType damageType = DamageType.None;
+    [SerializeField]
+    int damageAmount = 0;
+
     public string Description => description.ToString();
     public List<SubstanceAndAmount> LeftSubstances => leftSubstances;
     public List<SubstanceAndAmount> RightSubstances => rightSubstances;
+    public DamageType DamageType => damageType;
+    public int DamageAmount => damageAmount;
     public int GetRequiredAmount(Substance substance) {
         foreach(SubstanceAndAmount pair in LeftSubstances)
         {

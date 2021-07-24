@@ -130,21 +130,24 @@ public class Enemy : Gamer
     AttackButton generatedAttackSign;
     public void AttackTurnLoop()
     {
-        if(generatedAttackSign != null)
+        if (generatedAttackSign != null)
             Destroy(generatedAttackSign.gameObject);
-        foreach (CardSlot slot in Field.Slots)
+        MatchManager.MatchLogDisplay.AddAction(() =>
         {
-            if (slot.IsEmpty || attackedSlot.Contains(slot))
-                continue;
-            attackedSlot.Add(slot);
-            generatedAttackSign = Instantiate(MatchManager.AttackButtonPrefab, MatchManager.MainCanvas.transform);
-            generatedAttackSign.transform.position = slot.transform.position + new Vector3(0, -150, 0);
-            generatedAttackSign.SetDirection(false);
-            MatchManager.Player.Defense(slot.Card);
-            return;
-        }
-        //no more slot can attack
-        MatchManager.TurnEnd();
+            foreach (CardSlot slot in Field.Slots)
+            {
+                if (slot.IsEmpty || attackedSlot.Contains(slot))
+                    continue;
+                attackedSlot.Add(slot);
+                generatedAttackSign = Instantiate(MatchManager.AttackButtonPrefab, MatchManager.MainCanvas.transform);
+                generatedAttackSign.transform.position = slot.transform.position + new Vector3(0, -150, 0);
+                generatedAttackSign.SetDirection(false);
+                MatchManager.Player.Defense(slot.Card);
+                return;
+            }
+            //no more slot can attack
+            MatchManager.TurnEnd();
+        });
     }
     public override void Defense(SubstanceCard attacker)
     {

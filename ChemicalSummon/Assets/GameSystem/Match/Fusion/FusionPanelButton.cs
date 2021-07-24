@@ -65,6 +65,18 @@ public class FusionPanelButton : MonoBehaviour
                         newCard.CardAmount = pair.amount;
                         MatchManager.Player.AddHandCard(newCard);
                     }
+                    //special damage
+                    switch(reaction.DamageType)
+                    {
+                        case DamageType.Explosion:
+                            foreach(CardSlot cardSlot in MatchManager.EnemyField.Slots)
+                            {
+                                cardSlot.Damage(reaction.DamageAmount, true);
+                            }
+                            break;
+                        default:
+                            break;
+                    }
                 });
             }
         }
