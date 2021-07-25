@@ -94,6 +94,10 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// </summary>
     public static CardInfoDisplay CardInfoDisplay => instance.cardInfoDisplay;
     /// <summary>
+    /// 融合列表
+    /// </summary>
+    public static FusionPanelButton FusionPanel => instance.fusionPanel;
+    /// <summary>
     /// 行动历史栏
     /// </summary>
     public static MatchLogDisplay MatchLogDisplay => instance.matchLogDisplay;

@@ -395,7 +395,7 @@ MonoBehaviour:
   m_ChildAlignment: 0
   m_Spacing: 0
   m_ChildForceExpandWidth: 1
-  m_ChildForceExpandHeight: 1
+  m_ChildForceExpandHeight: 0
   m_ChildControlWidth: 1
   m_ChildControlHeight: 0
   m_ChildScaleWidth: 0
@@ -2340,7 +2340,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
   - {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
   - {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
-  - {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
+  - {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
   - {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
   - {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
   - {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}

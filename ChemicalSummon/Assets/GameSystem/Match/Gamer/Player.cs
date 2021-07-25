@@ -75,20 +75,25 @@ public class Player : Gamer
             attackButton.transform.position = slot.transform.position + new Vector3(0, 150, 0);
             attackButton.Button.onClick.AddListener(() =>
             {
-                currentAttacker = null;
                 card.Battle(attacker);
-                RemoveAttackButtons();
-                MatchManager.Enemy.AttackTurnLoop();
+                EndDefence();
             });
         }
+        MatchManager.FusionPanel.UpdateList();
     }
-    public void CancelDefence()
+    public void EndDefence()
     {
         if (currentAttacker == null)
             return;
-        RemoveAttackButtons();
-        HP -= currentAttacker.ATK;
         currentAttacker = null;
+        RemoveAttackButtons();
         MatchManager.Enemy.AttackTurnLoop();
+    }
+    public void PlayerBlock()
+    {
+        if (currentAttacker == null)
+            return;
+        HP -= currentAttacker.ATK;
+        EndDefence();
     }
 }

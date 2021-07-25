@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1429726825b5b41aba171290ab550d, type: 3}
+  m_Name: Fe2O3
+  m_EditorClassIdentifier: 
+  chemicalSymbol: Fe2O3
+  name:
+    defaultString: Fe2O3
+    languageAndSentences:
+    - language: 0
+      sentence: "\u6C27\u5316\u94C1"
+  elements:
+  - element: {fileID: 11400000, guid: 76cf6c10c09ecad4fb78a853493094ad, type: 2}
+    amount: 2
+  - element: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
+    amount: 3
+  image: {fileID: 21300000, guid: 827179dfb7a75164489c18a4ecf90189, type: 3}
+  atk: 2
+  def: 0
+  meltingPoint: 1565
+  boilingPoint: 1565
+  waterSoluble: 0
+  description:
+    defaultString: ?missing?
+    languageAndSentences: []

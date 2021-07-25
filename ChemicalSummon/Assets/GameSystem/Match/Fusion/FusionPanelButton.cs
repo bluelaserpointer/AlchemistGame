@@ -16,16 +16,27 @@ public class FusionPanelButton : MonoBehaviour
     [SerializeField]
     Color noFusionColor, hasFusionColor;
 
-    Color originalButtonColor;
+    private void Awake()
+    {
+        fusionButtonList.gameObject.SetActive(false);
+    }
     public void UpdateList()
     {
+        //in counterMode, only counter fusions are avaliable
+        bool counterMode = MatchManager.CurrentTurnType.Equals(MatchManager.TurnType.EnemyAttackTurn);
+        SubstanceCard currentAttacker = MatchManager.Player.CurrentAttacker;
         int fusionCount = 0;
         foreach (Transform childTransform in fusionButtonList.transform)
             Destroy(childTransform.gameObject);
         List<SubstanceCard> consumableCards = MatchManager.Player.GetConsumableCards();
-        foreach(Reaction reaction in PlayerSave.DiscoveredReactions)
+        if(counterMode)
+        {
+            consumableCards.Insert(0, currentAttacker);
+        }
+        foreach (Reaction reaction in PlayerSave.DiscoveredReactions)
         {
             bool condition = true;
+            bool addedAttacker = false;
             Dictionary<SubstanceCard, int> consumingCards = new Dictionary<SubstanceCard, int>();
             foreach (SubstanceAndAmount pair in reaction.LeftSubstances)
             {
@@ -35,6 +46,10 @@ public class FusionPanelButton : MonoBehaviour
                 {
                     if (card.Substance.Equals(requiredSubstance))
                     {
+                        if(counterMode && !addedAttacker && card.Equals(currentAttacker))
+                        {
+                            addedAttacker = true;
+                        }
                         if(card.CardAmount >= requiredAmount)
                         {
                             consumingCards.Add(card, requiredAmount);
@@ -50,15 +65,17 @@ public class FusionPanelButton : MonoBehaviour
                 };
                 if(requiredAmount > 0)
                 {
+                    //print("luck of requiredAmount: " + requiredAmount + " of " + requiredSubstance.Name + " in " + reaction.Description);
                     condition = false;
                     break;
                 }
             }
-            if(condition)
+            if(condition && (!counterMode || addedAttacker))
             {
                 ++fusionCount;
                 FusionButton fusionButton = Instantiate(prefabFusionButton, fusionButtonList.transform);
                 fusionButton.SetReaction(reaction);
+                fusionButton.SetIfCounterFusion(counterMode);
                 Button button = fusionButton.GetComponent<Button>();
                 button.onClick.AddListener(() => {
                     foreach (KeyValuePair<SubstanceCard, int> consume in consumingCards)
@@ -82,6 +99,11 @@ public class FusionPanelButton : MonoBehaviour
                             break;
                         default:
                             break;
+                    }
+                    //counter fusion
+                    if(counterMode)
+                    {
+                        MatchManager.Player.EndDefence();
                     }
                 });
             }

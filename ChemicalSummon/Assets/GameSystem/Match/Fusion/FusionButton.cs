@@ -9,6 +9,8 @@ public class FusionButton : MonoBehaviour
     [SerializeField]
     Text formulaText;
     [SerializeField]
+    Image counterImage;
+    [SerializeField]
     GameObject damagePanel;
     [SerializeField]
     Image damageTypeIcon;
@@ -17,6 +19,10 @@ public class FusionButton : MonoBehaviour
     [SerializeField]
     Sprite explosionIcon, heatIcon, electricIcon;
 
+    public void SetIfCounterFusion(bool cond)
+    {
+        counterImage.gameObject.SetActive(cond);
+    }
     public void SetReaction(Reaction reaction)
     {
         formulaText.text = reaction.Description;
