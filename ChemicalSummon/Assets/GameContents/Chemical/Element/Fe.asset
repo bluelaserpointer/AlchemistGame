@@ -18,8 +18,8 @@ MonoBehaviour:
     languageAndSentences:
     - language: 0
       sentence: "\u94C1"
-  atom: 0
-  mol: 0
+  atom: 26
+  mol: 56
   description:
     defaultString: ?missing?
     languageAndSentences: []

@@ -13,6 +13,8 @@ public abstract class Gamer : MonoBehaviour
     [SerializeField]
     Image faceImage;
     [SerializeField]
+    Text gamerNameText;
+    [SerializeField]
     StatusPanels statusPanels;
     public StatusPanels StatusPanels => statusPanels;
 
@@ -90,6 +92,7 @@ public abstract class Gamer : MonoBehaviour
         this.deck = deck;
         hp = InitialHP;
         faceImage.sprite = character.FaceIcon;
+        gamerNameText.text = character.Name;
         statusPanels.SetData(this);
     }
     public void DrawCard()
