@@ -6,12 +6,19 @@ using UnityEngine.UI;
 public class FusionPanelButton : MonoBehaviour
 {
     [SerializeField]
-    Button prefabFusionButton;
+    FusionButton prefabFusionButton;
     [SerializeField]
     Text fusionCountText;
     [SerializeField]
+    Image fusionCountImage;
+    [SerializeField]
     VerticalLayoutGroup fusionButtonList;
 
+    Color originalButtonColor;
+    private void Awake()
+    {
+        originalButtonColor = fusionCountImage.color;
+    }
     public void UpdateList()
     {
         int fusionCount = 0;
@@ -52,8 +59,9 @@ public class FusionPanelButton : MonoBehaviour
             if(condition)
             {
                 ++fusionCount;
-                Button button = Instantiate(prefabFusionButton, fusionButtonList.transform);
-                button.GetComponentInChildren<Text>().text = reaction.Description;
+                FusionButton fusionButton = Instantiate(prefabFusionButton, fusionButtonList.transform);
+                fusionButton.SetReaction(reaction);
+                Button button = fusionButton.GetComponent<Button>();
                 button.onClick.AddListener(() => {
                     foreach (KeyValuePair<SubstanceCard, int> consume in consumingCards)
                     {
@@ -80,6 +88,7 @@ public class FusionPanelButton : MonoBehaviour
                 });
             }
         }
+        fusionCountImage.color = fusionCount == 0 ? originalButtonColor : Color.cyan;
         fusionCountText.text = fusionCount + " Fusion";
     }
     public void OnFusionPanelButtonPress()
