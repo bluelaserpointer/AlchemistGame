@@ -7,11 +7,8 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public class CardInfoDisplay : MonoBehaviour
 {
-    public Text cardName;
-    public Image cardImage;
-    public Text cardDescription;
-    public TextMeshProUGUI attackText;
-    public Text meltingPointText, boilingPointText;
+    [SerializeField]
+    SubstanceCard sampleCard;
 
     SubstanceCard showingCard;
     public SubstanceCard ShowingCard
@@ -24,12 +21,8 @@ public class CardInfoDisplay : MonoBehaviour
         if(showingCard == null || !showingCard.Equals(substanceCard))
         {
             showingCard = substanceCard;
-            cardName.text = showingCard.Name;
-            cardImage.sprite = showingCard.Image;
-            cardDescription.text = showingCard.Description;
-            attackText.text = showingCard.OriginalATK.ToString();
-            meltingPointText.text = showingCard.Substance.MeltingPoint.ToString() + "℃";
-            boilingPointText.text = showingCard.Substance.BoilingPoint.ToString() + "℃";
+            sampleCard.Substance = substanceCard.Substance;
+            sampleCard.CardAmount = substanceCard.CardAmount;
         }
     }
 }
