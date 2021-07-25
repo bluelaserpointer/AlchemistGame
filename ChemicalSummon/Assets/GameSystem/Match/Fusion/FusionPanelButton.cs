@@ -94,7 +94,7 @@ public class FusionPanelButton : MonoBehaviour
                         case DamageType.Explosion:
                             foreach(CardSlot cardSlot in MatchManager.EnemyField.Slots)
                             {
-                                cardSlot.Damage(reaction.DamageAmount, true);
+                                cardSlot.Damage(reaction.DamageAmount);
                             }
                             break;
                         default:
