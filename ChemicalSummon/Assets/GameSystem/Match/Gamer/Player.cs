@@ -61,6 +61,7 @@ public class Player : Gamer
         generatedAttackButtons.Clear();
     }
     SubstanceCard currentAttacker;
+    public SubstanceCard CurrentAttacker => currentAttacker;
     public override void Defense(SubstanceCard attacker)
     {
         currentAttacker = attacker;

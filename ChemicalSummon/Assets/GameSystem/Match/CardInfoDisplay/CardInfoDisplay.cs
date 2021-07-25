@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
@@ -13,13 +13,17 @@ public class CardInfoDisplay : MonoBehaviour
     SubstanceCard showingCard;
     public SubstanceCard ShowingCard
     {
-        set => SetCard(value);
         get => showingCard;
+    }
+    private void Awake()
+    {
+        gameObject.SetActive(false);
     }
     public void SetCard(SubstanceCard substanceCard)
     {
         if(showingCard == null || !showingCard.Equals(substanceCard))
         {
+            gameObject.SetActive(true);
             showingCard = substanceCard;
             sampleCard.Substance = substanceCard.Substance;
             sampleCard.CardAmount = substanceCard.CardAmount;

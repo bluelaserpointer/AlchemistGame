@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 /// <summary>
@@ -11,7 +12,7 @@ using UnityEngine.UI;
 ///  , 管理回合
 /// </summary>
 [DisallowMultipleComponent]
-public class MatchManager : ChemicalSummonManager
+public class MatchManager : ChemicalSummonManager, IPointerDownHandler
 {
     public static MatchManager instance;
 
@@ -27,8 +28,6 @@ public class MatchManager : ChemicalSummonManager
     Enemy enemy;
 
     [Header("Info")]
-    [SerializeField]
-    Text matchNameText;
     [SerializeField]
     CardInfoDisplay cardInfoDisplay;
     [SerializeField]
@@ -112,7 +111,6 @@ public class MatchManager : ChemicalSummonManager
         Init();
         instance = this;
         //set background and music
-        matchNameText.text = Match.Name;
         AudioSource audioSource = GetComponent<AudioSource>();
         audioSource.clip = Match.PickRandomBGM();
         audioSource.Play();
@@ -203,5 +201,25 @@ public class MatchManager : ChemicalSummonManager
         }
         animatedTurnPanel.GetComponentInChildren<Text>().text = turnMessage;
         animatedTurnPanel.GetComponent<AnimationStopper>().Play();
+    }
+
+    public void OnPointerDown(PointerEventData eventData)
+    {
+        List<RaycastResult> results = new List<RaycastResult>();
+        EventSystem.current.RaycastAll(eventData, results);
+        foreach(RaycastResult rayResult in results)
+        {
+            GameObject obj = rayResult.gameObject;
+            SubstanceCard card = obj.GetComponent<SubstanceCard>();
+            if (card != null)
+            {
+                if(!card.transform.Equals(CardInfoDisplay))
+                {
+                    CardInfoDisplay.SetCard(card);
+                    return;
+                }
+            }
+        }
+        CardInfoDisplay.gameObject.SetActive(false);
     }
 }

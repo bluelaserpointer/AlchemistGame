@@ -7,13 +7,10 @@ using UnityEngine.Events;
 [RequireComponent(typeof(Animator))]
 public class AnimationStopper : MonoBehaviour
 {
+    [SerializeField]
     Animator animator;
     public bool IsPlaying => animator.GetBool("Play");
     public UnityEvent animationStopped;
-    private void Awake()
-    {
-        animator = GetComponent<Animator>();
-    }
     public void Stop()
     {
         animator.SetBool("Play", false);

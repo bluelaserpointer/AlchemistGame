@@ -20,7 +20,6 @@ public class CardDrag : Draggable
         base.OnBeginDrag(eventData);
         substanceCard.EnableShadow(true);
         MatchManager.Player.RemoveHandCard(substanceCard);
-        MatchManager.CardInfoDisplay.SetCard(substanceCard);
     }
     public override void OnEndDrag(PointerEventData eventData)
     {

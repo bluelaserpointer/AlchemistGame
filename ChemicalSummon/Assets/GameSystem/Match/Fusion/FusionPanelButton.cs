@@ -13,12 +13,10 @@ public class FusionPanelButton : MonoBehaviour
     Image fusionCountImage;
     [SerializeField]
     VerticalLayoutGroup fusionButtonList;
+    [SerializeField]
+    Color noFusionColor, hasFusionColor;
 
     Color originalButtonColor;
-    private void Awake()
-    {
-        originalButtonColor = fusionCountImage.color;
-    }
     public void UpdateList()
     {
         int fusionCount = 0;
@@ -88,7 +86,7 @@ public class FusionPanelButton : MonoBehaviour
                 });
             }
         }
-        fusionCountImage.color = fusionCount == 0 ? originalButtonColor : Color.cyan;
+        fusionCountImage.color = fusionCount == 0 ? noFusionColor : hasFusionColor;
         fusionCountText.text = fusionCount + " Fusion";
     }
     public void OnFusionPanelButtonPress()
