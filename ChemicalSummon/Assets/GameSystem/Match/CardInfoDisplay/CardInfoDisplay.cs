@@ -9,6 +9,8 @@ public class CardInfoDisplay : MonoBehaviour
 {
     [SerializeField]
     SubstanceCard sampleCard;
+    [SerializeField]
+    Text molReleaseText;
 
     SubstanceCard showingCard;
     public SubstanceCard ShowingCard
@@ -19,6 +21,11 @@ public class CardInfoDisplay : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
+    private void Update()
+    {
+        sampleCard.CardAmount = showingCard.CardAmount;
+        molReleaseText.text = "Release " + (showingCard.Mol * showingCard.CardAmount) + "mol";
+    }
     public void SetCard(SubstanceCard substanceCard)
     {
         if(showingCard == null || !showingCard.Equals(substanceCard))
@@ -27,6 +34,16 @@ public class CardInfoDisplay : MonoBehaviour
             showingCard = substanceCard;
             sampleCard.Substance = substanceCard.Substance;
             sampleCard.CardAmount = substanceCard.CardAmount;
+            molReleaseText.text = "Release " + showingCard.Mol + "mol";
+        }
+    }
+    public void OnReleaseButtonClick()
+    {
+        if(showingCard != null)
+        {
+            MatchManager.Player.ReleaseCard(showingCard);
+            showingCard = null;
+            gameObject.SetActive(false);
         }
     }
 }

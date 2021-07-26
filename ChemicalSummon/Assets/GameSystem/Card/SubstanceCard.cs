@@ -48,6 +48,7 @@ public class SubstanceCard : MonoBehaviour
                 //molText.text = Mol;
                 meltingPointText.text = substance.MeltingPoint.ToString() + "℃";
                 boilingPointText.text = substance.BoilingPoint.ToString() + "℃";
+                mol = substance.GetMol();
                 cardImage.sprite = Image;
                 attackText.text = ATK.ToString();
                 molText.text = substance.GetMol().ToString();
@@ -101,10 +102,11 @@ public class SubstanceCard : MonoBehaviour
     /// 卡牌图片
     /// </summary>
     public Sprite Image => Substance.Image;
+    int mol;
     /// <summary>
     /// 摩尔
     /// </summary>
-    public int Mol => substance.GetMol();
+    public int Mol => mol;
     /// <summary>
     /// 攻击力(最新值)
     /// </summary>
