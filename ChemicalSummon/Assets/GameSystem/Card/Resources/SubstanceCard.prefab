@@ -2278,13 +2278,14 @@ PrefabInstance:
     - target: {fileID: 4211786337774338416, guid: e1bbe39279234fb44ba83d3864d2e26a,
         type: 3}
       propertyPath: m_Type
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4211786337774338416, guid: e1bbe39279234fb44ba83d3864d2e26a,
         type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 21300000, guid: 32fc3529672813045b6475c7b8862f69,
+        type: 3}
     - target: {fileID: 4211786337774338416, guid: e1bbe39279234fb44ba83d3864d2e26a,
         type: 3}
       propertyPath: m_Color.b
