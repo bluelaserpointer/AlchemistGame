@@ -132,6 +132,10 @@ public class Enemy : Gamer
     {
         if (generatedAttackSign != null)
             Destroy(generatedAttackSign.gameObject);
+        if (MatchManager.IsMatchFinish)
+        {
+            return;
+        }
         MatchManager.MatchLogDisplay.AddAction(() =>
         {
             foreach (CardSlot slot in Field.Slots)

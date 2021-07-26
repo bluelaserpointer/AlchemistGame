@@ -36,6 +36,8 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     MatchLogDisplay matchLogDisplay;
     [SerializeField]
     MessagePanel messagePanel;
+    [SerializeField]
+    ResultPanel resultPanel;
 
     [Header("Turn")]
     public Text turnText;
@@ -106,6 +108,14 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// </summary>
     public static MessagePanel MessagePanel => instance.messagePanel;
     /// <summary>
+    /// 结果页面
+    /// </summary>
+    public static ResultPanel ResultPanel => instance.resultPanel;
+    /// <summary>
+    /// 是否对局结束
+    /// </summary>
+    public static bool IsMatchFinish => ResultPanel.IsMatchFinish;
+    /// <summary>
     /// 回合
     /// </summary>
     public static int Turn => instance.turn;
@@ -129,6 +139,8 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         onEnemyAttackTurnStart.AddListener(Enemy.OnAttackTurnStart);
         MyField.cardsChanged.AddListener(fusionPanel.UpdateList);
         Player.OnHandCardsChanged.AddListener(fusionPanel.UpdateList);
+        Player.OnHPChange.AddListener(() => { if (Player.HP <= 0) resultPanel.SetResult(false); });
+        Enemy.OnHPChange.AddListener(() => { if (Enemy.HP <= 0) resultPanel.SetResult(true); });
         //demo
         onInit.Invoke();
         //initial draw

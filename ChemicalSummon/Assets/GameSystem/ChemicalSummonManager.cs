@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public abstract class ChemicalSummonManager : MonoBehaviour
 {
@@ -27,6 +28,10 @@ public abstract class ChemicalSummonManager : MonoBehaviour
     public void GotoMatch(Match match)
     {
         PlayerSave.StartMatch(match);
+    }
+    public void GotoMenu()
+    {
+        SceneManager.LoadScene("Title");
     }
     public void StartEvent(Event newEvent)
     {
