@@ -14,6 +14,7 @@ public class ResultPanel : MonoBehaviour
     {
         gameObject.SetActive(true);
         MatchManager.Player.EndDefence();
+        MatchManager.Player.RemoveAttackButtons();
         if(isVictory)
         {
             resultText.text = "Victory";

@@ -44,7 +44,7 @@ public class CardDrag : Draggable
                     {
                         if (!MatchManager.CurrentTurnType.Equals(MatchManager.TurnType.MyFusionTurn)) //cannot place new shield when not in fusionTurn
                         {
-                            return;
+                            continue;
                         }
                         //switch container slot
                         if (!disbandable)

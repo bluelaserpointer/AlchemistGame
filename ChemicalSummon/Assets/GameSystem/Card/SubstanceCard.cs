@@ -125,10 +125,11 @@ public class SubstanceCard : MonoBehaviour
     public void Damage(int dmg)
     {
         int overDamage = dmg - ATK;
-        if (overDamage > 0)
+        if (overDamage >= 0)
         {
-            gamer.HP -= overDamage;
             RemoveAmount(1);
+            if (overDamage > 0)
+                gamer.HP -= overDamage;
         }
     }
 
