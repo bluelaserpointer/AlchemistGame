@@ -1,0 +1,34 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ef1429726825b5b41aba171290ab550d, type: 3}
+  m_Name: CuO
+  m_EditorClassIdentifier: 
+  chemicalSymbol: CuO
+  name:
+    defaultString: CuO
+    languageAndSentences:
+    - language: 0
+      sentence: "\u6C27\u5316\u94DC"
+  elements:
+  - element: {fileID: 11400000, guid: 74bbd45abe7bfe943b6b4e0528bc32fa, type: 2}
+    amount: 1
+  - element: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
+    amount: 1
+  image: {fileID: 21300000, guid: 15d0069732686ac4ca46c9a27070da50, type: 3}
+  atk: 2
+  def: 0
+  meltingPoint: 1446
+  boilingPoint: 1446
+  waterSoluble: 0
+  description:
+    defaultString: ?missing?
+    languageAndSentences: []
