@@ -149,6 +149,10 @@ public abstract class Gamer : MonoBehaviour
         Mol += substanceCard.Mol * substanceCard.CardAmount;
         substanceCard.Dispose();
     }
+    public void ReleaseCard(SubstanceCard substanceCard, int amount)
+    {
+        Mol += substanceCard.Mol * substanceCard.RemoveAmount(amount);
+    }
     /// <summary>
     /// 手牌总数
     /// </summary>

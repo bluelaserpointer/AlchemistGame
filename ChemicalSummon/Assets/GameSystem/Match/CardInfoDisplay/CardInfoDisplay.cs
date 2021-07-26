@@ -24,7 +24,7 @@ public class CardInfoDisplay : MonoBehaviour
     private void Update()
     {
         sampleCard.CardAmount = showingCard.CardAmount;
-        molReleaseText.text = "Release " + (showingCard.Mol * showingCard.CardAmount) + "mol";
+        molReleaseText.text = "Release " + showingCard.Mol + "mol";
     }
     public void SetCard(SubstanceCard substanceCard)
     {
@@ -41,9 +41,17 @@ public class CardInfoDisplay : MonoBehaviour
     {
         if(showingCard != null)
         {
-            MatchManager.Player.ReleaseCard(showingCard);
-            showingCard = null;
-            gameObject.SetActive(false);
+            if(showingCard.CardAmount == 1)
+            {
+                MatchManager.Player.ReleaseCard(showingCard, 1);
+                showingCard = null;
+                gameObject.SetActive(false);
+            }
+            else
+            {
+                MatchManager.Player.ReleaseCard(showingCard, 1);
+            }
+
         }
     }
 }

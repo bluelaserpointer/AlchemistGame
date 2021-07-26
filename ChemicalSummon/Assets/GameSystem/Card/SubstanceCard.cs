@@ -257,9 +257,9 @@ public class SubstanceCard : MonoBehaviour
         if (CardAmount > amount)
         {
             CardAmount -= amount;
-            return 0;
+            return amount;
         }
-        amount -= CardAmount;
+        amount = CardAmount;
         Dispose();
         return amount;
     }
