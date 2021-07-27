@@ -243,6 +243,11 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
                     return;
                 }
             }
+            CardInfoDisplay cardInfoDisplay = obj.GetComponent<CardInfoDisplay>();
+            if (cardInfoDisplay != null)
+            {
+                return;
+            }
         }
         CardInfoDisplay.gameObject.SetActive(false);
     }

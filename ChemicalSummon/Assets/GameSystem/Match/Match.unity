@@ -3252,7 +3252,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb824b26b6eae143b3a78602e0bf566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  displayBackground: {fileID: 1541449889}
   sampleCard: {fileID: 1128048950}
+  molReleaseButton: {fileID: 1155719749}
   molReleaseText: {fileID: 1697232066}
 --- !u!1 &1541968620
 GameObject:
@@ -3818,7 +3820,9 @@ PrefabInstance:
       propertyPath: m_Name
       value: SampleCard
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 6427983312728146768, guid: 4b8c6be4ed3660344951ed3b3d78c55b, type: 3}
+    - {fileID: 2737831070171568132, guid: 4b8c6be4ed3660344951ed3b3d78c55b, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 4b8c6be4ed3660344951ed3b3d78c55b, type: 3}
 --- !u!224 &1677033626 stripped
 RectTransform:

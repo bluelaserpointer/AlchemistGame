@@ -7,7 +7,11 @@ using UnityEngine.UI;
 public class CardInfoDisplay : MonoBehaviour
 {
     [SerializeField]
+    Image displayBackground;
+    [SerializeField]
     SubstanceCard sampleCard;
+    [SerializeField]
+    Button molReleaseButton;
     [SerializeField]
     Text molReleaseText;
 
@@ -27,11 +31,14 @@ public class CardInfoDisplay : MonoBehaviour
     }
     public void SetCard(SubstanceCard substanceCard)
     {
-        if(showingCard == null || !showingCard.Equals(substanceCard))
+        if(!substanceCard.Equals(sampleCard))
         {
             gameObject.SetActive(true);
             showingCard = substanceCard;
             sampleCard.Substance = substanceCard.Substance;
+            bool isMySide = substanceCard.IsMySide;
+            displayBackground.color = isMySide ? new Color(1, 1, 1, 0.5F) : new Color(1, 0, 0, 0.5F);
+            molReleaseButton.gameObject.SetActive(isMySide);
         }
     }
     public void OnReleaseButtonClick()

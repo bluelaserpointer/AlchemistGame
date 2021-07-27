@@ -2071,6 +2071,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 7334558923965601776, guid: e97d98f6ba4f78b4ca411812bb6b80f9,
+        type: 3}
+      propertyPath: discoveredReactions.Array.size
+      value: 5
+      objectReference: {fileID: 0}
     - target: {fileID: 7334558923965601778, guid: e97d98f6ba4f78b4ca411812bb6b80f9,
         type: 3}
       propertyPath: m_RootOrder
