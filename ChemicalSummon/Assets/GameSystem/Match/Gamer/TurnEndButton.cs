@@ -33,13 +33,17 @@ public class TurnEndButton : MonoBehaviour
     }
     public void OnButtonPress()
     {
-        switch(MatchManager.CurrentTurnType)
+
+        switch (MatchManager.CurrentTurnType)
         {
             case MatchManager.TurnType.EnemyAttackTurn: //player block
                 MatchManager.Player.PlayerBlock();
                 break;
             case MatchManager.TurnType.MyAttackTurn:
+                MatchManager.TurnEnd();
+                break;
             case MatchManager.TurnType.MyFusionTurn:
+                MatchManager.Player.OnFusionTurnEnd();
                 MatchManager.TurnEnd();
                 break;
             default:

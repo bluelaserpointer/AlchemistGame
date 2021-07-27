@@ -23,7 +23,7 @@ public class CardInfoDisplay : MonoBehaviour
     private void Update()
     {
         sampleCard.CardAmount = showingCard.CardAmount;
-        molReleaseText.text = "Release " + showingCard.Mol + "mol";
+        molReleaseText.text = "解放回收 " + showingCard.Mol + "mol";
     }
     public void SetCard(SubstanceCard substanceCard)
     {
@@ -32,8 +32,6 @@ public class CardInfoDisplay : MonoBehaviour
             gameObject.SetActive(true);
             showingCard = substanceCard;
             sampleCard.Substance = substanceCard.Substance;
-            sampleCard.CardAmount = substanceCard.CardAmount;
-            molReleaseText.text = "Release " + showingCard.Mol + "mol";
         }
     }
     public void OnReleaseButtonClick()

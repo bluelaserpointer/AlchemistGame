@@ -34,6 +34,11 @@ public class Player : Gamer
     public override void OnFusionTurnStart()
     {
         base.OnFusionTurnStart();
+        MatchManager.Player.HandCardsDisplay.transform.position += new Vector3(0, 75, 0);
+    }
+    public void OnFusionTurnEnd()
+    {
+        MatchManager.Player.HandCardsDisplay.transform.position -= new Vector3(0, 75, 0);
     }
     public List<AttackButton> generatedAttackButtons = new List<AttackButton>();
     public override void OnAttackTurnStart()
