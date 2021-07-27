@@ -10,40 +10,38 @@ public class TurnEndButton : MonoBehaviour
     Text buttonText;
     [SerializeField]
     Image buttonImage;
+    [SerializeField]
+    Color startAttackColor, endAttackColor, inactiveColor, playerBlockColor;
 
     private void Start()
     {
         Color originalColor = buttonImage.color;
-        MatchManager.instance.onMyFusionTurnStart.AddListener(() => {
+        MatchManager.Player.OnFusionTurnStart.AddListener(() => {
             buttonText.text = "StartAttack";
-            buttonImage.color = originalColor;
+            buttonImage.color = startAttackColor;
         });
-        MatchManager.instance.onMyAttackTurnStart.AddListener(() => {
+        MatchManager.Player.OnAttackTurnStart.AddListener(() => {
             buttonText.text = "EndAttack";
-            buttonImage.color = originalColor;
+            buttonImage.color = endAttackColor;
         });
-        MatchManager.instance.onEnemyFusionTurnStart.AddListener(() => {
+        MatchManager.Enemy.OnFusionTurnStart.AddListener(() => {
             buttonText.text = "";
-            buttonImage.color = Color.gray;
+            buttonImage.color = inactiveColor;
         });
-        MatchManager.instance.onEnemyAttackTurnStart.AddListener(() => {
+        MatchManager.Enemy.OnAttackTurnStart.AddListener(() => {
             buttonText.text = "PlayerBlock";
-            buttonImage.color = Color.red;
+            buttonImage.color = playerBlockColor;
         });
     }
     public void OnButtonPress()
     {
-
         switch (MatchManager.CurrentTurnType)
         {
             case MatchManager.TurnType.EnemyAttackTurn: //player block
                 MatchManager.Player.PlayerBlock();
                 break;
             case MatchManager.TurnType.MyAttackTurn:
-                MatchManager.TurnEnd();
-                break;
             case MatchManager.TurnType.MyFusionTurn:
-                MatchManager.Player.OnFusionTurnEnd();
                 MatchManager.TurnEnd();
                 break;
             default:

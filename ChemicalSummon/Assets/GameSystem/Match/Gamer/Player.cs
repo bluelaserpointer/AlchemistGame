@@ -31,19 +31,19 @@ public class Player : Gamer
         }
         return false;
     }
-    public override void OnFusionTurnStart()
+    public override void FusionTurnStart()
     {
-        base.OnFusionTurnStart();
+        base.FusionTurnStart();
         MatchManager.Player.HandCardsDisplay.transform.position += new Vector3(0, 75, 0);
     }
-    public void OnFusionTurnEnd()
+    public override void FusionTurnEnd()
     {
         MatchManager.Player.HandCardsDisplay.transform.position -= new Vector3(0, 75, 0);
     }
     public List<AttackButton> generatedAttackButtons = new List<AttackButton>();
-    public override void OnAttackTurnStart()
+    public override void AttackTurnStart()
     {
-        base.OnAttackTurnStart();
+        base.AttackTurnStart();
         foreach(CardSlot slot in Field.Slots)
         {
             if (slot.IsEmpty)

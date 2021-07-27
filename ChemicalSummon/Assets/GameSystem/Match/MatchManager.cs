@@ -42,10 +42,6 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     [Header("Turn")]
     public Text turnText;
     public UnityEvent onTurnStart;
-    public UnityEvent onMyFusionTurnStart;
-    public UnityEvent onEnemyFusionTurnStart;
-    public UnityEvent onMyAttackTurnStart;
-    public UnityEvent onEnemyAttackTurnStart;
     public Animator animatedTurnPanel;
 
     [Header("Prefab")]
@@ -133,10 +129,6 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         Player.Init(Match.MySideCharacter, new Deck(PlayerSave.ActiveDeck));
         Enemy.Init(Match.EnemySideCharacter, new Deck(Match.EnemyDeck));
         onTurnStart.AddListener(Player.Field.UpdateCardsDraggable);
-        onMyFusionTurnStart.AddListener(Player.OnFusionTurnStart);
-        onEnemyFusionTurnStart.AddListener(Enemy.OnFusionTurnStart);
-        onMyAttackTurnStart.AddListener(Player.OnAttackTurnStart);
-        onEnemyAttackTurnStart.AddListener(Enemy.OnAttackTurnStart);
         MyField.cardsChanged.AddListener(fusionPanel.UpdateList);
         Player.OnHandCardsChanged.AddListener(fusionPanel.UpdateList);
         Player.OnHPChange.AddListener(() => { if (Player.HP <= 0) Defeat(); });
@@ -170,6 +162,21 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// </summary>
     public void TurnEnd_nonstatic()
     {
+        switch (CurrentTurnType)
+        {
+            case TurnType.MyFusionTurn:
+                Player.FusionTurnEnd();
+                break;
+            case TurnType.MyAttackTurn:
+                Player.AttackTurnEnd();
+                break;
+            case TurnType.EnemyFusionTurn:
+                Enemy.FusionTurnEnd();
+                break;
+            case TurnType.EnemyAttackTurn:
+                Enemy.AttackTurnEnd();
+                break;
+        }
         Player.RemoveAttackButtons();
         ++turn;
         if(turn == 1)
@@ -204,19 +211,19 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         switch (CurrentTurnType)
         {
             case TurnType.MyFusionTurn:
-                onMyFusionTurnStart.Invoke();
+                Player.FusionTurnStart();
                 turnMessage = "我方融合";
                 break;
             case TurnType.MyAttackTurn:
-                onMyAttackTurnStart.Invoke();
+                Player.AttackTurnStart();
                 turnMessage = "我方攻击";
                 break;
             case TurnType.EnemyFusionTurn:
-                onEnemyFusionTurnStart.Invoke();
+                Enemy.FusionTurnStart();
                 turnMessage = "敌方融合";
                 break;
             case TurnType.EnemyAttackTurn:
-                onEnemyAttackTurnStart.Invoke();
+                Enemy.AttackTurnStart();
                 turnMessage = "敌方攻击";
                 break;
             default:

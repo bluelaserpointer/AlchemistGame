@@ -1379,7 +1379,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 2121452838}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2289,7 +2289,7 @@ RectTransform:
   m_Children:
   - {fileID: 837024280}
   m_Father: {fileID: 2121452838}
-  m_RootOrder: 1
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -2618,7 +2618,7 @@ RectTransform:
   m_Children:
   - {fileID: 1944544762}
   m_Father: {fileID: 2121452838}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -2641,6 +2641,18 @@ MonoBehaviour:
   gamerNameText: {fileID: 854510549}
   statusPanels: {fileID: 1024903846}
   onHandCardsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onFusionTurnStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onFusiontTurnEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onAttackTurnStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onAttackTurnEnd:
     m_PersistentCalls:
       m_Calls: []
   handCardsAmountText: {fileID: 721577738}
@@ -3495,6 +3507,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   buttonText: {fileID: 1928917814}
   buttonImage: {fileID: 1599342922}
+  startAttackColor: {r: 0.28764686, g: 0.41471744, b: 0.6037736, a: 1}
+  endAttackColor: {r: 0.28764686, g: 0.41471744, b: 0.6037736, a: 1}
+  inactiveColor: {r: 0.6320754, g: 0.6320754, b: 0.6320754, a: 1}
+  playerBlockColor: {r: 1, g: 0, b: 0, a: 1}
 --- !u!1 &1663800491
 GameObject:
   m_ObjectHideFlags: 0
@@ -4600,7 +4616,7 @@ RectTransform:
   - {fileID: 1982576220}
   - {fileID: 1801764508}
   m_Father: {fileID: 2121452838}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4651,7 +4667,7 @@ RectTransform:
   - {fileID: 1599342920}
   - {fileID: 1541449888}
   m_Father: {fileID: 2121452838}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -4674,6 +4690,18 @@ MonoBehaviour:
   gamerNameText: {fileID: 1225197683}
   statusPanels: {fileID: 1441858114}
   onHandCardsChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  onFusionTurnStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onFusiontTurnEnd:
+    m_PersistentCalls:
+      m_Calls: []
+  onAttackTurnStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onAttackTurnEnd:
     m_PersistentCalls:
       m_Calls: []
   handCardsDisplay: {fileID: 415941675}
@@ -4781,11 +4809,11 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_Children:
   - {fileID: 651814591}
-  - {fileID: 1124459153}
   - {fileID: 742822861}
   - {fileID: 1198014516}
   - {fileID: 2096314128}
   - {fileID: 2018608352}
+  - {fileID: 1124459153}
   - {fileID: 578644686}
   - {fileID: 1220233030}
   m_Father: {fileID: 0}
@@ -4916,18 +4944,6 @@ MonoBehaviour:
   resultPanel: {fileID: 1220233033}
   turnText: {fileID: 1541968622}
   onTurnStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onMyFusionTurnStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onEnemyFusionTurnStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onMyAttackTurnStart:
-    m_PersistentCalls:
-      m_Calls: []
-  onEnemyAttackTurnStart:
     m_PersistentCalls:
       m_Calls: []
   animatedTurnPanel: {fileID: 1124459156}

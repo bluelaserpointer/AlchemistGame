@@ -20,6 +20,13 @@ public abstract class Gamer : MonoBehaviour
 
     [SerializeField]
     UnityEvent onHandCardsChanged;
+    [SerializeField]
+    UnityEvent onFusionTurnStart, onFusiontTurnEnd, onAttackTurnStart, onAttackTurnEnd;
+
+    public UnityEvent OnFusionTurnStart => onFusionTurnStart;
+    public UnityEvent OnFusionTurnEnd => onFusiontTurnEnd;
+    public UnityEvent OnAttackTurnStart => onAttackTurnStart;
+    public UnityEvent OnAttackTurnEnd => onAttackTurnEnd;
     //data
     Character character;
     /// <summary>
@@ -169,49 +176,31 @@ public abstract class Gamer : MonoBehaviour
     /// <summary>
     /// 融合回合开始
     /// </summary>
-    public virtual void OnFusionTurnStart()
+    public virtual void FusionTurnStart()
     {
-        DrawCard();
-        /* //(deprecated) card draw animation
-        if (Deck.CardCount > 0)
-        {
-            currentDrawingCard = Deck.DrawRandomCard();
-            lestCardsText.text = Deck.CardCount.ToString();
-            Transform drawCardAnimatorTransform = drawCardAnimator.transform;
-            if (drawCardAnimatorTransform.childCount > 0)
-            {
-                foreach (Transform eachChildTransform in drawCardAnimatorTransform)
-                {
-                    Destroy(eachChildTransform.gameObject);
-                }
-            }
-            SubstanceCard forDrawAnimationCard = Instantiate(currentDrawingCard, drawCardAnimatorTransform); //clone to card animater
-            forDrawAnimationCard.EnableShadow(true);
-            //Add click event
-            forDrawAnimationCard.GetComponent<CardDrag>().enabled = false;
-            Button button = forDrawAnimationCard.gameObject.AddComponent<Button>();
-            button.onClick.AddListener(() => {
-                NextDrawProcess();
-                forDrawAnimationCard.EnableShadow(false);
-                MatchManager.CardInfoDisplay.SetCard(currentDrawingCard);
-                button.enabled = false;
-            });
-            //Inovke card draw animation
-            drawCardAnimator.SetInteger("CardDrawProcess", 1);
-            drawableSign.Lit();
-        }
-        else
-        {
-            //TODO: Invoke gameover or ...
-        }
-        */
+        OnFusionTurnStart.Invoke();
+        DrawCard(); //抽牌
+    }
+    /// <summary>
+    /// 融合回合结束
+    /// </summary>
+    public virtual void FusionTurnEnd()
+    {
+        OnFusionTurnEnd.Invoke();
     }
     /// <summary>
     /// 攻击回合开始
     /// </summary>
-    public virtual void OnAttackTurnStart()
+    public virtual void AttackTurnStart()
     {
-
+        OnAttackTurnStart.Invoke();
+    }
+    /// <summary>
+    /// 攻击回合结束
+    /// </summary>
+    public virtual void AttackTurnEnd()
+    {
+        OnAttackTurnEnd.Invoke();
     }
     /// <summary>
     /// 获得可消耗为融合素材的所有卡牌(手牌+场地)

@@ -115,14 +115,14 @@ public class Enemy : Gamer
                 break;
         }
     }
-    public override void OnFusionTurnStart()
+    public override void FusionTurnStart()
     {
-        base.OnFusionTurnStart(); //card draw
+        base.FusionTurnStart(); //card draw
         OnFusionTurnLoop(0);
     }
-    public override void OnAttackTurnStart()
+    public override void AttackTurnStart()
     {
-        base.OnAttackTurnStart();
+        base.AttackTurnStart();
         attackedSlot.Clear();
         AttackTurnLoop();
     }
