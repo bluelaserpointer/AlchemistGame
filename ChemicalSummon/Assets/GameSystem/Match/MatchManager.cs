@@ -139,8 +139,8 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         onEnemyAttackTurnStart.AddListener(Enemy.OnAttackTurnStart);
         MyField.cardsChanged.AddListener(fusionPanel.UpdateList);
         Player.OnHandCardsChanged.AddListener(fusionPanel.UpdateList);
-        Player.OnHPChange.AddListener(() => { if (Player.HP <= 0) resultPanel.SetResult(false); });
-        Enemy.OnHPChange.AddListener(() => { if (Enemy.HP <= 0) resultPanel.SetResult(true); });
+        Player.OnHPChange.AddListener(() => { if (Player.HP <= 0) Defeat(); });
+        Enemy.OnHPChange.AddListener(() => { if (Enemy.HP <= 0) Victory(); });
         //demo
         onInit.Invoke();
         //initial draw
@@ -150,6 +150,14 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
             Enemy.DrawCard();
         }
         TurnEnd();
+    }
+    public void Victory()
+    {
+        resultPanel.SetResult(true);
+    }
+    public void Defeat()
+    {
+        resultPanel.SetResult(false);
     }
     /// <summary>
     /// 结束回合
