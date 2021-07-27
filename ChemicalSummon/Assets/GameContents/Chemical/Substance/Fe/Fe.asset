@@ -21,7 +21,7 @@ MonoBehaviour:
   elements:
   - element: {fileID: 11400000, guid: 76cf6c10c09ecad4fb78a853493094ad, type: 2}
     amount: 1
-  image: {fileID: 21300000, guid: 2cc1879c87c4a5e409e0ee4e047363db, type: 3}
+  image: {fileID: 21300000, guid: 15edf70cf3ccecb47ac7322afd454519, type: 3}
   atk: 12
   def: 0
   meltingPoint: 1538
