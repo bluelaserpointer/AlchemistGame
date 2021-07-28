@@ -28,6 +28,10 @@ public class Reaction : ScriptableObject
     public List<SubstanceAndAmount> RightSubstances => rightSubstances;
     public DamageType DamageType => damageType;
     public int DamageAmount => damageAmount;
+    public bool IsRequiredSubstance(Substance substance)
+    {
+        return GetRequiredAmount(substance) > 0;
+    }
     public int GetRequiredAmount(Substance substance) {
         foreach(SubstanceAndAmount pair in LeftSubstances)
         {

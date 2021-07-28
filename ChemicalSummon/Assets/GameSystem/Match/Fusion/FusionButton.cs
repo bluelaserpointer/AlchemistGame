@@ -34,7 +34,6 @@ public class FusionButton : MonoBehaviour
         {
             damagePanel.SetActive(true);
             damageText.text = reaction.DamageAmount.ToString();
-            //TODO: sprites
             switch (reaction.DamageType)
             {
                 case DamageType.Explosion:

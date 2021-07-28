@@ -120,6 +120,16 @@ public class PlayerSave : MonoBehaviour
         DiscoveredReactions.Add(reaction);
         return true;
     }
+    public static List<Reaction> FindDiscoveredReactionsByLeftSubstance(Substance substance)
+    {
+        List<Reaction> reactions = new List<Reaction>();
+        foreach(Reaction reaction in DiscoveredReactions)
+        {
+            if (reaction.IsRequiredSubstance(substance))
+                reactions.Add(reaction);
+        }
+        return reactions;
+    }
     /// <summary>
     /// 进入战斗
     /// </summary>
