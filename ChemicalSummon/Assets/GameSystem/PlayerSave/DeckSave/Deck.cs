@@ -28,15 +28,24 @@ public class Deck
 
     [HideInInspector]
     public UnityEvent onCardCountChange = new UnityEvent();
-    public void Add(Substance newSubstance)
+    public void Add(Substance substance)
     {
-        substances.Add(newSubstance);
+        Substances.Add(substance);
         onCardCountChange.Invoke();
     }
-    public void AddRange(List<Substance> newSubstances)
+    public void AddRange(List<Substance> substance)
     {
-        Substances.AddRange(newSubstances);
+        Substances.AddRange(substance);
         onCardCountChange.Invoke();
+    }
+    public bool Remove(Substance substance)
+    {
+        if(Substances.Remove(substance))
+        {
+            onCardCountChange.Invoke();
+            return true;
+        }
+        return false;
     }
     public SubstanceCard DrawRandomCard(Gamer gamer)
     {
@@ -47,5 +56,17 @@ public class Deck
         Substance randomSubstance = substances.RemoveRandomElement();
         onCardCountChange.Invoke();
         return SubstanceCard.GenerateSubstanceCard(randomSubstance, gamer);
+    }
+    public int GetCardCount(Substance substance)
+    {
+        int count = 0;
+        foreach (Substance eachSubstance in substances)
+        {
+            if(eachSubstance.Equals(substance))
+            {
+                ++count;
+            }
+        }
+        return count;
     }
 }

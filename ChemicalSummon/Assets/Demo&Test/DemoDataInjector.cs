@@ -13,6 +13,7 @@ public class DemoDataInjector : MonoBehaviour
     public void Inject()
     {
         //deck
-        MatchManager.Player.Deck.AddRange(substances);
+        if(MatchManager.Player.Deck.CardCount == 0)
+            MatchManager.Player.Deck.AddRange(substances);
     }
 }

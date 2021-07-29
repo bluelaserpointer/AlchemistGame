@@ -44,9 +44,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     public UnityEvent onTurnStart;
     public Animator animatedTurnPanel;
 
-    [Header("Prefab")]
-    [SerializeField]
-    AttackButton attackButton;
+    //[Header("Prefab")]
 
     [Header("Demo&Test")]
     public UnityEvent onInit;
@@ -115,7 +113,6 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// 回合
     /// </summary>
     public static int Turn => instance.turn;
-    public static AttackButton AttackButtonPrefab => instance.attackButton;
     private void Awake()
     {
         Init();

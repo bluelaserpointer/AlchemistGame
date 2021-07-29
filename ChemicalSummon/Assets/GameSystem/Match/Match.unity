@@ -4654,7 +4654,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   handCardsDisplay: {fileID: 415941675}
-  generatedAttackButtons: []
 --- !u!222 &2096314130
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4896,8 +4895,6 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   animatedTurnPanel: {fileID: 1124459156}
-  attackButton: {fileID: 3003942481189182778, guid: 0ddc49cf84578ba41ac215603459e095,
-    type: 3}
   onInit:
     m_PersistentCalls:
       m_Calls:
@@ -4956,6 +4953,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 821341366}
     m_Modifications:
+    - target: {fileID: 4286407851955225448, guid: 68a9c283a28cd244194a7825e689c718,
+        type: 3}
+      propertyPath: m_FontData.m_Font
+      value: 
+      objectReference: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     - target: {fileID: 4286407852650463879, guid: 68a9c283a28cd244194a7825e689c718,
         type: 3}
       propertyPath: m_AnchorMax.y
