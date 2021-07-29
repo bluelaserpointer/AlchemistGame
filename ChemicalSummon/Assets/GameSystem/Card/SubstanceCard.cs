@@ -84,7 +84,7 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 所在卡槽
     /// </summary>
-    public CardSlot Slot => cardDrag.CurrentSlot;
+    public ShieldCardSlot Slot => cardDrag.CurrentSlot;
     /// <summary>
     /// 物质名
     /// </summary>

@@ -81,7 +81,7 @@ public class Enemy : Gamer
                 {
                     SubstanceCardAndATK highestATKPair = highestATKs[i];
                     SubstanceCard card = highestATKPair.card;
-                    foreach (CardSlot slot in lestEmptySlots)
+                    foreach (ShieldCardSlot slot in lestEmptySlots)
                     {
                         if (!card.GetStateInTempreture(slot.Tempreture).Equals(ThreeState.Solid))
                             continue;
@@ -127,25 +127,23 @@ public class Enemy : Gamer
         AttackTurnLoop();
     }
     List<CardSlot> attackedSlot = new List<CardSlot>();
-    AttackButton generatedAttackSign;
     public void AttackTurnLoop()
     {
-        if (generatedAttackSign != null)
-            Destroy(generatedAttackSign.gameObject);
+        ShieldCardSlot[] slots = Field.Slots;
+        foreach (ShieldCardSlot slot in slots)
+            slot.HideAttackButton();
         if (MatchManager.IsMatchFinish)
         {
             return;
         }
         MatchManager.MatchLogDisplay.AddAction(() =>
         {
-            foreach (CardSlot slot in Field.Slots)
+            foreach (ShieldCardSlot slot in slots)
             {
                 if (slot.IsEmpty || attackedSlot.Contains(slot))
                     continue;
                 attackedSlot.Add(slot);
-                generatedAttackSign = Instantiate(MatchManager.AttackButtonPrefab, MatchManager.MainCanvas.transform);
-                generatedAttackSign.transform.position = slot.transform.position + new Vector3(0, -150, 0);
-                generatedAttackSign.SetDirection(false);
+                slot.ShowAttackButton(false);
                 MatchManager.Player.Defense(slot.Card);
                 return;
             }

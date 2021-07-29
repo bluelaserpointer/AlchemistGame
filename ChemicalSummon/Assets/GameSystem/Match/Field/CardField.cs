@@ -13,7 +13,7 @@ public class CardField : Field
     /// <summary>
     /// 格挡区卡槽
     /// </summary>
-    public List<ShieldCardSlot> ShieldCardSlots => shieldCardSlots;
+    public new List<ShieldCardSlot> Slots => shieldCardSlots;
     /// <summary>
     /// 对手可见卡牌(在于格挡区)
     /// </summary>

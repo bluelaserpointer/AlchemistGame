@@ -34,7 +34,7 @@ public abstract class Field : MonoBehaviour
             return null;
         }
     }
-    public CardSlot[] Slots => GetComponentsInChildren<CardSlot>();
+    public ShieldCardSlot[] Slots => GetComponentsInChildren<ShieldCardSlot>();
     /// <summary>
     /// 所有卡牌
     /// </summary>

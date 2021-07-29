@@ -10,7 +10,7 @@ using UnityEngine.UI;
 public class CardDrag : Draggable
 {
     SubstanceCard substanceCard;
-    public CardSlot CurrentSlot => transform.parent == null ? null : transform.parent.GetComponent<CardSlot>();
+    public ShieldCardSlot CurrentSlot => transform.parent == null ? null : transform.GetComponentInParent<ShieldCardSlot>();
     private void Awake()
     {
         substanceCard = GetComponent<SubstanceCard>();
@@ -31,7 +31,7 @@ public class CardDrag : Draggable
         foreach (RaycastResult eachResult in raycastResults)
         {
             GameObject hitUI = eachResult.gameObject;
-            CardSlot cardSlot = hitUI.GetComponent<CardSlot>();
+            ShieldCardSlot cardSlot = hitUI.GetComponent<ShieldCardSlot>();
             if (cardSlot != null) {
                 if (cardSlot.Equals(CurrentSlot))
                 {

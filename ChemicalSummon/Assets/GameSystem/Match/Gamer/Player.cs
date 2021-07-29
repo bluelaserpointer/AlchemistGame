@@ -40,45 +40,39 @@ public class Player : Gamer
     {
         MatchManager.Player.HandCardsDisplay.transform.position -= new Vector3(0, 75, 0);
     }
-    public List<AttackButton> generatedAttackButtons = new List<AttackButton>();
     public override void AttackTurnStart()
     {
         base.AttackTurnStart();
-        foreach(CardSlot slot in Field.Slots)
+        foreach(ShieldCardSlot slot in Field.Slots)
         {
             if (slot.IsEmpty)
                 continue;
             SubstanceCard card = slot.Card;
-            AttackButton attackButton = Instantiate(MatchManager.AttackButtonPrefab, MatchManager.MainCanvas.transform);
-            generatedAttackButtons.Add(attackButton);
-            attackButton.transform.position = slot.transform.position + new Vector3(0, 150, 0);
-            attackButton.Button.onClick.AddListener(() =>
+            slot.ShowAttackButton(true, () =>
             {
                 MatchManager.Enemy.Defense(card);
-                generatedAttackButtons.Remove(attackButton);
-                Destroy(attackButton.gameObject);
+                slot.HideAttackButton();
             });
         }
     }
     public void RemoveAttackButtons()
     {
-        generatedAttackButtons.ForEach(button => Destroy(button.gameObject));
-        generatedAttackButtons.Clear();
+        foreach(ShieldCardSlot slot in Field.Slots)
+        {
+            slot.HideAttackButton();
+        }
     }
     SubstanceCard currentAttacker;
     public SubstanceCard CurrentAttacker => currentAttacker;
     public override void Defense(SubstanceCard attacker)
     {
         currentAttacker = attacker;
-        foreach (CardSlot slot in Field.Slots)
+        foreach (ShieldCardSlot slot in Field.Slots)
         {
             if (slot.IsEmpty)
                 continue;
             SubstanceCard card = slot.Card;
-            AttackButton attackButton = Instantiate(MatchManager.AttackButtonPrefab, MatchManager.MainCanvas.transform);
-            generatedAttackButtons.Add(attackButton);
-            attackButton.transform.position = slot.transform.position + new Vector3(0, 150, 0);
-            attackButton.Button.onClick.AddListener(() =>
+            slot.ShowAttackButton(true, () =>
             {
                 card.Battle(attacker);
                 EndDefence();

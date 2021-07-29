@@ -6,9 +6,9 @@ using UnityEngine.Events;
 /// </summary>
 public class ObjectSlot : MonoBehaviour
 {
-    [SerializeField]
-    Transform arrangePoint;
     [Header("Parent")]
+    [SerializeField]
+    Transform arrangeParent;
     [SerializeField]
     bool returnToOriginalParentWhenDisband = true;
     [Header("Rotation")]
@@ -28,14 +28,14 @@ public class ObjectSlot : MonoBehaviour
     public UnityEvent onSet, onClear;
 
     //data
-    Transform ArrangePoint => arrangePoint ?? transform;
+    Transform ArrangeParent => arrangeParent ?? transform;
     Transform oldParent;
     Vector3 oldLocalRotation;
     Vector3 oldLocalScale;
 
     public Transform GetTop()
     {
-        return IsEmpty ? null : transform.GetChild(transform.childCount - 1);
+        return IsEmpty ? null : ArrangeParent.GetChild(ArrangeParent.childCount - 1);
     }
     public virtual bool AllowSlotSet(GameObject obj)
     {
@@ -45,16 +45,16 @@ public class ObjectSlot : MonoBehaviour
     {
         if (!AllowSlotSet(obj))
             return;
-        obj.transform.SetParent(transform);
         oldParent = obj.transform.parent;
+        obj.transform.SetParent(ArrangeParent);
         DoAlignment();
         onSet.Invoke();
     }
     public void DoAlignment()
     {
-        foreach(Transform childTransform in transform)
+        foreach(Transform childTransform in ArrangeParent)
         {
-            childTransform.position = ArrangePoint.position;
+            childTransform.position = ArrangeParent.position;
             if (doArrangeRotation)
             {
                 oldLocalRotation = childTransform.localEulerAngles;
@@ -83,7 +83,7 @@ public class ObjectSlot : MonoBehaviour
         }
         else
         {
-            top.SetParent(transform.GetComponentInParent<Canvas>().transform);
+            top.SetParent(ArrangeParent.GetComponentInParent<Canvas>().transform);
         }
         if (doArrangeRotation && returnToOriginalRotationWhenDisband)
         {
@@ -96,5 +96,5 @@ public class ObjectSlot : MonoBehaviour
         onClear.Invoke();
     }
 
-    public bool IsEmpty => transform.childCount == 0;
+    public bool IsEmpty => ArrangeParent.childCount == 0;
 }
