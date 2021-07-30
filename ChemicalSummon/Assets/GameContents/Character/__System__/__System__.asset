@@ -16,5 +16,5 @@ MonoBehaviour:
     defaultString: 
     languageAndSentences: []
   initialHP: 0
-  faceIcon: {fileID: 21300000, guid: 94a592b8d853bca4a8028e4903e60cd6, type: 3}
-  portrait: {fileID: 21300000, guid: 94a592b8d853bca4a8028e4903e60cd6, type: 3}
+  faceIcon: {fileID: 0}
+  portrait: {fileID: 0}

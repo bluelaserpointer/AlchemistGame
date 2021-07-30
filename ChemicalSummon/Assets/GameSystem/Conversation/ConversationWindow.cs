@@ -44,7 +44,16 @@ public class ConversationWindow : MonoBehaviour
         set
         {
             instance.activeTalk = value;
-            instance.speakerPortrait.sprite = value.Character.FaceIcon;
+            if(value.Character.FaceIcon != null)
+            {
+                instance.speakerPortrait.sprite = value.Character.FaceIcon;
+                instance.speakerPortrait.color = Color.white;
+            }
+            else
+            {
+                instance.speakerPortrait.sprite = null;
+                instance.speakerPortrait.color = new Color(0, 0, 0, 0);
+            }
             instance.speakerNameText.text = value.Character.Name;
             instance.speakingText.text = value.Sentence;
         }
