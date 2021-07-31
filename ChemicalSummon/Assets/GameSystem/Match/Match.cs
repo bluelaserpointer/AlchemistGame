@@ -19,6 +19,8 @@ public class Match : ScriptableObject
     Character enemySideCharacter;
     [SerializeField]
     List<Substance> enemyDeck;
+    [SerializeField]
+    GameObject additionalObject;
 
     /// <summary>
     /// 战斗名
@@ -40,6 +42,7 @@ public class Match : ScriptableObject
     /// 敌方卡组
     /// </summary>
     public List<Substance> EnemyDeck => enemyDeck;
+    public GameObject AdditionalObject => additionalObject;
     public AudioClip PickRandomBGM() {
         return bgmSets == null ? null : bgmSets.PickRandom();
     }

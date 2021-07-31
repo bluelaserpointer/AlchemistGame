@@ -139,6 +139,9 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
             Enemy.DrawCard();
         }
         TurnEnd();
+        //add
+        if(Match.AdditionalObject != null)
+            Instantiate(Match.AdditionalObject);
     }
     public void Victory()
     {

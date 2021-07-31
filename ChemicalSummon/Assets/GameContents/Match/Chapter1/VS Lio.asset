@@ -13,9 +13,11 @@ MonoBehaviour:
   m_Name: VS Lio
   m_EditorClassIdentifier: 
   name:
-    defaultString: VS Lio
+    defaultString: '[Tutorial]VS Lio'
     languageAndSentences: []
   backGround: {fileID: 6406240795598663840, guid: 8ac51af0fb67cd14b8759990e83946ea,
     type: 3}
   bgmSets: {fileID: 11400000, guid: 2f6309d23cd0a4f4db89e92f50886c6c, type: 2}
   enemySideCharacter: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}
+  enemyDeck: []
+  additionalObject: {fileID: 0}
