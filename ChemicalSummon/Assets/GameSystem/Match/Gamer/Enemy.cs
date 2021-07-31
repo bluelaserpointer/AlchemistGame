@@ -153,13 +153,23 @@ public class Enemy : Gamer
     }
     public override void Defense(SubstanceCard attacker)
     {
+        SubstanceCard candidateCard = null;
+        int candidateATK = 0;
         foreach(CardSlot slot in Field.Slots)
         {
             if (slot.IsEmpty)
                 continue;
-            slot.Card.Battle(attacker);
-            return;
+            SubstanceCard card = slot.Card;
+            int atk = card.ATK;
+            if(atk > candidateATK)
+            {
+                candidateCard = slot.Card;
+                candidateATK = atk;
+            }
         }
-        HP -= attacker.ATK;
+        if(candidateCard != null)
+            candidateCard.Battle(attacker);
+        else
+            HP -= attacker.ATK;
     }
 }

@@ -919,7 +919,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2121452840}
-        m_MethodName: GotoMenu
+        m_MethodName: GotoMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -3855,7 +3855,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2121452840}
-        m_MethodName: GotoMenu
+        m_MethodName: GotoMap
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4892,6 +4892,9 @@ MonoBehaviour:
   resultPanel: {fileID: 1220233033}
   turnText: {fileID: 1541968622}
   onTurnStart:
+    m_PersistentCalls:
+      m_Calls: []
+  onFusionFinish:
     m_PersistentCalls:
       m_Calls: []
   animatedTurnPanel: {fileID: 1124459156}

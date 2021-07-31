@@ -16,6 +16,9 @@ public class FusionPanelButton : MonoBehaviour
     [SerializeField]
     Color noFusionColor, hasFusionColor;
 
+    Reaction lastReaction;
+    public Reaction LastReaction => lastReaction;
+
     private void Awake()
     {
         fusionButtonList.gameObject.SetActive(false);
@@ -105,6 +108,9 @@ public class FusionPanelButton : MonoBehaviour
                     {
                         MatchManager.Player.EndDefence();
                     }
+                    //event invoke
+                    lastReaction = reaction;
+                    MatchManager.instance.onFusionFinish.Invoke();
                 });
             }
         }

@@ -32,10 +32,25 @@ public class Reaction : ScriptableObject
     {
         return GetRequiredAmount(substance) > 0;
     }
+    public bool IsProducingSubstance(Substance substance)
+    {
+        return GetProducingSubstance(substance) > 0;
+    }
     public int GetRequiredAmount(Substance substance) {
         foreach(SubstanceAndAmount pair in LeftSubstances)
         {
             if(pair.substance.Equals(substance))
+            {
+                return pair.amount;
+            }
+        }
+        return 0;
+    }
+    public int GetProducingSubstance(Substance substance)
+    {
+        foreach (SubstanceAndAmount pair in RightSubstances)
+        {
+            if (pair.substance.Equals(substance))
             {
                 return pair.amount;
             }

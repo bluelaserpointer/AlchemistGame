@@ -33,6 +33,10 @@ public abstract class ChemicalSummonManager : MonoBehaviour
     {
         SceneManager.LoadScene("Title");
     }
+    public void GotoMap()
+    {
+        SceneManager.LoadScene("Map");
+    }
     public void StartEvent(Event newEvent)
     {
         PlayerSave.StartEvent(newEvent);

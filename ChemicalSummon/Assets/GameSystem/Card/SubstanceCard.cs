@@ -39,19 +39,16 @@ public class SubstanceCard : MonoBehaviour
         get => substance;
         set
         {
-            if (substance != value)
-            {
-                substance = value;
-                nameText.text = Name;
-                symbolText.text = Symbol;
-                //molText.text = Mol;
-                meltingPointText.text = substance.MeltingPoint.ToString() + "℃";
-                boilingPointText.text = substance.BoilingPoint.ToString() + "℃";
-                mol = substance.GetMol();
-                cardImage.sprite = Image;
-                attackText.text = ATK.ToString();
-                molText.text = substance.GetMol().ToString();
-            }
+            substance = value;
+            nameText.text = Name;
+            symbolText.text = Symbol;
+            //molText.text = Mol;
+            meltingPointText.text = substance.MeltingPoint.ToString() + "℃";
+            boilingPointText.text = substance.BoilingPoint.ToString() + "℃";
+            mol = substance.GetMol();
+            cardImage.sprite = Image;
+            attackText.text = ATK.ToString();
+            molText.text = substance.GetMol().ToString();
         }
     }
     int cardAmount;

@@ -42,6 +42,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     [Header("Turn")]
     public Text turnText;
     public UnityEvent onTurnStart;
+    public UnityEvent onFusionFinish;
     public Animator animatedTurnPanel;
 
     //[Header("Prefab")]
