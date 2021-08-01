@@ -213,19 +213,19 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         {
             case TurnType.MyFusionTurn:
                 Player.FusionTurnStart();
-                turnMessage = "我方融合";
+                turnMessage = "Fusion";
                 break;
             case TurnType.MyAttackTurn:
                 Player.AttackTurnStart();
-                turnMessage = "我方攻击";
+                turnMessage = "Attack";
                 break;
             case TurnType.EnemyFusionTurn:
                 Enemy.FusionTurnStart();
-                turnMessage = "敌方融合";
+                turnMessage = "EnemyFusion";
                 break;
             case TurnType.EnemyAttackTurn:
                 Enemy.AttackTurnStart();
-                turnMessage = "敌方攻击";
+                turnMessage = "EnemyAttack";
                 break;
             default:
                 turnMessage = "";

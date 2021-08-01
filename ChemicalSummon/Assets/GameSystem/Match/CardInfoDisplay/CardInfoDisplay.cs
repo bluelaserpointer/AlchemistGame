@@ -38,8 +38,8 @@ public class CardInfoDisplay : MonoBehaviour
     {
         sampleCard.CardAmount = showingCard.CardAmount;
         int relatedReactionsCount = relatedReactions.Count;
-        checkReactionText.text = "查看反应式 " + relatedReactionsCount;
-        molReleaseText.text = "解放回收 " + showingCard.Mol + "mol";
+        checkReactionText.text = relatedReactionsCount.ToString();
+        molReleaseText.text = showingCard.Mol.ToString();
     }
     public void SetCard(SubstanceCard substanceCard)
     {

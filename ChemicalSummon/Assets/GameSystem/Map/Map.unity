@@ -4848,6 +4848,7 @@ GameObject:
   m_Component:
   - component: {fileID: 940950591}
   - component: {fileID: 940950593}
+  - component: {fileID: 940950594}
   - component: {fileID: 940950592}
   m_Layer: 5
   m_Name: StageNameText
@@ -4907,7 +4908,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u91D1\u5C5E\u78B0\u649E"
+  m_Text: "\u30E1\u30BF\u30EB\u30AF\u30E9\u30C3\u30B7\u30E5"
 --- !u!222 &940950593
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4916,6 +4917,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 940950590}
   m_CullTransparentMesh: 0
+--- !u!114 &940950594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 940950590}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b03c1e6606bb6418172a8fd99c1de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sentence:
+    defaultString: "\u91D1\u5C5E\u78B0\u649E"
+    languageAndSentences:
+    - language: 2
+      sentence: "\u30E1\u30BF\u30EB\u30AF\u30E9\u30C3\u30B7\u30E5"
 --- !u!1 &965509591
 GameObject:
   m_ObjectHideFlags: 0
@@ -7168,6 +7186,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1273454423}
   - component: {fileID: 1273454425}
+  - component: {fileID: 1273454426}
   - component: {fileID: 1273454424}
   m_Layer: 5
   m_Name: StageNameText
@@ -7227,7 +7246,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u70BC\u91D1\u672F\u7684\u7B2C\u4E00\u5929"
+  m_Text: "\u521D\u3081\u3066\u306E\u932C\u91D1\u8853"
 --- !u!222 &1273454425
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -7236,6 +7255,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1273454422}
   m_CullTransparentMesh: 0
+--- !u!114 &1273454426
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1273454422}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b03c1e6606bb6418172a8fd99c1de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sentence:
+    defaultString: "\u70BC\u91D1\u672F\u7684\u7B2C\u4E00\u5929"
+    languageAndSentences:
+    - language: 2
+      sentence: "\u521D\u3081\u3066\u306E\u932C\u91D1\u8853"
 --- !u!1001 &1284345062
 PrefabInstance:
   m_ObjectHideFlags: 0
