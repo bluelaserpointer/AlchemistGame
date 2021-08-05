@@ -45,6 +45,8 @@ public class Substance : ChemicalObject
     [SerializeField]
     bool waterSoluble;
     [SerializeField]
+    bool isOre;
+    [SerializeField]
     TranslatableSentence description;
 
     //data
@@ -90,4 +92,8 @@ public class Substance : ChemicalObject
     /// 水溶
     /// </summary>
     public bool WaterSoluble => waterSoluble;
+    /// <summary>
+    /// 是否为矿物主成分(魔法阵"镐子"的效果对象)
+    /// </summary>
+    public bool IsOre => isOre;
 }
