@@ -84,11 +84,11 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 物质名
     /// </summary>
-    public string Name => Substance.Name;
+    public string Name => Substance.name;
     /// <summary>
     /// 化学表达式
     /// </summary>
-    public string Symbol => Substance.ChemicalSymbol;
+    public string Symbol => Substance.chemicalSymbol;
     /// <summary>
     /// 三态
     /// </summary>
@@ -107,11 +107,6 @@ public class SubstanceCard : MonoBehaviour
     /// 攻击力(最新值)
     /// </summary>
     public int ATK => OriginalATK * CardAmount;
-    /// <summary>
-    /// 防御力(最新值)
-    /// </summary>
-    [HideInInspector]
-    public int DEF => OriginalDEF * CardAmount;
 
     public void Battle(SubstanceCard attacker)
     {
@@ -134,10 +129,6 @@ public class SubstanceCard : MonoBehaviour
     /// 原本攻击力
     /// </summary>
     public int OriginalATK => Substance.ATK;
-    /// <summary>
-    /// 原本防御力
-    /// </summary>
-    public int OriginalDEF => Substance.DEF;
     public string Description => Substance.Description.ToString();
     /// <summary>
     /// 在我方手牌

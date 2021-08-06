@@ -8,12 +8,6 @@ using UnityEngine.UI;
 /// </summary>
 public abstract class ChemicalObject : ScriptableObject
 {
-    [SerializeField]
-    string chemicalSymbol;
-    [SerializeField]
-    new TranslatableSentence name;
-
-    //data
-    public string ChemicalSymbol => chemicalSymbol;
-    public string Name => name.ToString();
+    public string chemicalSymbol;
+    public new TranslatableSentence name = new TranslatableSentence();
 }

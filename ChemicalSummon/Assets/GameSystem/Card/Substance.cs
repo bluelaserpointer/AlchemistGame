@@ -15,6 +15,11 @@ public struct SubstanceAndAmount
 {
     public Substance substance;
     public int amount;
+    public SubstanceAndAmount(Substance substance, int amount)
+    {
+        this.substance = substance;
+        this.amount = amount;
+    }
 }
 /// <summary>
 /// 物质(静态数据)
@@ -26,28 +31,19 @@ public class Substance : ChemicalObject
     /// <summary>
     /// 组成元素
     /// </summary>
-    public List<ElementAndAmount> elements;
+    public List<ElementAndAmount> elements = new List<ElementAndAmount>();
     /// <summary>
     /// 三态卡牌图片
     /// </summary>
-    [SerializeField]
-    Sprite image;
-    [SerializeField]
-    int atk;
-    [SerializeField]
-    int def;
-    [SerializeField]
+    public Sprite image;
+    public int atk;
     [Min(-273.15f)]
-    float meltingPoint;
-    [SerializeField]
+    public float meltingPoint;
     [Min(-273.15f)]
-    float boilingPoint;
-    [SerializeField]
-    bool waterSoluble;
-    [SerializeField]
-    bool isOre;
-    [SerializeField]
-    TranslatableSentence description;
+    public float boilingPoint;
+    public bool waterSoluble;
+    public bool isOre;
+    public TranslatableSentence description = new TranslatableSentence();
 
     //data
     public Sprite Image => image;
@@ -55,10 +51,6 @@ public class Substance : ChemicalObject
     /// 基础攻击力
     /// </summary>
     public int ATK => atk;
-    /// <summary>
-    /// 基础防御力
-    /// </summary>
-    public int DEF => def;
     /// <summary>
     /// 融点
     /// </summary>
@@ -76,7 +68,7 @@ public class Substance : ChemicalObject
         int mol = 0;
         foreach(ElementAndAmount elementAndAmount in elements)
         {
-            mol += elementAndAmount.element.Mol;
+            mol += elementAndAmount.element.mol;
         }
         return mol;
     }
@@ -96,4 +88,31 @@ public class Substance : ChemicalObject
     /// 是否为矿物主成分(魔法阵"镐子"的效果对象)
     /// </summary>
     public bool IsOre => isOre;
+    public static Substance GetByName(string name)
+    {
+        return Resources.Load<Substance>("Chemical/Substance/" + name);
+    }
+    public void PutElementAndAmount(Element element, int amount)
+    {
+        if (element == null)
+        {
+            Debug.LogWarning("element is null");
+            return;
+        }
+        foreach(var pair in elements)
+        {
+            if(pair.element == null)
+            {
+                elements.Remove(pair);
+                PutElementAndAmount(element, amount);
+                return;
+            }
+            if(pair.element.Equals(element))
+            {
+                pair.amount = amount;
+                return;
+            }
+        }
+        elements.Add(new ElementAndAmount(element, amount));
+    }
 }

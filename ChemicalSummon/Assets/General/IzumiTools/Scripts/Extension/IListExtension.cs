@@ -68,4 +68,16 @@ public static class IListExtension
         }
         return tempList;
     }
+    public static bool RemoveOne<T>(this List<T> list, Predicate<T> match)
+    {
+        foreach (T element in list)
+        {
+            if (match.Invoke(element))
+            {
+                list.Remove(element);
+                return true;
+            }
+        }
+        return false;
+    }
 }

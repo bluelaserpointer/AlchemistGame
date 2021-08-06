@@ -55,7 +55,7 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler
         if (substance != null)
         {
             elementImage.sprite = substance.Image;
-            elementText.text = substance.ChemicalSymbol;
+            elementText.text = substance.chemicalSymbol;
         }
         else
         {
