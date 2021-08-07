@@ -10,20 +10,14 @@ public enum DamageType { Explosion, Heat, Electronic, None }
 [CreateAssetMenu(fileName = "NewReaction", menuName = "Chemical/Reaction")]
 public class Reaction : ScriptableObject
 {
-    [SerializeField]
-    TranslatableSentence description;
+    public TranslatableSentence description = new TranslatableSentence();
 
-    [SerializeField]
-    List<SubstanceAndAmount> leftSubstances;
-    [SerializeField]
-    List<SubstanceAndAmount> rightSubstances;
+    public List<SubstanceAndAmount> leftSubstances = new List<SubstanceAndAmount>();
+    public List<SubstanceAndAmount> rightSubstances = new List<SubstanceAndAmount>();
 
-    [SerializeField]
-    DamageType damageType = DamageType.None;
-    [SerializeField]
-    int damageAmount = 0;
+    public DamageType damageType = DamageType.None;
+    public int damageAmount = 0;
 
-    public string Description => description.ToString();
     public List<SubstanceAndAmount> LeftSubstances => leftSubstances;
     public List<SubstanceAndAmount> RightSubstances => rightSubstances;
     public DamageType DamageType => damageType;
@@ -56,5 +50,9 @@ public class Reaction : ScriptableObject
             }
         }
         return 0;
+    }
+    public static Reaction GetByName(string name)
+    {
+        return Resources.Load<Reaction>("Chemical/Reaction/" + name);
     }
 }

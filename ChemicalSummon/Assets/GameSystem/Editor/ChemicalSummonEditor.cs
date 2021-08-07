@@ -8,6 +8,120 @@ using UnityEngine;
 
 public static class ChemicalSummonEditor
 {
+    private static List<SubstanceAndAmount> StrToSubstanceAndAmount(string str)
+    {
+        bool readingAmountNumber = true;
+        int amountTmp = 0;
+        string lastLetter = "";
+        List<SubstanceAndAmount> substances = new List<SubstanceAndAmount>();
+        foreach (char letter in str)
+        {
+            if (char.IsNumber(letter) || char.IsLower(letter))
+            {
+                lastLetter += letter;
+            }
+            else if (char.IsUpper(letter))
+            {
+                if (readingAmountNumber)
+                {
+                    readingAmountNumber = false;
+                    if (lastLetter.Length > 0)
+                        amountTmp = ToInt(lastLetter);
+                    else
+                        amountTmp = 1;
+                    lastLetter = letter.ToString();
+                }
+                else
+                {
+                    lastLetter += letter;
+                }
+            }
+            else if (letter.Equals('+'))
+            {
+                substances.Add(new SubstanceAndAmount(Substance.GetByName(lastLetter), amountTmp));
+                readingAmountNumber = true;
+                lastLetter = "";
+            }
+            else
+            {
+                Debug.Log("encounted unknown character: " + letter);
+            }
+        }
+        substances.Add(new SubstanceAndAmount(Substance.GetByName(lastLetter), amountTmp));
+        return substances;
+    }
+    /// <summary>
+    /// 读取反应式表自动生成ScriptableObject
+    /// </summary>
+    [MenuItem("ChemicalSummon/LoadReactionExcel")]
+    private static void LoadReactionExcel()
+    {
+        FileStream fileStream;
+        try
+        {
+            fileStream = File.Open(Application.streamingAssetsPath + "/Reaction.xlsx", FileMode.Open, FileAccess.Read);
+        }
+        catch (IOException)
+        {
+            Debug.LogError("Load Excel failed. Close any application opening the Excel file.");
+            return;
+        }
+        IExcelDataReader excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(fileStream);
+        DataSet result = excelDataReader.AsDataSet();
+        DataTable table = result.Tables[0];
+        int rows = table.Rows.Count;
+        int newCreatedCount = 0;
+        int updatedCount = 0;
+        for (int row = 1; row < rows; row++)
+        {
+            DataRow rowData = table.Rows[row];
+            string reactionName = rowData[0].ToString() + "==" + rowData[1].ToString();
+            Reaction reaction = Reaction.GetByName(reactionName);
+            bool newCreated = reaction == null;
+            if (newCreated)
+            {
+                reaction = ScriptableObject.CreateInstance<Reaction>();
+            }
+            reaction.description.defaultString = reactionName;
+            //Left substances
+            reaction.leftSubstances = StrToSubstanceAndAmount(rowData[0].ToString());
+            reaction.rightSubstances = StrToSubstanceAndAmount(rowData[1].ToString());
+            //Damages
+            string dmgStr;
+            if((dmgStr = rowData[2].ToString()).Length > 0) //explosion
+            {
+                reaction.damageType = DamageType.Explosion;
+                reaction.damageAmount = ToInt(dmgStr);
+            }
+            else if ((dmgStr = rowData[3].ToString()).Length > 0) //heat
+            {
+                reaction.damageType = DamageType.Heat;
+                reaction.damageAmount = ToInt(dmgStr);
+            }
+            else if ((dmgStr = rowData[3].ToString()).Length > 0) //electronic
+            {
+                reaction.damageType = DamageType.Electronic;
+                reaction.damageAmount = ToInt(dmgStr);
+            }
+            else
+            {
+                reaction.damageType = DamageType.None;
+                reaction.damageAmount = 0;
+            }
+            if (newCreated)
+            {
+                AssetDatabase.CreateAsset(reaction, @"Assets/GameContents/Resources/Chemical/Reaction/" + reactionName + ".asset");
+                AssetDatabase.SaveAssets(); //存储资源
+                ++newCreatedCount;
+            }
+            else
+            {
+                ++updatedCount;
+            }
+        }
+        AssetDatabase.Refresh(); //刷新
+        Debug.Log("ReactionAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);
+    }
     /// <summary>
     /// 读取物质表自动生成ScriptableObject
     /// </summary>

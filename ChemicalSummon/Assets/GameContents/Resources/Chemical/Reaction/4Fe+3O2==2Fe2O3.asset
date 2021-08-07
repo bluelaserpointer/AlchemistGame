@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9324e2c8694621e498969bedde5c86bc, type: 3}
-  m_Name: 2Na+O2=Na2O2
+  m_Name: 4Fe+3O2==2Fe2O3
   m_EditorClassIdentifier: 
   description:
-    defaultString: 2Na+O2=Na2O2
+    defaultString: 4Fe+3O2=2Fe2O3
     languageAndSentences: []
   leftSubstances:
-  - substance: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
-    amount: 2
+  - substance: {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
+    amount: 4
   - substance: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
-    amount: 1
+    amount: 3
   rightSubstances:
-  - substance: {fileID: 11400000, guid: a2fd1b1e934b5d042af36d19ac390ac5, type: 2}
-    amount: 1
+  - substance: {fileID: 11400000, guid: a5379677c5bfe664f8b412d44336b0f9, type: 2}
+    amount: 2
   damageType: 3
   damageAmount: 0

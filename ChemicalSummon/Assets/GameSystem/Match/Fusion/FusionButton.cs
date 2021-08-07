@@ -25,7 +25,7 @@ public class FusionButton : MonoBehaviour
     }
     public void SetReaction(Reaction reaction)
     {
-        formulaText.text = reaction.Description;
+        formulaText.text = reaction.description;
         if (reaction.DamageType.Equals(DamageType.None))
         {
             damagePanel.SetActive(false);

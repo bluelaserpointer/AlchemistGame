@@ -10,20 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9324e2c8694621e498969bedde5c86bc, type: 3}
-  m_Name: 2Na+2H2O=2NaOH+H2
+  m_Name: 2H2+O2==2H2O
   m_EditorClassIdentifier: 
   description:
-    defaultString: 2Na+2H2O=2NaOH+H2
+    defaultString: 2H2+O2==2H2O
     languageAndSentences: []
   leftSubstances:
-  - substance: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
+  - substance: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
     amount: 2
+  - substance: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
+    amount: 1
+  rightSubstances:
   - substance: {fileID: 11400000, guid: 85f1c1866bd34314db8d0336b2578c93, type: 2}
     amount: 2
-  rightSubstances:
-  - substance: {fileID: 11400000, guid: d848fab6dbbbb5644bd0ee6083d28857, type: 2}
-    amount: 2
-  - substance: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
-    amount: 1
-  damageType: 0
-  damageAmount: 15
+  damageType: 3
+  damageAmount: 0

@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9324e2c8694621e498969bedde5c86bc, type: 3}
-  m_Name: 3Fe+2O2=Fe3O4
+  m_Name: 3Fe+2O2==Fe3O4
   m_EditorClassIdentifier: 
   description:
     defaultString: 3Fe+2O2=Fe3O4
