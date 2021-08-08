@@ -49,13 +49,17 @@ public class Deck
     }
     public SubstanceCard DrawRandomCard(Gamer gamer)
     {
-        if(substances.Count == 0)
+        return SubstanceCard.GenerateSubstanceCard(DrawRandomSubstance(), gamer);
+    }
+    public Substance DrawRandomSubstance()
+    {
+        if (substances.Count == 0)
         {
             return null;
         }
         Substance randomSubstance = substances.RemoveRandomElement();
         onCardCountChange.Invoke();
-        return SubstanceCard.GenerateSubstanceCard(randomSubstance, gamer);
+        return randomSubstance;
     }
     public int GetCardCount(Substance substance)
     {

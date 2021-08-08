@@ -87,12 +87,6 @@ public abstract class Gamer : MonoBehaviour
     /// 手牌变化事件
     /// </summary>
     public UnityEvent OnHandCardsChanged => onHandCardsChanged;
-
-    SubstanceCard lastDrawingCard;
-    /// <summary>
-    /// 最后抽到的卡牌
-    /// </summary>
-    public SubstanceCard LastDrawingCard => lastDrawingCard;
     public void Init(Character character, Deck deck)
     {
         this.character = character;
@@ -102,11 +96,11 @@ public abstract class Gamer : MonoBehaviour
         gamerNameText.text = character.Name;
         statusPanels.SetData(this);
     }
-    public void DrawCard()
+    public virtual void DrawCard()
     {
         if (Deck.CardCount > 0)
         {
-            AddHandCard(lastDrawingCard = Deck.DrawRandomCard(this));
+            AddHandCard(Deck.DrawRandomCard(this));
         }
     }
     public SubstanceCard FindHandCard(Substance substance)
@@ -133,6 +127,10 @@ public abstract class Gamer : MonoBehaviour
             duplicatedCard.UnionSameCard(substanceCard);
         }
         OnHandCardsChanged.Invoke();
+    }
+    public void AddHandCard(Substance substance)
+    {
+        AddHandCard(SubstanceCard.GenerateSubstanceCard(substance, this));
     }
     public void RemoveHandCard(Substance substance)
     {

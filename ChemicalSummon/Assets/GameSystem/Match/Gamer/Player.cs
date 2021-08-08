@@ -12,6 +12,10 @@ public class Player : Gamer
     public HandCardsArrange HandCardsDisplay => handCardsDisplay;
     public override void AddHandCard(SubstanceCard substanceCard)
     {
+        MatchManager.CurrentDrawingCardsPanel.StartDrawCardAnimation(substanceCard);
+    }
+    public void AddHandCardImmediate(SubstanceCard substanceCard)
+    {
         SubstanceCard duplicatedCard = FindHandCard(substanceCard);
         if (duplicatedCard == null)
         {
@@ -30,6 +34,13 @@ public class Player : Gamer
             return true;
         }
         return false;
+    }
+    public override void DrawCard()
+    {
+        if (Deck.CardCount > 0)
+        {
+            AddHandCard(Deck.DrawRandomSubstance());
+        }
     }
     public override void FusionTurnStart()
     {

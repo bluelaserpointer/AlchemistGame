@@ -33,6 +33,8 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     [SerializeField]
     FusionPanelButton fusionPanel;
     [SerializeField]
+    CurrentDrawingCardsPanel currentDrawingCardsPanel;
+    [SerializeField]
     MatchLogDisplay matchLogDisplay;
     [SerializeField]
     MessagePanel messagePanel;
@@ -94,6 +96,10 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// 融合列表
     /// </summary>
     public static FusionPanelButton FusionPanel => instance.fusionPanel;
+    /// <summary>
+    /// 新抽卡展示
+    /// </summary>
+    public static CurrentDrawingCardsPanel CurrentDrawingCardsPanel => instance.currentDrawingCardsPanel;
     /// <summary>
     /// 行动历史栏
     /// </summary>

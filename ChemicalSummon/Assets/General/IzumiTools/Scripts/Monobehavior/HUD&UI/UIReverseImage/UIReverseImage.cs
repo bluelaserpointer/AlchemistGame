@@ -17,12 +17,12 @@ public class UIReverseImage : MonoBehaviour
     [HideInInspector]
     public Sprite frontSprite;
     public bool IsFront { get; protected set; }
-    // Start is called before the first frame update
-    void Awake()
+    private void Start()
     {
         image = GetComponent<Image>();
-        if(loadCurrentSpriteAsFront)
+        if (loadCurrentSpriteAsFront)
             frontSprite = image.sprite;
+        IsFront = !(270 < transform.eulerAngles.y || transform.eulerAngles.y < 90);
         UpdateSprite();
     }
     public void UpdateSprite()
