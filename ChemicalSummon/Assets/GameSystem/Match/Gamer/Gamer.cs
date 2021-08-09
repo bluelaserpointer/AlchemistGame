@@ -30,6 +30,10 @@ public abstract class Gamer : MonoBehaviour
     public UnityEvent OnAttackTurnStart => onAttackTurnStart;
     public UnityEvent OnAttackTurnEnd => onAttackTurnEnd;
     //data
+    /// <summary>
+    /// 对手
+    /// </summary>
+    public Gamer Opponent => IsMyside ? MatchManager.Enemy : (Gamer)MatchManager.Player;
     Character character;
     /// <summary>
     /// 游戏者
@@ -76,15 +80,15 @@ public abstract class Gamer : MonoBehaviour
     /// <summary>
     /// 是我方玩家
     /// </summary>
-    public bool IsMe => MatchManager.Player.Equals(this);
+    public bool IsMyside => MatchManager.Player.Equals(this);
     /// <summary>
     /// 是敌方玩家
     /// </summary>
-    public bool IsEnemy => MatchManager.Enemy.Equals(this);
+    public bool IsEnemyside => MatchManager.Enemy.Equals(this);
     /// <summary>
     /// 场地
     /// </summary>
-    public Field Field => IsMe ? MatchManager.MyField : MatchManager.EnemyField;
+    public Field Field => IsMyside ? MatchManager.MyField : MatchManager.EnemyField;
     /// <summary>
     /// 手牌变化事件
     /// </summary>

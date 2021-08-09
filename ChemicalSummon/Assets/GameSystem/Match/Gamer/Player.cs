@@ -45,6 +45,7 @@ public class Player : Gamer
     public override void FusionTurnStart()
     {
         base.FusionTurnStart();
+        SpeakInMatch("It's show time.");
         MatchManager.Player.HandCardsDisplay.transform.position += new Vector3(0, 110, 0);
     }
     public override void FusionTurnEnd()
@@ -54,6 +55,7 @@ public class Player : Gamer
     public override void AttackTurnStart()
     {
         base.AttackTurnStart();
+        SpeakInMatch("Blitz time!");
         foreach(ShieldCardSlot slot in Field.Slots)
         {
             if (slot.IsEmpty)

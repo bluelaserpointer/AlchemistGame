@@ -118,11 +118,13 @@ public class Enemy : Gamer
     public override void FusionTurnStart()
     {
         base.FusionTurnStart(); //card draw
+        SpeakInMatch("Gahhhhhhhh!!");
         OnFusionTurnLoop(0);
     }
     public override void AttackTurnStart()
     {
         base.AttackTurnStart();
+        SpeakInMatch("Wahhhhhhhhhh!!");
         attackedSlot.Clear();
         AttackTurnLoop();
     }
