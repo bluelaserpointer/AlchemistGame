@@ -108,6 +108,15 @@ public class FusionPanelButton : MonoBehaviour
                     {
                         MatchManager.Player.EndDefence();
                     }
+                    //player talk
+                    if(counterMode)
+                    {
+                        MatchManager.Player.SpeakInMatch("Wasteful.");
+                    }
+                    else
+                    {
+                        MatchManager.Player.SpeakInMatch("Fusion time!");
+                    }
                     //event invoke
                     lastReaction = reaction;
                     MatchManager.instance.onFusionFinish.Invoke();

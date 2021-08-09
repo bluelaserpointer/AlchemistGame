@@ -16,6 +16,8 @@ public abstract class Gamer : MonoBehaviour
     Text gamerNameText;
     [SerializeField]
     StatusPanels statusPanels;
+    [SerializeField]
+    InMatchDialog inMatchDialog;
     public StatusPanels StatusPanels => statusPanels;
 
     [SerializeField]
@@ -212,4 +214,8 @@ public abstract class Gamer : MonoBehaviour
         return cards;
     }
     public abstract void Defense(SubstanceCard attacker);
+    public void SpeakInMatch(string str)
+    {
+        inMatchDialog.SetText(str);
+    }
 }
