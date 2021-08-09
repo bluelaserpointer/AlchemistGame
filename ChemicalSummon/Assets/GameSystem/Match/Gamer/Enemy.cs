@@ -131,7 +131,11 @@ public class Enemy : Gamer
     {
         ShieldCardSlot[] slots = Field.Slots;
         foreach (ShieldCardSlot slot in slots)
+        {
             slot.HideAttackButton();
+            if(!slot.IsEmpty)
+                slot.Card.SetAlpha(1F);
+        }
         if (MatchManager.IsMatchFinish)
         {
             return;
@@ -144,6 +148,11 @@ public class Enemy : Gamer
                     continue;
                 attackedSlot.Add(slot);
                 slot.ShowAttackButton(false);
+                foreach (ShieldCardSlot notAttackingSlot in slots)
+                {
+                    if (!notAttackingSlot.Equals(slot) && !notAttackingSlot.IsEmpty)
+                        notAttackingSlot.Card.SetAlpha(0.5F);
+                }
                 MatchManager.Player.Defense(slot.Card);
                 return;
             }

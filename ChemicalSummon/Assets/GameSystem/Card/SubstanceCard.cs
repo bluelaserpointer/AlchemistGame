@@ -13,6 +13,8 @@ public class SubstanceCard : MonoBehaviour
     //inspector
     [SerializeField]
     CardDrag cardDrag;
+    [SerializeField]
+    CanvasGroup canvasGroup;
 
     [SerializeField]
     Text nameText;
@@ -255,5 +257,9 @@ public class SubstanceCard : MonoBehaviour
     public void SetDraggable(bool cond)
     {
         cardDrag.enabled = cond;
+    }
+    public void SetAlpha(float alpha)
+    {
+        canvasGroup.alpha = alpha;
     }
 }
