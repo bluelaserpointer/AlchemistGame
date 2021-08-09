@@ -152,10 +152,14 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     }
     public void Victory()
     {
+        Player.SpeakInMatch(Character.SpeakType.Win);
+        Enemy.SpeakInMatch(Character.SpeakType.Lose);
         resultPanel.SetResult(true);
     }
     public void Defeat()
     {
+        Player.SpeakInMatch(Character.SpeakType.Lose);
+        Enemy.SpeakInMatch(Character.SpeakType.Win);
         resultPanel.SetResult(false);
     }
     /// <summary>

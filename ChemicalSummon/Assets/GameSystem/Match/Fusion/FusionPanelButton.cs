@@ -26,8 +26,8 @@ public class FusionPanelButton : MonoBehaviour
     public void UpdateList()
     {
         //in counterMode, only counter fusions are avaliable
-        bool counterMode = MatchManager.CurrentTurnType.Equals(MatchManager.TurnType.EnemyAttackTurn);
         SubstanceCard currentAttacker = MatchManager.Player.CurrentAttacker;
+        bool counterMode = MatchManager.CurrentTurnType.Equals(MatchManager.TurnType.EnemyAttackTurn) && currentAttacker != null;
         int fusionCount = 0;
         foreach (Transform childTransform in fusionButtonList.transform)
             Destroy(childTransform.gameObject);
@@ -65,7 +65,7 @@ public class FusionPanelButton : MonoBehaviour
                             requiredAmount -= card.CardAmount;
                         }
                     }
-                };
+                }
                 if(requiredAmount > 0)
                 {
                     //print("luck of requiredAmount: " + requiredAmount + " of " + requiredSubstance.Name + " in " + reaction.Description);
@@ -111,11 +111,11 @@ public class FusionPanelButton : MonoBehaviour
                     //player talk
                     if(counterMode)
                     {
-                        MatchManager.Player.SpeakInMatch("Wasteful.");
+                        MatchManager.Player.SpeakInMatch(Character.SpeakType.Counter);
                     }
                     else
                     {
-                        MatchManager.Player.SpeakInMatch("Fusion time!");
+                        MatchManager.Player.SpeakInMatch(Character.SpeakType.Fusion);
                     }
                     //event invoke
                     lastReaction = reaction;

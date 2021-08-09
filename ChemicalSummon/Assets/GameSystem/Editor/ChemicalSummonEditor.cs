@@ -8,52 +8,121 @@ using UnityEngine;
 
 public static class ChemicalSummonEditor
 {
-    private static List<SubstanceAndAmount> StrToSubstanceAndAmount(string str)
+    /// <summary>
+    /// 读取角色表自动生成ScriptableObject
+    /// </summary>
+    [MenuItem("ChemicalSummon/Load Character From Excel")]
+    private static void LoadCharacterExcel()
     {
-        bool readingAmountNumber = true;
-        int amountTmp = 0;
-        string lastLetter = "";
-        List<SubstanceAndAmount> substances = new List<SubstanceAndAmount>();
-        foreach (char letter in str)
+        Dictionary<Language, int> languagePos = new Dictionary<Language, int>();
+        languagePos.Add(Language.Chinese, 0);
+        languagePos.Add(Language.Japanese, 1);
+        languagePos.Add(Language.English, 2);
+        FileStream fileStream;
+        try
         {
-            if (char.IsNumber(letter) || char.IsLower(letter))
+            fileStream = File.Open(Application.streamingAssetsPath + "/Character.xlsx", FileMode.Open, FileAccess.Read);
+        }
+        catch (IOException)
+        {
+            Debug.LogError("Load Excel failed. Close any application opening the Excel file.");
+            return;
+        }
+        IExcelDataReader excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(fileStream);
+        DataSet result = excelDataReader.AsDataSet();
+        DataTable table = result.Tables[0];
+        int rows = table.Rows.Count;
+        int cols = table.Columns.Count;
+        int newCreatedCount = 0;
+        int updatedCount = 0;
+        Character character = null;
+        string characterName = null;
+        bool newCreated = false;
+        //input speakType
+        List<Character.SpeakType> colSpeakType = new List<Character.SpeakType>();
+        DataRow firstRow = table.Rows[0];
+        for (int i = 2; i < cols; ++i)
+        {
+            Character.SpeakType speakType = (Character.SpeakType)Enum.Parse(typeof(Character.SpeakType), firstRow[i].ToString());
+            colSpeakType.Add(speakType);
+        }
+        for (int row = 0; row < rows; row++)
+        {
+            DataRow rowData = table.Rows[row];
+            Language language;
+            string header = rowData[0].ToString();
+            if (!Enum.TryParse(header, out language)) //new character block
             {
-                lastLetter += letter;
-            }
-            else if (char.IsUpper(letter))
-            {
-                if (readingAmountNumber)
+                if(character != null) //save last character
                 {
-                    readingAmountNumber = false;
-                    if (lastLetter.Length > 0)
-                        amountTmp = ToInt(lastLetter);
+                    if (newCreated)
+                    {
+                        AssetDatabase.CreateAsset(character, @"Assets/GameContents/Resources/Chemical/Character/" + characterName + ".asset");
+                        AssetDatabase.SaveAssets(); //存储资源
+                        ++newCreatedCount;
+                    }
                     else
-                        amountTmp = 1;
-                    lastLetter = letter.ToString();
+                    {
+                        ++updatedCount;
+                    }
                 }
-                else
+                character = Character.GetByName(header);
+                Debug.Log("initialSpeaksAmount: " + character.speaks.Count);
+                character.name.defaultString = characterName = header;
+                newCreated = character == null;
+                if (newCreated)
                 {
-                    lastLetter += letter;
+                    character = ScriptableObject.CreateInstance<Character>();
                 }
             }
-            else if (letter.Equals('+'))
+            else //new language row
             {
-                substances.Add(new SubstanceAndAmount(Substance.GetByName(lastLetter), amountTmp));
-                readingAmountNumber = true;
-                lastLetter = "";
+                if (character.name == null)
+                    character.name = new TranslatableSentence();
+                character.name.PutSentence_EmptyStrMeansRemove(language, rowData[1].ToString());
+                for (int i = 2; i < cols; ++i)
+                {
+                    Character.SpeakType speakType = colSpeakType[i - 2];
+                    TranslatableSentence sentence = null;
+                    foreach(var pair in character.speaks)
+                    {
+                        if(pair.speakType.Equals(speakType))
+                        {
+                            sentence = pair.translatableSentence;
+                            break;
+                        }
+                    }
+                    if(sentence == null)
+                    {
+                        character.speaks.Add(new Character.SpeakTypeAndSentence(speakType, sentence = new TranslatableSentence()));
+                    }
+                    sentence.PutSentence_EmptyStrMeansRemove(language, rowData[i].ToString());
+                }
+            }
+            character.initialHP = 65;
+            character.faceIcon = Resources.Load<Sprite>("Character/FaceIcon/" + characterName);
+            character.portrait = Resources.Load<Sprite>("Character/Portrait/" + characterName);
+        }
+        if (character != null) //save last character
+        {
+            if (newCreated)
+            {
+                AssetDatabase.CreateAsset(character, @"Assets/GameContents/Resources/Chemical/Character/" + characterName + ".asset");
+                AssetDatabase.SaveAssets(); //存储资源
+                ++newCreatedCount;
             }
             else
             {
-                Debug.Log("encounted unknown character: " + letter);
+                ++updatedCount;
             }
         }
-        substances.Add(new SubstanceAndAmount(Substance.GetByName(lastLetter), amountTmp));
-        return substances;
+        AssetDatabase.Refresh(); //刷新
+        Debug.Log("CharacterAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);
     }
     /// <summary>
     /// 读取反应式表自动生成ScriptableObject
     /// </summary>
-    [MenuItem("ChemicalSummon/LoadReactionExcel")]
+    [MenuItem("ChemicalSummon/Load Reaction From Excel")]
     private static void LoadReactionExcel()
     {
         FileStream fileStream;
@@ -125,7 +194,7 @@ public static class ChemicalSummonEditor
     /// <summary>
     /// 读取物质表自动生成ScriptableObject
     /// </summary>
-    [MenuItem("ChemicalSummon/LoadSubstanceExcel")]
+    [MenuItem("ChemicalSummon/Load Substance From Excel")]
     private static void LoadSubstanceExcel()
     {
         FileStream fileStream;
@@ -248,7 +317,7 @@ public static class ChemicalSummonEditor
     /// 读取元素表自动生成ScriptableObject
     /// </summary>
     /// <returns></returns>
-    [MenuItem("ChemicalSummon/LoadElementExcel")]
+    [MenuItem("ChemicalSummon/Load Element From Excel")]
     private static void LoadElementExcel()
     {
         FileStream fileStream;
@@ -311,5 +380,47 @@ public static class ChemicalSummonEditor
             Debug.LogWarning(str + " is not a number.");
             return 0;
         }
+    }
+    private static List<SubstanceAndAmount> StrToSubstanceAndAmount(string str)
+    {
+        bool readingAmountNumber = true;
+        int amountTmp = 0;
+        string lastLetter = "";
+        List<SubstanceAndAmount> substances = new List<SubstanceAndAmount>();
+        foreach (char letter in str)
+        {
+            if (char.IsNumber(letter) || char.IsLower(letter))
+            {
+                lastLetter += letter;
+            }
+            else if (char.IsUpper(letter))
+            {
+                if (readingAmountNumber)
+                {
+                    readingAmountNumber = false;
+                    if (lastLetter.Length > 0)
+                        amountTmp = ToInt(lastLetter);
+                    else
+                        amountTmp = 1;
+                    lastLetter = letter.ToString();
+                }
+                else
+                {
+                    lastLetter += letter;
+                }
+            }
+            else if (letter.Equals('+'))
+            {
+                substances.Add(new SubstanceAndAmount(Substance.GetByName(lastLetter), amountTmp));
+                readingAmountNumber = true;
+                lastLetter = "";
+            }
+            else
+            {
+                Debug.Log("encounted unknown character: " + letter);
+            }
+        }
+        substances.Add(new SubstanceAndAmount(Substance.GetByName(lastLetter), amountTmp));
+        return substances;
     }
 }

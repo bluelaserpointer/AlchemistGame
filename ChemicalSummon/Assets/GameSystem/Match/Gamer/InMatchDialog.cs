@@ -17,7 +17,7 @@ public class InMatchDialog : MonoBehaviour
     public void SetText(string str, UnityAction onDisappear = null)
     {
         text.text = str;
-        lingerTime = str.Length * 0.125F;
+        lingerTime = str.Length * 0.125F + 1;
         this.onDisappear = onDisappear;
         gameObject.SetActive(true);
     }

@@ -54,7 +54,7 @@ public abstract class Gamer : MonoBehaviour
     /// <summary>
     /// 体力初始值
     /// </summary>
-    public int InitialHP => character.InitialHP;
+    public int InitialHP => character.initialHP;
     UnityEvent onHPChange = new UnityEvent();
     UnityEvent onMolChange = new UnityEvent();
     public UnityEvent OnHPChange => onHPChange;
@@ -182,6 +182,7 @@ public abstract class Gamer : MonoBehaviour
     /// </summary>
     public virtual void FusionTurnStart()
     {
+        SpeakInMatch(Character.SpeakType.StartFusion);
         OnFusionTurnStart.Invoke();
         DrawCard(); //抽牌
     }
@@ -197,6 +198,7 @@ public abstract class Gamer : MonoBehaviour
     /// </summary>
     public virtual void AttackTurnStart()
     {
+        SpeakInMatch(Character.SpeakType.StartAttack);
         OnAttackTurnStart.Invoke();
     }
     /// <summary>
@@ -221,5 +223,16 @@ public abstract class Gamer : MonoBehaviour
     public void SpeakInMatch(string str)
     {
         inMatchDialog.SetText(str);
+    }
+    public void SpeakInMatch(Character.SpeakType speakType)
+    {
+        foreach(var pair in Character.speaks)
+        {
+            if (pair.speakType.Equals(speakType))
+            {
+                inMatchDialog.SetText(pair.translatableSentence);
+                break;
+            }
+        }
     }
 }
