@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Po
   name:
     defaultString: Po
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u948B"
   elements:
   - element: {fileID: 11400000, guid: 1eb6cf143cc0b644bb99d3accd571408, type: 2}
     amount: 1

@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Lu
   name:
     defaultString: Lu
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u9567"
   elements:
   - element: {fileID: 11400000, guid: f62ce98da75018141a412f45f505eacc, type: 2}
     amount: 1

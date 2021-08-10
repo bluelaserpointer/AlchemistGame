@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Tl
   name:
     defaultString: Tl
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u94CA"
   elements:
   - element: {fileID: 11400000, guid: d729c41dc07f601428905cbf6849d4a8, type: 2}
     amount: 1

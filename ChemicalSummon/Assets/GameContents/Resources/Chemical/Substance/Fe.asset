@@ -18,17 +18,19 @@ MonoBehaviour:
     languageAndSentences:
     - language: 0
       sentence: "\u94C1"
+    - language: 2
+      sentence: "\u9244"
+    - language: 1
+      sentence: Iron
   elements:
   - element: {fileID: 11400000, guid: 76cf6c10c09ecad4fb78a853493094ad, type: 2}
     amount: 1
   image: {fileID: 21300000, guid: 15edf70cf3ccecb47ac7322afd454519, type: 3}
   atk: 12
-  def: 0
-  meltingPoint: 1538
-  boilingPoint: 2750
+  meltingPoint: 100
+  boilingPoint: 0
   waterSoluble: 0
+  isOre: 0
   description:
-    defaultString: ?missing?
-    languageAndSentences:
-    - language: 0
-      sentence: "\u94C1\uFF08Ferrum\uFF09\u662F\u4E00\u79CD\u91D1\u5C5E\u5143\u7D20\uFF0C\u539F\u5B50\u5E8F\u6570\u4E3A26\uFF0C\u94C1\u5355\u8D28\u5316\u5B66\u5F0F\uFF1AFe\uFF0C\u82F1\u6587\u540D\uFF1Airon\u3002\u5E73\u5747\u76F8\u5BF9\u539F\u5B50\u8D28\u91CF\u4E3A55.845\u3002\u7EAF\u94C1\u662F\u767D\u8272\u6216\u8005\u94F6\u767D\u8272\u7684\uFF0C\u6709\u91D1\u5C5E\u5149\u6CFD\u3002\u80FD\u6EB6\u4E8E\u5F3A\u9178\u548C\u4E2D\u5F3A\u9178\uFF0C\u4E0D\u6EB6\u4E8E\u6C34\u3002"
+    defaultString: 
+    languageAndSentences: []

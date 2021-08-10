@@ -12,8 +12,70 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f43b1ea945c19a14692ae5ff4893cc23, type: 3}
   m_Name: Lio
   m_EditorClassIdentifier: 
+  speaks:
+  - speakType: 0
+    translatableSentence:
+      defaultString: ?missing?
+      languageAndSentences:
+      - language: 0
+        sentence: "\u9B54\u672F\u542F\u52A8\u3002"
+      - language: 1
+        sentence: It's show time.
+  - speakType: 1
+    translatableSentence:
+      defaultString: ?missing?
+      languageAndSentences:
+      - language: 0
+        sentence: "\u5C55\u5F00\u653B\u51FB\uFF01"
+      - language: 1
+        sentence: Blitz time!
+  - speakType: 2
+    translatableSentence:
+      defaultString: ?missing?
+      languageAndSentences:
+      - language: 0
+        sentence: "\u878D\u5408\u53D1\u52A8\uFF01"
+      - language: 1
+        sentence: Fusion time!
+  - speakType: 3
+    translatableSentence:
+      defaultString: ?missing?
+      languageAndSentences:
+      - language: 0
+        sentence: "\u771F\u6D6A\u8D39\u3002"
+      - language: 1
+        sentence: Wasteful.
+  - speakType: 4
+    translatableSentence:
+      defaultString: ?missing?
+      languageAndSentences:
+      - language: 0
+        sentence: "\u5443\uFF01"
+      - language: 1
+        sentence: Ugh!
+  - speakType: 5
+    translatableSentence:
+      defaultString: ?missing?
+      languageAndSentences:
+      - language: 0
+        sentence: "\u5C0F\u83DC\u4E00\u789F\u3002"
+      - language: 1
+        sentence: Easy one.
+  - speakType: 6
+    translatableSentence:
+      defaultString: ?missing?
+      languageAndSentences:
+      - language: 0
+        sentence: "\u4E0D\u53EF\u80FD..."
+      - language: 1
+        sentence: Impossible...
   name:
     defaultString: Lio
-    languageAndSentences: []
-  initialHP: 40
+    languageAndSentences:
+    - language: 0
+      sentence: "\u91CC\u5965"
+    - language: 1
+      sentence: Lio
+  initialHP: 65
   faceIcon: {fileID: 21300000, guid: 8bcc37b83ff7b4e4aba40a4cdb7d7671, type: 3}
+  portrait: {fileID: 0}

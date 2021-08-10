@@ -18,6 +18,8 @@ MonoBehaviour:
     languageAndSentences:
     - language: 0
       sentence: "\u6C27\u5316\u94DC"
+    - language: 2
+      sentence: "\u9178\u5316\u9285"
   elements:
   - element: {fileID: 11400000, guid: 74bbd45abe7bfe943b6b4e0528bc32fa, type: 2}
     amount: 1
@@ -25,10 +27,10 @@ MonoBehaviour:
     amount: 1
   image: {fileID: 21300000, guid: 15d0069732686ac4ca46c9a27070da50, type: 3}
   atk: 2
-  def: 0
-  meltingPoint: 1446
-  boilingPoint: 1446
+  meltingPoint: 100
+  boilingPoint: 0
   waterSoluble: 0
+  isOre: 0
   description:
-    defaultString: ?missing?
+    defaultString: 
     languageAndSentences: []

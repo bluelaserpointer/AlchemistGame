@@ -18,15 +18,19 @@ MonoBehaviour:
     languageAndSentences:
     - language: 0
       sentence: "\u94DC"
+    - language: 2
+      sentence: "\u9285"
+    - language: 1
+      sentence: Copper
   elements:
   - element: {fileID: 11400000, guid: 74bbd45abe7bfe943b6b4e0528bc32fa, type: 2}
     amount: 1
   image: {fileID: 21300000, guid: 8e78780dadc5da64f9f3d48f8c0e5d18, type: 3}
   atk: 7
-  def: 0
-  meltingPoint: 1083
-  boilingPoint: 2562
+  meltingPoint: 100
+  boilingPoint: 0
   waterSoluble: 0
+  isOre: 0
   description:
-    defaultString: ?missing?
+    defaultString: 
     languageAndSentences: []

@@ -18,7 +18,11 @@ MonoBehaviour:
     languageAndSentences:
     - language: 2
       sentence: "\u30A8\u30BF\u30F3"
-  elements: []
+  elements:
+  - element: {fileID: 11400000, guid: 5365dc8eec49b814e9cd656511d4fa86, type: 2}
+    amount: 2
+  - element: {fileID: 11400000, guid: c0d0bee058945db48940bb40b3e80e06, type: 2}
+    amount: 6
   image: {fileID: 0}
   atk: 0
   meltingPoint: 0

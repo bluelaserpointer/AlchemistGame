@@ -18,6 +18,8 @@ MonoBehaviour:
     languageAndSentences:
     - language: 2
       sentence: "\u30C6\u30AF\u30CD\u30C1\u30A6\u30E0"
+    - language: 0
+      sentence: "\u788D"
   elements:
   - element: {fileID: 11400000, guid: d6fcf6d4fd8802a4f9ad78a4d40bec83, type: 2}
     amount: 1

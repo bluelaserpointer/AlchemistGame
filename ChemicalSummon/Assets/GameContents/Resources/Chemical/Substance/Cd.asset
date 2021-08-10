@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Cd
   name:
     defaultString: Cd
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u9549"
   elements:
   - element: {fileID: 11400000, guid: 447ad7facf0986e41b30baa2da77bb50, type: 2}
     amount: 1

@@ -20,12 +20,14 @@ MonoBehaviour:
       sentence: "\u30A2\u30EB\u30DF\u30CB\u30A6\u30E0"
     - language: 1
       sentence: Aluminum
+    - language: 0
+      sentence: "\u94DD"
   elements:
   - element: {fileID: 11400000, guid: 152041f1eb13cc547bb3132c26b75b33, type: 2}
     amount: 1
   image: {fileID: 0}
   atk: 4
-  meltingPoint: 0
+  meltingPoint: 100
   boilingPoint: 0
   waterSoluble: 0
   isOre: 0

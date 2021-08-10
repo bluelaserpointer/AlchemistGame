@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 4Na+O2==2Na2O
   m_EditorClassIdentifier: 
   description:
-    defaultString: 4Na+O2=2Na2O
+    defaultString: 4Na+O2==2Na2O
     languageAndSentences: []
   leftSubstances:
   - substance: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}

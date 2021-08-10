@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Mo
   name:
     defaultString: Mo
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u94BC"
   elements:
   - element: {fileID: 11400000, guid: 4232e7c1a11765245b65feea7eb2fec9, type: 2}
     amount: 1

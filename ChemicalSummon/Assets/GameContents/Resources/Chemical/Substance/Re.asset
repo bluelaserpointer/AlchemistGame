@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Re
   name:
     defaultString: Re
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u94FC"
   elements:
   - element: {fileID: 11400000, guid: ba73a6e245957584aaee61c2eef31cdb, type: 2}
     amount: 1

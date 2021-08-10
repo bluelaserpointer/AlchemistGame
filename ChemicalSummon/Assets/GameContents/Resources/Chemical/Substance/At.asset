@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: At
   name:
     defaultString: At
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u7839"
   elements:
   - element: {fileID: 11400000, guid: 6ccf3de0c21d2be48b0ed3934c96aa03, type: 2}
     amount: 1

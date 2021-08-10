@@ -18,17 +18,19 @@ MonoBehaviour:
     languageAndSentences:
     - language: 0
       sentence: "\u6C22\u6C14"
+    - language: 2
+      sentence: "\u6C34\u7D20"
+    - language: 1
+      sentence: Hydrogen
   elements:
   - element: {fileID: 11400000, guid: c0d0bee058945db48940bb40b3e80e06, type: 2}
     amount: 2
   image: {fileID: 21300000, guid: c507f59260245b840aadf1e94741e0f1, type: 3}
   atk: 0
-  def: 0
-  meltingPoint: -259.2
-  boilingPoint: -252.77
+  meltingPoint: 0
+  boilingPoint: 0
   waterSoluble: 0
+  isOre: 0
   description:
-    defaultString: ?missing?
-    languageAndSentences:
-    - language: 0
-      sentence: "\u6C22\u6C14\uFF0C\u5316\u5B66\u5F0F\u4E3AH\u2082\uFF0C\u5206\u5B50\u91CF\u4E3A2.01588\uFF0C\u5E38\u6E29\u5E38\u538B\u4E0B\uFF0C\u662F\u4E00\u79CD\u6781\u6613\u71C3\u70E7\u7684\u6C14\u4F53\u3002\u65E0\u8272\u900F\u660E\u3001\u65E0\u81ED\u65E0\u5473\u4E14\u96BE\u6EB6\u4E8E\u6C34\u7684\u6C14\u4F53\u3002"
+    defaultString: 
+    languageAndSentences: []

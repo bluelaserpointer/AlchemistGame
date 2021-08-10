@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Rb
   name:
     defaultString: Rb
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u94F7"
   elements:
   - element: {fileID: 11400000, guid: 6e7698973bd1c6845836bdedbe200643, type: 2}
     amount: 1

@@ -15,9 +15,7 @@ MonoBehaviour:
   chemicalSymbol: Cu
   name:
     defaultString: Cu
-    languageAndSentences:
-    - language: 0
-      sentence: "\u94DC"
+    languageAndSentences: []
   atom: 29
   mol: 64
   description:

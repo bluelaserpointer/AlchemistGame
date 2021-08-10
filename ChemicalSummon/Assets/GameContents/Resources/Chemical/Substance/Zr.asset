@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Zr
   name:
     defaultString: Zr
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u9506"
   elements:
   - element: {fileID: 11400000, guid: 3813f22542efca345a5ee9a824849869, type: 2}
     amount: 1

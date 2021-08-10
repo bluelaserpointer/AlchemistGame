@@ -15,9 +15,7 @@ MonoBehaviour:
   chemicalSymbol: Fe
   name:
     defaultString: Fe
-    languageAndSentences:
-    - language: 0
-      sentence: "\u94C1"
+    languageAndSentences: []
   atom: 26
   mol: 56
   description:

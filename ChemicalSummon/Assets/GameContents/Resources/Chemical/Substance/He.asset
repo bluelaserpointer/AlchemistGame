@@ -20,6 +20,8 @@ MonoBehaviour:
       sentence: "\u30D8\u30EA\u30A6\u30E0"
     - language: 1
       sentence: Helium
+    - language: 0
+      sentence: "\u6C26"
   elements:
   - element: {fileID: 11400000, guid: d962abb0812d2c24f8f4901c45532eaf, type: 2}
     amount: 1

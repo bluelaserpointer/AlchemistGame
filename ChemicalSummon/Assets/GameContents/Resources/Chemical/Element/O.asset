@@ -15,12 +15,9 @@ MonoBehaviour:
   chemicalSymbol: O
   name:
     defaultString: O
-    languageAndSentences:
-    - language: 0
-      sentence: "\u6C27"
-    - language: 2
-      sentence: "\u9178\u7D20"
-    - language: 1
-      sentence: Oxygen
+    languageAndSentences: []
   atom: 8
   mol: 16
+  description:
+    defaultString: ?missing?
+    languageAndSentences: []

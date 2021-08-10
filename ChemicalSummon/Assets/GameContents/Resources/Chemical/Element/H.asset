@@ -15,12 +15,9 @@ MonoBehaviour:
   chemicalSymbol: H
   name:
     defaultString: H
-    languageAndSentences:
-    - language: 0
-      sentence: "\u6C22"
-    - language: 1
-      sentence: Hydrogen
-    - language: 2
-      sentence: "\u6C34\u7D20"
+    languageAndSentences: []
   atom: 1
   mol: 1
+  description:
+    defaultString: ?missing?
+    languageAndSentences: []

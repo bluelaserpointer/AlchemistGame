@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Sr
   name:
     defaultString: Sr
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u9536"
   elements:
   - element: {fileID: 11400000, guid: 4d447260a49610d4e98b7f8e694b52f1, type: 2}
     amount: 1

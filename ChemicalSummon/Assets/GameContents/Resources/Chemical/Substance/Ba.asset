@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Ba
   name:
     defaultString: Ba
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u94A1"
   elements:
   - element: {fileID: 11400000, guid: f79091bbb6c93d64c9333293a71ef045, type: 2}
     amount: 1

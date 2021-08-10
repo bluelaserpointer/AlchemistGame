@@ -15,9 +15,7 @@ MonoBehaviour:
   chemicalSymbol: Na
   name:
     defaultString: Na
-    languageAndSentences:
-    - language: 0
-      sentence: "\u94A0"
+    languageAndSentences: []
   atom: 11
   mol: 23
   description:

@@ -27,7 +27,7 @@ MonoBehaviour:
     amount: 1
   image: {fileID: 0}
   atk: 0
-  meltingPoint: 0
+  meltingPoint: 100
   boilingPoint: 0
   waterSoluble: 0
   isOre: 0

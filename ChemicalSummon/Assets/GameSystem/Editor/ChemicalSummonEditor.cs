@@ -58,11 +58,11 @@ public static class ChemicalSummonEditor
                     if (newCreated)
                     {
                         AssetDatabase.CreateAsset(character, @"Assets/GameContents/Resources/Chemical/Character/" + characterName + ".asset");
-                        AssetDatabase.SaveAssets(); //存储资源
                         ++newCreatedCount;
                     }
                     else
                     {
+                        EditorUtility.SetDirty(character);
                         ++updatedCount;
                     }
                 }
@@ -108,14 +108,15 @@ public static class ChemicalSummonEditor
             if (newCreated)
             {
                 AssetDatabase.CreateAsset(character, @"Assets/GameContents/Resources/Chemical/Character/" + characterName + ".asset");
-                AssetDatabase.SaveAssets(); //存储资源
                 ++newCreatedCount;
             }
             else
             {
+                EditorUtility.SetDirty(character);
                 ++updatedCount;
             }
         }
+        AssetDatabase.SaveAssets(); //存储资源
         AssetDatabase.Refresh(); //刷新
         Debug.Log("CharacterAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);
     }
@@ -180,14 +181,15 @@ public static class ChemicalSummonEditor
             if (newCreated)
             {
                 AssetDatabase.CreateAsset(reaction, @"Assets/GameContents/Resources/Chemical/Reaction/" + reactionName + ".asset");
-                AssetDatabase.SaveAssets(); //存储资源
                 ++newCreatedCount;
             }
             else
             {
+                EditorUtility.SetDirty(reaction);
                 ++updatedCount;
             }
         }
+        AssetDatabase.SaveAssets(); //存储资源
         AssetDatabase.Refresh(); //刷新
         Debug.Log("ReactionAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);
     }
@@ -301,15 +303,16 @@ public static class ChemicalSummonEditor
                 if (newCreated)
                 {
                     AssetDatabase.CreateAsset(substance, @"Assets/GameContents/Resources/Chemical/Substance/" + substanceName + ".asset");
-                    AssetDatabase.SaveAssets(); //存储资源
                     ++newCreatedCount;
                 }
                 else
                 {
+                    EditorUtility.SetDirty(substance);
                     ++updatedCount;
                 }
             }
         }
+        AssetDatabase.SaveAssets(); //存储资源
         AssetDatabase.Refresh(); //刷新
         Debug.Log("SubstanceAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);
     }
@@ -360,10 +363,11 @@ public static class ChemicalSummonEditor
             }
             else
             {
+                EditorUtility.SetDirty(element);
                 ++updatedCount;
             }
-            AssetDatabase.SaveAssets(); //存储资源
         }
+        AssetDatabase.SaveAssets(); //存储资源
         AssetDatabase.Refresh(); //刷新
         Debug.Log("ElementAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);
     }

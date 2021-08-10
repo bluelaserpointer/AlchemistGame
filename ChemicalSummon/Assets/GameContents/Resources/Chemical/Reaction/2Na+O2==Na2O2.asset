@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 2Na+O2==Na2O2
   m_EditorClassIdentifier: 
   description:
-    defaultString: 2Na+O2=Na2O2
+    defaultString: 2Na+O2==Na2O2
     languageAndSentences: []
   leftSubstances:
   - substance: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}

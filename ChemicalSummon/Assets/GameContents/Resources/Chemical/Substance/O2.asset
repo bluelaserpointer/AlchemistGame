@@ -18,17 +18,17 @@ MonoBehaviour:
     languageAndSentences:
     - language: 0
       sentence: "\u6C27\u6C14"
+    - language: 2
+      sentence: "\u9178\u7D20"
   elements:
   - element: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
     amount: 2
   image: {fileID: 21300000, guid: 1d7816d3873964642b00b2d1ff0d09e2, type: 3}
   atk: 0
-  def: 0
-  meltingPoint: -218.4
-  boilingPoint: -183
+  meltingPoint: 0
+  boilingPoint: 0
   waterSoluble: 0
+  isOre: 0
   description:
-    defaultString: ?missing?
-    languageAndSentences:
-    - language: 0
-      sentence: "\u6C27\u6C14\uFF08oxygen\uFF09\u662F\u6C27\u5143\u7D20\u5F62\u6210\u7684\u4E00\u79CD\u5355\u8D28\uFF0C\u5316\u5B66\u5F0FO2\uFF0C\u5176\u5316\u5B66\u6027\u8D28\u6BD4\u8F83\u6D3B\u6CFC\uFF0C\u4E0E\u5927\u90E8\u5206\u7684\u5143\u7D20\u90FD\u80FD\u4E0E\u6C27\u6C14\u53CD\u5E94\u3002\u5E38\u6E29\u4E0B\u4E0D\u662F\u5F88\u6D3B\u6CFC\uFF0C\u4E0E\u8BB8\u591A\u7269\u8D28\u90FD\u4E0D\u6613\u4F5C\u7528\u3002\u4F46\u5728\u9AD8\u6E29\u4E0B\u5219\u5F88\u6D3B\u6CFC\uFF0C\u80FD\u4E0E\u591A\u79CD\u5143\u7D20\u76F4\u63A5\u5316\u5408\uFF0C\u8FD9\u4E0E\u6C27\u539F\u5B50\u7684\u7535\u8D1F\u6027\u4EC5\u6B21\u4E8E\u6C1F\u6709\u5173\u3002"
+    defaultString: 
+    languageAndSentences: []

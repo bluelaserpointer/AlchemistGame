@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8f2851d153615994faa1e2492aca7392, type: 3}
   m_Name: Ti
   m_EditorClassIdentifier: 
-  chemicalSymbol: 
+  chemicalSymbol: Ti
   name:
     defaultString: Ti
     languageAndSentences: []

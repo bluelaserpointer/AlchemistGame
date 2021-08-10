@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Hf
   name:
     defaultString: Hf
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u94EA"
   elements:
   - element: {fileID: 11400000, guid: 41b21564402142045b0011c3470dfde2, type: 2}
     amount: 1

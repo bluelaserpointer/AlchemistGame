@@ -20,6 +20,8 @@ MonoBehaviour:
       sentence: "\u70AD\u7D20"
     - language: 1
       sentence: Carbon
+    - language: 0
+      sentence: "\u78B3"
   elements:
   - element: {fileID: 11400000, guid: 5365dc8eec49b814e9cd656511d4fa86, type: 2}
     amount: 1

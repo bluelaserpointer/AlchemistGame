@@ -18,12 +18,14 @@ MonoBehaviour:
     languageAndSentences:
     - language: 2
       sentence: "\u30EA\u30C1\u30A6\u30E0"
+    - language: 0
+      sentence: "\u9502"
   elements:
   - element: {fileID: 11400000, guid: 7ff144d6db750a54a9355bb8ce352a02, type: 2}
     amount: 1
   image: {fileID: 0}
   atk: 5
-  meltingPoint: 0
+  meltingPoint: 100
   boilingPoint: 0
   waterSoluble: 0
   isOre: 0

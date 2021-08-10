@@ -21,8 +21,8 @@ MonoBehaviour:
     - language: 2
       sentence: "\u5869\u7D20"
   elements:
-  - element: {fileID: 0}
-    amount: 1
+  - element: {fileID: 11400000, guid: 8cd186345f1efe749aa6d765c6a9d1b5, type: 2}
+    amount: 2
   image: {fileID: 0}
   atk: 0
   meltingPoint: 0

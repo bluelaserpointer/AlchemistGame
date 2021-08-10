@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Sb
   name:
     defaultString: Sb
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u9511"
   elements:
   - element: {fileID: 11400000, guid: ebabb517babf457409c9b483b7e3cbe4, type: 2}
     amount: 1

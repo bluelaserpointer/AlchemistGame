@@ -15,9 +15,7 @@ MonoBehaviour:
   chemicalSymbol: Mg
   name:
     defaultString: Mg
-    languageAndSentences:
-    - language: 0
-      sentence: "\u9541"
+    languageAndSentences: []
   atom: 12
   mol: 24
   description:

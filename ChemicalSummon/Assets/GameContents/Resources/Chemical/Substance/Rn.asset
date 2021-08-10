@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Rn
   name:
     defaultString: Rn
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u6C21"
   elements:
   - element: {fileID: 11400000, guid: 01462176ae112a64cb3ceff07fee90a1, type: 2}
     amount: 1

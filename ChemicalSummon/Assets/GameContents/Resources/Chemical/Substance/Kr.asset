@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: Kr
   name:
     defaultString: Kr
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u6C2A"
   elements:
   - element: {fileID: 11400000, guid: c41df2c1d5773ae418c035b8155f0df5, type: 2}
     amount: 1
