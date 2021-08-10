@@ -86,6 +86,14 @@ public abstract class Gamer : MonoBehaviour
     /// </summary>
     public bool IsEnemyside => MatchManager.Enemy.Equals(this);
     /// <summary>
+    /// 在融合阶段
+    /// </summary>
+    public abstract bool InFusionTurn { get; }
+    /// <summary>
+    /// 在攻击阶段
+    /// </summary>
+    public abstract bool InAttackTurn { get; }
+    /// <summary>
     /// 场地
     /// </summary>
     public Field Field => IsMyside ? MatchManager.MyField : MatchManager.EnemyField;

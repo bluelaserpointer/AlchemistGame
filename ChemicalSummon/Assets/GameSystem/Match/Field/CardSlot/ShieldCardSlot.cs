@@ -63,8 +63,12 @@ public class ShieldCardSlot : CardSlot, IAttackable
         SubstanceCard substanceCard = obj.GetComponent<SubstanceCard>();
         if (substanceCard != null && !substanceCard.GetStateInTempreture(Tempreture).Equals(ThreeState.Solid))
         {
-            MatchManager.MessagePanel.gameObject.SetActive(true);
             MatchManager.MessagePanel.ShowMessage("非固体无法放置");
+            return false;
+        }
+        if (!Field.Gamer.InFusionTurn)
+        {
+            MatchManager.MessagePanel.ShowMessage("非融合阶段无法放置");
             return false;
         }
         return true;

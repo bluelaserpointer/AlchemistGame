@@ -40,24 +40,19 @@ public class CardDrag : Draggable
                 }
                 if (cardSlot.IsMySide)
                 {
+                    if (!cardSlot.AllowSlotSet(substanceCard.gameObject))
+                        continue;
                     if (cardSlot.IsEmpty)
                     {
-                        if (!MatchManager.CurrentTurnType.Equals(MatchManager.TurnType.MyFusionTurn)) //cannot place new shield when not in fusionTurn
-                        {
-                            continue;
-                        }
                         //switch container slot
                         if (!disbandable)
                             continue;
-                        if (cardSlot.AllowSlotSet(substanceCard.gameObject))
+                        if (CurrentSlot != null)
                         {
-                            if (CurrentSlot != null)
-                            {
-                                CurrentSlot.SlotClear();
-                            }
-                            cardSlot.SlotSet(substanceCard.gameObject);
-                            return;
+                            CurrentSlot.SlotClear();
                         }
+                        cardSlot.SlotSet(substanceCard.gameObject);
+                        return;
                     }
                     else
                     {

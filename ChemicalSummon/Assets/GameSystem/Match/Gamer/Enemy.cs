@@ -10,6 +10,8 @@ public class Enemy : Gamer
     [SerializeField]
     Text handCardsAmountText;
 
+    public override bool InFusionTurn => MatchManager.CurrentTurnType.Equals(MatchManager.TurnType.EnemyFusionTurn);
+    public override bool InAttackTurn => MatchManager.CurrentTurnType.Equals(MatchManager.TurnType.EnemyAttackTurn);
     public override void AddHandCard(SubstanceCard substanceCard)
     {
         base.AddHandCard(substanceCard);
