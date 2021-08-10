@@ -112,9 +112,11 @@ public class SubstanceCard : MonoBehaviour
 
     public void Battle(SubstanceCard attacker)
     {
-        int myAtk = ATK;
-        Damage(attacker.ATK);
-        attacker.Damage(myAtk); //counter
+        MatchManager.AttackAnimator.StartAnimation(Slot, attacker.Slot, () => {
+            int myAtk = ATK;
+            Damage(attacker.ATK);
+            attacker.Damage(myAtk); //counter
+        });
     }
     public void Damage(int dmg)
     {

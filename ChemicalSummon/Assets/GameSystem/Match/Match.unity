@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37073377, g: 0.6413691, b: 0.87589324, a: 1}
+  m_IndirectSpecularColor: {r: 0.3707949, g: 0.6414105, b: 0.87592417, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -215,6 +215,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1359749068}
+  - {fileID: 629532106}
   m_Father: {fileID: 2121452838}
   m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1022,6 +1023,56 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   messageText: {fileID: 1663800493}
   appearTimeLength: 1
+--- !u!1 &629532105
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 629532106}
+  - component: {fileID: 629532107}
+  m_Layer: 5
+  m_Name: AttackAnimator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &629532106
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629532105}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 186060401}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 100, y: 100}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &629532107
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 629532105}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0e127454b192cf04a8d8589fc38d8c19, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackEffectPrefab: {fileID: 1595183438110882990, guid: a6f79f2dc18f9d84a9912ada0ddd1cda,
+    type: 3}
 --- !u!1 &646528449
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,7 +1772,7 @@ RectTransform:
   m_Children:
   - {fileID: 1144908631}
   m_Father: {fileID: 2096314128}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -7}
   m_AnchorMin: {x: 1, y: 0}
   m_AnchorMax: {x: 1, y: 0}
@@ -5317,8 +5368,8 @@ RectTransform:
   - {fileID: 85845099}
   - {fileID: 415941674}
   - {fileID: 295707216}
-  - {fileID: 797280705}
   - {fileID: 810751214}
+  - {fileID: 797280705}
   - {fileID: 1599342920}
   - {fileID: 1541449888}
   m_Father: {fileID: 2121452838}
@@ -5608,6 +5659,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   animatedTurnPanel: {fileID: 1124459156}
+  attackAnimator: {fileID: 629532107}
   onInit:
     m_PersistentCalls:
       m_Calls:

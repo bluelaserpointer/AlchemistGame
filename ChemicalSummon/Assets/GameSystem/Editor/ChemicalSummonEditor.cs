@@ -353,16 +353,16 @@ public static class ChemicalSummonEditor
             element.name.PutSentence_EmptyStrMeansRemove(Language.Chinese, rowData[3].ToString());
             element.name.PutSentence_EmptyStrMeansRemove(Language.Japanese, rowData[4].ToString());
             element.name.PutSentence_EmptyStrMeansRemove(Language.English, rowData[5].ToString());
-            if(newCreated)
+            if (newCreated)
             {
                 AssetDatabase.CreateAsset(element, @"Assets/GameContents/Resources/Chemical/Element/" + elementName + ".asset");
-                AssetDatabase.SaveAssets(); //存储资源
                 ++newCreatedCount;
             }
             else
             {
                 ++updatedCount;
             }
+            AssetDatabase.SaveAssets(); //存储资源
         }
         AssetDatabase.Refresh(); //刷新
         Debug.Log("ElementAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);

@@ -13,6 +13,8 @@ public class ShieldCardSlot : CardSlot, IAttackable
     Field field;
     [SerializeField]
     AttackButton attackButton;
+    [SerializeField]
+    SBA_Bump sBA_Bump;
     /// <summary>
     /// 所属场地
     /// </summary>
@@ -29,6 +31,7 @@ public class ShieldCardSlot : CardSlot, IAttackable
     /// </summary>
     public bool IsEnemySide => IsBelongTo(MatchManager.EnemyField);
     public virtual bool CardDraggable => Field.CardsDraggable;
+    public SBA_Bump SBA_Bump => sBA_Bump;
     private void Awake()
     {
         onSet.AddListener(() => {

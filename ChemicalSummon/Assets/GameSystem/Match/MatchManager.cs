@@ -47,7 +47,9 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     public UnityEvent onFusionFinish;
     public Animator animatedTurnPanel;
 
-    //[Header("Prefab")]
+    [Header("Animation")]
+    [SerializeField]
+    AttackAnimator attackAnimator;
 
     [Header("Demo&Test")]
     public UnityEvent onInit;
@@ -112,6 +114,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// 结果页面
     /// </summary>
     public static ResultPanel ResultPanel => instance.resultPanel;
+    public static AttackAnimator AttackAnimator => instance.attackAnimator;
     /// <summary>
     /// 是否对局结束
     /// </summary>
