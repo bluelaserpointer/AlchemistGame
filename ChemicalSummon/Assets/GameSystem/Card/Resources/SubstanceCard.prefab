@@ -1074,6 +1074,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDrag: {fileID: 6427983312728146768}
+  sBA_Trace: {fileID: 6386894150370157109}
   canvasGroup: {fileID: 2070660655534175712}
   nameText: {fileID: 4831306929130687294}
   amountText: {fileID: 8815216137556788536}
@@ -1084,6 +1085,26 @@ MonoBehaviour:
   meltingPointText: {fileID: 8421303603597934479}
   boilingPointText: {fileID: 7405296944635201918}
   threeState: 0
+--- !u!114 &6386894150370157109
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9080898372516015160}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a29ea5ad5fe1e66419d1d88c6c248ab0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useTransformTarget: 0
+  targetTransform: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  timeLength: 0.1
+  power: 1
+  OnReach:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!114 &7662852807735260117
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2566,15 +2587,15 @@ GameObject:
     type: 3}
   m_PrefabInstance: {fileID: 5300347429294521130}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7746470911739309018 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 2454008419638513904, guid: e1bbe39279234fb44ba83d3864d2e26a,
-    type: 3}
-  m_PrefabInstance: {fileID: 5300347429294521130}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &3640071897080771938 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8866109910637645384, guid: e1bbe39279234fb44ba83d3864d2e26a,
+    type: 3}
+  m_PrefabInstance: {fileID: 5300347429294521130}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7746470911739309018 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2454008419638513904, guid: e1bbe39279234fb44ba83d3864d2e26a,
     type: 3}
   m_PrefabInstance: {fileID: 5300347429294521130}
   m_PrefabAsset: {fileID: 0}

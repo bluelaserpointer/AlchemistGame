@@ -93,6 +93,7 @@ public class Enemy : Gamer
                         {
                             lestEmptySlots.Remove(slot);
                             RemoveHandCard(card);
+                            highestATKPair.card.transform.position = handCardsAmountText.transform.position;
                             slot.SlotSet(highestATKPair.card.gameObject);
                             OnFusionTurnLoop((highestATKs.Count > 0 && lestEmptySlots.Count > 0) ? 1 : 2);
                         });

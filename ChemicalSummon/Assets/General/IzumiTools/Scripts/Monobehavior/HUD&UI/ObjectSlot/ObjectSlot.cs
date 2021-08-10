@@ -8,30 +8,30 @@ public class ObjectSlot : MonoBehaviour
 {
     [Header("Parent")]
     [SerializeField]
-    Transform arrangeParent;
+    protected Transform arrangeParent;
     [SerializeField]
-    bool returnToOriginalParentWhenDisband = true;
+    protected bool returnToOriginalParentWhenDisband = true;
     [Header("Rotation")]
     [SerializeField]
-    bool doArrangeRotation = true;
+    protected bool doArrangeRotation = true;
     [SerializeField]
-    Vector3 arrangeLocalRotation;
+    protected Vector3 arrangeLocalRotation;
     [SerializeField]
-    bool returnToOriginalRotationWhenDisband;
+    protected bool returnToOriginalRotationWhenDisband;
     [Header("Scale")]
     [SerializeField]
-    bool doArrangeScale = false;
+    protected bool doArrangeScale = false;
     [SerializeField]
-    Vector2 arrangeLocalScale = Vector2.one;
+    protected Vector2 arrangeLocalScale = Vector2.one;
     [SerializeField]
-    bool returnToOriginalScaleWhenDisband;
+    protected bool returnToOriginalScaleWhenDisband;
     public UnityEvent onSet, onClear;
 
     //data
-    Transform ArrangeParent => arrangeParent ?? transform;
-    Transform oldParent;
-    Vector3 oldLocalRotation;
-    Vector3 oldLocalScale;
+    public Transform ArrangeParent => arrangeParent ?? transform;
+    protected Transform oldParent;
+    protected Vector3 oldLocalRotation;
+    protected Vector3 oldLocalScale;
 
     public Transform GetTop()
     {
@@ -50,7 +50,7 @@ public class ObjectSlot : MonoBehaviour
         DoAlignment();
         onSet.Invoke();
     }
-    public void DoAlignment()
+    public virtual void DoAlignment()
     {
         foreach(Transform childTransform in ArrangeParent)
         {

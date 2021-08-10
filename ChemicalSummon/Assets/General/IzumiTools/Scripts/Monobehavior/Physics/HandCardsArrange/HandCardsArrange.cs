@@ -36,7 +36,7 @@ public class HandCardsArrange : MonoBehaviour
     {
         return transform.Find(predicate);
     }
-    public void Arrange()
+    public virtual void Arrange()
     {
         Vector3 myPos = transform.position;
         Vector3 myAngle = transform.eulerAngles;

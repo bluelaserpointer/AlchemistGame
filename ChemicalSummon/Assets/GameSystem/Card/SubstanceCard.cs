@@ -14,6 +14,8 @@ public class SubstanceCard : MonoBehaviour
     [SerializeField]
     CardDrag cardDrag;
     [SerializeField]
+    SBA_Trace sBA_Trace;
+    [SerializeField]
     CanvasGroup canvasGroup;
 
     [SerializeField]
@@ -263,5 +265,10 @@ public class SubstanceCard : MonoBehaviour
     public void SetAlpha(float alpha)
     {
         canvasGroup.alpha = alpha;
+    }
+    public void TracePosition(Vector3 position)
+    {
+        sBA_Trace.SetTarget(position);
+        sBA_Trace.StartAnimation();
     }
 }
