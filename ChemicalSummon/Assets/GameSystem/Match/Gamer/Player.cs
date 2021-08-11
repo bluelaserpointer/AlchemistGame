@@ -53,6 +53,7 @@ public class Player : Gamer
     public override void FusionTurnEnd()
     {
         MatchManager.Player.HandCardsDisplay.transform.position -= new Vector3(0, 110, 0);
+        MatchManager.FusionPanel.HideFusionList();
     }
     public override void AttackTurnStart()
     {

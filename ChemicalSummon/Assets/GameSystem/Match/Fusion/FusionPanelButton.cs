@@ -130,4 +130,8 @@ public class FusionPanelButton : MonoBehaviour
     {
         fusionButtonList.gameObject.SetActive(!fusionButtonList.gameObject.activeSelf);
     }
+    public void HideFusionList()
+    {
+        fusionButtonList.gameObject.SetActive(false);
+    }
 }
