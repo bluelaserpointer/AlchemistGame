@@ -131,7 +131,7 @@ public class SubstanceCard : MonoBehaviour
     public void Battle(Gamer gamer)
     {
         MatchManager.StartAttackAnimation(Slot, null, () => {
-            gamer.HP -= ATK;
+            MatchManager.StartDamageAnimation(transform.position, ATK, gamer);
         });
     }
     public void Damage(int dmg)
@@ -142,8 +142,7 @@ public class SubstanceCard : MonoBehaviour
             RemoveAmount(1);
             if (overDamage > 0)
             {
-                gamer.HP -= overDamage;
-                MatchManager.StartDamageAnimation(transform.position, -overDamage, gamer);
+                MatchManager.StartDamageAnimation(transform.position, overDamage, gamer);
             }
         }
     }

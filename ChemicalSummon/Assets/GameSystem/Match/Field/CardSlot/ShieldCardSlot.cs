@@ -89,7 +89,7 @@ public class ShieldCardSlot : CardSlot, IAttackable
         }
         else
         {
-            Field.Gamer.HP -= dmg;
+            MatchManager.StartDamageAnimation(transform.position, dmg, Field.Gamer);
         }
     }
     public void HideAttackButton()

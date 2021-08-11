@@ -57,7 +57,7 @@ public class StatusPanels : MonoBehaviour
         if (displayValue < value)
         {
             text.color = Color.green;
-            text.text = (displayValue + (int)((value - displayValue) * 0.25)).ToString();
+            text.text = (displayValue + (int)((value - displayValue) * 0.25) + 1).ToString();
         }
         else if (displayValue > value)
         {

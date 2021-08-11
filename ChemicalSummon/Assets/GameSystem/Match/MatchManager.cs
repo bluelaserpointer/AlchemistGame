@@ -290,14 +290,17 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
                 onBump.Invoke();
         });
     }
-    public static void StartDamageAnimation(Vector3 startPosition, float value, Gamer damagedGamer)
+    public static void StartDamageAnimation(Vector3 startPosition, int damage, Gamer damagedGamer)
     {
         GameObject damageText = Instantiate(instance.damageTextPrefab, MainCanvas.transform);
         damageText.transform.position = startPosition;
-        damageText.GetComponent<Text>().text = value.ToString();
+        damageText.GetComponent<Text>().text = (-damage).ToString();
         SBA_Trace trace = damageText.GetComponent<SBA_Trace>();
         trace.targetTransform = damagedGamer.StatusPanels.HPText.transform;
-        trace.AddReachAction(() => Destroy(damageText));
+        trace.AddReachAction(() => {
+            damagedGamer.HP -= damage;
+            Destroy(damageText);
+        });
         trace.StartAnimation();
     }
 }
