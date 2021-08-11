@@ -112,12 +112,26 @@ public class SubstanceCard : MonoBehaviour
     /// </summary>
     public int ATK => OriginalATK * CardAmount;
 
-    public void Battle(SubstanceCard attacker)
+    /// <summary>
+    /// 与卡牌战斗
+    /// </summary>
+    /// <param name="opponentCard"></param>
+    public void Battle(SubstanceCard opponentCard)
     {
-        MatchManager.AttackAnimator.StartAnimation(Slot, attacker.Slot, () => {
+        MatchManager.StartAttackAnimation(Slot, opponentCard.Slot, () => {
             int myAtk = ATK;
-            Damage(attacker.ATK);
-            attacker.Damage(myAtk); //counter
+            Damage(opponentCard.ATK);
+            opponentCard.Damage(myAtk); //counter
+        });
+    }
+    /// <summary>
+    /// 与玩家战斗(直接攻击)
+    /// </summary>
+    /// <param name="gamer"></param>
+    public void Battle(Gamer gamer)
+    {
+        MatchManager.StartAttackAnimation(Slot, null, () => {
+            gamer.HP -= ATK;
         });
     }
     public void Damage(int dmg)
@@ -127,7 +141,10 @@ public class SubstanceCard : MonoBehaviour
         {
             RemoveAmount(1);
             if (overDamage > 0)
+            {
                 gamer.HP -= overDamage;
+                MatchManager.StartDamageAnimation(transform.position, -overDamage, gamer);
+            }
         }
     }
 

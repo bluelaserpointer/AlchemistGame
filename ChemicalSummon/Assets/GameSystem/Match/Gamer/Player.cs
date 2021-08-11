@@ -89,7 +89,7 @@ public class Player : Gamer
             SubstanceCard card = slot.Card;
             slot.ShowAttackButton(true, () =>
             {
-                card.Battle(attacker);
+                attacker.Battle(card);
                 EndDefence();
             });
         }
@@ -107,7 +107,7 @@ public class Player : Gamer
     {
         if (currentAttacker == null)
             return;
-        HP -= currentAttacker.ATK;
+        currentAttacker.Battle(this);
         EndDefence();
     }
 }

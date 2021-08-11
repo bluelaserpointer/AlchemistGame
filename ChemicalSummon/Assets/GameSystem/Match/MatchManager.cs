@@ -47,9 +47,11 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     public UnityEvent onFusionFinish;
     public Animator animatedTurnPanel;
 
-    [Header("Animation")]
+    [Header("Prefab")]
     [SerializeField]
-    AttackAnimator attackAnimator;
+    GameObject attackEffectPrefab;
+    [SerializeField]
+    GameObject damageTextPrefab;
 
     [Header("Demo&Test")]
     public UnityEvent onInit;
@@ -114,7 +116,6 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// 结果页面
     /// </summary>
     public static ResultPanel ResultPanel => instance.resultPanel;
-    public static AttackAnimator AttackAnimator => instance.attackAnimator;
     /// <summary>
     /// 是否对局结束
     /// </summary>
@@ -271,5 +272,32 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
             }
         }
         CardInfoDisplay.gameObject.SetActive(false);
+    }
+    //animations
+    public static void StartAttackAnimation(ShieldCardSlot slot1, ShieldCardSlot slot2, UnityAction onBump)
+    {
+        slot1.SBA_Bump.target = instance.transform;
+        slot1.SBA_Bump.StartAnimation();
+        if(slot2 != null)
+        {
+            slot2.SBA_Bump.target = instance.transform;
+            slot2.SBA_Bump.StartAnimation();
+        }
+        slot1.SBA_Bump.AddBumpAction(() =>
+        {
+            Instantiate(instance.attackEffectPrefab, instance.transform);
+            if (onBump != null)
+                onBump.Invoke();
+        });
+    }
+    public static void StartDamageAnimation(Vector3 startPosition, float value, Gamer damagedGamer)
+    {
+        GameObject damageText = Instantiate(instance.damageTextPrefab, MainCanvas.transform);
+        damageText.transform.position = startPosition;
+        damageText.GetComponent<Text>().text = value.ToString();
+        SBA_Trace trace = damageText.GetComponent<SBA_Trace>();
+        trace.targetTransform = damagedGamer.StatusPanels.HPText.transform;
+        trace.AddReachAction(() => Destroy(damageText));
+        trace.StartAnimation();
     }
 }

@@ -27,7 +27,7 @@ public class SBA_Trace : MonoBehaviour
             transform.position = Vector3.Lerp(originalPos, useTransformTarget ? targetTransform.position : targetPosition, Mathf.Pow(timePassedRate, power));
             passedTime += Time.fixedDeltaTime;
         }
-        if (isBeforeReach && passedTime >= timeLength / 2)
+        if (isBeforeReach && passedTime >= timeLength)
         {
             isBeforeReach = false;
             OnReach.Invoke();

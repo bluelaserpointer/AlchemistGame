@@ -12,6 +12,7 @@ public class UIReverseImage : MonoBehaviour
     private void Start()
     {
         IsFront = !(270 < transform.eulerAngles.y || transform.eulerAngles.y < 90);
+        UpdateSprite();
     }
     void Update()
     {

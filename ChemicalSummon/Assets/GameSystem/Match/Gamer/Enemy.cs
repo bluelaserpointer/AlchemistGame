@@ -179,9 +179,9 @@ public class Enemy : Gamer
                 candidateATK = atk;
             }
         }
-        if(candidateCard != null)
-            candidateCard.Battle(attacker);
+        if (candidateCard != null)
+            attacker.Battle(candidateCard);
         else
-            HP -= attacker.ATK;
+            attacker.Battle(this);
     }
 }
