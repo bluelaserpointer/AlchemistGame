@@ -95,12 +95,14 @@ public class FusionPanelButton : MonoBehaviour
                     switch(reaction.DamageType)
                     {
                         case DamageType.Explosion:
-                            foreach(ShieldCardSlot cardSlot in MatchManager.EnemyField.Slots)
+                            MatchManager.PlaySE("Sound/SE/attack2");
+                            foreach (ShieldCardSlot cardSlot in MatchManager.EnemyField.Slots)
                             {
                                 cardSlot.Damage(reaction.DamageAmount);
                             }
                             break;
                         default:
+                            MatchManager.PlaySE("Sound/SE/powerup10");
                             break;
                     }
                     //counter fusion

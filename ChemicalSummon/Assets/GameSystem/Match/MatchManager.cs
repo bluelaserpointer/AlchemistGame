@@ -60,7 +60,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// <summary>
     /// 当前战斗
     /// </summary>
-    public Match Match => PlayerSave.ActiveMatch;
+    public static Match Match => PlayerSave.ActiveMatch;
     /// <summary>
     /// 环境温度
     /// </summary>
@@ -272,6 +272,17 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
             }
         }
         CardInfoDisplay.gameObject.SetActive(false);
+    }
+    //sounds
+    public static void PlaySE(string seResourcePass)
+    {
+        AudioClip clip = Resources.Load<AudioClip>(seResourcePass);
+        if(clip == null)
+        {
+            Debug.LogWarning(seResourcePass + " is not a valid AudioClip resource pass.");
+            return;
+        }
+        AudioSource.PlayClipAtPoint(clip, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
     }
     //animations
     public static void StartAttackAnimation(ShieldCardSlot slot1, ShieldCardSlot slot2, UnityAction onBump)
