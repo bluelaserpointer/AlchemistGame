@@ -298,6 +298,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         SBA_Trace trace = damageText.GetComponent<SBA_Trace>();
         trace.targetTransform = damagedGamer.StatusPanels.HPText.transform;
         trace.AddReachAction(() => {
+            damagedGamer.SpeakInMatch(Character.SpeakType.Damage);
             damagedGamer.HP -= damage;
             Destroy(damageText);
         });

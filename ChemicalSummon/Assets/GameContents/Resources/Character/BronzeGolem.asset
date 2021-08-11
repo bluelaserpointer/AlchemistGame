@@ -18,9 +18,9 @@ MonoBehaviour:
       defaultString: ?missing?
       languageAndSentences:
       - language: 0
-        sentence: "\u5676\u554A\u554A\u554A\u554A\uFF01\uFF01"
+        sentence: "\u545C\u5662\u5662\u5662\u5662\uFF01\uFF01"
       - language: 1
-        sentence: Gahhhhhhh!!
+        sentence: Wahhhhhhh!!
   - speakType: 1
     translatableSentence:
       defaultString: ?missing?
