@@ -15,7 +15,7 @@ MonoBehaviour:
   speaks:
   - speakType: 0
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: Wahhhhhhh!!
       languageAndSentences:
       - language: 0
         sentence: "\u545C\u5662\u5662\u5662\u5662\uFF01\uFF01"
@@ -23,7 +23,7 @@ MonoBehaviour:
         sentence: Wahhhhhhh!!
   - speakType: 1
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: Wahhhhhhhhhhh!!
       languageAndSentences:
       - language: 0
         sentence: "\u545C\u5662\u5662\u5662\u5662\u5662\u5662\uFF01\uFF01"
@@ -31,15 +31,15 @@ MonoBehaviour:
         sentence: Wahhhhhhhhhhh!!
   - speakType: 2
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: 
       languageAndSentences: []
   - speakType: 3
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: 
       languageAndSentences: []
   - speakType: 4
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: Guh!
       languageAndSentences:
       - language: 0
         sentence: "\u5443\uFF01"
@@ -47,7 +47,7 @@ MonoBehaviour:
         sentence: Guh!
   - speakType: 5
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: Gahahahaha!!
       languageAndSentences:
       - language: 0
         sentence: "\u5676\u54C8\u54C8\u54C8\u54C8\uFF01\uFF01"
@@ -55,7 +55,7 @@ MonoBehaviour:
         sentence: Gahahahaha!!
   - speakType: 6
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: Guhhhhh...
       languageAndSentences:
       - language: 0
         sentence: "\u5443\u5443\u5443..."

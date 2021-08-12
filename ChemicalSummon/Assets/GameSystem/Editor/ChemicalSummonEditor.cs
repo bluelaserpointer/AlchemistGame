@@ -9,6 +9,51 @@ using UnityEngine;
 public static class ChemicalSummonEditor
 {
     /// <summary>
+    /// 读取可翻译句子表自动生成ScriptableObject
+    /// </summary>
+    /// <returns></returns>
+    [MenuItem("ChemicalSummon/Load TranslatableSentence From Excel")]
+    private static void LoadTranslatableSentenceExcel()
+    {
+        DataSet result = ReadExcelFromStreamingAsset("TranslatableSentence.xlsx");
+        if (result == null)
+            return;
+        int newCreatedCount = 0;
+        int updatedCount = 0;
+        foreach (DataTable table in result.Tables)
+        {
+            int rows = table.Rows.Count;
+            for (int row = 1; row < rows; row++)
+            {
+                DataRow rowData = table.Rows[row];
+                string sentenceName = rowData[0].ToString();
+                TranslatableSentenceSO sentence = Resources.Load<TranslatableSentenceSO>("TranslatableSentence/" + sentenceName);
+                bool newCreated = sentence == null;
+                if (newCreated)
+                {
+                    sentence = ScriptableObject.CreateInstance<TranslatableSentenceSO>();
+                }
+                sentence.sentence.defaultString = sentenceName;
+                sentence.sentence.PutSentence_EmptyStrMeansRemove(Language.English, rowData[1].ToString());
+                sentence.sentence.PutSentence_EmptyStrMeansRemove(Language.Chinese, rowData[2].ToString());
+                sentence.sentence.PutSentence_EmptyStrMeansRemove(Language.Japanese, rowData[3].ToString());
+                if (newCreated)
+                {
+                    AssetDatabase.CreateAsset(sentence, @"Assets/GameContents/Resources/TranslatableSentence/" + sentenceName + ".asset");
+                    ++newCreatedCount;
+                }
+                else
+                {
+                    EditorUtility.SetDirty(sentence);
+                    ++updatedCount;
+                }
+            }
+        }
+        AssetDatabase.SaveAssets(); //存储资源
+        AssetDatabase.Refresh(); //刷新
+        Debug.Log("TranslatableSentenceAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);
+    }
+    /// <summary>
     /// 读取角色表自动生成ScriptableObject
     /// </summary>
     [MenuItem("ChemicalSummon/Load Character From Excel")]
@@ -18,18 +63,9 @@ public static class ChemicalSummonEditor
         languagePos.Add(Language.Chinese, 0);
         languagePos.Add(Language.Japanese, 1);
         languagePos.Add(Language.English, 2);
-        FileStream fileStream;
-        try
-        {
-            fileStream = File.Open(Application.streamingAssetsPath + "/Character.xlsx", FileMode.Open, FileAccess.Read);
-        }
-        catch (IOException)
-        {
-            Debug.LogError("Load Excel failed. Close any application opening the Excel file.");
+        DataSet result = ReadExcelFromStreamingAsset("Character.xlsx");
+        if (result == null)
             return;
-        }
-        IExcelDataReader excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(fileStream);
-        DataSet result = excelDataReader.AsDataSet();
         DataTable table = result.Tables[0];
         int rows = table.Rows.Count;
         int cols = table.Columns.Count;
@@ -97,6 +133,8 @@ public static class ChemicalSummonEditor
                         character.speaks.Add(new Character.SpeakTypeAndSentence(speakType, sentence = new TranslatableSentence()));
                     }
                     sentence.PutSentence_EmptyStrMeansRemove(language, rowData[i].ToString());
+                    if (language.Equals(Language.English))
+                        sentence.defaultString = rowData[i].ToString();
                 }
             }
             character.initialHP = 65;
@@ -126,18 +164,9 @@ public static class ChemicalSummonEditor
     [MenuItem("ChemicalSummon/Load Reaction From Excel")]
     private static void LoadReactionExcel()
     {
-        FileStream fileStream;
-        try
-        {
-            fileStream = File.Open(Application.streamingAssetsPath + "/Reaction.xlsx", FileMode.Open, FileAccess.Read);
-        }
-        catch (IOException)
-        {
-            Debug.LogError("Load Excel failed. Close any application opening the Excel file.");
+        DataSet result = ReadExcelFromStreamingAsset("Reaction.xlsx");
+        if (result == null)
             return;
-        }
-        IExcelDataReader excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(fileStream);
-        DataSet result = excelDataReader.AsDataSet();
         DataTable table = result.Tables[0];
         int rows = table.Rows.Count;
         int newCreatedCount = 0;
@@ -199,18 +228,9 @@ public static class ChemicalSummonEditor
     [MenuItem("ChemicalSummon/Load Substance From Excel")]
     private static void LoadSubstanceExcel()
     {
-        FileStream fileStream;
-        try
-        {
-            fileStream = File.Open(Application.streamingAssetsPath + "/Substance.xlsx", FileMode.Open, FileAccess.Read);
-        }
-        catch (IOException)
-        {
-            Debug.LogError("Load Excel failed. Close any application opening the Excel file.");
+        DataSet result = ReadExcelFromStreamingAsset("Substance.xlsx");
+        if (result == null)
             return;
-        }
-        IExcelDataReader excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(fileStream);
-        DataSet result = excelDataReader.AsDataSet();
         int newCreatedCount = 0;
         int updatedCount = 0;
         foreach (DataTable table in result.Tables)
@@ -323,18 +343,9 @@ public static class ChemicalSummonEditor
     [MenuItem("ChemicalSummon/Load Element From Excel")]
     private static void LoadElementExcel()
     {
-        FileStream fileStream;
-        try
-        {
-            fileStream = File.Open(Application.streamingAssetsPath + "/Element.xlsx", FileMode.Open, FileAccess.Read);
-        }
-        catch (IOException)
-        {
-            Debug.LogError("Load Excel failed. Close any application opening the Excel file.");
+        DataSet result = ReadExcelFromStreamingAsset("Element.xlsx");
+        if (result == null)
             return;
-        }
-        IExcelDataReader excelDataReader = ExcelReaderFactory.CreateOpenXmlReader(fileStream);
-        DataSet result = excelDataReader.AsDataSet();
         DataTable table = result.Tables[0];
         int rows = table.Rows.Count;
         int newCreatedCount = 0;
@@ -426,5 +437,19 @@ public static class ChemicalSummonEditor
         }
         substances.Add(new SubstanceAndAmount(Substance.GetByName(lastLetter), amountTmp));
         return substances;
+    }
+    private static DataSet ReadExcelFromStreamingAsset(string path)
+    {
+        FileStream fileStream;
+        try
+        {
+            fileStream = File.Open(Application.streamingAssetsPath + "/" + path, FileMode.Open, FileAccess.Read);
+        }
+        catch (IOException)
+        {
+            Debug.LogError("Load Excel failed. Close any application opening the Excel file.");
+            return null;
+        }
+        return ExcelReaderFactory.CreateOpenXmlReader(fileStream).AsDataSet();
     }
 }

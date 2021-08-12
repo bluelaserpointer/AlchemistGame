@@ -15,7 +15,7 @@ MonoBehaviour:
   speaks:
   - speakType: 0
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: It's show time.
       languageAndSentences:
       - language: 0
         sentence: "\u9B54\u672F\u542F\u52A8\u3002"
@@ -23,7 +23,7 @@ MonoBehaviour:
         sentence: It's show time.
   - speakType: 1
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: Blitz time!
       languageAndSentences:
       - language: 0
         sentence: "\u5C55\u5F00\u653B\u51FB\uFF01"
@@ -31,7 +31,7 @@ MonoBehaviour:
         sentence: Blitz time!
   - speakType: 2
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: Fusion time!
       languageAndSentences:
       - language: 0
         sentence: "\u878D\u5408\u53D1\u52A8\uFF01"
@@ -39,7 +39,7 @@ MonoBehaviour:
         sentence: Fusion time!
   - speakType: 3
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: Wasteful.
       languageAndSentences:
       - language: 0
         sentence: "\u771F\u6D6A\u8D39\u3002"
@@ -47,7 +47,7 @@ MonoBehaviour:
         sentence: Wasteful.
   - speakType: 4
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: Ugh!
       languageAndSentences:
       - language: 0
         sentence: "\u5443\uFF01"
@@ -55,7 +55,7 @@ MonoBehaviour:
         sentence: Ugh!
   - speakType: 5
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: Easy one.
       languageAndSentences:
       - language: 0
         sentence: "\u5C0F\u83DC\u4E00\u789F\u3002"
@@ -63,7 +63,7 @@ MonoBehaviour:
         sentence: Easy one.
   - speakType: 6
     translatableSentence:
-      defaultString: ?missing?
+      defaultString: Impossible...
       languageAndSentences:
       - language: 0
         sentence: "\u4E0D\u53EF\u80FD..."
