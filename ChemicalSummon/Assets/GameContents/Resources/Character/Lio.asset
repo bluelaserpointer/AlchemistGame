@@ -21,6 +21,8 @@ MonoBehaviour:
         sentence: "\u9B54\u672F\u542F\u52A8\u3002"
       - language: 1
         sentence: It's show time.
+      - language: 2
+        sentence: "\u30EA\u30A2\u30AF\u30BF\u30FC\u8D77\u52D5\u3002"
   - speakType: 1
     translatableSentence:
       defaultString: Blitz time!
@@ -29,6 +31,8 @@ MonoBehaviour:
         sentence: "\u5C55\u5F00\u653B\u51FB\uFF01"
       - language: 1
         sentence: Blitz time!
+      - language: 2
+        sentence: "\u653B\u6483\u614B\u52E2\uFF01"
   - speakType: 2
     translatableSentence:
       defaultString: Fusion time!
@@ -37,6 +41,8 @@ MonoBehaviour:
         sentence: "\u878D\u5408\u53D1\u52A8\uFF01"
       - language: 1
         sentence: Fusion time!
+      - language: 2
+        sentence: "\u878D\u5408\u767A\u52D5\uFF01"
   - speakType: 3
     translatableSentence:
       defaultString: Wasteful.
@@ -45,6 +51,8 @@ MonoBehaviour:
         sentence: "\u771F\u6D6A\u8D39\u3002"
       - language: 1
         sentence: Wasteful.
+      - language: 2
+        sentence: "\u3082\u3063\u305F\u3044\u306A\u3044\u3002"
   - speakType: 4
     translatableSentence:
       defaultString: Ugh!
@@ -53,6 +61,8 @@ MonoBehaviour:
         sentence: "\u5443\uFF01"
       - language: 1
         sentence: Ugh!
+      - language: 2
+        sentence: "\u3050\u3063\uFF01"
   - speakType: 5
     translatableSentence:
       defaultString: Easy one.
@@ -61,6 +71,8 @@ MonoBehaviour:
         sentence: "\u5C0F\u83DC\u4E00\u789F\u3002"
       - language: 1
         sentence: Easy one.
+      - language: 2
+        sentence: "\u4F59\u88D5\u3060\u3063\u305F\u306A\u3002"
   - speakType: 6
     translatableSentence:
       defaultString: Impossible...
@@ -69,6 +81,8 @@ MonoBehaviour:
         sentence: "\u4E0D\u53EF\u80FD..."
       - language: 1
         sentence: Impossible...
+      - language: 2
+        sentence: "\u99AC\u9E7F\u306A\u2026"
   name:
     defaultString: Lio
     languageAndSentences:
@@ -76,6 +90,8 @@ MonoBehaviour:
       sentence: "\u91CC\u5965"
     - language: 1
       sentence: Lio
+    - language: 2
+      sentence: "\u30EA\u30AA"
   initialHP: 65
   faceIcon: {fileID: 21300000, guid: 8bcc37b83ff7b4e4aba40a4cdb7d7671, type: 3}
   portrait: {fileID: 0}

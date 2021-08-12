@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class TranslatedText : MonoBehaviour
 {
     [SerializeField]
+    bool alwaysUpdate;
+    [SerializeField]
     TranslatableSentenceSO scriptableObject;
     [SerializeField]
     TranslatableSentence sentence;
@@ -24,6 +26,11 @@ public class TranslatedText : MonoBehaviour
         else if (sentence == null)
             return;
         UpdateText();
+    }
+    private void Update()
+    {
+        if (alwaysUpdate)
+            UpdateText();
     }
     private void UpdateText()
     {
