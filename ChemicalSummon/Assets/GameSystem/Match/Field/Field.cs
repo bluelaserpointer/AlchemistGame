@@ -108,7 +108,7 @@ public abstract class Field : MonoBehaviour
         }
         return results;
     }
-    public bool CardsDraggable => IsMySide && MatchManager.CurrentTurnType.Equals(MatchManager.TurnType.MyFusionTurn);
+    public bool CardsDraggable => IsMySide && MatchManager.CurrentTurnType.Equals(TurnType.MyFusionTurn);
     public void UpdateCardsDraggable()
     {
         bool cond = CardsDraggable;

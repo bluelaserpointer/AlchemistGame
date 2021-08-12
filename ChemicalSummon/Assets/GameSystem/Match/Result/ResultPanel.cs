@@ -1,13 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class ResultPanel : MonoBehaviour
 {
     [SerializeField]
-    Text resultText;
+    GameObject winObject, loseObject;
 
     public bool IsMatchFinish => gameObject.activeSelf;
     public void SetResult(bool isVictory)
@@ -17,13 +16,13 @@ public class ResultPanel : MonoBehaviour
         MatchManager.Player.RemoveAttackButtons();
         if(isVictory)
         {
-            resultText.text = "Victory";
-            resultText.color = Color.white;
+            winObject.SetActive(true);
+            loseObject.SetActive(false);
         }
         else
         {
-            resultText.text = "Defeat";
-            resultText.color = Color.red;
+            winObject.SetActive(false);
+            loseObject.SetActive(true);
         }
     }
 }

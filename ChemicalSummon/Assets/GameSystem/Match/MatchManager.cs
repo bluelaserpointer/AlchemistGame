@@ -42,7 +42,8 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     ResultPanel resultPanel;
 
     [Header("Turn")]
-    public Text turnText;
+    [SerializeField]
+    TurnPanel turnPanel;
     public UnityEvent onTurnStart;
     public UnityEvent onFusionFinish;
     public Animator animatedTurnPanel;
@@ -85,10 +86,6 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// 敌方信息栏
     /// </summary>
     public static Enemy Enemy => instance.enemy;
-    public enum TurnType
-    {
-        MyFusionTurn, MyAttackTurn, EnemyFusionTurn, EnemyAttackTurn
-    }
     TurnType currentTurnType;
     public static TurnType CurrentTurnType => instance.currentTurnType;
     int turn;
@@ -112,6 +109,10 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// 消息栏
     /// </summary>
     public static MessagePanel MessagePanel => instance.messagePanel;
+    /// <summary>
+    /// 回合栏
+    /// </summary>
+    public static TurnPanel TurnPanel => instance.turnPanel;
     /// <summary>
     /// 结果页面
     /// </summary>
@@ -220,33 +221,26 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
                     break;
             }
         }
-        turnText.text = "Turn " + turn;
-        string turnMessage;
+        turnPanel.SetTurn(turn, currentTurnType);
         onTurnStart.Invoke();
         switch (CurrentTurnType)
         {
             case TurnType.MyFusionTurn:
                 Player.FusionTurnStart();
-                turnMessage = "Fusion";
                 break;
             case TurnType.MyAttackTurn:
                 Player.AttackTurnStart();
-                turnMessage = "Attack";
                 break;
             case TurnType.EnemyFusionTurn:
                 Enemy.FusionTurnStart();
-                turnMessage = "EnemyFusion";
                 break;
             case TurnType.EnemyAttackTurn:
                 Enemy.AttackTurnStart();
-                turnMessage = "EnemyAttack";
                 break;
             default:
-                turnMessage = "";
                 break;
         }
-        animatedTurnPanel.GetComponentInChildren<Text>().text = turnMessage;
-        animatedTurnPanel.GetComponent<AnimationStopper>().Play();
+        animatedTurnPanel.GetComponent<AnimatedTurnPanel>().Play();
     }
 
     public void OnPointerDown(PointerEventData eventData)

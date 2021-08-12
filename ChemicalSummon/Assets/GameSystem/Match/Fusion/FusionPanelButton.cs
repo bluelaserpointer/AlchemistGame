@@ -27,7 +27,7 @@ public class FusionPanelButton : MonoBehaviour
     {
         //in counterMode, only counter fusions are avaliable
         SubstanceCard currentAttacker = MatchManager.Player.CurrentAttacker;
-        bool counterMode = MatchManager.CurrentTurnType.Equals(MatchManager.TurnType.EnemyAttackTurn) && currentAttacker != null;
+        bool counterMode = MatchManager.CurrentTurnType.Equals(TurnType.EnemyAttackTurn) && currentAttacker != null;
         int fusionCount = 0;
         foreach (Transform childTransform in fusionButtonList.transform)
             Destroy(childTransform.gameObject);

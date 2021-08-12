@@ -7,8 +7,8 @@ public class Player : Gamer
     [SerializeField]
     HandCardsArrange handCardsDisplay;
 
-    public override bool InFusionTurn => MatchManager.CurrentTurnType.Equals(MatchManager.TurnType.MyFusionTurn);
-    public override bool InAttackTurn => MatchManager.CurrentTurnType.Equals(MatchManager.TurnType.MyAttackTurn);
+    public override bool InFusionTurn => MatchManager.CurrentTurnType.Equals(TurnType.MyFusionTurn);
+    public override bool InAttackTurn => MatchManager.CurrentTurnType.Equals(TurnType.MyAttackTurn);
     /// <summary>
     /// 可见手牌
     /// </summary>
