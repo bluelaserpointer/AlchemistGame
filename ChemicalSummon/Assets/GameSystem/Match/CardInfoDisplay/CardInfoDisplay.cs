@@ -36,7 +36,7 @@ public class CardInfoDisplay : MonoBehaviour
     }
     private void Update()
     {
-        sampleCard.CardAmount = showingCard.CardAmount;
+        sampleCard.InitCardAmount(showingCard.CardAmount);
         int relatedReactionsCount = relatedReactions.Count;
         checkReactionText.text = relatedReactionsCount.ToString();
         molReleaseText.text = showingCard.Mol.ToString();

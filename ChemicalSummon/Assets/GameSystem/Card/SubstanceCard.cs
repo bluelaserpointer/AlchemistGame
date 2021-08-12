@@ -29,7 +29,7 @@ public class SubstanceCard : MonoBehaviour
     [SerializeField]
     Image cardImage;
     [SerializeField]
-    TextMeshProUGUI attackText;
+    SBA_NumberApproachingTextMeshPro attackText;
     [SerializeField]
     Text meltingPointText, boilingPointText;
 
@@ -46,13 +46,12 @@ public class SubstanceCard : MonoBehaviour
             substance = value;
             nameText.text = Name;
             symbolText.text = Symbol;
-            //molText.text = Mol;
             meltingPointText.text = substance.MeltingPoint.ToString() + "℃";
             boilingPointText.text = substance.BoilingPoint.ToString() + "℃";
             mol = substance.GetMol();
             cardImage.sprite = Image;
-            attackText.text = ATK.ToString();
-            molText.text = substance.GetMol().ToString();
+            InitCardAmount(1);
+            molText.text = mol.ToString();
         }
     }
     int cardAmount;
@@ -65,7 +64,7 @@ public class SubstanceCard : MonoBehaviour
         set {
             cardAmount = value;
             amountText.text = "x" + cardAmount.ToString();
-            attackText.text = ATK.ToString();
+            attackText.targetValue = ATK;
         }
     }
     Gamer gamer;
@@ -167,22 +166,14 @@ public class SubstanceCard : MonoBehaviour
     /// 在场地(不考虑敌我)
     /// </summary>
     public bool InField => InShieldSlot;
+    public void InitCardAmount(int amount)
+    {
+        CardAmount = amount;
+        attackText.SetValueImmediate();
+    }
     public void EnableShadow(bool enable)
     {
         //TODO: shadow
-    }
-    public void UpdateThreeState()
-    {
-        UpdateThreeState(false);
-    }
-    public void InitThreeState()
-    {
-        UpdateThreeState(true);
-    }
-    void UpdateThreeState(bool init)
-    {
-        ThreeState newThreeState = GetStateInTempreture(Slot.Tempreture);
-        //TODO: if changed to non-solid state remove from shild slot
     }
     public ThreeState GetStateInTempreture(float tempreture)
     {
@@ -223,31 +214,10 @@ public class SubstanceCard : MonoBehaviour
         }
         SubstanceCard card = Instantiate(baseSubstanceCard);
         card.Substance = substance;
-        card.CardAmount = 1;
         card.gamer = gamer;
         if (gamer.Equals(MatchManager.Enemy))
             card.cardDrag.enabled = false;
         return card;
-    }
-    public static List<SubstanceCard> FindInList(List<SubstanceCard> cards, Substance requiredSubstance, ref int requiredAmount)
-    {
-        List<SubstanceCard> results = new List<SubstanceCard>();
-        if (requiredAmount > 0)
-        {
-            foreach (SubstanceCard card in cards)
-            {
-                if (card.Substance.Equals(requiredSubstance))
-                {
-                    results.Add(card);
-                    requiredAmount -= card.CardAmount;
-                    if (requiredAmount <= 0)
-                    {
-                        break;
-                    }
-                }
-            }
-        }
-        return results;
     }
     /// <summary>
     /// 安全丢弃该卡

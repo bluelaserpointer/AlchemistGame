@@ -13,7 +13,7 @@ public class StatusPanels : MonoBehaviour
     [SerializeField]
     Image hpPanel;
     [SerializeField]
-    Text hpText;
+    SBA_NumberApproachingText hpText;
     [SerializeField]
     Image deckPanel;
     [SerializeField]
@@ -21,25 +21,27 @@ public class StatusPanels : MonoBehaviour
     [SerializeField]
     Image molPanel;
     [SerializeField]
-    Text molText;
+    SBA_NumberApproachingText molText;
     //data
     Gamer gamer;
     public Image SkillPanel => skillPanel;
     public Text SkillText => skillText;
     public Image HPPanel => hpPanel;
-    public Text HPText => hpText;
+    public SBA_NumberApproachingText HPText => hpText;
     public Image DeckPanel => deckPanel;
     public Text DeckText => deckText;
     public Image MolPanel => molPanel;
-    public Text MolText => molText;
+    public SBA_NumberApproachingText MolText => molText;
 
     public void SetData(Gamer gamer)
     {
         this.gamer = gamer;
-        hpText.text = gamer.HP.ToString();
-        molText.text = gamer.Mol.ToString();
+        hpText.SetValueImmediate(gamer.HP);
+        molText.SetValueImmediate(gamer.Mol);
         deckText.text = gamer.Deck.CardCount.ToString();
         //auto partial update
+        gamer.OnHPChange.AddListener(() => hpText.targetValue = gamer.HP);
+        gamer.OnMolChange.AddListener(() => molText.targetValue = gamer.Mol);
         gamer.Deck.onCardCountChange.AddListener(() => deckText.text = gamer.Deck.CardCount.ToString());
     }
     float waitTime;
@@ -48,25 +50,5 @@ public class StatusPanels : MonoBehaviour
         if ((waitTime += Time.deltaTime) < 0.05)
             return;
         waitTime = 0;
-        NumberTextApproachValue(HPText, gamer.HP);
-        NumberTextApproachValue(MolText, gamer.Mol);
-    }
-    private void NumberTextApproachValue(Text text, int value)
-    {
-        int displayValue = Convert.ToInt32(text.text);
-        if (displayValue < value)
-        {
-            text.color = Color.green;
-            text.text = (displayValue + (int)((value - displayValue) * 0.25) + 1).ToString();
-        }
-        else if (displayValue > value)
-        {
-            text.color = Color.red;
-            text.text = (displayValue + (int)((value - displayValue) * 0.25) - 1).ToString();
-        }
-        else
-        {
-            text.color = Color.white;
-        }
     }
 }

@@ -1,17 +1,15 @@
-﻿using UnityEngine;
-using UnityEngine.UI;
+using TMPro;
+using UnityEngine;
 
 [DisallowMultipleComponent]
-[RequireComponent(typeof(Text))]
-public class TranslatedText : MonoBehaviour
+[RequireComponent(typeof(TextMeshProUGUI))]
+public class TranslatedTextMeshPro : MonoBehaviour
 {
     [SerializeField]
     TranslatableSentence sentence;
-
-    // Update is called once per frame
     private void UpdateText()
     {
-        Text text = GetComponent<Text>();
+        TextMeshProUGUI text = GetComponent<TextMeshProUGUI>();
         if (text != null)
             text.text = sentence.ToString();
     }
