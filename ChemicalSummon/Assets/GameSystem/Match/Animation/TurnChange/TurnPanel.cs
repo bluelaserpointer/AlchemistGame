@@ -14,7 +14,7 @@ public class TurnPanel : MonoBehaviour
     [SerializeField]
     Text turnNumberText, turnTypeText;
     [SerializeField]
-    TranslatableSentence myFusionTurnSentence, myAttackTurnSentence, enemyFusionSentence, enemyAttackSentence;
+    TranslatableSentenceSO myFusionTurnSentence, myAttackTurnSentence, enemyFusionSentence, enemyAttackSentence;
     public void SetTurn(int turnNumber, TurnType turnType)
     {
         turnNumberText.text = "Turn " + turnNumber;

@@ -4,4 +4,12 @@ using UnityEngine;
 public class TranslatableSentenceSO : ScriptableObject
 {
     public TranslatableSentence sentence = new TranslatableSentence();
+    public override string ToString()
+    {
+        return sentence;
+    }
+    public static implicit operator string(TranslatableSentenceSO sentenceSO)
+    {
+        return sentenceSO.sentence.ToString();
+    }
 }
