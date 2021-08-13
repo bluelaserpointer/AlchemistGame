@@ -322,7 +322,11 @@ public static class ChemicalSummonEditor
                 substance.image = Resources.Load<Sprite>("Chemical/Sprites/" + substanceName);
                 if (newCreated)
                 {
-                    AssetDatabase.CreateAsset(substance, @"Assets/GameContents/Resources/Chemical/Substance/" + substanceName + ".asset");
+                    Substance caseConflictSubstance = Resources.Load<Substance>("Chemical/Substance/" + substanceName);
+                    if(caseConflictSubstance == null)
+                        AssetDatabase.CreateAsset(substance, @"Assets/GameContents/Resources/Chemical/Substance/" + substanceName + ".asset");
+                    else
+                        AssetDatabase.CreateAsset(substance, @"Assets/GameContents/Resources/Chemical/Substance/AvoidCaseConflict/" + substanceName + ".asset");
                     ++newCreatedCount;
                 }
                 else

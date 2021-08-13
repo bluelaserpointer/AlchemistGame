@@ -22,7 +22,7 @@ MonoBehaviour:
       - language: 1
         sentence: It's show time.
       - language: 2
-        sentence: "\u30EA\u30A2\u30AF\u30BF\u30FC\u8D77\u52D5\u3002"
+        sentence: "\u9B54\u8853\u56DE\u8DEF\u8D77\u52D5\u3002"
   - speakType: 1
     translatableSentence:
       defaultString: Blitz time!
@@ -45,14 +45,14 @@ MonoBehaviour:
         sentence: "\u878D\u5408\u767A\u52D5\uFF01"
   - speakType: 3
     translatableSentence:
-      defaultString: Wasteful.
+      defaultString: Thank you.
       languageAndSentences:
       - language: 0
-        sentence: "\u771F\u6D6A\u8D39\u3002"
+        sentence: "\u8C22\u8C22\u4F60\u7684\u5361\u3002"
       - language: 1
-        sentence: Wasteful.
+        sentence: Thank you.
       - language: 2
-        sentence: "\u3082\u3063\u305F\u3044\u306A\u3044\u3002"
+        sentence: "\u8CB0\u3063\u305F\u3002"
   - speakType: 4
     translatableSentence:
       defaultString: Ugh!
@@ -72,7 +72,7 @@ MonoBehaviour:
       - language: 1
         sentence: Easy one.
       - language: 2
-        sentence: "\u4F59\u88D5\u3060\u3063\u305F\u306A\u3002"
+        sentence: "\u7C21\u5358\u306A\u76F8\u624B\u3060\u3002"
   - speakType: 6
     translatableSentence:
       defaultString: Impossible...

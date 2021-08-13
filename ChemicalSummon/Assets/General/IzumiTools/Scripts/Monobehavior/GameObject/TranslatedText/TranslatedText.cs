@@ -21,7 +21,7 @@ public class TranslatedText : MonoBehaviour
     {
         if (scriptableObject != null)
         {
-            sentence = scriptableObject.sentence;
+            sentence = new TranslatableSentence(scriptableObject.sentence);
         }
         else if (sentence == null)
             return;

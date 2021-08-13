@@ -90,7 +90,12 @@ public class Substance : ChemicalObject
     public bool IsOre => isOre;
     public static Substance GetByName(string name)
     {
-        return Resources.Load<Substance>("Chemical/Substance/" + name);
+        Substance substance = Resources.Load<Substance>("Chemical/Substance/" + name);
+        if(substance == null || !substance.chemicalSymbol.Equals(name))
+        {
+            substance = Resources.Load<Substance>("Chemical/Substance/AvoidCaseConflict/" + name);
+        }
+        return substance;
     }
     public void PutElementAndAmount(Element element, int amount)
     {

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+//Next, CheckFusionThenNext, CheckTurnThenNext
 [DisallowMultipleComponent]
 public class MatchGuide : MonoBehaviour
 {
@@ -106,5 +107,9 @@ public class MatchGuide : MonoBehaviour
             transform.Find("Guide2-1").gameObject.SetActive(true);
             MatchManager.instance.onTurnStart.RemoveListener(GuideInvoker2);
         }
+    }
+    public void AddPlayerCard(Substance substance)
+    {
+        MatchManager.Player.AddHandCard(SubstanceCard.GenerateSubstanceCard(substance, MatchManager.Player));
     }
 }

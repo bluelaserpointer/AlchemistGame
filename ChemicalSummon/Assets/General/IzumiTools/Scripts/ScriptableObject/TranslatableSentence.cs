@@ -7,6 +7,15 @@ public enum Language { Chinese, English, Japanese }
 [Serializable]
 public class TranslatableSentence
 {
+    public TranslatableSentence() { }
+    public TranslatableSentence(TranslatableSentence sample)
+    {
+        defaultString = sample.defaultString;
+        foreach(LanguageAndSentence pair in sample.languageAndSentences)
+        {
+            languageAndSentences.Add(new LanguageAndSentence(pair.language, pair.sentence));
+        }
+    }
     public static Language currentLanguage = Language.Chinese;
     [Serializable]
     public class LanguageAndSentence
