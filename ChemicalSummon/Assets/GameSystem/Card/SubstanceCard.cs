@@ -118,7 +118,7 @@ public class SubstanceCard : MonoBehaviour
     public void Battle(SubstanceCard opponentCard)
     {
         MatchManager.StartAttackAnimation(Slot, opponentCard.Slot, () => {
-            MatchManager.PlaySE("Sound/SE/katana1");
+            MatchManager.PlaySE("Sound/SE/sword-kill-1");
             int myAtk = ATK;
             Damage(opponentCard.ATK);
             opponentCard.Damage(myAtk); //counter
@@ -131,7 +131,7 @@ public class SubstanceCard : MonoBehaviour
     public void Battle(Gamer gamer)
     {
         MatchManager.StartAttackAnimation(Slot, null, () => {
-            MatchManager.PlaySE("Sound/SE/katana1");
+            MatchManager.PlaySE("Sound/SE/sword-kill-2");
             MatchManager.StartDamageAnimation(transform.position, ATK, gamer);
         });
     }
