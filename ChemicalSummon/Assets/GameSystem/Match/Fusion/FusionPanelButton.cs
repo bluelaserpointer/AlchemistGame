@@ -79,8 +79,7 @@ public class FusionPanelButton : MonoBehaviour
                 FusionButton fusionButton = Instantiate(prefabFusionButton, fusionButtonList.transform);
                 fusionButton.SetReaction(reaction);
                 fusionButton.SetIfCounterFusion(counterMode);
-                Button button = fusionButton.GetComponent<Button>();
-                button.onClick.AddListener(() => {
+                fusionButton.Button.onClick.AddListener(() => {
                     foreach (KeyValuePair<SubstanceCard, int> consume in consumingCards)
                     {
                         consume.Key.RemoveAmount(consume.Value);

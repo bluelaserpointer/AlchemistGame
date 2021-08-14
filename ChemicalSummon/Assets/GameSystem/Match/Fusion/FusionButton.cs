@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class FusionButton : MonoBehaviour
 {
     [SerializeField]
+    Button button;
+    [SerializeField]
     Text formulaText;
     [SerializeField]
     Image counterImage;
@@ -18,6 +20,8 @@ public class FusionButton : MonoBehaviour
     Text damageText;
     [SerializeField]
     Sprite explosionIcon, heatIcon, electricIcon;
+
+    public Button Button => button;
 
     public void SetIfCounterFusion(bool cond)
     {

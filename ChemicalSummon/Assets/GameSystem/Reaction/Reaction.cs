@@ -55,4 +55,8 @@ public class Reaction : ScriptableObject
     {
         return Resources.Load<Reaction>("Chemical/Reaction/" + name);
     }
+    public static Reaction[] GetAllReactions()
+    {
+        return Resources.LoadAll<Reaction>("Chemical/Reaction");
+    }
 }

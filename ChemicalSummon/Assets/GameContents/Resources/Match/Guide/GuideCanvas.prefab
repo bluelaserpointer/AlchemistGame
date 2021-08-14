@@ -1368,7 +1368,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6295927446617769999}
-  - component: {fileID: 4491942948434747080}
   - component: {fileID: 6295927446617769998}
   - component: {fileID: 6295927446617769993}
   - component: {fileID: 6295927446617769992}
@@ -1416,23 +1415,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &4491942948434747080
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6295927446617769995}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 88bbd0da8c92db84b830eb6b1d792d88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  substanceH2O: {fileID: 11400000, guid: 85f1c1866bd34314db8d0336b2578c93, type: 2}
-  substanceH2: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
-  substanceO2: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
-  substanceNa: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
-  substanceFe: {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
 --- !u!223 &6295927446617769998
 Canvas:
   m_ObjectHideFlags: 0

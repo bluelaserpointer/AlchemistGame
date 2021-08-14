@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
-public class CharacterPanel : MonoBehaviour
+public class CharacterButton : MonoBehaviour
 {
     //inspector
     [SerializeField]
