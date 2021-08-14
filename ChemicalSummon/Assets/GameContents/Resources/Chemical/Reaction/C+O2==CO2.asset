@@ -16,12 +16,16 @@ MonoBehaviour:
     defaultString: C+O2==CO2
     languageAndSentences: []
   leftSubstances:
-  - substance: {fileID: 11400000, guid: 97ca178e8f5373a4c9bc5a78b42e0d71, type: 2}
-    amount: 1
-  - substance: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 97ca178e8f5373a4c9bc5a78b42e0d71, type: 2}
+      amount: 1
+    - type: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
+      amount: 1
+    amountAcception: 0
   rightSubstances:
-  - substance: {fileID: 11400000, guid: 9af7cb25806b85042a7e37e479848a27, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 9af7cb25806b85042a7e37e479848a27, type: 2}
+      amount: 1
+    amountAcception: 0
   damageType: 3
   damageAmount: 0

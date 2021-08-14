@@ -23,8 +23,10 @@ MonoBehaviour:
     - language: 1
       sentence: Platinum
   elements:
-  - element: {fileID: 11400000, guid: 91eaed5e6aea2a445bd210e779057f25, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 91eaed5e6aea2a445bd210e779057f25, type: 2}
+      amount: 3
+    amountAcception: 0
   image: {fileID: 0}
   atk: 0
   meltingPoint: 0

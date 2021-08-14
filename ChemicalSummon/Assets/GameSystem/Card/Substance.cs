@@ -8,20 +8,6 @@ using UnityEngine;
 /// </summary>
 public enum ThreeState { Solid, Liquid, Gas }
 /// <summary>
-/// 物质与数量
-/// </summary>
-[Serializable]
-public class SubstanceAndAmount
-{
-    public Substance substance;
-    public int amount;
-    public SubstanceAndAmount(Substance substance, int amount)
-    {
-        this.substance = substance;
-        this.amount = amount;
-    }
-}
-/// <summary>
 /// 物质(静态数据)
 /// </summary>
 [CreateAssetMenu(fileName = "NewSubstance", menuName = "Chemical/Substance")]
@@ -31,7 +17,7 @@ public class Substance : ChemicalObject
     /// <summary>
     /// 组成元素
     /// </summary>
-    public List<ElementAndAmount> elements = new List<ElementAndAmount>();
+    public StackedElementList<Element> elements = new StackedElementList<Element>();
     /// <summary>
     /// 三态卡牌图片
     /// </summary>
@@ -66,9 +52,9 @@ public class Substance : ChemicalObject
     public int GetMol()
     {
         int mol = 0;
-        foreach(ElementAndAmount elementAndAmount in elements)
+        foreach (var elementAndAmount in elements)
         {
-            mol += elementAndAmount.element.mol;
+            mol += elementAndAmount.type.mol;
         }
         return mol;
     }
@@ -79,7 +65,7 @@ public class Substance : ChemicalObject
     /// <summary>
     /// 是否由单元素组成(能成为卡组牌的条件)
     /// </summary>
-    public bool IsFromMonoElement => elements.Count == 1;
+    public bool IsFromMonoElement => elements.CountType() == 1;
     /// <summary>
     /// 水溶
     /// </summary>
@@ -97,27 +83,11 @@ public class Substance : ChemicalObject
         }
         return substance;
     }
-    public void PutElementAndAmount(Element element, int amount)
+    public static Substance GetByNameWithWarn(string name)
     {
-        if (element == null)
-        {
-            Debug.LogWarning("element is null");
-            return;
-        }
-        foreach(var pair in elements)
-        {
-            if(pair.element == null)
-            {
-                elements.Remove(pair);
-                PutElementAndAmount(element, amount);
-                return;
-            }
-            if(pair.element.Equals(element))
-            {
-                pair.amount = amount;
-                return;
-            }
-        }
-        elements.Add(new ElementAndAmount(element, amount));
+        Substance substance = GetByName(name);
+        if (substance == null)
+            Debug.LogWarning("Cannot find substance: " + name);
+        return substance;
     }
 }

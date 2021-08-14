@@ -16,14 +16,18 @@ MonoBehaviour:
     defaultString: 2Na+2H2O==2NaOH+H2
     languageAndSentences: []
   leftSubstances:
-  - substance: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
-    amount: 2
-  - substance: {fileID: 11400000, guid: 85f1c1866bd34314db8d0336b2578c93, type: 2}
-    amount: 2
+    list:
+    - type: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
+      amount: 2
+    - type: {fileID: 11400000, guid: 85f1c1866bd34314db8d0336b2578c93, type: 2}
+      amount: 2
+    amountAcception: 0
   rightSubstances:
-  - substance: {fileID: 11400000, guid: d848fab6dbbbb5644bd0ee6083d28857, type: 2}
-    amount: 2
-  - substance: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: d848fab6dbbbb5644bd0ee6083d28857, type: 2}
+      amount: 2
+    - type: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
+      amount: 1
+    amountAcception: 0
   damageType: 0
   damageAmount: 15

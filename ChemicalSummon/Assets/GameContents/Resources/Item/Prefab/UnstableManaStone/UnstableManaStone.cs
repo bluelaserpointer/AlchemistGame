@@ -17,16 +17,13 @@ public class UnstableManaStone : Item
 
     public override void Use()
     {
-        List<SubstanceAndAmount> results = new List<SubstanceAndAmount>();
+        StackedElementList<Substance> results = new StackedElementList<Substance>();
         for (int i = 0; i < lootAmount; ++i)
         {
             Substance loot = pool.GetRandomElement();
-            PlayerSave.AddSubstanceToStorage(loot);
-            SubstanceAndAmount duplicate = results.Find(pair => pair.substance.Equals(loot));
-            if (duplicate == null)
-                results.Add(new SubstanceAndAmount(loot, 1));
-            else
-                ++duplicate.amount;
+            PlayerSave.SubstanceStorage.AddAll(results);
+            results.Add(loot);
         }
+        //TODO: do something with results
     }
 }

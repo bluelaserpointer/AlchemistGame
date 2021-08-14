@@ -19,8 +19,10 @@ MonoBehaviour:
     - language: 0
       sentence: "\u9536"
   elements:
-  - element: {fileID: 11400000, guid: 4d447260a49610d4e98b7f8e694b52f1, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 4d447260a49610d4e98b7f8e694b52f1, type: 2}
+      amount: 3
+    amountAcception: 0
   image: {fileID: 0}
   atk: 0
   meltingPoint: 0

@@ -23,8 +23,10 @@ MonoBehaviour:
     - language: 0
       sentence: "\u94DD"
   elements:
-  - element: {fileID: 11400000, guid: 152041f1eb13cc547bb3132c26b75b33, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 152041f1eb13cc547bb3132c26b75b33, type: 2}
+      amount: 3
+    amountAcception: 0
   image: {fileID: 21300000, guid: d9feab34bfce44f43a86340888df9eea, type: 3}
   atk: 4
   meltingPoint: 100

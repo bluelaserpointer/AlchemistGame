@@ -17,17 +17,17 @@ public class ReactionInfoDisplay : MonoBehaviour
             Destroy(eachTf.gameObject);
         foreach (Transform eachTf in rightSubstanceListTf)
             Destroy(eachTf.gameObject);
-        foreach (SubstanceAndAmount pair in reaction.leftSubstances)
+        foreach (var each in reaction.leftSubstances)
         {
             SubstanceCard card = Instantiate(substanceCardPrefab, leftSubstanceListTf);
-            card.Substance = pair.substance;
-            card.InitCardAmount(pair.amount);
+            card.Substance = each.type;
+            card.InitCardAmount(each.amount);
         }
-        foreach (SubstanceAndAmount pair in reaction.rightSubstances)
+        foreach (var each in reaction.rightSubstances)
         {
             SubstanceCard card = Instantiate(substanceCardPrefab, rightSubstanceListTf);
-            card.Substance = pair.substance;
-            card.InitCardAmount(pair.amount);
+            card.Substance = each.type;
+            card.InitCardAmount(each.amount);
         }
     }
 }

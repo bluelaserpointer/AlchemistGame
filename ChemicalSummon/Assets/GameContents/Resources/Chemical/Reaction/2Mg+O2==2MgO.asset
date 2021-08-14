@@ -16,12 +16,16 @@ MonoBehaviour:
     defaultString: 2Mg+O2==2MgO
     languageAndSentences: []
   leftSubstances:
-  - substance: {fileID: 11400000, guid: 4d90b796aa6997f46816c054495584a6, type: 2}
-    amount: 2
-  - substance: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 4d90b796aa6997f46816c054495584a6, type: 2}
+      amount: 2
+    - type: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
+      amount: 1
+    amountAcception: 0
   rightSubstances:
-  - substance: {fileID: 11400000, guid: e9460846d6b71034e8fdc537479cde17, type: 2}
-    amount: 2
+    list:
+    - type: {fileID: 11400000, guid: e9460846d6b71034e8fdc537479cde17, type: 2}
+      amount: 2
+    amountAcception: 0
   damageType: 3
   damageAmount: 0

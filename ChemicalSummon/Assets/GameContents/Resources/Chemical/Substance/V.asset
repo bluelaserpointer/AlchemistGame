@@ -21,11 +21,13 @@ MonoBehaviour:
     - language: 0
       sentence: "\u9492"
   elements:
-  - element: {fileID: 11400000, guid: 2ee5fbc5da3d74c4399f9f1499b47a2a, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 2ee5fbc5da3d74c4399f9f1499b47a2a, type: 2}
+      amount: 3
+    amountAcception: 0
   image: {fileID: 0}
   atk: 0
-  meltingPoint: 0
+  meltingPoint: 100
   boilingPoint: 0
   waterSoluble: 0
   isOre: 0

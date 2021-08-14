@@ -41,9 +41,9 @@ public class FusionPanelButton : MonoBehaviour
             bool condition = true;
             bool addedAttacker = false;
             Dictionary<SubstanceCard, int> consumingCards = new Dictionary<SubstanceCard, int>();
-            foreach (SubstanceAndAmount pair in reaction.LeftSubstances)
+            foreach (var pair in reaction.LeftSubstances)
             {
-                Substance requiredSubstance = pair.substance;
+                Substance requiredSubstance = pair.type;
                 int requiredAmount = pair.amount;
                 foreach (SubstanceCard card in consumableCards)
                 {
@@ -84,9 +84,9 @@ public class FusionPanelButton : MonoBehaviour
                     {
                         consume.Key.RemoveAmount(consume.Value);
                     }
-                    foreach (SubstanceAndAmount pair in reaction.RightSubstances)
+                    foreach (var pair in reaction.RightSubstances)
                     {
-                        SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.substance, MatchManager.Player);
+                        SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.type, MatchManager.Player);
                         newCard.CardAmount = pair.amount;
                         MatchManager.Player.AddHandCard(newCard);
                     }

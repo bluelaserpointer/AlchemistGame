@@ -16,12 +16,16 @@ MonoBehaviour:
     defaultString: 2Fe+O2==2FeO
     languageAndSentences: []
   leftSubstances:
-  - substance: {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
-    amount: 2
-  - substance: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
+      amount: 2
+    - type: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
+      amount: 1
+    amountAcception: 0
   rightSubstances:
-  - substance: {fileID: 11400000, guid: f9f94c708508ac145a221c1fe1e23a82, type: 2}
-    amount: 2
+    list:
+    - type: {fileID: 11400000, guid: f9f94c708508ac145a221c1fe1e23a82, type: 2}
+      amount: 2
+    amountAcception: 0
   damageType: 3
   damageAmount: 0

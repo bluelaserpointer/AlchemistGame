@@ -21,8 +21,10 @@ MonoBehaviour:
     - language: 0
       sentence: "\u78B2"
   elements:
-  - element: {fileID: 11400000, guid: aa7955ebefd3c614386e2f4541965d29, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: aa7955ebefd3c614386e2f4541965d29, type: 2}
+      amount: 3
+    amountAcception: 0
   image: {fileID: 0}
   atk: 0
   meltingPoint: 0

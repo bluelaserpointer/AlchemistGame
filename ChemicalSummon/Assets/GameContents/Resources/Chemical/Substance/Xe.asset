@@ -21,8 +21,10 @@ MonoBehaviour:
     - language: 0
       sentence: "\u6C19"
   elements:
-  - element: {fileID: 11400000, guid: 9e384534e7889834d9e439c3e0786ef3, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 9e384534e7889834d9e439c3e0786ef3, type: 2}
+      amount: 3
+    amountAcception: 0
   image: {fileID: 0}
   atk: 0
   meltingPoint: 0

@@ -21,8 +21,10 @@ MonoBehaviour:
     - language: 2
       sentence: "\u30AB\u30EB\u30B7\u30A6\u30E0"
   elements:
-  - element: {fileID: 11400000, guid: 2be212661ee5a4e488ae12a6865adcc6, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 2be212661ee5a4e488ae12a6865adcc6, type: 2}
+      amount: 3
+    amountAcception: 0
   image: {fileID: 0}
   atk: 7
   meltingPoint: 100

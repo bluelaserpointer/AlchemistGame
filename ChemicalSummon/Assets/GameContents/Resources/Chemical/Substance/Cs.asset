@@ -19,8 +19,10 @@ MonoBehaviour:
     - language: 0
       sentence: "\u94EF"
   elements:
-  - element: {fileID: 11400000, guid: dc8e0c554bc746f43a3396a3146a7da3, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: dc8e0c554bc746f43a3396a3146a7da3, type: 2}
+      amount: 3
+    amountAcception: 0
   image: {fileID: 0}
   atk: 0
   meltingPoint: 0

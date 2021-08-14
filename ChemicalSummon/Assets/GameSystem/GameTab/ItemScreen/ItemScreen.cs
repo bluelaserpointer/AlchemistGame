@@ -13,10 +13,10 @@ public class ItemScreen : MonoBehaviour
     {
         foreach (Transform childTf in itemParentTf)
             Destroy(childTf.gameObject);
-        foreach(Item item in PlayerSave.ItemStorage)
+        foreach(var each in PlayerSave.ItemStorage)
         {
             ItemButton itemButton = Instantiate(itemButtonPrefab, itemParentTf);
-            itemButton.SetItem(item);
+            itemButton.SetItem(each.type);
         }
     }
 }

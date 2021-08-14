@@ -21,12 +21,14 @@ MonoBehaviour:
     - language: 2
       sentence: "\u6C34\u9178\u5316\u30CA\u30C8\u30EA\u30A6\u30E0"
   elements:
-  - element: {fileID: 11400000, guid: 730a4e27a4949424abd76c3f19c4a958, type: 2}
-    amount: 1
-  - element: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
-    amount: 1
-  - element: {fileID: 11400000, guid: c0d0bee058945db48940bb40b3e80e06, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 730a4e27a4949424abd76c3f19c4a958, type: 2}
+      amount: 3
+    - type: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
+      amount: 3
+    - type: {fileID: 11400000, guid: c0d0bee058945db48940bb40b3e80e06, type: 2}
+      amount: 3
+    amountAcception: 0
   image: {fileID: 21300000, guid: e3ab184d813b6e446b06adc9513d4446, type: 3}
   atk: 4
   meltingPoint: 100

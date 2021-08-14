@@ -17,10 +17,12 @@ MonoBehaviour:
     defaultString: P2O5
     languageAndSentences: []
   elements:
-  - element: {fileID: 11400000, guid: 1489cfcafb8a8a047b9a7c1e0937697e, type: 2}
-    amount: 2
-  - element: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
-    amount: 5
+    list:
+    - type: {fileID: 11400000, guid: 1489cfcafb8a8a047b9a7c1e0937697e, type: 2}
+      amount: 6
+    - type: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
+      amount: 15
+    amountAcception: 0
   image: {fileID: 0}
   atk: 2
   meltingPoint: 100

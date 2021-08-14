@@ -16,12 +16,16 @@ MonoBehaviour:
     defaultString: 2Na+O2==Na2O2
     languageAndSentences: []
   leftSubstances:
-  - substance: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
-    amount: 2
-  - substance: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
+      amount: 2
+    - type: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
+      amount: 1
+    amountAcception: 0
   rightSubstances:
-  - substance: {fileID: 11400000, guid: a2fd1b1e934b5d042af36d19ac390ac5, type: 2}
-    amount: 1
+    list:
+    - type: {fileID: 11400000, guid: a2fd1b1e934b5d042af36d19ac390ac5, type: 2}
+      amount: 1
+    amountAcception: 0
   damageType: 3
   damageAmount: 0

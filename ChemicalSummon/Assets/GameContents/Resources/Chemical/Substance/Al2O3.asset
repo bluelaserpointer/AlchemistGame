@@ -17,10 +17,12 @@ MonoBehaviour:
     defaultString: Al2O3
     languageAndSentences: []
   elements:
-  - element: {fileID: 11400000, guid: 152041f1eb13cc547bb3132c26b75b33, type: 2}
-    amount: 2
-  - element: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
-    amount: 3
+    list:
+    - type: {fileID: 11400000, guid: 152041f1eb13cc547bb3132c26b75b33, type: 2}
+      amount: 6
+    - type: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
+      amount: 9
+    amountAcception: 0
   image: {fileID: 21300000, guid: 9919174e2505fd44da261ffdabc731a3, type: 3}
   atk: 4
   meltingPoint: 100

@@ -23,8 +23,10 @@ MonoBehaviour:
     - language: 1
       sentence: Hydrogen
   elements:
-  - element: {fileID: 11400000, guid: c0d0bee058945db48940bb40b3e80e06, type: 2}
-    amount: 2
+    list:
+    - type: {fileID: 11400000, guid: c0d0bee058945db48940bb40b3e80e06, type: 2}
+      amount: 6
+    amountAcception: 0
   image: {fileID: 21300000, guid: c507f59260245b840aadf1e94741e0f1, type: 3}
   atk: 0
   meltingPoint: 0

@@ -174,16 +174,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   permanentCanvas: {fileID: 4615180061886943108}
   itemStorage:
-  - {fileID: 59571194470741858, guid: b8b8dccc053580949910be8426a7a65a, type: 3}
+    list:
+    - type: {fileID: 59571194470741858, guid: b8b8dccc053580949910be8426a7a65a, type: 3}
+      amount: 1
+    amountAcception: 0
   substanceStorage:
-  - substance: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
-    amount: 4
-  - substance: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
-    amount: 4
-  - substance: {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
-    amount: 4
-  - substance: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
-    amount: 4
+    list:
+    - type: {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
+      amount: 4
+    - type: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
+      amount: 4
+    - type: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
+      amount: 4
+    - type: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
+      amount: 4
+    amountAcception: 0
   discoveredReactions:
   - {fileID: 11400000, guid: 6487f0bafa1875c4ab10266b4020d402, type: 2}
   - {fileID: 11400000, guid: 2d36dfa6859f87f49a208934d46219bc, type: 2}

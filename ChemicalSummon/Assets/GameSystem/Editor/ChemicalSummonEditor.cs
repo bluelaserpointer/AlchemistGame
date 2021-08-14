@@ -103,7 +103,6 @@ public static class ChemicalSummonEditor
                     }
                 }
                 character = Character.GetByName(header);
-                Debug.Log("initialSpeaksAmount: " + character.speaks.Count);
                 character.name.defaultString = characterName = header;
                 newCreated = character == null;
                 if (newCreated)
@@ -268,11 +267,11 @@ public static class ChemicalSummonEditor
                     {
                         if (!lastIsNumber) // exp. CO
                         {
-                            substance.PutElementAndAmount(Element.GetByName(lastLetter), 1);
+                            AvoidNull(Element.GetByNameWithWarn(lastLetter), element => substance.elements.Add(element));
                         }
                         else //exp. H2O
                         {
-                            substance.PutElementAndAmount(Element.GetByName(tmpElementName), ToInt(lastLetter));
+                            AvoidNull(Element.GetByNameWithWarn(tmpElementName), element => substance.elements.Add(element, ToInt(lastLetter)));
                         }
                         lastLetter = letter.ToString();
                         lastIsNumber = false;
@@ -302,11 +301,11 @@ public static class ChemicalSummonEditor
                 //end phase
                 if (!lastIsNumber) // exp. Fe
                 {
-                    substance.PutElementAndAmount(Element.GetByName(lastLetter), 1);
+                    AvoidNull(Element.GetByNameWithWarn(lastLetter), element => substance.elements.Add(element));
                 }
                 else //exp. H2
                 {
-                    substance.PutElementAndAmount(Element.GetByName(tmpElementName), ToInt(lastLetter));
+                    AvoidNull(Element.GetByNameWithWarn(tmpElementName), element => substance.elements.Add(element, ToInt(lastLetter)));
                 }
                 substance.atk = ToInt(row[2].ToString());
                 substance.meltingPoint = ToInt(row[3].ToString());
@@ -400,12 +399,12 @@ public static class ChemicalSummonEditor
             return 0;
         }
     }
-    private static List<SubstanceAndAmount> StrToSubstanceAndAmount(string str)
+    private static StackedElementList<Substance> StrToSubstanceAndAmount(string str)
     {
         bool readingAmountNumber = true;
         int amountTmp = 0;
         string lastLetter = "";
-        List<SubstanceAndAmount> substances = new List<SubstanceAndAmount>();
+        StackedElementList<Substance> substances = new StackedElementList<Substance>();
         foreach (char letter in str)
         {
             if (char.IsNumber(letter) || char.IsLower(letter))
@@ -430,7 +429,7 @@ public static class ChemicalSummonEditor
             }
             else if (letter.Equals('+'))
             {
-                substances.Add(new SubstanceAndAmount(Substance.GetByName(lastLetter), amountTmp));
+                AvoidNull(Substance.GetByNameWithWarn(lastLetter), substance => substances.Add(substance, amountTmp));
                 readingAmountNumber = true;
                 lastLetter = "";
             }
@@ -439,8 +438,17 @@ public static class ChemicalSummonEditor
                 Debug.Log("encounted unknown character: " + letter);
             }
         }
-        substances.Add(new SubstanceAndAmount(Substance.GetByName(lastLetter), amountTmp));
+        AvoidNull(Substance.GetByNameWithWarn(lastLetter), substance => substances.Add(substance, amountTmp));
         return substances;
+    }
+    private static bool AvoidNull<T>(T element, Action<T> action)
+    {
+        if (element != null)
+        {
+            action.Invoke(element);
+            return true;
+        }
+        return false;
     }
     private static DataSet ReadExcelFromStreamingAsset(string path)
     {

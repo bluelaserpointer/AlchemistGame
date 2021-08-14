@@ -12,14 +12,14 @@ public class Reaction : ScriptableObject
 {
     public TranslatableSentence description = new TranslatableSentence();
 
-    public List<SubstanceAndAmount> leftSubstances = new List<SubstanceAndAmount>();
-    public List<SubstanceAndAmount> rightSubstances = new List<SubstanceAndAmount>();
+    public StackedElementList<Substance> leftSubstances = new StackedElementList<Substance>();
+    public StackedElementList<Substance> rightSubstances = new StackedElementList<Substance>();
 
     public DamageType damageType = DamageType.None;
     public int damageAmount = 0;
 
-    public List<SubstanceAndAmount> LeftSubstances => leftSubstances;
-    public List<SubstanceAndAmount> RightSubstances => rightSubstances;
+    public StackedElementList<Substance> LeftSubstances => leftSubstances;
+    public StackedElementList<Substance> RightSubstances => rightSubstances;
     public DamageType DamageType => damageType;
     public int DamageAmount => damageAmount;
     public bool IsRequiredSubstance(Substance substance)
@@ -31,9 +31,9 @@ public class Reaction : ScriptableObject
         return GetProducingSubstance(substance) > 0;
     }
     public int GetRequiredAmount(Substance substance) {
-        foreach(SubstanceAndAmount pair in LeftSubstances)
+        foreach(var pair in LeftSubstances)
         {
-            if(pair.substance.Equals(substance))
+            if(pair.type.Equals(substance))
             {
                 return pair.amount;
             }
@@ -42,9 +42,9 @@ public class Reaction : ScriptableObject
     }
     public int GetProducingSubstance(Substance substance)
     {
-        foreach (SubstanceAndAmount pair in RightSubstances)
+        foreach (var pair in RightSubstances)
         {
-            if (pair.substance.Equals(substance))
+            if (pair.type.Equals(substance))
             {
                 return pair.amount;
             }

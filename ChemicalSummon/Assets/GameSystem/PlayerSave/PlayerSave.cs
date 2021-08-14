@@ -28,9 +28,9 @@ public class PlayerSave : MonoBehaviour
     [SerializeField]
     Canvas permanentCanvas;
     [SerializeField]
-    List<Item> itemStorage;
+    StackedElementList<Item> itemStorage;
     [SerializeField]
-    List<SubstanceAndAmount> substanceStorage;
+    StackedElementList<Substance> substanceStorage;
     [SerializeField]
     List<Reaction> discoveredReactions;
     [SerializeField]
@@ -50,7 +50,8 @@ public class PlayerSave : MonoBehaviour
 
     //data
     public static Canvas PermanentCanvas => Instance.permanentCanvas;
-    public static List<Item> ItemStorage => Instance.itemStorage;
+    public static StackedElementList<Item> ItemStorage => Instance.itemStorage;
+    public static StackedElementList<Substance> SubstanceStorage => Instance.substanceStorage;
     /// <summary>
     /// 可用的游戏者
     /// </summary>
@@ -99,10 +100,10 @@ public class PlayerSave : MonoBehaviour
     public static Event ActiveEvent => Instance.activeEvent;
     public void InitSaveData()
     {
-        foreach(SubstanceAndAmount pair in substanceStorage)
+        foreach(var pair in substanceStorage)
         {
             for(int i = 0; i < pair.amount; ++i)
-                activeDeck.Add(pair.substance);
+                activeDeck.Add(pair.type);
         }
     }
     private void Update()
@@ -160,28 +161,5 @@ public class PlayerSave : MonoBehaviour
     {
         if (ActiveEvent != null)
             ActiveEvent.Progress();
-    }
-    public static void AddSubstanceToStorage(Substance substance, int amount = 1)
-    {
-        foreach (SubstanceAndAmount pair in Instance.substanceStorage)
-        {
-            if(pair.substance.Equals(substance))
-            {
-                pair.amount += amount;
-                return;
-            }
-        }
-        Instance.substanceStorage.Add(new SubstanceAndAmount(substance, amount)) ;
-    }
-    public static int GetSubstanceInStorage(Substance substance)
-    {
-        foreach (SubstanceAndAmount pair in Instance.substanceStorage)
-        {
-            if (pair.substance.Equals(substance))
-            {
-                return pair.amount;
-            }
-        }
-        return 0;
     }
 }
