@@ -5,15 +5,18 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class ItemScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField]
+    ItemButton itemButtonPrefab;
+    [SerializeField]
+    Transform itemParentTf;
+    public void Init()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach (Transform childTf in itemParentTf)
+            Destroy(childTf.gameObject);
+        foreach(Item item in PlayerSave.ItemStorage)
+        {
+            ItemButton itemButton = Instantiate(itemButtonPrefab, itemParentTf);
+            itemButton.SetItem(item);
+        }
     }
 }

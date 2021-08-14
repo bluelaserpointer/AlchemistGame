@@ -173,6 +173,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   permanentCanvas: {fileID: 4615180061886943108}
+  itemStorage:
+  - {fileID: 59571194470741858, guid: b8b8dccc053580949910be8426a7a65a, type: 3}
   substanceStorage:
   - substance: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
     amount: 4

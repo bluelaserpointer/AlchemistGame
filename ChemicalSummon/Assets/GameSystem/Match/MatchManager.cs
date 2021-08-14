@@ -160,6 +160,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         Player.SpeakInMatch(Character.SpeakType.Win);
         Enemy.SpeakInMatch(Character.SpeakType.Lose);
         resultPanel.SetResult(true);
+        Match.Win();
     }
     public void Defeat()
     {

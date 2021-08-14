@@ -23,7 +23,7 @@ MonoBehaviour:
   elements:
   - element: {fileID: 11400000, guid: 42722e3017c2b5e4f8c71f4ecf1faba7, type: 2}
     amount: 1
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 5008da6f71ff4be48a5ae9ad87d6443c, type: 3}
   atk: 6
   meltingPoint: 0
   boilingPoint: 0

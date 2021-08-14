@@ -28,7 +28,6 @@ public class ReactionScreen : MonoBehaviour
         Reaction[] allReactions = Reaction.GetAllReactions();
         float unlocked = PlayerSave.DiscoveredReactions.Count, total = allReactions.Length;
         float unlockPercent = (float)Math.Round(unlocked / total * 100, 2);
-        
         reactionUnlockProgressText.text = unlocked + "/" + total + "(" + unlockPercent + "%)";
     }
 }

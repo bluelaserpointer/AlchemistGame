@@ -28,6 +28,8 @@ public class PlayerSave : MonoBehaviour
     [SerializeField]
     Canvas permanentCanvas;
     [SerializeField]
+    List<Item> itemStorage;
+    [SerializeField]
     List<SubstanceAndAmount> substanceStorage;
     [SerializeField]
     List<Reaction> discoveredReactions;
@@ -48,6 +50,7 @@ public class PlayerSave : MonoBehaviour
 
     //data
     public static Canvas PermanentCanvas => Instance.permanentCanvas;
+    public static List<Item> ItemStorage => Instance.itemStorage;
     /// <summary>
     /// 可用的游戏者
     /// </summary>
@@ -158,7 +161,7 @@ public class PlayerSave : MonoBehaviour
         if (ActiveEvent != null)
             ActiveEvent.Progress();
     }
-    public static void AddSubstanceToStorage(Substance substance, int amount)
+    public static void AddSubstanceToStorage(Substance substance, int amount = 1)
     {
         foreach (SubstanceAndAmount pair in Instance.substanceStorage)
         {

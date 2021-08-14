@@ -29,4 +29,6 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
   - {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
   additionalObject: {fileID: 0}
+  loots:
+  - {fileID: 59571194470741858, guid: b8b8dccc053580949910be8426a7a65a, type: 3}
   mySideCharacter: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}
