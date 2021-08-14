@@ -26,7 +26,9 @@ public class PlayerSave : MonoBehaviour
     }
     //inspector
     [SerializeField]
-    Canvas dontDestroyCanvas;
+    Canvas permanentCanvas;
+    [SerializeField]
+    List<SubstanceAndAmount> substanceStorage;
     [SerializeField]
     List<Reaction> discoveredReactions;
     [SerializeField]
@@ -45,7 +47,7 @@ public class PlayerSave : MonoBehaviour
     List<Chapter> allChapters = new List<Chapter>();
 
     //data
-    public static Canvas DontDestroyCanvas => Instance.dontDestroyCanvas;
+    public static Canvas PermanentCanvas => Instance.permanentCanvas;
     /// <summary>
     /// 可用的游戏者
     /// </summary>
@@ -92,6 +94,14 @@ public class PlayerSave : MonoBehaviour
     /// 激活的事件
     /// </summary>
     public static Event ActiveEvent => Instance.activeEvent;
+    public void InitSaveData()
+    {
+        foreach(SubstanceAndAmount pair in substanceStorage)
+        {
+            for(int i = 0; i < pair.amount; ++i)
+                activeDeck.Add(pair.substance);
+        }
+    }
     private void Update()
     {
         //check new opened chapter
@@ -140,12 +150,35 @@ public class PlayerSave : MonoBehaviour
         SceneManager.LoadScene("Match");
     }
     public static void StartEvent(Event newEvent) {
-        Instance.activeEvent = Instantiate(newEvent, DontDestroyCanvas.transform);
+        Instance.activeEvent = Instantiate(newEvent, PermanentCanvas.transform);
         ActiveEvent.Progress();
     }
     public static void ProgressActiveEvent()
     {
         if (ActiveEvent != null)
             ActiveEvent.Progress();
+    }
+    public static void AddSubstanceToStorage(Substance substance, int amount)
+    {
+        foreach (SubstanceAndAmount pair in Instance.substanceStorage)
+        {
+            if(pair.substance.Equals(substance))
+            {
+                pair.amount += amount;
+                return;
+            }
+        }
+        Instance.substanceStorage.Add(new SubstanceAndAmount(substance, amount)) ;
+    }
+    public static int GetSubstanceInStorage(Substance substance)
+    {
+        foreach (SubstanceAndAmount pair in Instance.substanceStorage)
+        {
+            if (pair.substance.Equals(substance))
+            {
+                return pair.amount;
+            }
+        }
+        return 0;
     }
 }

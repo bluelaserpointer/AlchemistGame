@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 5533539824584992412}
   - component: {fileID: 3007292939165230818}
   m_Layer: 0
-  m_Name: DontDestroyCanvas
+  m_Name: PermanentCanvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -81,6 +81,7 @@ MonoBehaviour:
   m_FallbackScreenDPI: 96
   m_DefaultSpriteDPI: 96
   m_DynamicPixelsPerUnit: 1
+  m_PresetInfoIsWorld: 0
 --- !u!114 &3007292939165230818
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -148,6 +149,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 7334558923965601776}
+        m_TargetAssemblyTypeName: 
         m_MethodName: OnFirstInit
         m_Mode: 1
         m_Arguments:
@@ -170,7 +172,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 40b1c15831f09024d8a061a2f1eb33fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  dontDestroyCanvas: {fileID: 4615180061886943108}
+  permanentCanvas: {fileID: 4615180061886943108}
+  substanceStorage:
+  - substance: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
+    amount: 4
+  - substance: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
+    amount: 4
+  - substance: {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
+    amount: 4
+  - substance: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
+    amount: 4
   discoveredReactions:
   - {fileID: 11400000, guid: 6487f0bafa1875c4ab10266b4020d402, type: 2}
   - {fileID: 11400000, guid: 2d36dfa6859f87f49a208934d46219bc, type: 2}

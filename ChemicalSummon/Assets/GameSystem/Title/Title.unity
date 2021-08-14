@@ -991,6 +991,18 @@ MonoBehaviour:
           m_StringArgument: Map
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7334558924910201135}
+        m_TargetAssemblyTypeName: PlayerSave, Assembly-CSharp
+        m_MethodName: InitSaveData
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &681239888
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2835,3 +2847,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e97d98f6ba4f78b4ca411812bb6b80f9, type: 3}
+--- !u!114 &7334558924910201135 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7334558923965601776, guid: e97d98f6ba4f78b4ca411812bb6b80f9,
+    type: 3}
+  m_PrefabInstance: {fileID: 7334558924910201134}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 40b1c15831f09024d8a061a2f1eb33fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

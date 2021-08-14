@@ -11,7 +11,7 @@ public enum ThreeState { Solid, Liquid, Gas }
 /// 物质与数量
 /// </summary>
 [Serializable]
-public struct SubstanceAndAmount
+public class SubstanceAndAmount
 {
     public Substance substance;
     public int amount;

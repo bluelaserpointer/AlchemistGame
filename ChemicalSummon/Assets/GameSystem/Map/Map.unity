@@ -15178,6 +15178,41 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1618445343}
     m_Modifications:
+    - target: {fileID: 848616045628463272, guid: 9fd2269c65873c549bfd0a21e94b648d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 848616045628463272, guid: 9fd2269c65873c549bfd0a21e94b648d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 848616045628463272, guid: 9fd2269c65873c549bfd0a21e94b648d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 226707904}
+    - target: {fileID: 848616045628463272, guid: 9fd2269c65873c549bfd0a21e94b648d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 848616045628463272, guid: 9fd2269c65873c549bfd0a21e94b648d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: Init
+      objectReference: {fileID: 0}
+    - target: {fileID: 848616045628463272, guid: 9fd2269c65873c549bfd0a21e94b648d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
+      value: DeckScreen, Assembly-CSharp
+      objectReference: {fileID: 0}
+    - target: {fileID: 848616045628463272, guid: 9fd2269c65873c549bfd0a21e94b648d,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
+      value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
     - target: {fileID: 848616045628463278, guid: 9fd2269c65873c549bfd0a21e94b648d,
         type: 3}
       propertyPath: m_Name

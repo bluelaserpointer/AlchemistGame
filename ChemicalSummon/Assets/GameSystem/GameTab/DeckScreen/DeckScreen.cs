@@ -5,15 +5,15 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class DeckScreen : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    //data
+    ElementButton[] elementButtons;
+    public void Init()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        if(elementButtons == null)
+            elementButtons = transform.GetComponentsInChildren<ElementButton>();
+        foreach (ElementButton elementButton in elementButtons)
+        {
+            elementButton.Init();
+        }
     }
 }

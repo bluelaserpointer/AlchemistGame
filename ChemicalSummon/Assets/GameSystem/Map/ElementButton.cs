@@ -23,15 +23,20 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     Color noAmountColor, hasAmountColor;
 
-    private void Start()
+    //data
+    int deckCardCount;
+    int storageCardCount;
+
+    public void Init()
     {
+        deckCardCount = PlayerSave.ActiveDeck.GetCardCount(substance);
+        storageCardCount = PlayerSave.GetSubstanceInStorage(substance);
         UpdateUI();
     }
     public void UpdateUI()
     {
-        int cardCount = PlayerSave.ActiveDeck.GetCardCount(substance);
-        amountTextArea.color = cardCount == 0 ? noAmountColor : hasAmountColor;
-        amountText.text = cardCount.ToString();
+        amountTextArea.color = deckCardCount == 0 ? noAmountColor : hasAmountColor;
+        amountText.text = deckCardCount + "/" + storageCardCount;
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -39,12 +44,16 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler
             return;
         if (eventData.button == PointerEventData.InputButton.Left)
         {
+            if (deckCardCount >= storageCardCount)
+                return;
             PlayerSave.ActiveDeck.Add(substance);
+            ++deckCardCount;
             UpdateUI();
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            PlayerSave.ActiveDeck.Remove(substance);
+            if(PlayerSave.ActiveDeck.Remove(substance))
+                --deckCardCount;
             UpdateUI();
         }
     }

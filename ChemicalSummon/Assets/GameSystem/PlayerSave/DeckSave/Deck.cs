@@ -47,6 +47,10 @@ public class Deck
         }
         return false;
     }
+    public int GetCardCount(Substance substance)
+    {
+        return Substances.FindAll(eachSubstance => eachSubstance.Equals(substance)).Count;
+    }
     public SubstanceCard DrawRandomCard(Gamer gamer)
     {
         return SubstanceCard.GenerateSubstanceCard(DrawRandomSubstance(), gamer);
@@ -60,17 +64,5 @@ public class Deck
         Substance randomSubstance = substances.RemoveRandomElement();
         onCardCountChange.Invoke();
         return randomSubstance;
-    }
-    public int GetCardCount(Substance substance)
-    {
-        int count = 0;
-        foreach (Substance eachSubstance in substances)
-        {
-            if(eachSubstance.Equals(substance))
-            {
-                ++count;
-            }
-        }
-        return count;
     }
 }
