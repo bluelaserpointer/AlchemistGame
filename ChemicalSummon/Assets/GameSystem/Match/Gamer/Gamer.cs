@@ -86,13 +86,21 @@ public abstract class Gamer : MonoBehaviour
     /// </summary>
     public bool IsEnemyside => MatchManager.Enemy.Equals(this);
     /// <summary>
+    /// 融合阶段
+    /// </summary>
+    public abstract TurnType FusionTurn { get; }
+    /// <summary>
+    /// 攻击阶段
+    /// </summary>
+    public abstract TurnType AttackTurn { get; }
+    /// <summary>
     /// 在融合阶段
     /// </summary>
-    public abstract bool InFusionTurn { get; }
+    public bool InFusionTurn => MatchManager.CurrentTurnType.Equals(FusionTurn);
     /// <summary>
     /// 在攻击阶段
     /// </summary>
-    public abstract bool InAttackTurn { get; }
+    public bool InAttackTurn => MatchManager.CurrentTurnType.Equals(AttackTurn);
     /// <summary>
     /// 场地
     /// </summary>

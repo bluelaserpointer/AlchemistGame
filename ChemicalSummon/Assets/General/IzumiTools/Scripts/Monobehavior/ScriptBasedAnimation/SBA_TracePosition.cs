@@ -3,13 +3,13 @@ using UnityEngine;
 using UnityEngine.Events;
 
 [DisallowMultipleComponent]
-public class SBA_Trace : MonoBehaviour
+public class SBA_TracePosition : MonoBehaviour
 {
     public bool useTransformTarget;
     public Transform targetTransform;
     public Vector3 targetPosition;
     [Min(0)]
-    public float timeLength;
+    public float timeLength = 0.1F;
     [Min(0)]
     public float power = 1;
     [SerializeField]
@@ -44,6 +44,8 @@ public class SBA_Trace : MonoBehaviour
     }
     public void AddReachAction(UnityAction reachAction, bool isOneTime = true)
     {
+        if (reachAction == null)
+            return;
         OnReach.AddListener(reachAction);
         if (isOneTime)
             oneTimeReachActions.Add(reachAction);

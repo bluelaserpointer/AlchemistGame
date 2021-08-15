@@ -65,7 +65,7 @@ public class Substance : ChemicalObject
     /// <summary>
     /// 是否由单元素组成(能成为卡组牌的条件)
     /// </summary>
-    public bool IsFromMonoElement => elements.CountType() == 1;
+    public bool IsPureElement => elements.CountType() == 1;
     /// <summary>
     /// 水溶
     /// </summary>

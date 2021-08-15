@@ -6,7 +6,14 @@ using UnityEngine.EventSystems;
 public class NextGuide : MonoBehaviour, IPointerClickHandler
 {
     [SerializeField]
+    bool isInitiater;
+    [SerializeField]
     List<Substance> givePlayerCards;
+    private void Start()
+    {
+        if (isInitiater)
+            OnPointerClick(null);
+    }
     public void OnPointerClick(PointerEventData eventData)
     {
         gameObject.SetActive(false);

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 790605022961129306}
   - component: {fileID: 6987115332949622066}
   - component: {fileID: 371792106179736632}
+  - component: {fileID: 1696578912286608543}
   m_Layer: 5
   m_Name: AbstractCard
   m_TagString: Untagged
@@ -146,6 +147,26 @@ MonoBehaviour:
   useTransformTarget: 0
   targetTransform: {fileID: 0}
   targetPosition: {x: 0, y: 0, z: 0}
+  timeLength: 0.1
+  power: 1
+  OnReach:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1696578912286608543
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: -8669778879039810668}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d8a5de2337b25dd439b17da7bf487796, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  useTransformTarget: 0
+  targetTransform: {fileID: 0}
+  targetRotation: {x: 0, y: 0, z: 0}
   timeLength: 0.1
   power: 1
   OnReach:

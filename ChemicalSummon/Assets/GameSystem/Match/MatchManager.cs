@@ -43,6 +43,8 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
 
     [Header("Turn")]
     [SerializeField]
+    FirstMoverDecider firstMoverDecider;
+    [SerializeField]
     TurnPanel turnPanel;
     public UnityEvent onTurnStart;
     public UnityEvent onFusionFinish;
@@ -86,6 +88,14 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// 敌方信息栏
     /// </summary>
     public static Enemy Enemy => instance.enemy;
+    /// <summary>
+    /// 先手
+    /// </summary>
+    public static Gamer FirstMover { get; protected set; }
+    /// <summary>
+    /// 后手
+    /// </summary>
+    public static Gamer SecondMover => FirstMover.Opponent;
     TurnType currentTurnType;
     public static TurnType CurrentTurnType => instance.currentTurnType;
     int turn;
@@ -109,6 +119,10 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// 消息栏
     /// </summary>
     public static MessagePanel MessagePanel => instance.messagePanel;
+    /// <summary>
+    /// 先手决定栏
+    /// </summary>
+    public static FirstMoverDecider FirstMoverDecider => instance.firstMoverDecider;
     /// <summary>
     /// 回合栏
     /// </summary>
@@ -144,16 +158,12 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         Enemy.OnHPChange.AddListener(() => { if (Enemy.HP <= 0) Victory(); });
         //demo
         onInit.Invoke();
-        //initial draw
-        for (int i = 0; i < 5; ++i)
-        {
-            Player.DrawCard();
-            Enemy.DrawCard();
-        }
-        TurnEnd();
         //add
         if(Match.AdditionalObject != null)
             Instantiate(Match.AdditionalObject);
+        currentTurnType = TurnType.FirstMoveDecide;
+        //decide first mover
+        firstMoverDecider.Draw();
     }
     public void Victory()
     {
@@ -167,6 +177,15 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         Player.SpeakInMatch(Character.SpeakType.Lose);
         Enemy.SpeakInMatch(Character.SpeakType.Win);
         resultPanel.SetResult(false);
+    }
+    /// <summary>
+    /// 决定先手
+    /// </summary>
+    /// <param name="gamer"></param>
+    public static void SetFirstMover(Gamer gamer)
+    {
+        FirstMover = gamer;
+        TurnEnd();
     }
     /// <summary>
     /// 结束回合
@@ -198,27 +217,33 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         ++turn;
         if(turn == 1)
         {
-            currentTurnType = TurnType.MyFusionTurn;
+            //initial draw
+            for (int i = 0; i < 5; ++i)
+            {
+                Player.DrawCard();
+                Enemy.DrawCard();
+            }
+            currentTurnType = FirstMover.FusionTurn;
         }
         else if (turn == 2)
         {
-            currentTurnType = TurnType.EnemyFusionTurn;
+            currentTurnType = SecondMover.FusionTurn;
         }
         else
         {
             switch((turn - 3) % 4)
             {
                 case 0:
-                    currentTurnType = TurnType.MyFusionTurn;
+                    currentTurnType = FirstMover.FusionTurn;
                     break;
                 case 1:
-                    currentTurnType = TurnType.MyAttackTurn;
+                    currentTurnType = FirstMover.AttackTurn;
                     break;
                 case 2:
-                    currentTurnType = TurnType.EnemyFusionTurn;
+                    currentTurnType = SecondMover.FusionTurn;
                     break;
                 case 3:
-                    currentTurnType = TurnType.EnemyAttackTurn;
+                    currentTurnType = SecondMover.AttackTurn;
                     break;
             }
         }
@@ -252,7 +277,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         {
             GameObject obj = rayResult.gameObject;
             SubstanceCard card = obj.GetComponent<SubstanceCard>();
-            if (card != null)
+            if (card != null && card.invokeCardInfo)
             {
                 if(!card.transform.Equals(CardInfoDisplay))
                 {
@@ -301,7 +326,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         GameObject damageText = Instantiate(instance.damageTextPrefab, MainCanvas.transform);
         damageText.transform.position = startPosition;
         damageText.GetComponent<Text>().text = (-damage).ToString();
-        SBA_Trace trace = damageText.GetComponent<SBA_Trace>();
+        SBA_TracePosition trace = damageText.GetComponent<SBA_TracePosition>();
         trace.targetTransform = damagedGamer.StatusPanels.HPText.transform;
         trace.AddReachAction(() => {
             damagedGamer.SpeakInMatch(Character.SpeakType.Damage);

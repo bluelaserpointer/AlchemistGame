@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using UnityEngine.Events;
 
 /// <summary>
 /// 物质卡(动态数据)
@@ -14,7 +15,9 @@ public class SubstanceCard : MonoBehaviour
     [SerializeField]
     CardDrag cardDrag;
     [SerializeField]
-    SBA_Trace sBA_Trace;
+    SBA_TracePosition sBA_TracePosition;
+    [SerializeField]
+    SBA_TraceRotation sBA_TraceRotation;
     [SerializeField]
     CanvasGroup canvasGroup;
 
@@ -67,6 +70,7 @@ public class SubstanceCard : MonoBehaviour
             attackText.targetValue = ATK;
         }
     }
+    public bool invokeCardInfo = true;
     Gamer gamer;
     /// <summary>
     /// 所属游戏者
@@ -254,9 +258,16 @@ public class SubstanceCard : MonoBehaviour
     {
         canvasGroup.alpha = alpha;
     }
-    public void TracePosition(Vector3 position)
+    public void TracePosition(Vector3 position, UnityAction reachAction = null)
     {
-        sBA_Trace.SetTarget(position);
-        sBA_Trace.StartAnimation();
+        sBA_TracePosition.SetTarget(position);
+        sBA_TracePosition.AddReachAction(reachAction);
+        sBA_TracePosition.StartAnimation();
+    }
+    public void TraceRotation(Vector3 eularAngles, UnityAction reachAction = null)
+    {
+        sBA_TraceRotation.SetTarget(eularAngles);
+        sBA_TraceRotation.AddReachAction(reachAction);
+        sBA_TraceRotation.StartAnimation();
     }
 }

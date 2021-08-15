@@ -3,6 +3,7 @@ using UnityEngine.UI;
 
 public enum TurnType
 {
+    FirstMoveDecide,
     MyFusionTurn,
     MyAttackTurn,
     EnemyFusionTurn,
@@ -14,7 +15,12 @@ public class TurnPanel : MonoBehaviour
     [SerializeField]
     Text turnNumberText, turnTypeText;
     [SerializeField]
-    TranslatableSentenceSO myFusionTurnSentence, myAttackTurnSentence, enemyFusionSentence, enemyAttackSentence;
+    TranslatableSentenceSO decidingFirstMoverSentence, myFusionTurnSentence, myAttackTurnSentence, enemyFusionSentence, enemyAttackSentence;
+    private void Start()
+    {
+        turnNumberText.text = "Turn " + 0;
+        turnTypeText.text = decidingFirstMoverSentence;
+    }
     public void SetTurn(int turnNumber, TurnType turnType)
     {
         turnNumberText.text = "Turn " + turnNumber;

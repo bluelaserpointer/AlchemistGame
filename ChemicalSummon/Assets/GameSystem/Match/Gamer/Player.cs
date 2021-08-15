@@ -6,9 +6,8 @@ public class Player : Gamer
 {
     [SerializeField]
     HandCardsArrange handCardsDisplay;
-
-    public override bool InFusionTurn => MatchManager.CurrentTurnType.Equals(TurnType.MyFusionTurn);
-    public override bool InAttackTurn => MatchManager.CurrentTurnType.Equals(TurnType.MyAttackTurn);
+    public override TurnType FusionTurn => TurnType.MyFusionTurn;
+    public override TurnType AttackTurn => TurnType.MyAttackTurn;
     /// <summary>
     /// 可见手牌
     /// </summary>
@@ -48,11 +47,11 @@ public class Player : Gamer
     public override void FusionTurnStart()
     {
         base.FusionTurnStart();
-        MatchManager.Player.HandCardsDisplay.transform.position += new Vector3(0, 110, 0);
+        MatchManager.Player.HandCardsDisplay.transform.position += new Vector3(0, 120, 0);
     }
     public override void FusionTurnEnd()
     {
-        MatchManager.Player.HandCardsDisplay.transform.position -= new Vector3(0, 110, 0);
+        MatchManager.Player.HandCardsDisplay.transform.position -= new Vector3(0, 120, 0);
         MatchManager.FusionPanel.HideFusionList();
     }
     public override void AttackTurnStart()
