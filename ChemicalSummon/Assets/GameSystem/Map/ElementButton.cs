@@ -8,7 +8,7 @@ using UnityEngine.UI;
 /// 元素按钮, 点击可添加对应的单元素物质至当前卡组内
 /// </summary>
 [DisallowMultipleComponent]
-public class ElementButton : MonoBehaviour, IPointerClickHandler
+public class ElementButton : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     Substance substance;
@@ -47,6 +47,7 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler
     {
         if (substance == null)
             return;
+        //add / remove
         if (eventData.button == PointerEventData.InputButton.Left)
         {
             if (deckCardCount >= storageCardCount)
@@ -78,5 +79,21 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler
             elementImage.sprite = null;
             elementText.text = "";
         }
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        if (substance == null)
+            return;
+        //info set
+        MapManager.DeckScreen.SetCardInfo(substance);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        if (substance == null)
+            return;
+        //info set
+        MapManager.DeckScreen.SetCardInfo(null);
     }
 }

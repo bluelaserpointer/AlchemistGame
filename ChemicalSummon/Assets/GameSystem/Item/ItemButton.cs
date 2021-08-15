@@ -30,8 +30,18 @@ public class ItemButton : MonoBehaviour
     }
     public void OnClick()
     {
-        item.Use();
-        PlayerSave.ItemStorage.Remove(item);
-        Destroy(gameObject);
+        if(itemAmount > 0)
+        {
+            item.Use();
+            if(--itemAmount <= 0)
+            {
+                Destroy(gameObject);
+                PlayerSave.ItemStorage.Remove(item);
+            }
+            else
+            {
+                UpdateUI();
+            }
+        }
     }
 }

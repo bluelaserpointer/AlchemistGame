@@ -1,11 +1,15 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class DeckScreen : MonoBehaviour
 {
+    [SerializeField]
+    CardInfoDisplay cardInfoDisplay;
+    public static CardInfoDisplay CardInfoDisplay => MapManager.DeckScreen.cardInfoDisplay;
     [SerializeField]
     Text cardCountText;
     //data
@@ -24,4 +28,15 @@ public class DeckScreen : MonoBehaviour
     {
         cardCountText.text = PlayerSave.ActiveDeck.CardCount.ToString();
     }
+    public void SetCardInfo(Substance substance)
+    {
+        if (substance != null)
+        {
+            cardInfoDisplay.gameObject.SetActive(true);
+            CardInfoDisplay.SetSubstance(substance);
+        }
+        else
+            cardInfoDisplay.gameObject.SetActive(false);
+    }
+
 }

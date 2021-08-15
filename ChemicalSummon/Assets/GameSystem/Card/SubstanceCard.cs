@@ -210,7 +210,7 @@ public class SubstanceCard : MonoBehaviour
     /// </summary>
     /// <param name="substance"></param>
     /// <returns></returns>
-    public static SubstanceCard GenerateSubstanceCard(Substance substance, Gamer gamer)
+    public static SubstanceCard GenerateSubstanceCard(Substance substance, Gamer gamer = null)
     {
         if(baseSubstanceCard == null)
         {

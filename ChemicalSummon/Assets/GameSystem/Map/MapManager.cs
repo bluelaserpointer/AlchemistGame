@@ -21,6 +21,7 @@ public class MapManager : ChemicalSummonManager
     public static ReactionScreen ReactionScreen => instance.reactionScreen;
     public static CharacterScreen CharacterScreen => instance.characterScreen;
 
+
     private void Awake()
     {
         Init();
