@@ -302,7 +302,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
             Debug.LogWarning(seResourcePass + " is not a valid AudioClip resource pass.");
             return;
         }
-        AudioSource.PlayClipAtPoint(clip, GameObject.FindGameObjectWithTag("MainCamera").transform.position);
+        AudioSource.PlayClipAtPoint(clip, GameObject.FindGameObjectWithTag("SE Listener").transform.position);
     }
     //animations
     public static void StartAttackAnimation(ShieldCardSlot slot1, ShieldCardSlot slot2, UnityAction onBump)
