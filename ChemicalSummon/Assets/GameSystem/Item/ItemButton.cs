@@ -8,13 +8,25 @@ public class ItemButton : MonoBehaviour
 {
     [SerializeField]
     Image icon;
+    [SerializeField]
+    Text amountText;
 
     //data
     Item item;
-    public void SetItem(Item item)
+    int itemAmount;
+    private void Start()
+    {
+        UpdateUI();
+    }
+    public void SetItem(Item item, int amount)
     {
         this.item = item;
         icon.sprite = item.Icon;
+        itemAmount = amount;
+    }
+    public void UpdateUI()
+    {
+        amountText.text = itemAmount.ToString();
     }
     public void OnClick()
     {

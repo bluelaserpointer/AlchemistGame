@@ -7,7 +7,8 @@ public class SetGuessMustCorrect : MonoBehaviour
     bool activateOnAwake = true;
     private void Start()
     {
-        SetNextGuessTrue();
+        if(activateOnAwake)
+            SetNextGuessTrue();
     }
     public void SetNextGuessTrue()
     {

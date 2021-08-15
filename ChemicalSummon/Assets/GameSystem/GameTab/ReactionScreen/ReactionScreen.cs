@@ -12,6 +12,8 @@ public class ReactionScreen : MonoBehaviour
     [SerializeField]
     Transform fusionButtonListTransform;
     [SerializeField]
+    Slider reactionUnlockRateSlider;
+    [SerializeField]
     Text reactionUnlockProgressText;
     [SerializeField]
     ReactionInfoDisplay reactionInfoDisplay;
@@ -27,7 +29,8 @@ public class ReactionScreen : MonoBehaviour
         }
         Reaction[] allReactions = Reaction.GetAllReactions();
         float unlocked = PlayerSave.DiscoveredReactions.Count, total = allReactions.Length;
-        float unlockPercent = (float)Math.Round(unlocked / total * 100, 2);
-        reactionUnlockProgressText.text = unlocked + "/" + total + "(" + unlockPercent + "%)";
+        float unlockRate = unlocked / total;
+        reactionUnlockRateSlider.value = unlockRate;
+        reactionUnlockProgressText.text = unlocked + "/" + total + "(" + (float)Math.Round(unlockRate * 100, 2) + "%)";
     }
 }

@@ -16,7 +16,7 @@ public class ItemScreen : MonoBehaviour
         foreach(var each in PlayerSave.ItemStorage)
         {
             ItemButton itemButton = Instantiate(itemButtonPrefab, itemParentTf);
-            itemButton.SetItem(each.type);
+            itemButton.SetItem(each.type, each.amount);
         }
     }
 }

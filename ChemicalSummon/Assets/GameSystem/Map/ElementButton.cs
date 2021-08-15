@@ -21,7 +21,7 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler
     [SerializeField]
     Text amountText;
     [SerializeField]
-    Color noAmountColor, hasAmountColor;
+    Color noAmountColor, hasAmountColor, maxAmountColor;
 
     //data
     int deckCardCount;
@@ -35,7 +35,12 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler
     }
     public void UpdateUI()
     {
-        amountTextArea.color = deckCardCount == 0 ? noAmountColor : hasAmountColor;
+        if (storageCardCount == 0)
+            amountTextArea.color = noAmountColor;
+        else if (deckCardCount < storageCardCount)
+            amountTextArea.color = hasAmountColor;
+        else
+            amountTextArea.color = maxAmountColor;
         amountText.text = deckCardCount + "/" + storageCardCount;
     }
     public void OnPointerClick(PointerEventData eventData)
