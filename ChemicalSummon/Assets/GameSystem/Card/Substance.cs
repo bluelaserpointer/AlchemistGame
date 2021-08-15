@@ -90,4 +90,13 @@ public class Substance : ChemicalObject
             Debug.LogWarning("Cannot find substance: " + name);
         return substance;
     }
+    public static List<Substance> GetAll()
+    {
+        List<Substance> list = new List<Substance>(Resources.LoadAll<Substance>("Chemical/Substance"));
+        foreach (var each in Resources.LoadAll<Substance>("Chemical/Substance"))
+        {
+            list.Add(each);
+        }
+        return list;
+    }
 }

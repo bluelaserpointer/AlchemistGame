@@ -17,17 +17,29 @@ public class ReactionScreen : MonoBehaviour
     Text reactionUnlockProgressText;
     [SerializeField]
     ReactionInfoDisplay reactionInfoDisplay;
-    // Start is called before the first frame update
-    void Start()
+
+    private void Start()
     {
+        Init();
+    }
+    // Start is called before the first frame update
+    public void Init()
+    {
+        foreach (Transform each in fusionButtonListTransform)
+            Destroy(each.gameObject);
         foreach (Reaction reaction in PlayerSave.DiscoveredReactions)
         {
             FusionButton reactionButton = Instantiate(fusionButtonPrefab, fusionButtonListTransform);
             reactionButton.SetReaction(reaction);
-            reactionButton.Button.onClick.AddListener(() => reactionInfoDisplay.SetReaction(reaction)); //TODO: EDIT
+            if (PlayerSave.NewDicoveredReactions.Contains(reaction))
+                reactionButton.MarkNew(true);
+            reactionButton.Button.onClick.AddListener(() => {
+                reactionInfoDisplay.SetReaction(reaction);
+                reactionButton.MarkNew(false);
+                PlayerSave.CheckedReaction(reactionButton.Reaction);
+            });
         }
-        Reaction[] allReactions = Reaction.GetAllReactions();
-        float unlocked = PlayerSave.DiscoveredReactions.Count, total = allReactions.Length;
+        float unlocked = PlayerSave.DiscoveredReactions.Count, total = Reaction.GetAll().Count;
         float unlockRate = unlocked / total;
         reactionUnlockRateSlider.value = unlockRate;
         reactionUnlockProgressText.text = unlocked + "/" + total + "(" + (float)Math.Round(unlockRate * 100, 2) + "%)";

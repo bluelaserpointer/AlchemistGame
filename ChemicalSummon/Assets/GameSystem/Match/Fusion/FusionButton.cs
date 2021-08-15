@@ -14,13 +14,16 @@ public class FusionButton : MonoBehaviour
     Transform iconsTf;
     [SerializeField]
     GameObject counterIconPrefab, explosionIconPrefab, heatIconPrefab, electricIconPrefab;
+    [SerializeField]
+    GameObject newSign;
 
     //data
-    bool isCounter;
     public Button Button => button;
+    public Reaction Reaction { get; protected set; }
 
     public void SetReaction(Reaction reaction, bool isCounter = false)
     {
+        Reaction = reaction;
         formulaText.text = reaction.description;
         foreach (Transform each in iconsTf)
             Destroy(each.gameObject);
@@ -32,5 +35,9 @@ public class FusionButton : MonoBehaviour
             Instantiate(electricIconPrefab, iconsTf).GetComponentInChildren<Text>().text = reaction.electricDamage.ToString();
         if (reaction.heatDamage > 0)
             Instantiate(heatIconPrefab, iconsTf).GetComponentInChildren<Text>().text = reaction.heatDamage.ToString();
+    }
+    public void MarkNew(bool cond)
+    {
+        newSign.gameObject.SetActive(cond);
     }
 }

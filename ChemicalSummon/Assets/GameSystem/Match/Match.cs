@@ -23,6 +23,8 @@ public class Match : ScriptableObject
     GameObject additionalObject;
     [SerializeField]
     List<Item> loots;
+    [SerializeField]
+    List<Reaction> unlockReactions;
 
     /// <summary>
     /// 战斗名
@@ -53,6 +55,7 @@ public class Match : ScriptableObject
         foreach(Item item in loots)
         {
             PlayerSave.ItemStorage.Add(item);
+            unlockReactions.ForEach(each => PlayerSave.AddDiscoveredReaction(each));
         }
     }
 }

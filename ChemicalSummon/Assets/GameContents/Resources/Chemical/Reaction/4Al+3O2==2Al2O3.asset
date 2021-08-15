@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9324e2c8694621e498969bedde5c86bc, type: 3}
   m_Name: 4Al+3O2==2Al2O3
   m_EditorClassIdentifier: 
-  description:
-    defaultString: 4Al+3O2==2Al2O3
-    languageAndSentences: []
+  description: 4Al+3O2==2Al2O3
   leftSubstances:
     list:
     - type: {fileID: 11400000, guid: fec21780cd1312e4b9fa3963ce7e3683, type: 2}

@@ -10,7 +10,7 @@ public enum DamageType { Explosion, Heat, Electronic, None }
 [CreateAssetMenu(fileName = "NewReaction", menuName = "Chemical/Reaction")]
 public class Reaction : ScriptableObject
 {
-    public TranslatableSentence description = new TranslatableSentence();
+    public string description;
 
     public StackedElementList<Substance> leftSubstances = new StackedElementList<Substance>();
     public StackedElementList<Substance> rightSubstances = new StackedElementList<Substance>();
@@ -48,15 +48,6 @@ public class Reaction : ScriptableObject
         }
         return 0;
     }
-    public static Reaction GetByName(string name)
-    {
-        return Resources.Load<Reaction>("Chemical/Reaction/" + name);
-    }
-    public static Reaction[] GetAllReactions()
-    {
-        return Resources.LoadAll<Reaction>("Chemical/Reaction");
-    }
-
     public void OnInvoke()
     {
         if(explosionDamage > 0)
@@ -69,5 +60,13 @@ public class Reaction : ScriptableObject
         }
         else
             MatchManager.PlaySE("Sound/SE/powerup10");
+    }
+    public static Reaction GetByName(string name)
+    {
+        return Resources.Load<Reaction>("Chemical/Reaction/" + name);
+    }
+    public static List<Reaction> GetAll()
+    {
+        return new List<Reaction>(Resources.LoadAll<Reaction>("Chemical/Reaction"));
     }
 }

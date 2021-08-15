@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9324e2c8694621e498969bedde5c86bc, type: 3}
   m_Name: 2Na+O2==Na2O2
   m_EditorClassIdentifier: 
-  description:
-    defaultString: 2Na+O2==Na2O2
-    languageAndSentences: []
+  description: 2Na+O2==Na2O2
   leftSubstances:
     list:
     - type: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}

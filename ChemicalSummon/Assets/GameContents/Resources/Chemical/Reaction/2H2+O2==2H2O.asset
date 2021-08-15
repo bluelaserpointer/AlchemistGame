@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9324e2c8694621e498969bedde5c86bc, type: 3}
   m_Name: 2H2+O2==2H2O
   m_EditorClassIdentifier: 
-  description:
-    defaultString: 2H2+O2==2H2O
-    languageAndSentences: []
+  description: 2H2+O2==2H2O
   leftSubstances:
     list:
     - type: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}

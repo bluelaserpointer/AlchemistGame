@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
@@ -29,5 +30,9 @@ public class Element : ChemicalObject
         if (element == null)
             Debug.LogWarning("Cannot find element: " + name);
         return element;
+    }
+    public static List<Element> GetAll()
+    {
+        return new List<Element>(Resources.LoadAll<Element>("Chemical/Element"));
     }
 }

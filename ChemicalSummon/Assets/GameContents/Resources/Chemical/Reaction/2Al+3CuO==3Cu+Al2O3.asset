@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9324e2c8694621e498969bedde5c86bc, type: 3}
   m_Name: 2Al+3CuO==3Cu+Al2O3
   m_EditorClassIdentifier: 
-  description:
-    defaultString: 2Al+3CuO==3Cu+Al2O3
-    languageAndSentences: []
+  description: 2Al+3CuO==3Cu+Al2O3
   leftSubstances:
     list:
     - type: {fileID: 11400000, guid: fec21780cd1312e4b9fa3963ce7e3683, type: 2}
@@ -30,5 +28,5 @@ MonoBehaviour:
       amount: 1
     amountAcception: 0
   explosionDamage: 35
-  electricDamage: 30
+  electricDamage: 0
   heatDamage: 30

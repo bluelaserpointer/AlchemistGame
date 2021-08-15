@@ -62,6 +62,11 @@ public class PlayerSave : MonoBehaviour
     /// 发现的反应式
     /// </summary>
     public static List<Reaction> DiscoveredReactions => Instance.discoveredReactions;
+    List<Reaction> newDiscoveredReactions = new List<Reaction>();
+    /// <summary>
+    /// 新发现的反应式
+    /// </summary>
+    public static List<Reaction> NewDicoveredReactions => Instance.newDiscoveredReactions;
     /// <summary>
     /// 选定的游戏者
     /// </summary>
@@ -132,7 +137,17 @@ public class PlayerSave : MonoBehaviour
         if (DiscoveredReactions.Contains(reaction))
             return false;
         DiscoveredReactions.Add(reaction);
+        NewDicoveredReactions.Add(reaction);
         return true;
+    }
+    /// <summary>
+    /// 标记已查看反应式
+    /// </summary>
+    /// <param name="reaction"></param>
+    /// <returns></returns>
+    public static bool CheckedReaction(Reaction reaction)
+    {
+        return NewDicoveredReactions.Remove(reaction);
     }
     public static List<Reaction> FindDiscoveredReactionsByLeftSubstance(Substance substance)
     {

@@ -32,4 +32,10 @@ MonoBehaviour:
     type: 3}
   loots:
   - {fileID: 59571194470741858, guid: b8b8dccc053580949910be8426a7a65a, type: 3}
+  unlockReactions:
+  - {fileID: 11400000, guid: dc4a2a3162dab6e40b815ca35831b7be, type: 2}
+  - {fileID: 11400000, guid: a5ab38efb11c11c44b81510ca1d1dc15, type: 2}
+  - {fileID: 11400000, guid: 31ccfb499d2fc5b4685f03b870363085, type: 2}
+  - {fileID: 11400000, guid: 5bf4aa8db507c954faa7097d739622df, type: 2}
+  - {fileID: 11400000, guid: 035ddd5ca2bb1d94f882f1c7bdd721e1, type: 2}
   mySideCharacter: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}

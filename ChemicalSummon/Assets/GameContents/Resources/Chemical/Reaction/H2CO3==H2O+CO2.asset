@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9324e2c8694621e498969bedde5c86bc, type: 3}
   m_Name: H2CO3==H2O+CO2
   m_EditorClassIdentifier: 
-  description:
-    defaultString: H2CO3==H2O+CO2
-    languageAndSentences: []
+  description: H2CO3==H2O+CO2
   leftSubstances:
     list:
     - type: {fileID: 11400000, guid: f51b3d3b6f2cebf45a39b8549a078151, type: 2}

@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9324e2c8694621e498969bedde5c86bc, type: 3}
   m_Name: CO2+C==2CO
   m_EditorClassIdentifier: 
-  description:
-    defaultString: CO2+C==2CO
-    languageAndSentences: []
+  description: CO2+C==2CO
   leftSubstances:
     list:
     - type: {fileID: 11400000, guid: 9af7cb25806b85042a7e37e479848a27, type: 2}

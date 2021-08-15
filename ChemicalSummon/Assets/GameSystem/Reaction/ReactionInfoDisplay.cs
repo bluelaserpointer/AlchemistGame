@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class ReactionInfoDisplay : MonoBehaviour
@@ -9,10 +10,16 @@ public class ReactionInfoDisplay : MonoBehaviour
     Transform leftSubstanceListTf, rightSubstanceListTf;
     [SerializeField]
     SubstanceCard substanceCardPrefab;
+    [SerializeField]
+    Text clickAnyReactionText;
     //data
     Reaction reaction;
     public void SetReaction(Reaction reaction)
     {
+        this.reaction = reaction;
+        if (clickAnyReactionText.gameObject.activeSelf)
+            clickAnyReactionText.gameObject.SetActive(false);
+        //display
         foreach (Transform eachTf in leftSubstanceListTf)
             Destroy(eachTf.gameObject);
         foreach (Transform eachTf in rightSubstanceListTf)
