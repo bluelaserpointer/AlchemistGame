@@ -47,7 +47,7 @@ public class Deck
         }
         return false;
     }
-    public int GetCardCount(Substance substance)
+    public int CountCard(Substance substance)
     {
         return Substances.FindAll(eachSubstance => eachSubstance.Equals(substance)).Count;
     }

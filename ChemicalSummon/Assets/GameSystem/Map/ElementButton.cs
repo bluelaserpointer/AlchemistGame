@@ -29,7 +29,7 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler
 
     public void Init()
     {
-        deckCardCount = PlayerSave.ActiveDeck.GetCardCount(substance);
+        deckCardCount = PlayerSave.ActiveDeck.CountCard(substance);
         storageCardCount = PlayerSave.SubstanceStorage.CountStack(substance);
         UpdateUI();
     }
@@ -54,12 +54,14 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler
             PlayerSave.ActiveDeck.Add(substance);
             ++deckCardCount;
             UpdateUI();
+            MapManager.DeckScreen.UpdateUI();
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
             if(PlayerSave.ActiveDeck.Remove(substance))
                 --deckCardCount;
             UpdateUI();
+            MapManager.DeckScreen.UpdateUI();
         }
     }
     private void OnValidate()

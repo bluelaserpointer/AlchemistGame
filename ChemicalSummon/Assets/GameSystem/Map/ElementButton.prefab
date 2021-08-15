@@ -444,9 +444,9 @@ MonoBehaviour:
   elementText: {fileID: 8306940904791711949}
   amountTextArea: {fileID: 6919682515495213471}
   amountText: {fileID: 4362185363671801161}
-  noAmountColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
-  hasAmountColor: {r: 0.5290247, g: 1, b: 0.24056602, a: 1}
-  maxAmountColor: {r: 0.27348763, g: 0.7169812, b: 0, a: 1}
+  noAmountColor: {r: 0.7830189, g: 0.7830189, b: 0.7830189, a: 1}
+  hasAmountColor: {r: 0.91694796, g: 1, b: 0, a: 1}
+  maxAmountColor: {r: 0, g: 1, b: 0.00094246864, a: 1}
 --- !u!222 &8306940906106756659
 CanvasRenderer:
   m_ObjectHideFlags: 0

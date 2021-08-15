@@ -1,10 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class DeckScreen : MonoBehaviour
 {
+    [SerializeField]
+    Text cardCountText;
     //data
     ElementButton[] elementButtons;
     public void Init()
@@ -15,5 +18,10 @@ public class DeckScreen : MonoBehaviour
         {
             elementButton.Init();
         }
+        UpdateUI();
+    }
+    public void UpdateUI()
+    {
+        cardCountText.text = PlayerSave.ActiveDeck.CardCount.ToString();
     }
 }
