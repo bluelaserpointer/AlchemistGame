@@ -81,7 +81,6 @@ public class CardInfoDisplay : MonoBehaviour
         {
             FusionButton fusionButton = Instantiate(FusionButtonPrefab, reactionListTransform);
             fusionButton.SetReaction(reaction);
-            fusionButton.SetIfCounterFusion(false);
         }
     }
     public void OnCheckReactionButtonClick()

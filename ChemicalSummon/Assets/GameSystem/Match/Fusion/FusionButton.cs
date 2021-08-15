@@ -11,47 +11,26 @@ public class FusionButton : MonoBehaviour
     [SerializeField]
     Text formulaText;
     [SerializeField]
-    Image counterImage;
+    Transform iconsTf;
     [SerializeField]
-    GameObject damagePanel;
-    [SerializeField]
-    Image damageTypeIcon;
-    [SerializeField]
-    Text damageText;
-    [SerializeField]
-    Sprite explosionIcon, heatIcon, electricIcon;
+    GameObject counterIconPrefab, explosionIconPrefab, heatIconPrefab, electricIconPrefab;
 
+    //data
+    bool isCounter;
     public Button Button => button;
 
-    public void SetIfCounterFusion(bool cond)
-    {
-        counterImage.gameObject.SetActive(cond);
-    }
-    public void SetReaction(Reaction reaction)
+    public void SetReaction(Reaction reaction, bool isCounter = false)
     {
         formulaText.text = reaction.description;
-        if (reaction.DamageType.Equals(DamageType.None))
-        {
-            damagePanel.SetActive(false);
-        }
-        else
-        {
-            damagePanel.SetActive(true);
-            damageText.text = reaction.DamageAmount.ToString();
-            switch (reaction.DamageType)
-            {
-                case DamageType.Explosion:
-                    damageTypeIcon.sprite = explosionIcon;
-                    break;
-                case DamageType.Electronic:
-                    damageTypeIcon.sprite = electricIcon;
-                    break;
-                case DamageType.Heat:
-                    damageTypeIcon.sprite = heatIcon;
-                    break;
-                default:
-                    break;
-            }
-        }
+        foreach (Transform each in iconsTf)
+            Destroy(each.gameObject);
+        if (isCounter)
+            Instantiate(counterIconPrefab, iconsTf);
+        if (reaction.explosionDamage > 0)
+            Instantiate(explosionIconPrefab, iconsTf).GetComponentInChildren<Text>().text = reaction.explosionDamage.ToString();
+        if (reaction.electricDamage > 0)
+            Instantiate(electricIconPrefab, iconsTf).GetComponentInChildren<Text>().text = reaction.electricDamage.ToString();
+        if (reaction.heatDamage > 0)
+            Instantiate(heatIconPrefab, iconsTf).GetComponentInChildren<Text>().text = reaction.heatDamage.ToString();
     }
 }

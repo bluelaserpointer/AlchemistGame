@@ -21,7 +21,7 @@ MonoBehaviour:
   elements:
     list:
     - type: {fileID: 11400000, guid: c41df2c1d5773ae418c035b8155f0df5, type: 2}
-      amount: 3
+      amount: 1
     amountAcception: 0
   image: {fileID: 0}
   atk: 0

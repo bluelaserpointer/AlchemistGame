@@ -15,13 +15,10 @@ public class Reaction : ScriptableObject
     public StackedElementList<Substance> leftSubstances = new StackedElementList<Substance>();
     public StackedElementList<Substance> rightSubstances = new StackedElementList<Substance>();
 
-    public DamageType damageType = DamageType.None;
-    public int damageAmount = 0;
+    public int explosionDamage, electricDamage, heatDamage;
 
     public StackedElementList<Substance> LeftSubstances => leftSubstances;
     public StackedElementList<Substance> RightSubstances => rightSubstances;
-    public DamageType DamageType => damageType;
-    public int DamageAmount => damageAmount;
     public bool IsRequiredSubstance(Substance substance)
     {
         return GetRequiredAmount(substance) > 0;
@@ -58,5 +55,19 @@ public class Reaction : ScriptableObject
     public static Reaction[] GetAllReactions()
     {
         return Resources.LoadAll<Reaction>("Chemical/Reaction");
+    }
+
+    public void OnInvoke()
+    {
+        if(explosionDamage > 0)
+        {
+            MatchManager.PlaySE("Sound/SE/attack2");
+            foreach (ShieldCardSlot cardSlot in MatchManager.EnemyField.Slots)
+            {
+                cardSlot.Damage(explosionDamage);
+            }
+        }
+        else
+            MatchManager.PlaySE("Sound/SE/powerup10");
     }
 }

@@ -166,55 +166,49 @@ public static class ChemicalSummonEditor
         DataSet result = ReadExcelFromStreamingAsset("Reaction.xlsx");
         if (result == null)
             return;
-        DataTable table = result.Tables[0];
-        int rows = table.Rows.Count;
         int newCreatedCount = 0;
         int updatedCount = 0;
-        for (int row = 1; row < rows; row++)
+        foreach (DataTable table in result.Tables)
         {
-            DataRow rowData = table.Rows[row];
-            string reactionName = rowData[0].ToString() + "==" + rowData[1].ToString();
-            Reaction reaction = Reaction.GetByName(reactionName);
-            bool newCreated = reaction == null;
-            if (newCreated)
+            int rows = table.Rows.Count;
+            for (int row = 1; row < rows; row++)
             {
-                reaction = ScriptableObject.CreateInstance<Reaction>();
-            }
-            reaction.description.defaultString = reactionName;
-            //Left substances
-            reaction.leftSubstances = StrToSubstanceAndAmount(rowData[0].ToString());
-            reaction.rightSubstances = StrToSubstanceAndAmount(rowData[1].ToString());
-            //Damages
-            string dmgStr;
-            if((dmgStr = rowData[2].ToString()).Length > 0) //explosion
-            {
-                reaction.damageType = DamageType.Explosion;
-                reaction.damageAmount = ToInt(dmgStr);
-            }
-            else if ((dmgStr = rowData[3].ToString()).Length > 0) //heat
-            {
-                reaction.damageType = DamageType.Heat;
-                reaction.damageAmount = ToInt(dmgStr);
-            }
-            else if ((dmgStr = rowData[3].ToString()).Length > 0) //electronic
-            {
-                reaction.damageType = DamageType.Electronic;
-                reaction.damageAmount = ToInt(dmgStr);
-            }
-            else
-            {
-                reaction.damageType = DamageType.None;
-                reaction.damageAmount = 0;
-            }
-            if (newCreated)
-            {
-                AssetDatabase.CreateAsset(reaction, @"Assets/GameContents/Resources/Chemical/Reaction/" + reactionName + ".asset");
-                ++newCreatedCount;
-            }
-            else
-            {
-                EditorUtility.SetDirty(reaction);
-                ++updatedCount;
+                DataRow rowData = table.Rows[row];
+                string reactionName = rowData[0].ToString() + "==" + rowData[1].ToString();
+                Reaction reaction = Reaction.GetByName(reactionName);
+                bool newCreated = reaction == null;
+                if (newCreated)
+                {
+                    reaction = ScriptableObject.CreateInstance<Reaction>();
+                }
+                reaction.description.defaultString = reactionName;
+                //Left substances
+                reaction.leftSubstances = StrToSubstanceAndAmount(rowData[0].ToString());
+                reaction.rightSubstances = StrToSubstanceAndAmount(rowData[1].ToString());
+                //Damages
+                string dmgStr;
+                if ((dmgStr = rowData[2].ToString()).Length > 0) //explosion
+                {
+                    reaction.explosionDamage = ToInt(dmgStr);
+                }
+                if ((dmgStr = rowData[3].ToString()).Length > 0) //heat
+                {
+                    reaction.heatDamage = ToInt(dmgStr);
+                }
+                if ((dmgStr = rowData[3].ToString()).Length > 0) //electronic
+                {
+                    reaction.electricDamage = ToInt(dmgStr);
+                }
+                if (newCreated)
+                {
+                    AssetDatabase.CreateAsset(reaction, @"Assets/GameContents/Resources/Chemical/Reaction/" + reactionName + ".asset");
+                    ++newCreatedCount;
+                }
+                else
+                {
+                    EditorUtility.SetDirty(reaction);
+                    ++updatedCount;
+                }
             }
         }
         AssetDatabase.SaveAssets(); //´æ´¢×ÊÔ´
@@ -248,6 +242,10 @@ public static class ChemicalSummonEditor
                 if (newCreated)
                 {
                     substance = ScriptableObject.CreateInstance<Substance>();
+                }
+                else
+                {
+                    substance.elements.Clear();
                 }
                 substance.chemicalSymbol = substanceName;
                 //analyze compounds from molecular name

@@ -24,7 +24,6 @@ public class ReactionScreen : MonoBehaviour
         {
             FusionButton reactionButton = Instantiate(fusionButtonPrefab, fusionButtonListTransform);
             reactionButton.SetReaction(reaction);
-            reactionButton.SetIfCounterFusion(false);
             reactionButton.Button.onClick.AddListener(() => reactionInfoDisplay.SetReaction(reaction)); //TODO: EDIT
         }
         Reaction[] allReactions = Reaction.GetAllReactions();

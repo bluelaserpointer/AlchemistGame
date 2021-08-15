@@ -84,4 +84,9 @@ public class StackedElementList<T> : IEnumerable<StackedElementList<T>.StackedEl
     {
         return list.GetEnumerator();
     }
+
+    public void Clear()
+    {
+        list.Clear();
+    }
 }

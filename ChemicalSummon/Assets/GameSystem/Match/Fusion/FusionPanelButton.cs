@@ -77,8 +77,7 @@ public class FusionPanelButton : MonoBehaviour
             {
                 ++fusionCount;
                 FusionButton fusionButton = Instantiate(prefabFusionButton, fusionButtonList.transform);
-                fusionButton.SetReaction(reaction);
-                fusionButton.SetIfCounterFusion(counterMode);
+                fusionButton.SetReaction(reaction, counterMode);
                 fusionButton.Button.onClick.AddListener(() => {
                     foreach (KeyValuePair<SubstanceCard, int> consume in consumingCards)
                     {
@@ -91,19 +90,7 @@ public class FusionPanelButton : MonoBehaviour
                         MatchManager.Player.AddHandCard(newCard);
                     }
                     //special damage
-                    switch(reaction.DamageType)
-                    {
-                        case DamageType.Explosion:
-                            MatchManager.PlaySE("Sound/SE/attack2");
-                            foreach (ShieldCardSlot cardSlot in MatchManager.EnemyField.Slots)
-                            {
-                                cardSlot.Damage(reaction.DamageAmount);
-                            }
-                            break;
-                        default:
-                            MatchManager.PlaySE("Sound/SE/powerup10");
-                            break;
-                    }
+                    reaction.OnInvoke();
                     //counter fusion
                     if(counterMode)
                     {

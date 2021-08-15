@@ -23,12 +23,12 @@ MonoBehaviour:
   elements:
     list:
     - type: {fileID: 11400000, guid: 74bbd45abe7bfe943b6b4e0528bc32fa, type: 2}
-      amount: 3
+      amount: 1
     - type: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
-      amount: 3
+      amount: 1
     amountAcception: 0
   image: {fileID: 21300000, guid: 15d0069732686ac4ca46c9a27070da50, type: 3}
-  atk: 2
+  atk: 3
   meltingPoint: 100
   boilingPoint: 0
   waterSoluble: 0
