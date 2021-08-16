@@ -12,6 +12,7 @@ public class Player : Gamer
     /// 可见手牌
     /// </summary>
     public HandCardsArrange HandCardsDisplay => handCardsDisplay;
+    public override List<Reaction> LearnedReactions => PlayerSave.DiscoveredReactions;
     public override void AddHandCard(SubstanceCard substanceCard)
     {
         MatchManager.CurrentDrawingCardsPanel.StartDrawCardAnimation(substanceCard);
@@ -76,11 +77,9 @@ public class Player : Gamer
             slot.HideAttackButton();
         }
     }
-    SubstanceCard currentAttacker;
-    public SubstanceCard CurrentAttacker => currentAttacker;
     public override void Defense(SubstanceCard attacker)
     {
-        currentAttacker = attacker;
+        CurrentAttacker = attacker;
         foreach (ShieldCardSlot slot in Field.Slots)
         {
             if (slot.IsEmpty)
@@ -96,17 +95,17 @@ public class Player : Gamer
     }
     public void EndDefence()
     {
-        if (currentAttacker == null)
+        if (CurrentAttacker == null)
             return;
-        currentAttacker = null;
+        CurrentAttacker = null;
         RemoveAttackButtons();
         MatchManager.Enemy.AttackTurnLoop();
     }
     public void PlayerBlock()
     {
-        if (currentAttacker == null)
+        if (CurrentAttacker == null)
             return;
-        currentAttacker.Battle(this);
+        CurrentAttacker.Battle(this);
         EndDefence();
     }
 }

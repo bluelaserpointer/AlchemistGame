@@ -11,6 +11,7 @@ public class Enemy : Gamer
     Text handCardsAmountText;
     public override TurnType FusionTurn => TurnType.EnemyFusionTurn;
     public override TurnType AttackTurn => TurnType.EnemyAttackTurn;
+    public override List<Reaction> LearnedReactions => MatchManager.Match.EnemyLearnedReactions;
     public override void AddHandCard(SubstanceCard substanceCard)
     {
         base.AddHandCard(substanceCard);
@@ -164,6 +165,7 @@ public class Enemy : Gamer
     }
     public override void Defense(SubstanceCard attacker)
     {
+        CurrentAttacker = attacker;
         SubstanceCard candidateCard = null;
         int candidateATK = 0;
         foreach(CardSlot slot in Field.Slots)
@@ -182,5 +184,6 @@ public class Enemy : Gamer
             attacker.Battle(candidateCard);
         else
             attacker.Battle(this);
+        CurrentAttacker = null;
     }
 }

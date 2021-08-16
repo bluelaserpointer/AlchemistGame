@@ -55,6 +55,11 @@ public abstract class Gamer : MonoBehaviour
     /// 体力初始值
     /// </summary>
     public int InitialHP => character.initialHP;
+    /// <summary>
+    /// 习得的反应式
+    /// </summary>
+    public abstract List<Reaction> LearnedReactions { get; }
+    public SubstanceCard CurrentAttacker { get; protected set; }
     UnityEvent onHPChange = new UnityEvent();
     UnityEvent onMolChange = new UnityEvent();
     public UnityEvent OnHPChange => onHPChange;
@@ -250,5 +255,59 @@ public abstract class Gamer : MonoBehaviour
                 break;
             }
         }
+    }
+    public List<Reaction.ReactionMethod> FindAvailiableReactions()
+    {
+        List<SubstanceCard> consumableCards = GetConsumableCards();
+        SubstanceCard attacker = CurrentAttacker;
+        bool counterMode = attacker != null; //in counterMode, only counter fusions are avaliable
+        if (counterMode)
+        {
+            consumableCards.Insert(0, attacker);
+        }
+        List<Reaction.ReactionMethod> results = new List<Reaction.ReactionMethod>();
+        foreach (Reaction reaction in LearnedReactions)
+        {
+            bool condition = true;
+            bool addedAttacker = false;
+            Dictionary<SubstanceCard, int> consumingCards = new Dictionary<SubstanceCard, int>();
+            foreach (var pair in reaction.LeftSubstances)
+            {
+                Substance requiredSubstance = pair.type;
+                int requiredAmount = pair.amount;
+                foreach (SubstanceCard card in consumableCards)
+                {
+                    if (card.Substance.Equals(requiredSubstance))
+                    {
+                        if (counterMode && !addedAttacker && card.Equals(attacker))
+                        {
+                            addedAttacker = true;
+                        }
+                        if (card.CardAmount >= requiredAmount)
+                        {
+                            consumingCards.Add(card, requiredAmount);
+                            requiredAmount = 0;
+                            break;
+                        }
+                        else
+                        {
+                            consumingCards.Add(card, card.CardAmount);
+                            requiredAmount -= card.CardAmount;
+                        }
+                    }
+                }
+                if (requiredAmount > 0)
+                {
+                    //print("luck of requiredAmount: " + requiredAmount + " of " + requiredSubstance.Name + " in " + reaction.Description);
+                    condition = false;
+                    break;
+                }
+            }
+            if (condition && (!counterMode || addedAttacker))
+            {
+                results.Add(new Reaction.ReactionMethod(reaction, consumingCards));
+            }
+        }
+        return results;
     }
 }

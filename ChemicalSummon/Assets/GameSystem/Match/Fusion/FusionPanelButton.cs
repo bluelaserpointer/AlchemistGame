@@ -28,91 +28,48 @@ public class FusionPanelButton : MonoBehaviour
         //in counterMode, only counter fusions are avaliable
         SubstanceCard currentAttacker = MatchManager.Player.CurrentAttacker;
         bool counterMode = MatchManager.CurrentTurnType.Equals(TurnType.EnemyAttackTurn) && currentAttacker != null;
-        int fusionCount = 0;
         foreach (Transform childTransform in fusionButtonList.transform)
             Destroy(childTransform.gameObject);
-        List<SubstanceCard> consumableCards = MatchManager.Player.GetConsumableCards();
-        if(counterMode)
+        List<Reaction.ReactionMethod> reactionMethods = MatchManager.Player.FindAvailiableReactions();
+        foreach (var each in reactionMethods)
         {
-            consumableCards.Insert(0, currentAttacker);
-        }
-        foreach (Reaction reaction in PlayerSave.DiscoveredReactions)
-        {
-            bool condition = true;
-            bool addedAttacker = false;
-            Dictionary<SubstanceCard, int> consumingCards = new Dictionary<SubstanceCard, int>();
-            foreach (var pair in reaction.LeftSubstances)
-            {
-                Substance requiredSubstance = pair.type;
-                int requiredAmount = pair.amount;
-                foreach (SubstanceCard card in consumableCards)
+            Reaction reaction = each.reaction;
+            FusionButton fusionButton = Instantiate(prefabFusionButton, fusionButtonList.transform);
+            fusionButton.SetReaction(reaction, counterMode);
+            fusionButton.Button.onClick.AddListener(() => {
+                foreach (KeyValuePair<SubstanceCard, int> consume in each.consumingCards)
                 {
-                    if (card.Substance.Equals(requiredSubstance))
-                    {
-                        if(counterMode && !addedAttacker && card.Equals(currentAttacker))
-                        {
-                            addedAttacker = true;
-                        }
-                        if(card.CardAmount >= requiredAmount)
-                        {
-                            consumingCards.Add(card, requiredAmount);
-                            requiredAmount = 0;
-                            break;
-                        }
-                        else
-                        {
-                            consumingCards.Add(card, card.CardAmount);
-                            requiredAmount -= card.CardAmount;
-                        }
-                    }
+                    consume.Key.RemoveAmount(consume.Value);
                 }
-                if(requiredAmount > 0)
+                foreach (var pair in reaction.RightSubstances)
                 {
-                    //print("luck of requiredAmount: " + requiredAmount + " of " + requiredSubstance.Name + " in " + reaction.Description);
-                    condition = false;
-                    break;
+                    SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.type, MatchManager.Player);
+                    newCard.CardAmount = pair.amount;
+                    MatchManager.Player.AddHandCard(newCard);
                 }
-            }
-            if(condition && (!counterMode || addedAttacker))
-            {
-                ++fusionCount;
-                FusionButton fusionButton = Instantiate(prefabFusionButton, fusionButtonList.transform);
-                fusionButton.SetReaction(reaction, counterMode);
-                fusionButton.Button.onClick.AddListener(() => {
-                    foreach (KeyValuePair<SubstanceCard, int> consume in consumingCards)
-                    {
-                        consume.Key.RemoveAmount(consume.Value);
-                    }
-                    foreach (var pair in reaction.RightSubstances)
-                    {
-                        SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.type, MatchManager.Player);
-                        newCard.CardAmount = pair.amount;
-                        MatchManager.Player.AddHandCard(newCard);
-                    }
-                    //special damage
-                    reaction.OnInvoke();
-                    //counter fusion
-                    if(counterMode)
-                    {
-                        MatchManager.Player.EndDefence();
-                    }
-                    //player talk
-                    if(counterMode)
-                    {
-                        MatchManager.Player.SpeakInMatch(Character.SpeakType.Counter);
-                    }
-                    else
-                    {
-                        MatchManager.Player.SpeakInMatch(Character.SpeakType.Fusion);
-                    }
-                    //event invoke
-                    lastReaction = reaction;
-                    MatchManager.instance.onFusionFinish.Invoke();
-                });
-            }
+                //special damage
+                reaction.OnInvoke();
+                //counter fusion
+                if (counterMode)
+                {
+                    MatchManager.Player.EndDefence();
+                }
+                //player talk
+                if (counterMode)
+                {
+                    MatchManager.Player.SpeakInMatch(Character.SpeakType.Counter);
+                }
+                else
+                {
+                    MatchManager.Player.SpeakInMatch(Character.SpeakType.Fusion);
+                }
+                //event invoke
+                lastReaction = reaction;
+                MatchManager.instance.onFusionFinish.Invoke();
+            });
         }
-        fusionCountImage.color = fusionCount == 0 ? noFusionColor : hasFusionColor;
-        fusionCountText.text = fusionCount + " Fusion";
+        fusionCountImage.color = reactionMethods.Count == 0 ? noFusionColor : hasFusionColor;
+        fusionCountText.text = reactionMethods.Count + " Fusion";
     }
     public void OnFusionPanelButtonPress()
     {

@@ -70,4 +70,14 @@ public class Reaction : ScriptableObject
     {
         return new List<Reaction>(Resources.LoadAll<Reaction>("Chemical/Reaction"));
     }
+    public struct ReactionMethod
+    {
+        public Reaction reaction;
+        public Dictionary<SubstanceCard, int> consumingCards;
+        public ReactionMethod(Reaction reaction, Dictionary<SubstanceCard, int> consumingCards)
+        {
+            this.reaction = reaction;
+            this.consumingCards = consumingCards;
+        }
+    }
 }
