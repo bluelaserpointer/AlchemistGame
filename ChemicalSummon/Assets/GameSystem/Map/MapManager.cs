@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class MapManager : ChemicalSummonManager
@@ -17,12 +18,15 @@ public class MapManager : ChemicalSummonManager
     CharacterScreen characterScreen;
     [SerializeField]
     DebugScreen debugScreen;
+    [SerializeField]
+    Image newReactionSign;
 
     public static ItemScreen ItemScreen => instance.itemScreen;
     public static DeckScreen DeckScreen => instance.deckScreen;
     public static ReactionScreen ReactionScreen => instance.reactionScreen;
     public static CharacterScreen CharacterScreen => instance.characterScreen;
     public static DebugScreen DebugScreen => instance.debugScreen;
+    public static Image NewReactionSign => instance.newReactionSign;
 
 
     private void Awake()
@@ -34,5 +38,7 @@ public class MapManager : ChemicalSummonManager
         ReactionScreen.gameObject.SetActive(false);
         CharacterScreen.gameObject.SetActive(false);
         DebugScreen.gameObject.SetActive(false);
+        //new reaction sign on the LeftTab
+        newReactionSign.gameObject.SetActive(PlayerSave.NewDicoveredReactions.Count > 0);
     }
 }

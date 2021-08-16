@@ -37,11 +37,15 @@ public class ReactionScreen : MonoBehaviour
                 reactionInfoDisplay.SetReaction(reaction);
                 reactionButton.MarkNew(false);
                 PlayerSave.CheckedReaction(reactionButton.Reaction);
+                if (PlayerSave.NewDicoveredReactions.Count == 0)
+                    MapManager.NewReactionSign.gameObject.SetActive(false);
             });
         }
         float unlocked = PlayerSave.DiscoveredReactions.Count, total = Reaction.GetAll().Count;
         float unlockRate = unlocked / total;
         reactionUnlockRateSlider.value = unlockRate;
         reactionUnlockProgressText.text = unlocked + "/" + total + "(" + (float)Math.Round(unlockRate * 100, 2) + "%)";
+        //new reaction sign on the LeftTab
+        MapManager.NewReactionSign.gameObject.SetActive(PlayerSave.NewDicoveredReactions.Count > 0);
     }
 }

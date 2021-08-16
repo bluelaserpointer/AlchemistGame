@@ -93,7 +93,7 @@ public class Substance : ChemicalObject
     public static List<Substance> GetAll()
     {
         List<Substance> list = new List<Substance>(Resources.LoadAll<Substance>("Chemical/Substance"));
-        foreach (var each in Resources.LoadAll<Substance>("Chemical/Substance"))
+        foreach (var each in Resources.LoadAll<Substance>("Chemical/Substance/AvoidCaseConflict"))
         {
             list.Add(each);
         }
