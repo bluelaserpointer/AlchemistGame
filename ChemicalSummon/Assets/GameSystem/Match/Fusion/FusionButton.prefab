@@ -78,7 +78,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 2H2+O2=2H2O
+  m_Text: 2H2+O2==2H2O
 --- !u!1 &6263686372729916764
 GameObject:
   m_ObjectHideFlags: 0

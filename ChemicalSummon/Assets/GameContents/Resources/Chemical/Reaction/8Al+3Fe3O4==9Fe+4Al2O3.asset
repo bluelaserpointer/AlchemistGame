@@ -27,6 +27,9 @@ MonoBehaviour:
     - type: {fileID: 11400000, guid: c68a65cb4463d154d893976467edbe10, type: 2}
       amount: 4
     amountAcception: 0
+  catalysts:
+    list: []
+    amountAcception: 0
   explosionDamage: 10
   electricDamage: 0
   heatDamage: 30

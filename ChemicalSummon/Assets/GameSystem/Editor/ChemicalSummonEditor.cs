@@ -174,7 +174,7 @@ public static class ChemicalSummonEditor
             for (int row = 1; row < rows; row++)
             {
                 DataRow rowData = table.Rows[row];
-                string reactionName = rowData[0].ToString() + "==" + rowData[1].ToString();
+                string reactionName = rowData[0].ToString() + "=" + rowData[2].ToString() + "=" + rowData[1].ToString();
                 Reaction reaction = Reaction.GetByName(reactionName);
                 bool newCreated = reaction == null;
                 if (newCreated)
@@ -185,10 +185,11 @@ public static class ChemicalSummonEditor
                 //Left substances
                 reaction.leftSubstances = StrToSubstanceAndAmount(rowData[0].ToString());
                 reaction.rightSubstances = StrToSubstanceAndAmount(rowData[1].ToString());
+                reaction.catalysts = StrToSubstanceAndAmount(rowData[2].ToString());
                 //Damages
-                reaction.explosionDamage = ToInt(rowData[2].ToString());
-                reaction.heatDamage = ToInt(rowData[3].ToString());
-                reaction.electricDamage = ToInt(rowData[4].ToString());
+                reaction.explosionDamage = ToInt(rowData[3].ToString());
+                reaction.heatDamage = ToInt(rowData[4].ToString());
+                reaction.electricDamage = ToInt(rowData[5].ToString());
                 if (newCreated)
                 {
                     AssetDatabase.CreateAsset(reaction, @"Assets/GameContents/Resources/Chemical/Reaction/" + reactionName + ".asset");

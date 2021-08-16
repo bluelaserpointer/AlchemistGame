@@ -25,7 +25,7 @@ MonoBehaviour:
     - type: {fileID: 11400000, guid: ee027129f46dc024f993f0d56b93943b, type: 2}
       amount: 1
     amountAcception: 0
-  image: {fileID: 0}
+  image: {fileID: 21300000, guid: 045b0124662e4b847afee4d6a2fc7fad, type: 3}
   atk: 0
   meltingPoint: 0
   boilingPoint: 0

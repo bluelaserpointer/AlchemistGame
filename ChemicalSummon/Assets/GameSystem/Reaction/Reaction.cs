@@ -14,6 +14,7 @@ public class Reaction : ScriptableObject
 
     public StackedElementList<Substance> leftSubstances = new StackedElementList<Substance>();
     public StackedElementList<Substance> rightSubstances = new StackedElementList<Substance>();
+    public StackedElementList<Substance> catalysts = new StackedElementList<Substance>();
 
     public int explosionDamage, electricDamage, heatDamage;
 
