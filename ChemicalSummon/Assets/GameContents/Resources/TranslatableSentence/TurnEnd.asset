@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentence:
     defaultString: TurnEnd
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u56DE\u5408\u7ED3\u675F"
+    - language: 2
+      sentence: "\u30BF\u30FC\u30F3\u30A8\u30F3\u30C9"

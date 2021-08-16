@@ -11,18 +11,25 @@ public class TurnEndButton : MonoBehaviour
     [SerializeField]
     Image buttonImage;
     [SerializeField]
-    Color startAttackColor, endAttackColor, inactiveColor, playerBlockColor;
+    Color turnEndColor, inactiveColor, playerBlockColor;
     [SerializeField]
     TranslatableSentenceSO startAttackSentence, turnEndSentence, playerBlockSentence;
     private void Start()
     {
         MatchManager.Player.OnFusionTurnStart.AddListener(() => {
-            buttonText.text = startAttackSentence;
-            buttonImage.color = startAttackColor;
+            if(MatchManager.Turn <= 2)
+            {
+                buttonText.text = turnEndSentence;
+            }
+            else
+            {
+                buttonText.text = startAttackSentence;
+            }
+            buttonImage.color = turnEndColor;
         });
         MatchManager.Player.OnAttackTurnStart.AddListener(() => {
             buttonText.text = turnEndSentence;
-            buttonImage.color = endAttackColor;
+            buttonImage.color = turnEndColor;
         });
         MatchManager.Enemy.OnFusionTurnStart.AddListener(() => {
             buttonText.text = "";

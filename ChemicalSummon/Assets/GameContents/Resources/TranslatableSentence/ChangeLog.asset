@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f6bc1912b56ba48aa6189bf3c6e169, type: 3}
+  m_Name: ChangeLog
+  m_EditorClassIdentifier: 
+  sentence:
+    defaultString: ChangeLog
+    languageAndSentences:
+    - language: 0
+      sentence: "\u5F53\u524D\u6E38\u620F\u4E3A\u5185\u6D4B\u7248!\n- \u654C\u4EBA\u672A\u4E60\u5F97\u53CD\u51FB\u878D\u5408\n-
+        \u71C3\u70E7/\u7535\u51FB\u4F24\u5BB3\u672A\u5B9E\u88C5\n\n* \u4F5C\u54C1\u4E2D\u56FE\u7247\u5747\u672A\u6388\u6743\u4F7F\u7528\n\u8BF7\u4E0D\u8981\u4E8C\u6B21\u8F6C\u8F7D!"
+    - language: 2
+      sentence: "\u3053\u306E\u4F5C\u54C1\u306F\u30A2\u30EB\u30D5\u30A1\u30C6\u30B9\u30C8\u4E2D\u3067\u3059\uFF01\n\u30FB\u6575\u306F\u30AB\u30A6\u30F3\u30BF\u30FC\u3057\u3066\u304D\u307E\u305B\u3093\n\u30FB\u71C3\u713C/\u96FB\u6483\u304C\u672A\u5B9F\u88C5\u3067\u3059\n\n*
+        \u4F5C\u54C1\u4E2D\u306E\u30B0\u30E9\u30D5\u30A3\u30C3\u30AF\u306F\u5168\u3066\u7121\u65AD\u3067\u4F7F\u7528\u3057\u3066\u3044\u307E\u3059\u30022\u6B21\u914D\u5E03\u306F\u3054\u9060\u616E\u304F\u3060\u3055\u3044\uFF01"

@@ -14,4 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sentence:
     defaultString: StartAttack
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u5F00\u59CB\u653B\u51FB"
+    - language: 2
+      sentence: "\u653B\u6483\u958B\u59CB"
