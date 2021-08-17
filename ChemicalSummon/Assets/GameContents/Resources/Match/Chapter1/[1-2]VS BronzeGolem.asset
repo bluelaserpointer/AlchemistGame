@@ -28,7 +28,10 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
   - {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
   - {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
+  enemyLearnedReactions: []
+  enemyAI: {fileID: 5412413822665093656, guid: 16a4075ca91eba94783b19a8d55706c6, type: 3}
   additionalObject: {fileID: 0}
   loots:
   - {fileID: 59571194470741858, guid: b8b8dccc053580949910be8426a7a65a, type: 3}
+  unlockReactions: []
   mySideCharacter: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}

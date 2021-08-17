@@ -28,6 +28,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
   - {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
   - {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
+  enemyLearnedReactions: []
+  enemyAI: {fileID: 5412413822665093656, guid: 16a4075ca91eba94783b19a8d55706c6, type: 3}
   additionalObject: {fileID: 6295927446617769995, guid: ddd89c9817f995f40aa04837a15568a2,
     type: 3}
   loots:

@@ -99,7 +99,7 @@ public class Player : Gamer
             return;
         CurrentAttacker = null;
         RemoveAttackButtons();
-        MatchManager.Enemy.AttackTurnLoop();
+        MatchManager.Enemy.ContinueAttack();
     }
     public void PlayerBlock()
     {

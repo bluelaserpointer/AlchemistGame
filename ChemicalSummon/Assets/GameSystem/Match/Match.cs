@@ -22,6 +22,8 @@ public class Match : ScriptableObject
     [SerializeField]
     List<Reaction> enemyLearnedReactions;
     [SerializeField]
+    EnemyAI enemyAI;
+    [SerializeField]
     GameObject additionalObject;
     [SerializeField]
     List<Item> loots;
@@ -52,6 +54,7 @@ public class Match : ScriptableObject
     /// 敌方习得反应式
     /// </summary>
     public List<Reaction> EnemyLearnedReactions => enemyLearnedReactions;
+    public EnemyAI EnemyAI => enemyAI;
     public GameObject AdditionalObject => additionalObject;
     public AudioClip PickRandomBGM() {
         return bgmSets == null ? null : bgmSets.PickRandom();
