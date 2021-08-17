@@ -7,10 +7,20 @@ using UnityEngine.UI;
 public class StageButton : MonoBehaviour
 {
     [SerializeField]
+    StageHeader stageHeader;
+    [SerializeField]
     Event theEvent;
 
-    private void Awake()
+    private void Start()
     {
+        MapManager.StageScreen.StageHeader = stageHeader;
         GetComponent<Button>().onClick.AddListener(() => MapManager.instance.StartEvent(theEvent));
+    }
+    private void OnValidate()
+    {
+        if (stageHeader == null)
+            return;
+        GetComponentInChildren<Text>().text = stageHeader.name;
+        GetComponentInChildren<Image>().sprite = stageHeader.image;
     }
 }

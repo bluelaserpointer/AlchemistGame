@@ -9,9 +9,57 @@ using UnityEngine;
 public static class ChemicalSummonEditor
 {
     /// <summary>
+    /// 读取关卡标头表自动生成ScriptableObject
+    /// </summary>
+    [MenuItem("ChemicalSummon/Load StageHeader From Excel")]
+    private static void LoadStageHeaderExcel()
+    {
+        DataSet result = ReadExcelFromStreamingAsset("StageHeader.xlsx");
+        if (result == null)
+            return;
+        int newCreatedCount = 0;
+        int updatedCount = 0;
+        foreach (DataTable table in result.Tables)
+        {
+            int rows = table.Rows.Count;
+            for (int row = 1; row < rows; row++)
+            {
+                DataRow rowData = table.Rows[row];
+                string stageHeaderID = rowData[0].ToString();
+                StageHeader stageHeader = StageHeader.GetByName(stageHeaderID);
+                bool newCreated = stageHeader == null;
+                if (newCreated)
+                {
+                    stageHeader = ScriptableObject.CreateInstance<StageHeader>();
+                }
+                stageHeader.id = stageHeaderID;
+                stageHeader.difficulty = ToInt(rowData[1].ToString());
+                stageHeader.name.defaultString = stageHeaderID;
+                stageHeader.name.PutSentence_EmptyStrMeansRemove(Language.Chinese, rowData[2].ToString());
+                stageHeader.name.PutSentence_EmptyStrMeansRemove(Language.Japanese, rowData[3].ToString());
+                stageHeader.name.PutSentence_EmptyStrMeansRemove(Language.English, rowData[4].ToString());
+                stageHeader.description.PutSentence_EmptyStrMeansRemove(Language.Chinese, rowData[2].ToString());
+                stageHeader.description.PutSentence_EmptyStrMeansRemove(Language.Japanese, rowData[3].ToString());
+                stageHeader.description.PutSentence_EmptyStrMeansRemove(Language.English, rowData[4].ToString());
+                if (newCreated)
+                {
+                    AssetDatabase.CreateAsset(stageHeader, @"Assets/GameContents/Resources/StageHeader/" + stageHeaderID + ".asset");
+                    ++newCreatedCount;
+                }
+                else
+                {
+                    EditorUtility.SetDirty(stageHeader);
+                    ++updatedCount;
+                }
+            }
+        }
+        AssetDatabase.SaveAssets(); //存储资源
+        AssetDatabase.Refresh(); //刷新
+        Debug.Log("StageHeaderAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);
+    }
+    /// <summary>
     /// 读取可翻译句子表自动生成ScriptableObject
     /// </summary>
-    /// <returns></returns>
     [MenuItem("ChemicalSummon/Load TranslatableSentence From Excel")]
     private static void LoadTranslatableSentenceExcel()
     {

@@ -19,6 +19,8 @@ public class MapManager : ChemicalSummonManager
     [SerializeField]
     DebugScreen debugScreen;
     [SerializeField]
+    StageScreen stageScreen;
+    [SerializeField]
     Image newReactionSign;
 
     public static ItemScreen ItemScreen => instance.itemScreen;
@@ -26,6 +28,7 @@ public class MapManager : ChemicalSummonManager
     public static ReactionScreen ReactionScreen => instance.reactionScreen;
     public static CharacterScreen CharacterScreen => instance.characterScreen;
     public static DebugScreen DebugScreen => instance.debugScreen;
+    public static StageScreen StageScreen => instance.stageScreen;
     public static Image NewReactionSign => instance.newReactionSign;
 
 
