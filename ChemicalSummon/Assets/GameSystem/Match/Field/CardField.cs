@@ -14,22 +14,4 @@ public class CardField : Field
     /// 格挡区卡槽
     /// </summary>
     public new List<ShieldCardSlot> Slots => shieldCardSlots;
-    /// <summary>
-    /// 对手可见卡牌(在于格挡区)
-    /// </summary>
-    public override List<SubstanceCard> ExposedCards {
-        get
-        {
-            List<SubstanceCard> exposedCards = new List<SubstanceCard>();
-            foreach(ShieldCardSlot slot in shieldCardSlots)
-            {
-                SubstanceCard card = slot.Card;
-                if (card != null)
-                {
-                    exposedCards.Add(card);
-                }
-            }
-            return exposedCards;
-        }
-    }
 }

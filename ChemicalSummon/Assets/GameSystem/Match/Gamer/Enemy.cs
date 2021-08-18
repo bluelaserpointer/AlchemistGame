@@ -12,7 +12,8 @@ public class Enemy : Gamer
     Text handCardsAmountText;
     public override TurnType FusionTurn => TurnType.EnemyFusionTurn;
     public override TurnType AttackTurn => TurnType.EnemyAttackTurn;
-    public override List<Reaction> LearnedReactions => MatchManager.Match.EnemyLearnedReactions;
+    public StackedElementList<Reaction> ReactionsPriority => MatchManager.Match.EnemyReactionsPriority;
+    public override List<Reaction> LearnedReactions => ReactionsPriority.Types;
     public override void AddHandCard(SubstanceCard substanceCard)
     {
         base.AddHandCard(substanceCard);
@@ -49,5 +50,18 @@ public class Enemy : Gamer
         RemoveHandCard(card);
         card.transform.position = handCardsAmountText.transform.position;
         slot.SlotSet(card.gameObject);
+    }
+    public override void DoReaction(Reaction.ReactionMethod method)
+    {
+        base.DoReaction(method);
+        //talk
+        if (MatchManager.CurrentTurnType.Equals(TurnType.EnemyFusionTurn))
+        {
+            MatchManager.Enemy.SpeakInMatch(Character.SpeakType.Fusion);
+        }
+        else
+        {
+            MatchManager.Enemy.SpeakInMatch(Character.SpeakType.Counter);
+        }
     }
 }

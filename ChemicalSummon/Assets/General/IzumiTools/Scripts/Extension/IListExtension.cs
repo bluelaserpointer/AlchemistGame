@@ -80,4 +80,19 @@ public static class IListExtension
         }
         return false;
     }
+    public static KeyValuePair<T, float> FindMostValuable<T>(this List<T> list, Func<T, float> valuer)
+    {
+        T candidate = default;
+        float maxValue = 0;
+        foreach(T element in list)
+        {
+            float value = valuer.Invoke(element);
+            if (value > maxValue)
+            {
+                maxValue = value;
+                candidate = element;
+            }
+        }
+        return new KeyValuePair<T, float>(candidate, maxValue);
+    }
 }

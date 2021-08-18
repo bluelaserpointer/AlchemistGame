@@ -20,7 +20,7 @@ public class Match : ScriptableObject
     [SerializeField]
     List<Substance> enemyDeck;
     [SerializeField]
-    List<Reaction> enemyLearnedReactions;
+    StackedElementList<Reaction> enemyReactionsPriority;
     [SerializeField]
     EnemyAI enemyAI;
     [SerializeField]
@@ -53,7 +53,7 @@ public class Match : ScriptableObject
     /// <summary>
     /// 敌方习得反应式
     /// </summary>
-    public List<Reaction> EnemyLearnedReactions => enemyLearnedReactions;
+    public StackedElementList<Reaction> EnemyReactionsPriority => enemyReactionsPriority;
     public EnemyAI EnemyAI => enemyAI;
     public GameObject AdditionalObject => additionalObject;
     public AudioClip PickRandomBGM() {

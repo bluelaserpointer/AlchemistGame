@@ -310,4 +310,21 @@ public abstract class Gamer : MonoBehaviour
         }
         return results;
     }
+    public virtual void DoReaction(Reaction.ReactionMethod method)
+    {
+        foreach (KeyValuePair<SubstanceCard, int> consume in method.consumingCards)
+        {
+            consume.Key.RemoveAmount(consume.Value);
+        }
+        foreach (var pair in method.reaction.RightSubstances)
+        {
+            SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.type, this);
+            newCard.CardAmount = pair.amount;
+            AddHandCard(newCard);
+        }
+        //special damage
+        method.reaction.OnInvoke(this);
+        //event invoke
+        MatchManager.instance.onFusionFinish.Invoke();
+    }
 }

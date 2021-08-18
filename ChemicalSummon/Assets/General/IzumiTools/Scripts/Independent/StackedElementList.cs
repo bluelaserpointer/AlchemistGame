@@ -22,6 +22,18 @@ public class StackedElementList<T> : IEnumerable<StackedElementList<T>.StackedEl
         }
     }
     public List<StackedElement> list = new List<StackedElement>();
+    public List<T> Types
+    {
+        get
+        {
+            List<T> types = new List<T>();
+            foreach(var each in list)
+            {
+                types.Add(each.type);
+            }
+            return types;
+        }
+    }
     public enum AmountAcception { POSITIVE, NOT_NEGATIVE, ALL}
     public AmountAcception amountAcception = AmountAcception.POSITIVE;
     public void SetAmountAccept(AmountAcception acception)

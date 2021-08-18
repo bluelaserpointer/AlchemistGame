@@ -63,7 +63,7 @@ public class Player : Gamer
             if (slot.IsEmpty)
                 continue;
             SubstanceCard card = slot.Card;
-            slot.ShowAttackButton(true, () =>
+            slot.ShowAttackButton(() =>
             {
                 MatchManager.Enemy.Defense(card);
                 slot.HideAttackButton();
@@ -85,7 +85,7 @@ public class Player : Gamer
             if (slot.IsEmpty)
                 continue;
             SubstanceCard card = slot.Card;
-            slot.ShowAttackButton(true, () =>
+            slot.ShowAttackButton(() =>
             {
                 attacker.Battle(card);
                 EndDefence();
@@ -107,5 +107,18 @@ public class Player : Gamer
             return;
         CurrentAttacker.Battle(this);
         EndDefence();
+    }
+    public override void DoReaction(Reaction.ReactionMethod method)
+    {
+        base.DoReaction(method);
+        //talk
+        if (MatchManager.CurrentTurnType.Equals(TurnType.MyFusionTurn))
+        {
+            MatchManager.Player.SpeakInMatch(Character.SpeakType.Fusion);
+        }
+        else
+        {
+            MatchManager.Player.SpeakInMatch(Character.SpeakType.Counter);
+        }
     }
 }

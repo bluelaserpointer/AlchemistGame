@@ -96,10 +96,10 @@ public class ShieldCardSlot : CardSlot, IAttackable
     {
         attackButton.gameObject.SetActive(false);
     }
-    public void ShowAttackButton(bool isMySide, UnityAction buttonAction = null)
+    public void ShowAttackButton(UnityAction buttonAction = null)
     {
         attackButton.gameObject.SetActive(true);
-        attackButton.SetDirection(isMySide);
+        attackButton.SetDirection(IsMySide);
         attackButton.SetButtonAction(buttonAction);
     }
 }

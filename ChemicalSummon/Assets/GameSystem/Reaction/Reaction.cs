@@ -49,12 +49,12 @@ public class Reaction : ScriptableObject
         }
         return 0;
     }
-    public void OnInvoke()
+    public void OnInvoke(Gamer gamer)
     {
         if(explosionDamage > 0)
         {
             MatchManager.PlaySE("Sound/SE/attack2");
-            foreach (ShieldCardSlot cardSlot in MatchManager.EnemyField.Slots)
+            foreach (ShieldCardSlot cardSlot in gamer.Opponent.Field.Slots)
             {
                 cardSlot.Damage(explosionDamage);
             }

@@ -18,7 +18,7 @@ public class NoFusionAI : EnemyAI
     {
         OnFusionTurnLoop(0);
     }
-    struct SubstanceCardAndATK
+    protected struct SubstanceCardAndATK
     {
         public SubstanceCard card;
         public int atk;
@@ -28,10 +28,10 @@ public class NoFusionAI : EnemyAI
             this.atk = atk;
         }
     }
-    List<SubstanceCardAndATK> highestATKs = new List<SubstanceCardAndATK>();
-    List<CardSlot> lestEmptySlots = new List<CardSlot>();
-    List<CardSlot> attackedSlot = new List<CardSlot>();
-    public void OnFusionTurnLoop(int step)
+    protected List<SubstanceCardAndATK> highestATKs = new List<SubstanceCardAndATK>();
+    protected List<CardSlot> lestEmptySlots = new List<CardSlot>();
+    protected List<CardSlot> attackedSlot = new List<CardSlot>();
+    public virtual void OnFusionTurnLoop(int step)
     {
         CardSlot[] slots = Field.Slots;
         switch (step)
@@ -112,7 +112,7 @@ public class NoFusionAI : EnemyAI
                 break;
         }
     }
-    public void AttackTurnLoop()
+    public virtual void AttackTurnLoop()
     {
         ShieldCardSlot[] slots = Field.Slots;
         foreach (ShieldCardSlot slot in slots)
@@ -132,7 +132,7 @@ public class NoFusionAI : EnemyAI
                 if (slot.IsEmpty || attackedSlot.Contains(slot))
                     continue;
                 attackedSlot.Add(slot);
-                slot.ShowAttackButton(false);
+                slot.ShowAttackButton();
                 foreach (ShieldCardSlot notAttackingSlot in slots)
                 {
                     if (!notAttackingSlot.Equals(slot) && !notAttackingSlot.IsEmpty)

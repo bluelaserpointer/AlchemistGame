@@ -7,7 +7,7 @@ using UnityEngine.Events;
 /// 场地，我方与敌方各一个
 /// </summary>
 [DisallowMultipleComponent]
-public abstract class Field : MonoBehaviour
+public class Field : MonoBehaviour
 {
     /// <summary>
     /// 卡牌发生变化
@@ -53,10 +53,8 @@ public abstract class Field : MonoBehaviour
             return cards;
         }
     }
-    /// <summary>
-    /// 已暴露卡牌(通常指存在于格挡区的卡牌，能被对方用作反应素材)
-    /// </summary>
-    public abstract List<SubstanceCard> ExposedCards { get; }
+    public SubstanceCard TopATKCard => Cards.FindMostValuable(card => card.ATK).Key;
+    public int TopATK => (int)(Cards.FindMostValuable(card => card.ATK).Value);
     /// <summary>
     /// 查看物质卡
     /// </summary>
@@ -94,7 +92,7 @@ public abstract class Field : MonoBehaviour
         List<SubstanceCard> results = new List<SubstanceCard>();
         if (amount > 0)
         {
-            foreach (SubstanceCard card in ExposedCards)
+            foreach (SubstanceCard card in Cards)
             {
                 if (card.Substance.Equals(substance))
                 {

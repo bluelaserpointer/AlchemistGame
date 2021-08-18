@@ -31,41 +31,19 @@ public class FusionPanelButton : MonoBehaviour
         foreach (Transform childTransform in fusionButtonList.transform)
             Destroy(childTransform.gameObject);
         List<Reaction.ReactionMethod> reactionMethods = MatchManager.Player.FindAvailiableReactions();
-        foreach (var each in reactionMethods)
+        foreach (var method in reactionMethods)
         {
-            Reaction reaction = each.reaction;
+            Reaction reaction = method.reaction;
             FusionButton fusionButton = Instantiate(prefabFusionButton, fusionButtonList.transform);
             fusionButton.SetReaction(reaction, counterMode);
             fusionButton.Button.onClick.AddListener(() => {
-                foreach (KeyValuePair<SubstanceCard, int> consume in each.consumingCards)
-                {
-                    consume.Key.RemoveAmount(consume.Value);
-                }
-                foreach (var pair in reaction.RightSubstances)
-                {
-                    SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.type, MatchManager.Player);
-                    newCard.CardAmount = pair.amount;
-                    MatchManager.Player.AddHandCard(newCard);
-                }
-                //special damage
-                reaction.OnInvoke();
+                lastReaction = reaction;
+                MatchManager.Player.DoReaction(method);
                 //counter fusion
                 if (counterMode)
                 {
                     MatchManager.Player.EndDefence();
                 }
-                //player talk
-                if (counterMode)
-                {
-                    MatchManager.Player.SpeakInMatch(Character.SpeakType.Counter);
-                }
-                else
-                {
-                    MatchManager.Player.SpeakInMatch(Character.SpeakType.Fusion);
-                }
-                //event invoke
-                lastReaction = reaction;
-                MatchManager.instance.onFusionFinish.Invoke();
             });
         }
         fusionCountImage.color = reactionMethods.Count == 0 ? noFusionColor : hasFusionColor;
