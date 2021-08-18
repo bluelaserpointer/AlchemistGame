@@ -13,11 +13,11 @@ public class BasicFusionAI : NoFusionAI
             SubstanceCard topATKCard = Enemy.Field.TopATKCard;
             foreach (Reaction.ReactionMethod method in Enemy.FindAvailiableReactions())
             {
-                if (method.consumingCards.ContainsKey(topATKCard)) //reject decrese of top ATK
-                {
-                    continue;
-                }
                 int priority = Enemy.ReactionsPriority.CountStack(method.reaction);
+                if (method.consumingCards.ContainsKey(topATKCard)) //hate decrese of top ATK
+                {
+                    priority -= 100;
+                }
                 if (priority > maxPriority)
                 {
                     maxPriority = priority;
@@ -81,7 +81,7 @@ public class BasicFusionAI : NoFusionAI
     public override void Defense(SubstanceCard attacker)
     {
         SubstanceCard enemyStrongestCard = MatchManager.Enemy.Field.TopATKCard;
-        int enemyStrongestATK = enemyStrongestCard.ATK;
+        int enemyStrongestATK = enemyStrongestCard == null ? 0 : enemyStrongestCard.ATK;
         int playerStrongestATK = MatchManager.Player.Field.TopATK;
         int maxPriority = 0;
         Reaction.ReactionMethod candidateMethod = default;
