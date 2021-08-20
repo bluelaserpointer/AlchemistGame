@@ -35,12 +35,24 @@ MonoBehaviour:
         sentence: "\u30B0\u30AA\u30AA\u30AA\u30AA\u30AA\u30AA\uFF01\uFF01"
   - speakType: 2
     translatableSentence:
-      defaultString: 
-      languageAndSentences: []
+      defaultString: Fusion!
+      languageAndSentences:
+      - language: 0
+        sentence: "\u878D\u5408\uFF01"
+      - language: 2
+        sentence: "\u878D\u5408\uFF01"
+      - language: 1
+        sentence: Fusion!
   - speakType: 3
     translatableSentence:
-      defaultString: 
-      languageAndSentences: []
+      defaultString: Grab it!
+      languageAndSentences:
+      - language: 0
+        sentence: "\u593A\u8D70\uFF01"
+      - language: 2
+        sentence: "\u596A\u3048\uFF01"
+      - language: 1
+        sentence: Grab it!
   - speakType: 4
     translatableSentence:
       defaultString: Guh!

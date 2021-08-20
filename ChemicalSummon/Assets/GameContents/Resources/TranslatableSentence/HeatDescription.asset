@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f6bc1912b56ba48aa6189bf3c6e169, type: 3}
+  m_Name: HeatDescription
+  m_EditorClassIdentifier: 
+  sentence:
+    defaultString: HeatDescription
+    languageAndSentences:
+    - language: 0
+      sentence: "\u9009\u62E9\u4E00\u4E2A\u5361\u69FD\u5347\u6E29\u81F3\u6570\u503Cx100\u5EA6
+        \u6CA1\u6709\u88AB\u66F4\u9AD8\u878D\u70B9\u7684\u56FA\u4F53\u76D6\u4F4F\u5C31\u4F1A\u6301\u7EED\u7ED9\u4E88\u6570\u503C\u4F24\u5BB3"
+    - language: 2
+      sentence: "\u30B9\u30ED\u30C3\u30C8\u4E00\u3064\u3092\u6570\u5024x100\u5EA6\u306B\u52A0\u71B1
+        \u3088\u308A\u9AD8\u878D\u70B9\u306E\u56FA\u4F53\u3067\u62BC\u3055\u3048\u3064\u3051\u306A\u3044\u3068\u3001\u6570\u5024\u5206\u306E\u6301\u7D9A\u30C0\u30E1\u30FC\u30B8"

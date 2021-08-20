@@ -7,9 +7,11 @@ using UnityEngine.UI;
 public class ReactionInfoDisplay : MonoBehaviour
 {
     [SerializeField]
-    Transform leftSubstanceListTf, rightSubstanceListTf;
+    Transform leftSubstanceListTf, rightSubstanceListTf, specialsListTf;
     [SerializeField]
     SubstanceCard substanceCardPrefab;
+    [SerializeField]
+    ReactionSpecialDamageLabel reactionSpecialDamageLabelPrefab;
     [SerializeField]
     Text clickAnyReactionText;
     //data
@@ -24,6 +26,8 @@ public class ReactionInfoDisplay : MonoBehaviour
             Destroy(eachTf.gameObject);
         foreach (Transform eachTf in rightSubstanceListTf)
             Destroy(eachTf.gameObject);
+        foreach (Transform eachTf in specialsListTf)
+            Destroy(eachTf.gameObject);
         foreach (var each in reaction.leftSubstances)
         {
             SubstanceCard card = Instantiate(substanceCardPrefab, leftSubstanceListTf);
@@ -35,6 +39,18 @@ public class ReactionInfoDisplay : MonoBehaviour
             SubstanceCard card = Instantiate(substanceCardPrefab, rightSubstanceListTf);
             card.Substance = each.type;
             card.InitCardAmount(each.amount);
+        }
+        if(reaction.electricDamage > 0)
+        {
+            Instantiate(reactionSpecialDamageLabelPrefab, specialsListTf).SetReactionDamageType(DamageType.Electronic);
+        }
+        if (reaction.explosionDamage > 0)
+        {
+            Instantiate(reactionSpecialDamageLabelPrefab, specialsListTf).SetReactionDamageType(DamageType.Explosion);
+        }
+        if (reaction.heatDamage > 0)
+        {
+            Instantiate(reactionSpecialDamageLabelPrefab, specialsListTf).SetReactionDamageType(DamageType.Heat);
         }
     }
 }
