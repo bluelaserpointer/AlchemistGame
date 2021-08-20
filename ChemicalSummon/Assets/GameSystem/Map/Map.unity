@@ -4018,11 +4018,6 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 391259017102113940, guid: bdae651e80d528943acb74f6e4e0d057,
-        type: 3}
-      propertyPath: isInBattle
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 391259017102113967, guid: bdae651e80d528943acb74f6e4e0d057,
         type: 3}
       propertyPath: m_Name
@@ -4031,7 +4026,7 @@ PrefabInstance:
     - target: {fileID: 391259017102113967, guid: bdae651e80d528943acb74f6e4e0d057,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 391259017996112549, guid: bdae651e80d528943acb74f6e4e0d057,
         type: 3}
@@ -7120,7 +7115,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\u6EB6\u89E3\u4E4B\u60E7"
+  m_Text: "*\u5B9E\u9A8C*\u94F6\u767D\u70B8\u5F39"
 --- !u!222 &793091852
 CanvasRenderer:
   m_ObjectHideFlags: 0

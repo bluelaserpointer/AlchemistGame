@@ -533,8 +533,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb824b26b6eae143b3a78602e0bf566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInBattle: 1
   displayBackground: {fileID: 6399098053776398352}
-  sampleCard: {fileID: 7316593060456497793}
+  displayCard: {fileID: 7316593060456497793}
   checkReactionButton: {fileID: 6399098053423444150}
   checkReactionText: {fileID: 6399098054890203814}
   molReleaseButton: {fileID: 6399098053961061108}
@@ -906,7 +907,7 @@ PrefabInstance:
     - target: {fileID: 617153396795776712, guid: 920ca528614abc94fa681e407b755ed7,
         type: 3}
       propertyPath: m_Name
-      value: SubstanceCard
+      value: DisplayCard
       objectReference: {fileID: 0}
     - target: {fileID: 738733969099349846, guid: 920ca528614abc94fa681e407b755ed7,
         type: 3}

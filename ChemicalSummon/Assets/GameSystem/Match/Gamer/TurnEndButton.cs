@@ -42,6 +42,8 @@ public class TurnEndButton : MonoBehaviour
     }
     public void OnButtonPress()
     {
+        if (MatchManager.Player.HasStackedAction)
+            return;
         switch (MatchManager.CurrentTurnType)
         {
             case TurnType.EnemyAttackTurn: //player block

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 [DisallowMultipleComponent]
@@ -60,7 +61,7 @@ public class Player : Gamer
         base.AttackTurnStart();
         foreach(ShieldCardSlot slot in Field.Slots)
         {
-            if (slot.IsEmpty)
+            if (slot.IsEmpty || slot.Card.DenideAttack)
                 continue;
             SubstanceCard card = slot.Card;
             slot.ShowAttackButton(() =>
@@ -82,7 +83,7 @@ public class Player : Gamer
         CurrentAttacker = attacker;
         foreach (ShieldCardSlot slot in Field.Slots)
         {
-            if (slot.IsEmpty)
+            if (slot.IsEmpty || slot.Card.DenideAttack)
                 continue;
             SubstanceCard card = slot.Card;
             slot.ShowAttackButton(() =>
@@ -120,5 +121,30 @@ public class Player : Gamer
         {
             MatchManager.Player.SpeakInMatch(Character.SpeakType.Counter);
         }
+    }
+    Func<ShieldCardSlot, bool> selectSlotAction;
+    public override void DoBurn(int burnDamage)
+    {
+        MatchManager.MessagePanel.SelectOpponentSlot();
+        selectSlotAction = cardSlot =>
+        {
+            BurnSlot(cardSlot, burnDamage);
+            MatchManager.MessagePanel.Hide();
+            selectSlotAction = null;
+            DoStackedAction();
+            return true;
+        };
+    }
+    /// <summary>
+    /// 玩家点击了卡槽，如果有事件发生会返回True
+    /// </summary>
+    /// <param name="slot"></param>
+    /// <returns></returns>
+    public bool TrySelectSlotEvent(ShieldCardSlot slot)
+    {
+        if (selectSlotAction == null || slot == null)
+            return false;
+        selectSlotAction.Invoke(slot);
+        return true;
     }
 }

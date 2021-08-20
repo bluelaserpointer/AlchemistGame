@@ -338,7 +338,10 @@ public static class ChemicalSummonEditor
                 //end phase
                 if (!lastIsNumber) // exp. Fe
                 {
-                    AvoidNull(Element.GetByNameWithWarn(lastLetter), element => substance.elements.Add(element));
+                    if (lastLetter.Equals("?")) //Phenomenons does not have elements
+                        substance.isPhenomenon = true;
+                    else
+                        AvoidNull(Element.GetByNameWithWarn(lastLetter), element => substance.elements.Add(element));
                 }
                 else //exp. H2
                 {

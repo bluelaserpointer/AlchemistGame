@@ -16,8 +16,13 @@ public class Enemy : Gamer
     public override List<Reaction> LearnedReactions => ReactionsPriority.Types;
     public override void AddHandCard(SubstanceCard substanceCard)
     {
-        base.AddHandCard(substanceCard);
-        handCardsAmountText.text = GetHandCardCount().ToString();
+        substanceCard.transform.eulerAngles = new Vector3(0, 180, 0); //hide by flip it
+        substanceCard.transform.SetParent(handCardsAmountText.transform.parent.GetChild(0)); //visualize (Instantiated UI must be children of any canvas)
+        substanceCard.TracePosition(handCardsAmountText.transform.position, () =>
+        {
+            base.AddHandCard(substanceCard);
+            handCardsAmountText.text = GetHandCardCount().ToString();
+        });
     }
     public override bool RemoveHandCard(SubstanceCard substanceCard)
     {
@@ -63,5 +68,19 @@ public class Enemy : Gamer
         {
             MatchManager.Enemy.SpeakInMatch(Character.SpeakType.Counter);
         }
+    }
+    public override void DoBurn(int burnDamage)
+    {
+        ShieldCardSlot slot = new List<ShieldCardSlot>(MatchManager.Player.Field.Slots).FindMostValuable(slot =>
+        {
+            if (slot.IsEmpty || slot.Card.MeltingPoint > burnDamage * 100)
+                return 0;
+            return slot.Card.ATK; //burn the card as high ATK as possible
+        }).Key;
+        if(slot != null)
+        {
+            BurnSlot(slot, burnDamage);
+        }
+        DoStackedAction();
     }
 }

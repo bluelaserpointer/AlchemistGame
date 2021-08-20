@@ -49,8 +49,8 @@ public class SubstanceCard : MonoBehaviour
             substance = value;
             nameText.text = Name;
             symbolText.text = Symbol;
-            meltingPointText.text = substance.MeltingPoint.ToString() + "℃";
-            boilingPointText.text = substance.BoilingPoint.ToString() + "℃";
+            MeltingPoint = substance.MeltingPoint;
+            BoilingPoint = substance.BoilingPoint;
             mol = substance.GetMol();
             cardImage.sprite = Image;
             InitCardAmount(1);
@@ -105,6 +105,10 @@ public class SubstanceCard : MonoBehaviour
     /// 卡牌图片
     /// </summary>
     public Sprite Image => Substance.Image;
+    /// <summary>
+    /// 是否为特殊卡: 现象
+    /// </summary>
+    public bool IsPhenomenon => Substance.isPhenomenon;
     int mol;
     /// <summary>
     /// 摩尔
@@ -113,7 +117,38 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 攻击力(最新值)
     /// </summary>
-    public int ATK => OriginalATK * CardAmount;
+    public int ATK => OriginalATK * CardAmount + ATKChange;
+    /// <summary>
+    /// 攻击力变动
+    /// </summary>
+    public int ATKChange { get; set; }
+    /// <summary>
+    /// 是否禁止攻击
+    /// </summary>
+    public bool DenideAttack => IsPhenomenon;
+    /// <summary>
+    /// 是否禁止移动
+    /// </summary>
+    public bool DenideMove => IsPhenomenon;
+    float meltingPoint;
+    float boilingPoint;
+    public float MeltingPoint
+    {
+        get => meltingPoint;
+        set
+        {
+            meltingPoint = value;
+            meltingPointText.text = value.ToString() + "℃";
+        }
+    }
+    public float BoilingPoint {
+        get => boilingPoint;
+        set
+        {
+            boilingPoint = value;
+            boilingPointText.text = value.ToString() + "℃";
+        }
+    }
 
     /// <summary>
     /// 与卡牌战斗
@@ -144,7 +179,8 @@ public class SubstanceCard : MonoBehaviour
         int overDamage = dmg - ATK;
         if (overDamage >= 0)
         {
-            RemoveAmount(1);
+            if(!IsPhenomenon)
+                RemoveAmount(1);
             if (overDamage > 0)
             {
                 MatchManager.StartDamageAnimation(transform.position, overDamage, gamer);
@@ -219,8 +255,6 @@ public class SubstanceCard : MonoBehaviour
         SubstanceCard card = Instantiate(baseSubstanceCard);
         card.Substance = substance;
         card.gamer = gamer;
-        if (gamer.Equals(MatchManager.Enemy))
-            card.cardDrag.enabled = false;
         return card;
     }
     /// <summary>

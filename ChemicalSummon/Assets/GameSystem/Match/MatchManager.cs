@@ -276,19 +276,34 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         foreach(RaycastResult rayResult in results)
         {
             GameObject obj = rayResult.gameObject;
+            //if it is CardInfoDisplay
+            if (obj.GetComponent<CardInfoDisplay>() != null || obj.transform.parent != null && obj.transform.parent.GetComponent<CardInfoDisplay>() != null)
+                return; //keep info display shown
+            //if it is card
             SubstanceCard card = obj.GetComponent<SubstanceCard>();
-            if (card != null && card.invokeCardInfo)
+            if (card != null)
             {
-                if(!card.transform.Equals(CardInfoDisplay))
+                if (Player.TrySelectSlotEvent(card.Slot))
+                {
+                    return;
+                }
+                //set card info display
+                if (card.invokeCardInfo)
                 {
                     CardInfoDisplay.SetCard(card);
                     return;
                 }
+                continue;
             }
-            CardInfoDisplay cardInfoDisplay = obj.GetComponent<CardInfoDisplay>();
-            if (cardInfoDisplay != null)
+            //if it is slot
+            ShieldCardSlot slot = obj.GetComponent<ShieldCardSlot>();
+            if (slot != null)
             {
-                return;
+                if(Player.TrySelectSlotEvent(slot))
+                {
+                    return;
+                }
+                continue;
             }
         }
         CardInfoDisplay.gameObject.SetActive(false);

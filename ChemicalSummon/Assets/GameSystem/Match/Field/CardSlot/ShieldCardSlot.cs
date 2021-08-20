@@ -19,9 +19,15 @@ public class ShieldCardSlot : CardSlot, IAttackable
     /// 所属场地
     /// </summary>
     public Field Field => field;
-    float heatTempreture;
-    public float HeatTempreture => heatTempreture;
-    public float Tempreture => MatchManager.DefaultTempreture + HeatTempreture;
+    public float Tempreture {
+        get
+        {
+            if (!IsEmpty && Card.Substance.Equals(Substance.GetByName("FireFairy")))
+                return Card.MeltingPoint;
+            else
+                return MatchManager.DefaultTempreture;
+        }
+    }
     /// <summary>
     /// 属于我方卡槽
     /// </summary>
@@ -35,6 +41,14 @@ public class ShieldCardSlot : CardSlot, IAttackable
     private void Awake()
     {
         onSet.AddListener(() => {
+            if(ArrangeParent.childCount > 1)
+            {
+                SubstanceCard card = ArrangeParent.GetChild(0).GetComponent<SubstanceCard>();
+                if(card.IsPhenomenon)
+                {
+                    Destroy(card.gameObject);
+                }
+            }
             Card.SetDraggable(CardDraggable);
             field.cardsChanged.Invoke();
         });
@@ -61,14 +75,18 @@ public class ShieldCardSlot : CardSlot, IAttackable
     public override bool AllowSlotSet(GameObject obj)
     {
         SubstanceCard substanceCard = obj.GetComponent<SubstanceCard>();
-        if (substanceCard != null && !substanceCard.GetStateInTempreture(Tempreture).Equals(ThreeState.Solid))
+        if (substanceCard == null)
+            return false;
+        if (!substanceCard.GetStateInTempreture(Tempreture).Equals(ThreeState.Solid))
         {
-            MatchManager.MessagePanel.ShowMessage("非固体无法放置");
+            MatchManager.MessagePanel.WarnNotPlaceNonSolid();
             return false;
         }
+        if (substanceCard.IsPhenomenon)
+            return true;
         if (!Field.Gamer.InFusionTurn)
         {
-            MatchManager.MessagePanel.ShowMessage("非融合阶段无法放置");
+            MatchManager.MessagePanel.WarnNotPlaceBeforeFusionTurn();
             return false;
         }
         return true;
@@ -101,5 +119,17 @@ public class ShieldCardSlot : CardSlot, IAttackable
         attackButton.gameObject.SetActive(true);
         attackButton.SetDirection(IsMySide);
         attackButton.SetButtonAction(buttonAction);
+    }
+    /// <summary>
+    /// 拿回卡牌至手牌
+    /// </summary>
+    /// <returns></returns>
+    public bool TakeBackCard()
+    {
+        if (IsEmpty || Card.IsPhenomenon)
+            return false;
+        Field.Gamer.AddHandCard(Card);
+        SlotClear();
+        return true;
     }
 }

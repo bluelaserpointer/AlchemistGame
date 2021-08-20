@@ -49,19 +49,6 @@ public class Reaction : ScriptableObject
         }
         return 0;
     }
-    public void OnInvoke(Gamer gamer)
-    {
-        if(explosionDamage > 0)
-        {
-            MatchManager.PlaySE("Sound/SE/attack2");
-            foreach (ShieldCardSlot cardSlot in gamer.Opponent.Field.Slots)
-            {
-                cardSlot.Damage(explosionDamage);
-            }
-        }
-        else
-            MatchManager.PlaySE("Sound/SE/powerup10");
-    }
     public static Reaction GetByName(string name)
     {
         return Resources.Load<Reaction>("Chemical/Reaction/" + name);

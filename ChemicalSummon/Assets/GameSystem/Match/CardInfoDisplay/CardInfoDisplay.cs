@@ -11,7 +11,7 @@ public class CardInfoDisplay : MonoBehaviour
     [SerializeField]
     Image displayBackground;
     [SerializeField]
-    SubstanceCard sampleCard;
+    SubstanceCard displayCard;
     [SerializeField]
     Button checkReactionButton;
     [SerializeField]
@@ -25,15 +25,13 @@ public class CardInfoDisplay : MonoBehaviour
     [SerializeField]
     FusionButton FusionButtonPrefab;
 
-    SubstanceCard showingCard;
-    public SubstanceCard ShowingCard
-    {
-        get => showingCard;
-    }
+    SubstanceCard referedCard;
+    public SubstanceCard ReferedCard => referedCard;
     List<Reaction> relatedReactions = new List<Reaction>();
     private void Awake()
     {
-        if(isInBattle)
+        displayCard.invokeCardInfo = false;
+        if (isInBattle)
         {
             reactionListTransform.gameObject.SetActive(false);
             gameObject.SetActive(false);
@@ -43,18 +41,21 @@ public class CardInfoDisplay : MonoBehaviour
     {
         if(isInBattle)
         {
-            sampleCard.InitCardAmount(showingCard.CardAmount);
+            displayCard.InitCardAmount(referedCard.CardAmount);
             checkReactionText.text = relatedReactions.Count.ToString();
-            molReleaseText.text = showingCard.Mol.ToString();
+            molReleaseText.text = referedCard.Mol.ToString();
         }
     }
     public void SetCard(SubstanceCard substanceCard)
     {
-        if(!substanceCard.Equals(sampleCard))
-        {
+        if(!gameObject.activeSelf)
             gameObject.SetActive(true);
-            showingCard = substanceCard;
-            sampleCard.Substance = substanceCard.Substance;
+        if (!substanceCard.Equals(ReferedCard))
+        {
+            referedCard = substanceCard;
+            displayCard.Substance = substanceCard.Substance;
+            displayCard.MeltingPoint = substanceCard.MeltingPoint;
+            displayCard.BoilingPoint = substanceCard.BoilingPoint;
             bool isMySide = substanceCard.IsMySide;
             displayBackground.color = isMySide ? new Color(1, 1, 1, 0.5F) : new Color(1, 0, 0, 0.5F);
             molReleaseButton.gameObject.SetActive(isMySide);
@@ -63,18 +64,13 @@ public class CardInfoDisplay : MonoBehaviour
     }
     public void SetSubstance(Substance substance)
     {
-        if (sampleCard == null)
-        {
-            sampleCard = SubstanceCard.GenerateSubstanceCard(substance);
-            sampleCard.InitCardAmount(1);
-        }
-        sampleCard.Substance = substance;
+        displayCard.Substance = substance;
         UpdateRelatedReactionList();
     }
     public void UpdateRelatedReactionList()
     {
         relatedReactions.Clear();
-        relatedReactions.AddRange(PlayerSave.FindDiscoveredReactionsByLeftSubstance(sampleCard.Substance));
+        relatedReactions.AddRange(PlayerSave.FindDiscoveredReactionsByLeftSubstance(displayCard.Substance));
         foreach (Transform childTransform in reactionListTransform)
             Destroy(childTransform.gameObject);
         foreach (Reaction reaction in relatedReactions)
@@ -89,17 +85,17 @@ public class CardInfoDisplay : MonoBehaviour
     }
     public void OnReleaseButtonClick()
     {
-        if(showingCard != null)
+        if(referedCard != null)
         {
-            if(showingCard.CardAmount == 1)
+            if(referedCard.CardAmount == 1)
             {
-                MatchManager.Player.ReleaseCard(showingCard, 1);
-                showingCard = null;
+                MatchManager.Player.ReleaseCard(referedCard, 1);
+                referedCard = null;
                 gameObject.SetActive(false);
             }
             else
             {
-                MatchManager.Player.ReleaseCard(showingCard, 1);
+                MatchManager.Player.ReleaseCard(referedCard, 1);
             }
 
         }

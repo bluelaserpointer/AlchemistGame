@@ -10,14 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 13f6bc1912b56ba48aa6189bf3c6e169, type: 3}
-  m_Name: WarnNotPlaceBeforeYourFusion
+  m_Name: SelectOpponentSlot
   m_EditorClassIdentifier: 
   sentence:
-    defaultString: WarnNotPlaceBeforeYourFusion
+    defaultString: SelectOpponentSlot
     languageAndSentences:
-    - language: 1
-      sentence: CannotPlaceBeforeYourFusionTurn
     - language: 0
-      sentence: "\u975E\u6211\u65B9\u878D\u5408\u65E0\u6CD5\u653E\u7F6E"
+      sentence: "\u9009\u62E9\u5BF9\u65B9\u5361\u69FD"
     - language: 2
-      sentence: "\u878D\u5408\u30BF\u30FC\u30F3\u4EE5\u5916\u3067\u306F\u7F6E\u3051\u306A\u3044"
+      sentence: "\u76F8\u624B\u306E\u30B9\u30ED\u30C3\u30C8\u3092\u9078\u629E"

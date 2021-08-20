@@ -27,6 +27,7 @@ public class Substance : ChemicalObject
     public float meltingPoint;
     [Min(-273.15f)]
     public float boilingPoint;
+    public bool isPhenomenon;
     public bool waterSoluble;
     public bool isOre;
     public TranslatableSentence description = new TranslatableSentence();

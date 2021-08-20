@@ -52,8 +52,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6fb824b26b6eae143b3a78602e0bf566, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInBattle: 0
   displayBackground: {fileID: 391259017102113937}
-  sampleCard: {fileID: 4047015715808437760}
+  displayCard: {fileID: 4047015715808437760}
   checkReactionButton: {fileID: 0}
   checkReactionText: {fileID: 0}
   molReleaseButton: {fileID: 0}

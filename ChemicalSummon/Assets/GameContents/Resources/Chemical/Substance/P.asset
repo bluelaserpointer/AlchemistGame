@@ -29,6 +29,7 @@ MonoBehaviour:
   atk: 2
   meltingPoint: 0
   boilingPoint: 0
+  isPhenomenon: 0
   waterSoluble: 0
   isOre: 0
   description:

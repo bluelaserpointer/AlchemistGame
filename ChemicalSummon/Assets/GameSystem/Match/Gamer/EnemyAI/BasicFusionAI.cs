@@ -55,7 +55,7 @@ public class BasicFusionAI : NoFusionAI
         {
             foreach (ShieldCardSlot slot in slots)
             {
-                if (slot.IsEmpty || attackedSlot.Contains(slot) || slot.Card.ATK < highestATK)
+                if (slot.IsEmpty || slot.Card.DenideAttack || attackedSlot.Contains(slot) || slot.Card.ATK < highestATK)
                     continue;
                 attackedSlot.Add(slot);
                 slot.ShowAttackButton();

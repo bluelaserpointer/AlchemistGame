@@ -112,7 +112,7 @@ public class Field : MonoBehaviour
         bool cond = CardsDraggable;
         foreach (CardSlot slot in Slots)
         {
-            if (!slot.IsEmpty)
+            if (!slot.IsEmpty && !slot.Card.DenideMove)
                 slot.Card.SetDraggable(cond);
         }
     }

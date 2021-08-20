@@ -33,20 +33,15 @@ public class NoFusionAI : EnemyAI
     protected List<CardSlot> attackedSlot = new List<CardSlot>();
     public virtual void OnFusionTurnLoop(int step)
     {
-        CardSlot[] slots = Field.Slots;
+        ShieldCardSlot[] slots = Field.Slots;
         switch (step)
         {
             case 0: //back all cards & find highestATK
                 MatchManager.MatchLogDisplay.AddAction(() =>
                 {
-                    foreach (CardSlot slot in slots)
+                    foreach (ShieldCardSlot slot in slots)
                     {
-                        if (!slot.IsEmpty)
-                        {
-                            SubstanceCard card = slot.Card;
-                            slot.SlotClear();
-                            Enemy.AddHandCard(card);
-                        }
+                        slot.TakeBackCard();
                     }
                     //find highestATK
                     highestATKs.Clear();
@@ -129,7 +124,7 @@ public class NoFusionAI : EnemyAI
         {
             foreach (ShieldCardSlot slot in slots)
             {
-                if (slot.IsEmpty || attackedSlot.Contains(slot))
+                if (slot.IsEmpty || slot.Card.DenideAttack || attackedSlot.Contains(slot))
                     continue;
                 attackedSlot.Add(slot);
                 slot.ShowAttackButton();

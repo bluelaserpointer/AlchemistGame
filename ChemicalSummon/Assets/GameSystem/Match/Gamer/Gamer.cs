@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
@@ -204,6 +205,13 @@ public abstract class Gamer : MonoBehaviour
     public virtual void FusionTurnStart()
     {
         SpeakInMatch(Character.SpeakType.StartFusion);
+        foreach(var card in Opponent.Field.Cards)
+        {
+            if(card.Symbol.Equals("FireFairy"))
+            {
+                MatchManager.StartDamageAnimation(card.transform.position, (int)card.MeltingPoint / 100, Opponent);
+            }
+        }
         OnFusionTurnStart.Invoke();
         DrawCard(); //抽牌
     }
@@ -322,9 +330,77 @@ public abstract class Gamer : MonoBehaviour
             newCard.CardAmount = pair.amount;
             AddHandCard(newCard);
         }
+        Reaction reaction = method.reaction;
         //special damage
-        method.reaction.OnInvoke(this);
+        if(reaction.explosionDamage > 0)
+            PushActionStack(() => DoExplosion(reaction.explosionDamage));
+        if (reaction.electricDamage > 0)
+            PushActionStack(() => DoElectricShock(reaction.electricDamage));
+        if (reaction.heatDamage > 0)
+            PushActionStack(() => DoBurn(reaction.heatDamage));
+        if (reaction.heatDamage == 0 && reaction.explosionDamage == 0 && reaction.electricDamage == 0)
+            MatchManager.PlaySE("Sound/SE/powerup10"); //TODO: make a single fusion SE play time
         //event invoke
         MatchManager.instance.onFusionFinish.Invoke();
+    }
+    public abstract void DoBurn(int burnDamage);
+    public virtual void DoExplosion(int explosionDamage)
+    {
+        MatchManager.PlaySE("Sound/SE/attack2");
+        foreach (ShieldCardSlot cardSlot in Opponent.Field.Slots)
+        {
+            cardSlot.Damage(explosionDamage);
+        }
+        DoStackedAction();
+    }
+    public virtual void DoElectricShock(int electricDamage)
+    {
+        //TODO: Edit
+        DoStackedAction();
+    }
+    public bool BurnSlot(ShieldCardSlot cardSlot, int burnDamage)
+    {
+        if (!cardSlot.IsEmpty)
+        {
+            SubstanceCard placedCard = cardSlot.Card;
+            if (placedCard.MeltingPoint < burnDamage * 100)
+            {
+                placedCard.Gamer.AddHandCard(placedCard);
+            }
+            else //cannot overplace
+            {
+                //TODO: show invalid effect
+                return false;
+            }
+        }
+        //TODO: show valid effect
+        SubstanceCard fireFairyCard = SubstanceCard.GenerateSubstanceCard(Substance.GetByName("FireFairy"), cardSlot.Field.Gamer);
+        fireFairyCard.InitCardAmount(1);
+        fireFairyCard.MeltingPoint = fireFairyCard.BoilingPoint = burnDamage * 100;
+        cardSlot.SlotSet(fireFairyCard.gameObject);
+        return true;
+    }
+    Queue<Action> actionStack = new Queue<Action>();
+    public bool HasStackedAction => actionStack.Count > 0;
+    public void PushActionStack(Action action)
+    {
+        if (HasStackedAction)
+        {
+            actionStack.Enqueue(action);
+        }
+        else
+        {
+            actionStack.Enqueue(action);
+            action.Invoke();
+        }
+    }
+    public void DoStackedAction()
+    {
+        if (HasStackedAction)
+        {
+            actionStack.Dequeue();
+            if (HasStackedAction)
+                actionStack.Peek().Invoke();
+        }
     }
 }
