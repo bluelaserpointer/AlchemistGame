@@ -26,7 +26,6 @@ public class FirstMoverDecider : MonoBehaviour
     {
         drawedCard = Instantiate(substanceCardPrefab, cardParentTf);
         drawedCard.Substance = (Random.Range(0, 2) == 0 ? PurePool : CompoundPool).GetRandomElement();
-        drawedCard.invokeCardInfo = false;
         drawedCard.SetDraggable(false);
         drawedCard.transform.eulerAngles = new Vector3(0, 180, 0);
     }

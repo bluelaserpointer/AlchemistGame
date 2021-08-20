@@ -70,7 +70,6 @@ public class SubstanceCard : MonoBehaviour
             attackText.targetValue = ATK;
         }
     }
-    public bool invokeCardInfo = true;
     Gamer gamer;
     /// <summary>
     /// 所属游戏者
@@ -79,11 +78,11 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 我方卡牌
     /// </summary>
-    public bool IsMySide => Gamer.Equals(MatchManager.Player);
+    public bool IsMySide => MatchManager.Player.Equals(Gamer);
     /// <summary>
     /// 敌方卡牌
     /// </summary>
-    public bool IsEnemySide => Gamer.Equals(MatchManager.Enemy);
+    public bool IsEnemySide => MatchManager.Enemy.Equals(Gamer);
     /// <summary>
     /// 所在卡槽
     /// </summary>
@@ -196,16 +195,15 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 在我方手牌
     /// </summary>
-    public bool InHandCards => gamer.HandCards.Contains(this);
-    //information
-    /// <summary>
-    /// 在格挡区(不考虑敌我)
-    /// </summary>
-    public bool InShieldSlot => Slot.GetType().Equals(typeof(ShieldCardSlot));
+    public bool InGamerHandCards => gamer != null && gamer.HandCards.Contains(this);
     /// <summary>
     /// 在场地(不考虑敌我)
     /// </summary>
-    public bool InField => InShieldSlot;
+    public bool InField => Slot != null;
+    /// <summary>
+    /// 在我方场地
+    /// </summary>
+    public bool InGamerField => IsMySide && InField;
     public void InitCardAmount(int amount)
     {
         CardAmount = amount;
@@ -255,6 +253,8 @@ public class SubstanceCard : MonoBehaviour
         SubstanceCard card = Instantiate(baseSubstanceCard);
         card.Substance = substance;
         card.gamer = gamer;
+        if (card.IsEnemySide)
+            card.transform.eulerAngles = new Vector3(0, 180, 180);
         return card;
     }
     /// <summary>
@@ -264,7 +264,7 @@ public class SubstanceCard : MonoBehaviour
     {
         if (Slot != null)
             Slot.SlotClear();
-        else if (InHandCards)
+        else if (InGamerHandCards)
             gamer.RemoveHandCard(this);
         Destroy(gameObject);
     }

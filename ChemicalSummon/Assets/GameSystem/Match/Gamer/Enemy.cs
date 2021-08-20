@@ -8,28 +8,10 @@ using UnityEngine.UI;
 public class Enemy : Gamer
 {
     public EnemyAI AI => MatchManager.Match.EnemyAI;
-    [SerializeField]
-    Text handCardsAmountText;
     public override TurnType FusionTurn => TurnType.EnemyFusionTurn;
     public override TurnType AttackTurn => TurnType.EnemyAttackTurn;
     public StackedElementList<Reaction> ReactionsPriority => MatchManager.Match.EnemyReactionsPriority;
     public override List<Reaction> LearnedReactions => ReactionsPriority.Types;
-    public override void AddHandCard(SubstanceCard substanceCard)
-    {
-        substanceCard.transform.eulerAngles = new Vector3(0, 180, 0); //hide by flip it
-        substanceCard.transform.SetParent(handCardsAmountText.transform.parent.GetChild(0)); //visualize (Instantiated UI must be children of any canvas)
-        substanceCard.TracePosition(handCardsAmountText.transform.position, () =>
-        {
-            base.AddHandCard(substanceCard);
-            handCardsAmountText.text = GetHandCardCount().ToString();
-        });
-    }
-    public override bool RemoveHandCard(SubstanceCard substanceCard)
-    {
-        bool b = base.RemoveHandCard(substanceCard);
-        handCardsAmountText.text = GetHandCardCount().ToString();
-        return b;
-    }
     public override void FusionTurnStart()
     {
         base.FusionTurnStart(); //card draw
@@ -53,7 +35,6 @@ public class Enemy : Gamer
     public void SetShieldCardSlotFromHand(ShieldCardSlot slot, SubstanceCard card)
     {
         RemoveHandCard(card);
-        card.transform.position = handCardsAmountText.transform.position;
         slot.SlotSet(card.gameObject);
     }
     public override void DoReaction(Reaction.ReactionMethod method)
@@ -73,7 +54,9 @@ public class Enemy : Gamer
     {
         ShieldCardSlot slot = new List<ShieldCardSlot>(MatchManager.Player.Field.Slots).FindMostValuable(slot =>
         {
-            if (slot.IsEmpty || slot.Card.MeltingPoint > burnDamage * 100)
+            if (slot.IsEmpty)
+                return 0.1F;
+            if (slot.Card.IsPhenomenon || slot.Card.MeltingPoint > burnDamage * 100)
                 return 0;
             return slot.Card.ATK; //burn the card as high ATK as possible
         }).Key;

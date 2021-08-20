@@ -14,8 +14,9 @@ public class HandCardsDisplay : HandCardsArrange
         float rotate = -enumerateDirection * (cardCount - 1) * cardAngleSpan / 2;
         foreach (Transform cardTransform in transform)
         {
-            cardTransform.GetComponent<SubstanceCard>().TracePosition(myPos + transform.right * radius * Mathf.Cos(angle) + transform.up * radius * Mathf.Sin(angle));
-            cardTransform.eulerAngles = myAngle + new Vector3(0, 0, rotate);
+            SubstanceCard card = cardTransform.GetComponent<SubstanceCard>();
+            card.TracePosition(myPos + transform.right * radius * Mathf.Cos(angle) + transform.up * radius * Mathf.Sin(angle));
+            cardTransform.eulerAngles = myAngle + new Vector3(card.IsMySide ? 0 : 180, 0, card.IsMySide ? rotate : -rotate);
             angle += enumerateDirection * AngleSpanRad;
             rotate += enumerateDirection * cardAngleSpan;
         }

@@ -75,7 +75,7 @@ public class CardDrag : Draggable
                         if (CurrentSlot != null)
                             CurrentSlot.DoAlignment(); //return to original position
                         else
-                            MatchManager.Player.AddHandCardImmediate(substanceCard);
+                            MatchManager.Player.AddHandCard(substanceCard);
                         return;
                     }
                     continue;
@@ -98,7 +98,7 @@ public class CardDrag : Draggable
                     if (CurrentSlot != null)
                         CurrentSlot.DoAlignment(); //return to original position
                     else
-                        MatchManager.Player.AddHandCardImmediate(substanceCard);
+                        MatchManager.Player.AddHandCard(substanceCard);
                     return;
                 }
                 continue;
@@ -110,10 +110,10 @@ public class CardDrag : Draggable
             if (disbandable)
             {
                 CurrentSlot.SlotClear();
-                MatchManager.Player.AddHandCardImmediate(substanceCard);
+                MatchManager.Player.AddHandCard(substanceCard);
             }
         }
         else
-            MatchManager.Player.AddHandCardImmediate(substanceCard);
+            MatchManager.Player.AddHandCard(substanceCard);
     }
 }

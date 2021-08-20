@@ -19,7 +19,8 @@ public abstract class Gamer : MonoBehaviour
     StatusPanels statusPanels;
     [SerializeField]
     InMatchDialog inMatchDialog;
-    public StatusPanels StatusPanels => statusPanels;
+    [SerializeField]
+    HandCardsArrange handCardsDisplay;
 
     [SerializeField]
     UnityEvent onHandCardsChanged;
@@ -40,6 +41,10 @@ public abstract class Gamer : MonoBehaviour
     /// 游戏者
     /// </summary>
     public Character Character => character;
+    /// <summary>
+    /// 属性面板
+    /// </summary>
+    public StatusPanels StatusPanels => statusPanels;
     Deck deck;
     /// <summary>
     /// 卡组
@@ -50,6 +55,10 @@ public abstract class Gamer : MonoBehaviour
     /// 手牌
     /// </summary>
     public List<SubstanceCard> HandCards => handCards;
+    /// <summary>
+    /// 可见手牌
+    /// </summary>
+    public HandCardsArrange HandCardsDisplay => handCardsDisplay;
     int hp;
     int mol;
     /// <summary>
@@ -128,7 +137,7 @@ public abstract class Gamer : MonoBehaviour
     {
         if (Deck.CardCount > 0)
         {
-            AddHandCard(Deck.DrawRandomCard(this));
+            AddHandCard(Deck.DrawRandomCard(this), true);
         }
     }
     public SubstanceCard FindHandCard(Substance substance)
@@ -143,15 +152,18 @@ public abstract class Gamer : MonoBehaviour
     /// 加入手牌
     /// </summary>
     /// <param name="substanceCard"></param>
-    public virtual void AddHandCard(SubstanceCard substanceCard)
+    public virtual void AddHandCard(SubstanceCard substanceCard, bool fromNewGenerated = false)
     {
         SubstanceCard duplicatedCard = FindHandCard(substanceCard);
         if (duplicatedCard == null)
         {
             HandCards.Add(substanceCard);
+            HandCardsDisplay.Add(substanceCard.gameObject);
+            substanceCard.SetDraggable(IsMyside);
         }
         else
         {
+            substanceCard.TracePosition(duplicatedCard.transform.position);
             duplicatedCard.UnionSameCard(substanceCard);
         }
         OnHandCardsChanged.Invoke();
@@ -168,6 +180,7 @@ public abstract class Gamer : MonoBehaviour
     {
         if(HandCards.Remove(substanceCard))
         {
+            HandCardsDisplay.Remove(substanceCard.gameObject);
             OnHandCardsChanged.Invoke();
             return true;
         }
@@ -328,7 +341,7 @@ public abstract class Gamer : MonoBehaviour
         {
             SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.type, this);
             newCard.CardAmount = pair.amount;
-            AddHandCard(newCard);
+            AddHandCard(newCard, true);
         }
         Reaction reaction = method.reaction;
         //special damage
@@ -365,7 +378,7 @@ public abstract class Gamer : MonoBehaviour
             SubstanceCard placedCard = cardSlot.Card;
             if (placedCard.MeltingPoint < burnDamage * 100)
             {
-                placedCard.Gamer.AddHandCard(placedCard);
+                cardSlot.TakeBackCard();
             }
             else //cannot overplace
             {

@@ -17,7 +17,7 @@ public class DrawCardAnchor : MonoBehaviour
     }
     public void OnAnimationEnd()
     {
-        MatchManager.Player.AddHandCardImmediate(substanceCard);
+        MatchManager.Player.AddHandCard(substanceCard);
         Destroy(gameObject);
     }
 }

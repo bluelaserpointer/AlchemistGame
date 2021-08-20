@@ -5,46 +5,15 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Player : Gamer
 {
-    [SerializeField]
-    HandCardsArrange handCardsDisplay;
     public override TurnType FusionTurn => TurnType.MyFusionTurn;
     public override TurnType AttackTurn => TurnType.MyAttackTurn;
-    /// <summary>
-    /// 可见手牌
-    /// </summary>
-    public HandCardsArrange HandCardsDisplay => handCardsDisplay;
     public override List<Reaction> LearnedReactions => PlayerSave.DiscoveredReactions;
-    public override void AddHandCard(SubstanceCard substanceCard)
+    public override void AddHandCard(SubstanceCard substanceCard, bool fromNewGenerated = false)
     {
-        MatchManager.CurrentDrawingCardsPanel.StartDrawCardAnimation(substanceCard);
-    }
-    public void AddHandCardImmediate(SubstanceCard substanceCard)
-    {
-        SubstanceCard duplicatedCard = FindHandCard(substanceCard);
-        if (duplicatedCard == null)
-        {
-            HandCards.Add(substanceCard);
-            HandCardsDisplay.Add(substanceCard.gameObject);
-        }
+        if (fromNewGenerated)
+            MatchManager.CurrentDrawingCardsPanel.StartDrawCardAnimation(substanceCard);
         else
-            duplicatedCard.UnionSameCard(substanceCard);
-        OnHandCardsChanged.Invoke();
-    }
-    public override bool RemoveHandCard(SubstanceCard substanceCard)
-    {
-        if(base.RemoveHandCard(substanceCard))
-        {
-            HandCardsDisplay.Remove(substanceCard.gameObject);
-            return true;
-        }
-        return false;
-    }
-    public override void DrawCard()
-    {
-        if (Deck.CardCount > 0)
-        {
-            AddHandCard(Deck.DrawRandomSubstance());
-        }
+            base.AddHandCard(substanceCard);
     }
     public override void FusionTurnStart()
     {
@@ -113,13 +82,13 @@ public class Player : Gamer
     {
         base.DoReaction(method);
         //talk
-        if (MatchManager.CurrentTurnType.Equals(TurnType.MyFusionTurn))
+        if (MatchManager.CurrentTurnType.Equals(TurnType.EnemyAttackTurn))
         {
-            MatchManager.Player.SpeakInMatch(Character.SpeakType.Fusion);
+            MatchManager.Player.SpeakInMatch(Character.SpeakType.Counter);
         }
         else
         {
-            MatchManager.Player.SpeakInMatch(Character.SpeakType.Counter);
+            MatchManager.Player.SpeakInMatch(Character.SpeakType.Fusion);
         }
     }
     Func<ShieldCardSlot, bool> selectSlotAction;

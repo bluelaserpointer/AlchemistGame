@@ -288,7 +288,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
                     return;
                 }
                 //set card info display
-                if (card.invokeCardInfo)
+                if (card.InField || card.IsMySide && card.InGamerHandCards)
                 {
                     CardInfoDisplay.SetCard(card);
                     return;

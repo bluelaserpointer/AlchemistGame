@@ -30,7 +30,6 @@ public class CardInfoDisplay : MonoBehaviour
     List<Reaction> relatedReactions = new List<Reaction>();
     private void Awake()
     {
-        displayCard.invokeCardInfo = false;
         if (isInBattle)
         {
             reactionListTransform.gameObject.SetActive(false);
