@@ -19,6 +19,9 @@ public abstract class ChemicalSummonManager : MonoBehaviour
     {
         MainCanvas = mainCanvas;
     }
+    public static bool CurrentSceneIsMatch => SceneManager.GetActiveScene().name.Equals("Match");
+    public static bool CurrentSceneIsMap => SceneManager.GetActiveScene().name.Equals("Map");
+    public static bool CurrentSceneIsTitle => SceneManager.GetActiveScene().name.Equals("Title");
     /// <summary>
     /// 进入战斗(按钮事件参照用)
     /// </summary>

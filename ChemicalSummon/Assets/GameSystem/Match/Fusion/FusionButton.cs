@@ -44,11 +44,13 @@ public class FusionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        MatchManager.FusionDisplay.PreviewReaction(Reaction);
+        if(MatchManager.CurrentSceneIsMatch)
+            MatchManager.FusionDisplay.PreviewReaction(Reaction);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        MatchManager.FusionDisplay.HidePreview();
+        if (MatchManager.CurrentSceneIsMatch)
+            MatchManager.FusionDisplay.HidePreview();
     }
 }

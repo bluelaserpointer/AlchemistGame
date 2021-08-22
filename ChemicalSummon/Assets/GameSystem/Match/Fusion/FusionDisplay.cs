@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class FusionDisplay : MonoBehaviour
@@ -12,6 +13,8 @@ public class FusionDisplay : MonoBehaviour
     Transform materialCardParent;
     [SerializeField]
     Transform productCardParent;
+    [SerializeField]
+    GameObject explosionMark, heatMark, electricMark;
     [SerializeField]
     int radius;
     [SerializeField]
@@ -55,6 +58,28 @@ public class FusionDisplay : MonoBehaviour
             card.InitCardAmount(stackedElement.amount);
             card.transform.SetParent(productCardParent);
         }
+        //specialDamageIcon
+        if (reaction.explosionDamage > 0)
+        {
+            explosionMark.SetActive(true);
+            explosionMark.GetComponentInChildren<Text>().text = reaction.explosionDamage.ToString();
+        }
+        else
+            explosionMark.SetActive(false);
+        if (reaction.heatDamage > 0)
+        {
+            heatMark.SetActive(true);
+            heatMark.GetComponentInChildren<Text>().text = reaction.heatDamage.ToString();
+        }
+        else
+            heatMark.SetActive(false);
+        if (reaction.electricDamage > 0)
+        {
+            electricMark.SetActive(true);
+            electricMark.GetComponentInChildren<Text>().text = reaction.electricDamage.ToString();
+        }
+        else
+            electricMark.SetActive(false);
     }
     private void Update()
     {
