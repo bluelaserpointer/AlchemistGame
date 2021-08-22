@@ -56,7 +56,7 @@ public class Enemy : Gamer
         {
             if (slot.IsEmpty)
                 return 0.1F;
-            if (slot.Card.IsPhenomenon || slot.Card.MeltingPoint > burnDamage * 100)
+            if (slot.Card.IsPhenomenon || slot.Card.MeltingPoint > burnDamage * 1000)
                 return 0;
             return slot.Card.ATK; //burn the card as high ATK as possible
         }).Key;

@@ -32,4 +32,4 @@ MonoBehaviour:
     amountAcception: 0
   explosionDamage: 10
   electricDamage: 0
-  heatDamage: 30
+  heatDamage: 3

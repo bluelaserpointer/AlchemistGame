@@ -222,7 +222,7 @@ public abstract class Gamer : MonoBehaviour
         {
             if(card.Symbol.Equals("FireFairy"))
             {
-                MatchManager.StartDamageAnimation(card.transform.position, (int)card.MeltingPoint / 100, Opponent);
+                MatchManager.StartDamageAnimation(card.transform.position, (int)card.MeltingPoint / 1000, Opponent);
             }
         }
         OnFusionTurnStart.Invoke();
@@ -376,7 +376,7 @@ public abstract class Gamer : MonoBehaviour
         if (!cardSlot.IsEmpty)
         {
             SubstanceCard placedCard = cardSlot.Card;
-            if (placedCard.MeltingPoint < burnDamage * 100)
+            if (placedCard.MeltingPoint < burnDamage * 1000)
             {
                 cardSlot.TakeBackCard();
             }
@@ -389,7 +389,7 @@ public abstract class Gamer : MonoBehaviour
         //TODO: show valid effect
         SubstanceCard fireFairyCard = SubstanceCard.GenerateSubstanceCard(Substance.GetByName("FireFairy"), cardSlot.Field.Gamer);
         fireFairyCard.InitCardAmount(1);
-        fireFairyCard.MeltingPoint = fireFairyCard.BoilingPoint = burnDamage * 100;
+        fireFairyCard.MeltingPoint = fireFairyCard.BoilingPoint = burnDamage * 1000;
         cardSlot.SlotSet(fireFairyCard.gameObject);
         return true;
     }

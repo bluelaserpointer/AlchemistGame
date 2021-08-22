@@ -8,4 +8,12 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class MatchBackGround : MonoBehaviour
 {
+    [SerializeField]
+    GameObject explosionPrefab;
+    [SerializeField]
+    Transform opponentEffectAnchor;
+    public void OnExplosion()
+    {
+        Instantiate(explosionPrefab, opponentEffectAnchor);
+    }
 }

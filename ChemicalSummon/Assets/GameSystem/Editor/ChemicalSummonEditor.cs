@@ -441,10 +441,12 @@ public static class ChemicalSummonEditor
     }
     private static StackedElementList<Substance> StrToSubstanceAndAmount(string str)
     {
+        StackedElementList<Substance> substances = new StackedElementList<Substance>();
+        if (str.Length == 0)
+            return substances;
         bool readingAmountNumber = true;
         int amountTmp = 0;
         string lastLetter = "";
-        StackedElementList<Substance> substances = new StackedElementList<Substance>();
         foreach (char letter in str)
         {
             if (char.IsNumber(letter) || char.IsLower(letter))
