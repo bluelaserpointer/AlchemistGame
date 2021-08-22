@@ -5,13 +5,15 @@
 /// </summary>
 public abstract class CardSlot : ObjectSlot
 {
+    [SerializeField]
+
     public SubstanceCard Card => IsEmpty ? null : GetTop().GetComponent<SubstanceCard>();
 
     public override void DoAlignment()
     {
         foreach (Transform childTransform in ArrangeParent)
         {
-            childTransform.GetComponent<SubstanceCard>().TracePosition(ArrangeParent.position);
+            childTransform.GetComponent<SubstanceCard>().TracePosition(ArrangeParent.position, OnPlaceAnimationEnd);
             if (doArrangeRotation)
             {
                 oldLocalRotation = childTransform.localEulerAngles;
@@ -24,4 +26,5 @@ public abstract class CardSlot : ObjectSlot
             }
         }
     }
+    public abstract void OnPlaceAnimationEnd();
 }

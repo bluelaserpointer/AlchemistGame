@@ -15,6 +15,8 @@ public class ShieldCardSlot : CardSlot, IAttackable
     AttackButton attackButton;
     [SerializeField]
     SBA_Bump sBA_Bump;
+    [SerializeField]
+    SBA_FadingExpand placeAnimation;
     /// <summary>
     /// 所属场地
     /// </summary>
@@ -131,5 +133,10 @@ public class ShieldCardSlot : CardSlot, IAttackable
         Field.Gamer.AddHandCard(Card);
         SlotClear();
         return true;
+    }
+
+    public override void OnPlaceAnimationEnd()
+    {
+        placeAnimation.StartAnimation();
     }
 }
