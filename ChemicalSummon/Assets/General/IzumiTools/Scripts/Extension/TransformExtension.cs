@@ -14,4 +14,9 @@ public static class TransformExtension
         }
         return null;
     }
+    public static void DestroyAllChildren(this Transform parent)
+    {
+        foreach (Transform each in parent)
+            UnityEngine.Object.Destroy(each.gameObject);
+    }
 }

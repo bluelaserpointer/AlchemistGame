@@ -80,6 +80,8 @@ public class Player : Gamer
     }
     public override void DoReaction(Reaction.ReactionMethod method)
     {
+        //disable preview
+        MatchManager.FusionDisplay.HidePreview();
         base.DoReaction(method);
         //talk
         if (MatchManager.CurrentTurnType.Equals(TurnType.EnemyAttackTurn))

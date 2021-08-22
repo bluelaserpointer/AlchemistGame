@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
-public class FusionButton : MonoBehaviour
+public class FusionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField]
     Button button;
@@ -24,20 +25,30 @@ public class FusionButton : MonoBehaviour
     public void SetReaction(Reaction reaction, bool isCounter = false)
     {
         Reaction = reaction;
-        formulaText.text = reaction.description;
+        formulaText.text = Reaction.description;
         foreach (Transform each in iconsTf)
             Destroy(each.gameObject);
         if (isCounter)
             Instantiate(counterIconPrefab, iconsTf);
-        if (reaction.explosionDamage > 0)
-            Instantiate(explosionIconPrefab, iconsTf).GetComponentInChildren<Text>().text = reaction.explosionDamage.ToString();
-        if (reaction.electricDamage > 0)
-            Instantiate(electricIconPrefab, iconsTf).GetComponentInChildren<Text>().text = reaction.electricDamage.ToString();
-        if (reaction.heatDamage > 0)
-            Instantiate(heatIconPrefab, iconsTf).GetComponentInChildren<Text>().text = reaction.heatDamage.ToString();
+        if (Reaction.explosionDamage > 0)
+            Instantiate(explosionIconPrefab, iconsTf).GetComponentInChildren<Text>().text = Reaction.explosionDamage.ToString();
+        if (Reaction.electricDamage > 0)
+            Instantiate(electricIconPrefab, iconsTf).GetComponentInChildren<Text>().text = Reaction.electricDamage.ToString();
+        if (Reaction.heatDamage > 0)
+            Instantiate(heatIconPrefab, iconsTf).GetComponentInChildren<Text>().text = Reaction.heatDamage.ToString();
     }
     public void MarkNew(bool cond)
     {
         newSign.gameObject.SetActive(cond);
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        MatchManager.FusionDisplay.PreviewReaction(Reaction);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        MatchManager.FusionDisplay.HidePreview();
     }
 }

@@ -253,7 +253,9 @@ public class SubstanceCard : MonoBehaviour
         SubstanceCard card = Instantiate(baseSubstanceCard);
         card.Substance = substance;
         card.gamer = gamer;
-        if (card.IsEnemySide)
+        if (gamer == null)
+            card.SetDraggable(false);
+        else if (card.IsEnemySide)
             card.transform.eulerAngles = new Vector3(0, 180, 180);
         return card;
     }
