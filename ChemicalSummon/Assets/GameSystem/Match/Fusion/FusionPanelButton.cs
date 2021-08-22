@@ -15,9 +15,12 @@ public class FusionPanelButton : MonoBehaviour
     VerticalLayoutGroup fusionButtonList;
     [SerializeField]
     Color noFusionColor, hasFusionColor;
+    [SerializeField]
+    SBA_FadingExpand newFusionNoticeAnimation;
 
     Reaction lastReaction;
     public Reaction LastReaction => lastReaction;
+    int lastFusionAmount;
 
     private void Awake()
     {
@@ -46,8 +49,13 @@ public class FusionPanelButton : MonoBehaviour
                 }
             });
         }
-        fusionCountImage.color = reactionMethods.Count == 0 ? noFusionColor : hasFusionColor;
-        fusionCountText.text = reactionMethods.Count + " Fusion";
+        if(lastFusionAmount < reactionMethods.Count)
+        {
+            newFusionNoticeAnimation.StartAnimation();
+        }
+        lastFusionAmount = reactionMethods.Count;
+        fusionCountImage.color = lastFusionAmount == 0 ? noFusionColor : hasFusionColor;
+        fusionCountText.text = lastFusionAmount + " Fusion";
     }
     public void OnFusionPanelButtonPress()
     {
