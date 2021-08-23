@@ -14,6 +14,8 @@ public class FusionDisplay : MonoBehaviour
     [SerializeField]
     Transform productCardParent;
     [SerializeField]
+    GameObject fusionDisplayCardSlot;
+    [SerializeField]
     GameObject explosionMark, heatMark, electricMark;
     [SerializeField]
     int radius;
@@ -42,8 +44,7 @@ public class FusionDisplay : MonoBehaviour
             for (int i = 0; i < stackedElement.amount; ++i)
             {
                 float angle = ++iteration * Mathf.PI * 2 / cardAmount;
-                Transform anchor = new GameObject().transform;
-                anchor.SetParent(anchorParent);
+                Transform anchor = Instantiate(fusionDisplayCardSlot, anchorParent).transform;
                 anchor.localPosition = new Vector3(radius * Mathf.Cos(angle), radius * Mathf.Sin(angle));
                 SubstanceCard card = SubstanceCard.GenerateSubstanceCard(substance);
                 card.transform.SetParent(materialCardParent);

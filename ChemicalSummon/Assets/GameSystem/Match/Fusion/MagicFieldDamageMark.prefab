@@ -67,7 +67,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 80
+    m_FontSize: 64
     m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
@@ -165,7 +165,7 @@ PositionConstraint:
   m_GameObject: {fileID: 7419437814862809933}
   m_Enabled: 1
   m_Weight: 1
-  m_TranslationAtRest: {x: -1, y: 211, z: 0}
+  m_TranslationAtRest: {x: 0, y: -211, z: 0}
   m_TranslationOffset: {x: 960, y: 540, z: 0}
   m_AffectTranslationX: 1
   m_AffectTranslationY: 1
