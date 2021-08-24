@@ -32,7 +32,6 @@ public class CardInfoDisplay : MonoBehaviour
     {
         if (isInBattle)
         {
-            reactionListTransform.gameObject.SetActive(false);
             gameObject.SetActive(false);
         }
     }

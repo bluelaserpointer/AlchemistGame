@@ -177,6 +177,7 @@ MonoBehaviour:
   attackButton: {fileID: 425703931532401653}
   sBA_Bump: {fileID: 6042678622715886481}
   placeAnimation: {fileID: 4015746507957289112}
+  placeSE: {fileID: 8300000, guid: 42bd5c13934c6304da33ef5f5c402724, type: 3}
 --- !u!114 &6042678622715886481
 MonoBehaviour:
   m_ObjectHideFlags: 0

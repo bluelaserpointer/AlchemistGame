@@ -35,6 +35,8 @@ public class SubstanceCard : MonoBehaviour
     SBA_NumberApproachingTextMeshPro attackText;
     [SerializeField]
     Text meltingPointText, boilingPointText;
+    [SerializeField]
+    AudioClip cardMoveSE;
 
     //data
     Substance substance;
@@ -148,6 +150,7 @@ public class SubstanceCard : MonoBehaviour
             boilingPointText.text = value.ToString() + "℃";
         }
     }
+    public AudioClip CardMoveSE => cardMoveSE;
 
     /// <summary>
     /// 与卡牌战斗

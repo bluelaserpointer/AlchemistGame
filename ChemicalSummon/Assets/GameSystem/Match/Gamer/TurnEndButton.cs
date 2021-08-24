@@ -14,6 +14,8 @@ public class TurnEndButton : MonoBehaviour
     Color turnEndColor, inactiveColor, playerBlockColor;
     [SerializeField]
     TranslatableSentenceSO startAttackSentence, turnEndSentence, playerBlockSentence;
+    [SerializeField]
+    AudioClip clickSE;
     private void Start()
     {
         MatchManager.Player.OnFusionTurnStart.AddListener(() => {
@@ -48,10 +50,12 @@ public class TurnEndButton : MonoBehaviour
         {
             case TurnType.EnemyAttackTurn: //player block
                 MatchManager.Player.PlayerBlock();
+                MatchManager.PlaySE(clickSE);
                 break;
             case TurnType.MyAttackTurn:
             case TurnType.MyFusionTurn:
                 MatchManager.TurnEnd();
+                MatchManager.PlaySE(clickSE);
                 break;
             default:
                 break;

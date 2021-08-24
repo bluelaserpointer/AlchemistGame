@@ -58,6 +58,9 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     [SerializeField]
     GameObject damageTextPrefab;
 
+    [Header("SE/BGM")]
+    [SerializeField]
+    AudioClip clickCardSE;
     [Header("Demo&Test")]
     public UnityEvent onInit;
 
@@ -277,6 +280,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
+        PlaySE(clickCardSE);
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
         foreach(RaycastResult rayResult in results)
@@ -318,12 +322,17 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     public static void PlaySE(string seResourcePass)
     {
         AudioClip clip = Resources.Load<AudioClip>(seResourcePass);
-        if(clip == null)
+        if (clip == null)
         {
             Debug.LogWarning(seResourcePass + " is not a valid AudioClip resource pass.");
             return;
         }
-        AudioSource.PlayClipAtPoint(clip, GameObject.FindGameObjectWithTag("SE Listener").transform.position);
+        PlaySE(clip);
+    }
+    public static void PlaySE(AudioClip clip)
+    {
+        if(clip != null)
+            AudioSource.PlayClipAtPoint(clip, GameObject.FindGameObjectWithTag("SE Listener").transform.position);
     }
     //animations
     public static void StartAttackAnimation(ShieldCardSlot slot1, ShieldCardSlot slot2, UnityAction onBump)

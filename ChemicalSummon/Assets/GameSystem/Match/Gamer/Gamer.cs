@@ -154,6 +154,7 @@ public abstract class Gamer : MonoBehaviour
     /// <param name="substanceCard"></param>
     public virtual void AddHandCard(SubstanceCard substanceCard, bool fromNewGenerated = false)
     {
+        MatchManager.PlaySE(substanceCard.CardMoveSE);
         SubstanceCard duplicatedCard = FindHandCard(substanceCard);
         if (duplicatedCard == null)
         {

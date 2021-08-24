@@ -17,6 +17,8 @@ public class ShieldCardSlot : CardSlot, IAttackable
     SBA_Bump sBA_Bump;
     [SerializeField]
     SBA_FadingExpand placeAnimation;
+    [SerializeField]
+    AudioClip placeSE;
     /// <summary>
     /// 所属场地
     /// </summary>
@@ -138,5 +140,6 @@ public class ShieldCardSlot : CardSlot, IAttackable
     public override void OnPlaceAnimationEnd()
     {
         placeAnimation.StartAnimation();
+        MatchManager.PlaySE(placeSE);
     }
 }
