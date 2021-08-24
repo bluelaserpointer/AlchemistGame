@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 5657977154052183303}
   - component: {fileID: 5657977154052183298}
   - component: {fileID: 5657977154052183297}
-  - component: {fileID: 5657977154052183296}
+  - component: {fileID: 5800043538292882459}
   m_Layer: 5
   m_Name: FusionDisplayCardSlot
   m_TagString: Untagged
@@ -59,7 +59,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0, b: 0.009047508, a: 0.49803922}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.49803922}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -76,7 +76,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &5657977154052183296
+--- !u!114 &5800043538292882459
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -85,8 +85,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 5657977154052183302}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c7e3528295e6e194289c7ff79f3a7f4a, type: 3}
+  m_Script: {fileID: 11500000, guid: a29ea5ad5fe1e66419d1d88c6c248ab0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  positionMove: {x: 0, y: 0, z: 0}
-  rotationMove: {x: 0, y: 0, z: -5}
+  useTransformTarget: 0
+  targetTransform: {fileID: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  timeLength: 0.1
+  power: 1
+  OnReach:
+    m_PersistentCalls:
+      m_Calls: []

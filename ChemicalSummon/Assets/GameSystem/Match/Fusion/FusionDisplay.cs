@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Animations;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
@@ -14,6 +15,8 @@ public class FusionDisplay : MonoBehaviour
     [SerializeField]
     Transform productCardParent;
     [SerializeField]
+    Transform markParent;
+    [SerializeField]
     GameObject fusionDisplayCardSlot;
     [SerializeField]
     GameObject explosionMark, heatMark, electricMark;
@@ -21,16 +24,22 @@ public class FusionDisplay : MonoBehaviour
     int radius;
     [SerializeField]
     float cardScale = 1;
+    [SerializeField]
+    SBA_FadeIO fader;
 
     Reaction reaction;
+    bool isAnimating;
 
     public void HidePreview()
     {
-        gameObject.SetActive(false);
+        if (!isAnimating)
+            fader.FadeOut();
     }
     public void PreviewReaction(Reaction reaction)
     {
-        gameObject.SetActive(true);
+        if (isAnimating)
+            return;
+        fader.FadeIn();
         this.reaction = reaction;
         anchorParent.DestroyAllChildren();
         materialCardParent.DestroyAllChildren();
@@ -81,6 +90,30 @@ public class FusionDisplay : MonoBehaviour
         }
         else
             electricMark.SetActive(false);
+    }
+    public void StartReactionAnimation(UnityAction action)
+    {
+        isAnimating = true;
+        bool isFirstOne = true;
+        foreach (Transform each in anchorParent)
+        {
+            SBA_TracePosition tracer = each.GetComponent<SBA_TracePosition>();
+            tracer.SetTarget(transform.position);
+            if(isFirstOne)
+            {
+                tracer.AddReachAction(() => { isAnimating = false; action.Invoke(); HidePreview(); });
+                isFirstOne = false;
+            }
+            tracer.StartAnimation();
+        }
+        foreach (Transform each in markParent)
+        {
+            if (!each.gameObject.activeSelf)
+                continue;
+            SBA_FadingExpand expander = each.GetComponent<SBA_FadingExpand>();
+            expander.StartAnimation();
+        }
+        
     }
     private void Update()
     {

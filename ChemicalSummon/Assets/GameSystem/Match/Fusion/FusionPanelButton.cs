@@ -40,13 +40,16 @@ public class FusionPanelButton : MonoBehaviour
             FusionButton fusionButton = Instantiate(prefabFusionButton, fusionButtonList.transform);
             fusionButton.SetReaction(reaction, counterMode);
             fusionButton.Button.onClick.AddListener(() => {
-                lastReaction = reaction;
-                MatchManager.Player.DoReaction(method);
-                //counter fusion
-                if (counterMode)
+                MatchManager.FusionDisplay.StartReactionAnimation(() =>
                 {
-                    MatchManager.Player.EndDefence();
-                }
+                    lastReaction = reaction;
+                    MatchManager.Player.DoReaction(method);
+                    //counter fusion
+                    if (counterMode)
+                    {
+                        MatchManager.Player.EndDefence();
+                    }
+                });
             });
         }
         if(lastFusionAmount < reactionMethods.Count)

@@ -12,20 +12,22 @@ public class SBA_FadingExpand : MonoBehaviour
     public float power = 1;
     //data
     float passedTime = float.MaxValue;
-    bool isBeforeReach;
+    bool isFinished = true;
     Vector3 originalScale;
     public void StartAnimation()
     {
-        if(isBeforeReach)
-            transform.localScale = originalScale;
+        if (!isFinished)
+            Finish();
         gameObject.SetActive(true);
         passedTime = 0;
         originalScale = transform.localScale;
-        isBeforeReach = true;
+        isFinished = false;
     }
     // Start is called before the first frame update
     void FixedUpdate()
     {
+        if (isFinished)
+            return;
         if (passedTime < timeLength)
         {
             float timePassedRate = passedTime / timeLength;
@@ -34,12 +36,24 @@ public class SBA_FadingExpand : MonoBehaviour
             fadingGroup.alpha = 1 - rate;
             passedTime += Time.fixedDeltaTime;
         }
-        if (isBeforeReach && passedTime >= timeLength)
+        else
         {
-            isBeforeReach = false;
+            Finish();
+        }
+    }
+    public void Finish()
+    {
+        if(!isFinished)
+        {
+            isFinished = true;
             gameObject.SetActive(false);
             transform.localScale = originalScale;
-            //TODO: multi time expand
+            fadingGroup.alpha = 1;
+            //TODO: multiple time expand
         }
+    }
+    private void OnEnable()
+    {
+        Finish();
     }
 }
