@@ -26,6 +26,8 @@ public class FusionDisplay : MonoBehaviour
     float cardScale = 1;
     [SerializeField]
     SBA_FadeIO fader;
+    [SerializeField]
+    GameObject fusionEffectPrefab;
 
     Reaction reaction;
     bool isAnimating;
@@ -101,7 +103,12 @@ public class FusionDisplay : MonoBehaviour
             tracer.SetTarget(transform.position);
             if(isFirstOne)
             {
-                tracer.AddReachAction(() => { isAnimating = false; action.Invoke(); HidePreview(); });
+                tracer.AddReachAction(() => {
+                    action.Invoke();
+                    Instantiate(fusionEffectPrefab, MatchManager.instance.transform);
+                    isAnimating = false;
+                    HidePreview();
+                });
                 isFirstOne = false;
             }
             tracer.StartAnimation();

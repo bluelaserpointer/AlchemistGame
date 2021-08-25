@@ -57,10 +57,14 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     GameObject attackEffectPrefab;
     [SerializeField]
     GameObject damageTextPrefab;
+    [SerializeField]
+    GameObject explosionEffectPrefab;
 
     [Header("SE/BGM")]
     [SerializeField]
     AudioClip clickCardSE;
+    [SerializeField]
+    AudioClip victorySE;
     [Header("Demo&Test")]
     public UnityEvent onInit;
 
@@ -176,6 +180,10 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     }
     public void Victory()
     {
+        AudioSource audioSource = GetComponent<AudioSource>();
+        audioSource.Stop();
+        audioSource.clip = victorySE;
+        audioSource.Play();
         Player.SpeakInMatch(Character.SpeakType.Win);
         Enemy.SpeakInMatch(Character.SpeakType.Lose);
         resultPanel.SetResult(true);
@@ -350,6 +358,11 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
             if (onBump != null)
                 onBump.Invoke();
         });
+    }
+    public static void StartExplosionAnimation(Field field)
+    {
+        foreach(var each in field.Slots)
+            Instantiate(instance.explosionEffectPrefab, instance.transform).transform.position = each.transform.position;
     }
     public static void StartDamageAnimation(Vector3 startPosition, int damage, Gamer damagedGamer)
     {

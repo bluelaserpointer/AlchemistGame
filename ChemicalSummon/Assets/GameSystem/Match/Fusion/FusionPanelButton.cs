@@ -17,6 +17,8 @@ public class FusionPanelButton : MonoBehaviour
     Color noFusionColor, hasFusionColor;
     [SerializeField]
     SBA_FadingExpand newFusionNoticeAnimation;
+    [SerializeField]
+    AudioClip clickSE;
 
     Reaction lastReaction;
     public Reaction LastReaction => lastReaction;
@@ -62,6 +64,7 @@ public class FusionPanelButton : MonoBehaviour
     }
     public void OnFusionPanelButtonPress()
     {
+        MatchManager.PlaySE(clickSE);
         fusionButtonList.gameObject.SetActive(!fusionButtonList.gameObject.activeSelf);
     }
     public void HideFusionList()

@@ -30,7 +30,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6263686372729916767}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -110,8 +110,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 577216840576838861}
   - {fileID: 6263686371730348022}
+  - {fileID: 577216840576838861}
   - {fileID: 1911746305206579157}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -145,6 +145,7 @@ MonoBehaviour:
   electricIconPrefab: {fileID: 6121598671615877621, guid: ea29547937eb16d49b0b8fc26a6c69b5,
     type: 3}
   newSign: {fileID: 7345697761440485172}
+  clickSE: {fileID: 8300000, guid: a9d8a0075b0b3cb4fbec8e8caed91472, type: 3}
 --- !u!222 &6263686372729916760
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -411,7 +412,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6263686372729916767}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

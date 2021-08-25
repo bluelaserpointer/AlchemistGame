@@ -11,7 +11,6 @@ public class SBA_FadeIO : MonoBehaviour
     [Range(0, 1)]
     public float targetAlpha;
 
-    float fadeTime = 0.5F;
     private void FixedUpdate()
     {
         if(canvasGroup.alpha != targetAlpha)

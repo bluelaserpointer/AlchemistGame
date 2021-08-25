@@ -17,11 +17,17 @@ public class FusionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     GameObject counterIconPrefab, explosionIconPrefab, heatIconPrefab, electricIconPrefab;
     [SerializeField]
     GameObject newSign;
+    [SerializeField]
+    AudioClip clickSE;
 
     //data
     public Button Button => button;
     public Reaction Reaction { get; protected set; }
 
+    private void Awake()
+    {
+        Button.onClick.AddListener(() => MatchManager.PlaySE(clickSE));
+    }
     public void SetReaction(Reaction reaction, bool isCounter = false)
     {
         Reaction = reaction;

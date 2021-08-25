@@ -361,6 +361,7 @@ public abstract class Gamer : MonoBehaviour
     public virtual void DoExplosion(int explosionDamage)
     {
         MatchManager.PlaySE("Sound/SE/attack2");
+        MatchManager.StartExplosionAnimation(Opponent.Field);
         foreach (ShieldCardSlot cardSlot in Opponent.Field.Slots)
         {
             cardSlot.Damage(explosionDamage);
