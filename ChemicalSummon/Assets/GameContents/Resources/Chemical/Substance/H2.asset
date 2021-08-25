@@ -36,4 +36,8 @@ MonoBehaviour:
   isOre: 0
   description:
     defaultString: 
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u6700\u8F7B\u7684\u6C14\u4F53\uFF0C\u65E0\u8272\u65E0\u5473\u3002\u5E38\u6E29\u5E38\u538B\u4E0B\u6781\u6613\u71C3\u70E7\u3002"
+    - language: 2
+      sentence: "\u7121\u8272\u7121\u81ED\u306E\u6700\u3082\u8EFD\u3044\u6C17\u4F53\u3002\u5E38\u6E29\u5E38\u5727\u3067\u306F\u975E\u5E38\u306B\u71C3\u3048\u3084\u3059\u3044\u3002"

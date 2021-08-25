@@ -24,6 +24,8 @@ public class CardInfoDisplay : MonoBehaviour
     Transform reactionListTransform;
     [SerializeField]
     FusionButton FusionButtonPrefab;
+    [SerializeField]
+    Text cardDescriptionText;
 
     SubstanceCard referedCard;
     public SubstanceCard ReferedCard => referedCard;
@@ -54,6 +56,7 @@ public class CardInfoDisplay : MonoBehaviour
             displayCard.Substance = substanceCard.Substance;
             displayCard.MeltingPoint = substanceCard.MeltingPoint;
             displayCard.BoilingPoint = substanceCard.BoilingPoint;
+            cardDescriptionText.text = displayCard.Description;
             bool isMySide = substanceCard.IsMySide;
             displayBackground.color = isMySide ? new Color(1, 1, 1, 0.5F) : new Color(1, 0, 0, 0.5F);
             molReleaseButton.gameObject.SetActive(isMySide);
@@ -64,6 +67,7 @@ public class CardInfoDisplay : MonoBehaviour
     {
         displayCard.Substance = substance;
         UpdateRelatedReactionList();
+        cardDescriptionText.text = displayCard.Description;
     }
     public void UpdateRelatedReactionList()
     {

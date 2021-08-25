@@ -36,6 +36,8 @@ public class SubstanceCard : MonoBehaviour
     [SerializeField]
     Text meltingPointText, boilingPointText;
     [SerializeField]
+    Text descriptionText;
+    [SerializeField]
     AudioClip cardMoveSE;
 
     //data
@@ -57,6 +59,7 @@ public class SubstanceCard : MonoBehaviour
             cardImage.sprite = Image;
             InitCardAmount(1);
             molText.text = mol.ToString();
+            descriptionText.text = Substance.description;
         }
     }
     int cardAmount;

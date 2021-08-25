@@ -19,16 +19,15 @@ MonoBehaviour:
     - language: 0
       sentence: "\u6C27\u5316\u7EB3"
   elements:
-  - element: {fileID: 11400000, guid: 730a4e27a4949424abd76c3f19c4a958, type: 2}
-    amount: 2
-  - element: {fileID: 11400000, guid: 2a5b75dd53c9ba049b58cee4c08cd27e, type: 2}
-    amount: 1
+    list: []
+    amountAcception: 0
   image: {fileID: 21300000, guid: aa2e2cf9aa6d81643b7149c3df877441, type: 3}
   atk: 3
-  def: 0
   meltingPoint: 1132
   boilingPoint: 1275
+  isPhenomenon: 0
   waterSoluble: 0
+  isOre: 0
   description:
-    defaultString: ?missing?
+    defaultString: 
     languageAndSentences: []

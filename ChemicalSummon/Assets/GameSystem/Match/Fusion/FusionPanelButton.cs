@@ -14,6 +14,8 @@ public class FusionPanelButton : MonoBehaviour
     [SerializeField]
     VerticalLayoutGroup fusionButtonList;
     [SerializeField]
+    Transform showListAnchor, hideListAnchor;
+    [SerializeField]
     Color noFusionColor, hasFusionColor;
     [SerializeField]
     SBA_FadingExpand newFusionNoticeAnimation;
@@ -23,11 +25,8 @@ public class FusionPanelButton : MonoBehaviour
     Reaction lastReaction;
     public Reaction LastReaction => lastReaction;
     int lastFusionAmount;
+    bool showingList;
 
-    private void Awake()
-    {
-        fusionButtonList.gameObject.SetActive(false);
-    }
     public void UpdateList()
     {
         //in counterMode, only counter fusions are avaliable
@@ -65,10 +64,19 @@ public class FusionPanelButton : MonoBehaviour
     public void OnFusionPanelButtonPress()
     {
         MatchManager.PlaySE(clickSE);
-        fusionButtonList.gameObject.SetActive(!fusionButtonList.gameObject.activeSelf);
+        showingList = !showingList;
+        SBA_TracePosition tracer = fusionButtonList.GetComponent<SBA_TracePosition>();
+        tracer.SetTarget(showingList ? showListAnchor : hideListAnchor);
+        tracer.StartAnimation();
     }
     public void HideFusionList()
     {
-        fusionButtonList.gameObject.SetActive(false);
+        if(showingList)
+        {
+            SBA_TracePosition tracer = fusionButtonList.GetComponent<SBA_TracePosition>();
+            tracer.SetTarget(hideListAnchor);
+            tracer.StartAnimation();
+            showingList = false;
+        }
     }
 }
