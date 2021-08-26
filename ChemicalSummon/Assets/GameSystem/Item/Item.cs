@@ -9,6 +9,8 @@ public abstract class Item : MonoBehaviour
     [SerializeField]
     Sprite icon;
 
+    public string Name => itemHeader.name;
+    public string Description => itemHeader.description;
     public Sprite Icon => icon;
 
     public abstract bool Usable { get; }

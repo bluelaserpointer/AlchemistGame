@@ -9,6 +9,11 @@ public class ItemScreen : MonoBehaviour
     ItemButton itemButtonPrefab;
     [SerializeField]
     Transform itemParentTf;
+    [SerializeField]
+    ItemInfoDisplay itemInfoDisplay;
+
+    //data
+    public ItemInfoDisplay ItemInfoDisplay => itemInfoDisplay;
     public void Init()
     {
         foreach (Transform childTf in itemParentTf)

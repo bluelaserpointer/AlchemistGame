@@ -10,4 +10,5 @@ using UnityEngine;
 public class ItemHeader : ScriptableObject
 {
     public new TranslatableSentence name = new TranslatableSentence();
+    public TranslatableSentence description = new TranslatableSentence();
 }

@@ -13,6 +13,7 @@ public class ItemButton : MonoBehaviour
 
     //data
     Item item;
+    public Item Item => item;
     int itemAmount;
     private void Start()
     {
@@ -30,10 +31,14 @@ public class ItemButton : MonoBehaviour
     }
     public void OnClick()
     {
-        if(itemAmount > 0)
+        MapManager.ItemScreen.ItemInfoDisplay.SetItem(this);
+    }
+    public void OnUse()
+    {
+        if (itemAmount > 0)
         {
             item.Use();
-            if(--itemAmount <= 0)
+            if (--itemAmount <= 0)
             {
                 Destroy(gameObject);
                 PlayerSave.ItemStorage.Remove(item);
