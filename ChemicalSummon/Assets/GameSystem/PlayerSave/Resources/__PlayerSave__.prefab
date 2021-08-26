@@ -185,7 +185,7 @@ MonoBehaviour:
     - type: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
       amount: 4
     - type: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
-      amount: 4
+      amount: 3
     - type: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
       amount: 4
     amountAcception: 0
