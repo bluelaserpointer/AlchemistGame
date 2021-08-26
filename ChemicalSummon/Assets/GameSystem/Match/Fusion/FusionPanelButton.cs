@@ -6,6 +6,8 @@ using UnityEngine.UI;
 public class FusionPanelButton : MonoBehaviour
 {
     [SerializeField]
+    TranslatableSentenceSO fusionSentence;
+    [SerializeField]
     FusionButton prefabFusionButton;
     [SerializeField]
     Text fusionCountText;
@@ -27,6 +29,11 @@ public class FusionPanelButton : MonoBehaviour
     int lastFusionAmount;
     bool showingList;
 
+    private void Start()
+    {
+        fusionCountImage.color = noFusionColor;
+        fusionCountText.text = fusionSentence + " 0";
+    }
     public void UpdateList()
     {
         //in counterMode, only counter fusions are avaliable
@@ -59,7 +66,7 @@ public class FusionPanelButton : MonoBehaviour
         }
         lastFusionAmount = reactionMethods.Count;
         fusionCountImage.color = lastFusionAmount == 0 ? noFusionColor : hasFusionColor;
-        fusionCountText.text = lastFusionAmount + " Fusion";
+        fusionCountText.text = fusionSentence + " " + lastFusionAmount;
     }
     public void OnFusionPanelButtonPress()
     {

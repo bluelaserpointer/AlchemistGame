@@ -37,11 +37,11 @@ public class ItemButton : MonoBehaviour
     {
         if (itemAmount > 0)
         {
+            PlayerSave.ItemStorage.Remove(item);
             item.Use();
             if (--itemAmount <= 0)
             {
                 Destroy(gameObject);
-                PlayerSave.ItemStorage.Remove(item);
             }
             else
             {
