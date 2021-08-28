@@ -30,6 +30,8 @@ MonoBehaviour:
   catalysts:
     list: []
     amountAcception: 0
-  explosionDamage: 15
-  electricDamage: 0
-  heatDamage: 3
+  explosion: 15
+  electric: 0
+  heat: 4
+  heatRequire: 0
+  electricRequire: 0

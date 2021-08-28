@@ -22,9 +22,7 @@ public class StatusPanels : MonoBehaviour
     [SerializeField]
     Text deckText;
     [SerializeField]
-    Image molPanel;
-    [SerializeField]
-    SBA_NumberApproachingText molText;
+    SBA_NumberApproachingText heatGemText, electricGemText;
     //data
     Gamer gamer;
     public Image SkillPanel => skillPanel;
@@ -33,17 +31,16 @@ public class StatusPanels : MonoBehaviour
     public SBA_NumberApproachingText HPText => hpText;
     public Image DeckPanel => deckPanel;
     public Text DeckText => deckText;
-    public Image MolPanel => molPanel;
-    public SBA_NumberApproachingText MolText => molText;
 
     public void SetData(Gamer gamer)
     {
         this.gamer = gamer;
         hpText.SetValueImmediate(gamer.HP);
-        molText.SetValueImmediate(gamer.Mol);
+        heatGemText.SetValueImmediate(gamer.HeatGem);
+        electricGemText.SetValueImmediate(gamer.ElectricGem);
         deckText.text = gamer.Deck.CardCount.ToString();
         //auto partial update
-        gamer.OnHPChange.AddListener(() => {
+        gamer.onHPChange.AddListener(() => {
             int hp = gamer.HP;
             hpText.targetValue = hp;
             if(hp > 10)
@@ -65,7 +62,8 @@ public class StatusPanels : MonoBehaviour
                 hpText.normalColor = Color.gray;
             }
         });
-        gamer.OnMolChange.AddListener(() => molText.targetValue = gamer.Mol);
+        gamer.onHeatGemChange.AddListener(() => heatGemText.targetValue = gamer.HeatGem);
+        gamer.onElectricGemChange.AddListener(() => electricGemText.targetValue = gamer.ElectricGem);
         gamer.Deck.onCardCountChange.AddListener(() => {
             int cardCount = gamer.Deck.CardCount;
             deckText.text = cardCount.ToString();

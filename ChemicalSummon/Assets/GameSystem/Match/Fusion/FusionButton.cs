@@ -16,6 +16,10 @@ public class FusionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     [SerializeField]
     GameObject counterIconPrefab, explosionIconPrefab, heatIconPrefab, electricIconPrefab;
     [SerializeField]
+    Binder_ImageAndText gemPrefab;
+    [SerializeField]
+    Color heatGemColor, electricGemColor;
+    [SerializeField]
     GameObject newSign;
     [SerializeField]
     AudioClip clickSE;
@@ -36,12 +40,22 @@ public class FusionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
             Destroy(each.gameObject);
         if (isCounter)
             Instantiate(counterIconPrefab, iconsTf);
-        if (Reaction.explosionDamage > 0)
-            Instantiate(explosionIconPrefab, iconsTf).GetComponentInChildren<Text>().text = Reaction.explosionDamage.ToString();
-        if (Reaction.electricDamage > 0)
-            Instantiate(electricIconPrefab, iconsTf).GetComponentInChildren<Text>().text = Reaction.electricDamage.ToString();
-        if (Reaction.heatDamage > 0)
-            Instantiate(heatIconPrefab, iconsTf).GetComponentInChildren<Text>().text = Reaction.heatDamage.ToString();
+        //requirementsIcon
+        if (Reaction.heatRequire > 0)
+        {
+            Instantiate(gemPrefab, iconsTf).Set(heatGemColor, Reaction.heatRequire.ToString());
+        }
+        if (Reaction.electricRequire > 0)
+        {
+            Instantiate(gemPrefab, iconsTf).Set(electricGemColor, Reaction.electricRequire.ToString());
+        }
+        //productsIcon
+        if (Reaction.explosion > 0)
+            Instantiate(explosionIconPrefab, iconsTf).GetComponentInChildren<Text>().text = Reaction.explosion.ToString();
+        if (Reaction.heat > 0)
+            Instantiate(heatIconPrefab, iconsTf).GetComponentInChildren<Text>().text = Reaction.heat.ToString();
+        if (Reaction.electric > 0)
+            Instantiate(electricIconPrefab, iconsTf).GetComponentInChildren<Text>().text = Reaction.electric.ToString();
     }
     public void MarkNew(bool cond)
     {

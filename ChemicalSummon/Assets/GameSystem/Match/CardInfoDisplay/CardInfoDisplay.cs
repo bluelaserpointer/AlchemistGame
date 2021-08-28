@@ -17,10 +17,6 @@ public class CardInfoDisplay : MonoBehaviour
     [SerializeField]
     Text checkReactionText;
     [SerializeField]
-    Button molReleaseButton;
-    [SerializeField]
-    Text molReleaseText;
-    [SerializeField]
     Transform reactionListTransform;
     [SerializeField]
     FusionButton FusionButtonPrefab;
@@ -43,7 +39,6 @@ public class CardInfoDisplay : MonoBehaviour
         {
             displayCard.InitCardAmount(referedCard.CardAmount);
             checkReactionText.text = relatedReactions.Count.ToString();
-            molReleaseText.text = referedCard.Mol.ToString();
         }
     }
     public void SetCard(SubstanceCard substanceCard)
@@ -59,7 +54,6 @@ public class CardInfoDisplay : MonoBehaviour
             cardDescriptionText.text = displayCard.Description;
             bool isMySide = substanceCard.IsMySide;
             displayBackground.color = isMySide ? new Color(1, 1, 1, 0.5F) : new Color(1, 0, 0, 0.5F);
-            molReleaseButton.gameObject.SetActive(isMySide);
             UpdateRelatedReactionList();
         }
     }
@@ -84,22 +78,5 @@ public class CardInfoDisplay : MonoBehaviour
     public void OnCheckReactionButtonClick()
     {
         reactionListTransform.gameObject.SetActive(!reactionListTransform.gameObject.activeSelf);
-    }
-    public void OnReleaseButtonClick()
-    {
-        if(referedCard != null)
-        {
-            if(referedCard.CardAmount == 1)
-            {
-                MatchManager.Player.ReleaseCard(referedCard, 1);
-                referedCard = null;
-                gameObject.SetActive(false);
-            }
-            else
-            {
-                MatchManager.Player.ReleaseCard(referedCard, 1);
-            }
-
-        }
     }
 }

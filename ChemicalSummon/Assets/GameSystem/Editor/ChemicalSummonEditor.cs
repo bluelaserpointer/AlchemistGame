@@ -234,10 +234,12 @@ public static class ChemicalSummonEditor
                 reaction.leftSubstances = StrToSubstanceAndAmount(rowData[0].ToString());
                 reaction.rightSubstances = StrToSubstanceAndAmount(rowData[1].ToString());
                 reaction.catalysts = StrToSubstanceAndAmount(rowData[2].ToString());
-                //Damages
-                reaction.explosionDamage = ToInt(rowData[3].ToString());
-                reaction.heatDamage = ToInt(rowData[4].ToString());
-                reaction.electricDamage = ToInt(rowData[5].ToString());
+                //Special
+                reaction.heatRequire = ToInt(rowData[3].ToString());
+                reaction.electricRequire = ToInt(rowData[4].ToString());
+                reaction.explosion = ToInt(rowData[5].ToString());
+                reaction.heat = ToInt(rowData[6].ToString());
+                reaction.electric = ToInt(rowData[7].ToString());
                 if (newCreated)
                 {
                     AssetDatabase.CreateAsset(reaction, @"Assets/GameContents/Resources/Chemical/Reaction/" + reactionName + ".asset");

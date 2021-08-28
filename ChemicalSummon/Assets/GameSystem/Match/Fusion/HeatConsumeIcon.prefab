@@ -167,7 +167,7 @@ GameObject:
   - component: {fileID: 5179557239616692223}
   - component: {fileID: 4233826035895181749}
   m_Layer: 5
-  m_Name: HeatIcon
+  m_Name: HeatConsumeIcon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

@@ -93,7 +93,7 @@ public class Player : Gamer
         }
     }
     Func<ShieldCardSlot, bool> selectSlotAction;
-    public override void DoBurn(int burnDamage)
+    public void DoBurn_FireFairy(int burnDamage)
     {
         MatchManager.MessagePanel.SelectOpponentSlot();
         selectSlotAction = cardSlot =>

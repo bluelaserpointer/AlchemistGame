@@ -71,24 +71,24 @@ public class FusionDisplay : MonoBehaviour
             card.transform.SetParent(productCardParent);
         }
         //specialDamageIcon
-        if (reaction.explosionDamage > 0)
+        if (reaction.explosion > 0)
         {
             explosionMark.SetActive(true);
-            explosionMark.GetComponentInChildren<Text>().text = reaction.explosionDamage.ToString();
+            explosionMark.GetComponentInChildren<Text>().text = reaction.explosion.ToString();
         }
         else
             explosionMark.SetActive(false);
-        if (reaction.heatDamage > 0)
+        if (reaction.heat > 0)
         {
             heatMark.SetActive(true);
-            heatMark.GetComponentInChildren<Text>().text = reaction.heatDamage.ToString();
+            heatMark.GetComponentInChildren<Text>().text = reaction.heat.ToString();
         }
         else
             heatMark.SetActive(false);
-        if (reaction.electricDamage > 0)
+        if (reaction.electric > 0)
         {
             electricMark.SetActive(true);
-            electricMark.GetComponentInChildren<Text>().text = reaction.electricDamage.ToString();
+            electricMark.GetComponentInChildren<Text>().text = reaction.electric.ToString();
         }
         else
             electricMark.SetActive(false);

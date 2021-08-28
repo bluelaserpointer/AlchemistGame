@@ -82,12 +82,6 @@ public class CardDrag : Draggable
                 }
                 continue;
             }
-            //release card to mol
-            if(hitUI.Equals(MatchManager.Player.StatusPanels.MolPanel.gameObject))
-            {
-                MatchManager.Player.ReleaseCard(substanceCard);
-                return;
-            }
             //attack face
             AttackableGamer face = hitUI.GetComponent<AttackableGamer>();
             if (face != null)

@@ -50,7 +50,7 @@ public class Enemy : Gamer
             MatchManager.Enemy.SpeakInMatch(Character.SpeakType.Counter);
         }
     }
-    public override void DoBurn(int burnDamage)
+    public void DoBurn_FireFairy(int burnDamage)
     {
         ShieldCardSlot slot = new List<ShieldCardSlot>(MatchManager.Player.Field.Slots).FindMostValuable(slot =>
         {

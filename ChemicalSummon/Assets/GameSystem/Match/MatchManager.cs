@@ -167,8 +167,8 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         onTurnStart.AddListener(Player.Field.UpdateCardsDraggable);
         MyField.cardsChanged.AddListener(fusionPanel.UpdateList);
         Player.OnHandCardsChanged.AddListener(fusionPanel.UpdateList);
-        Player.OnHPChange.AddListener(() => { if (Player.HP <= 0) Defeat(); });
-        Enemy.OnHPChange.AddListener(() => { if (Enemy.HP <= 0) Victory(); });
+        Player.onHPChange.AddListener(() => { if (Player.HP <= 0) Defeat(); });
+        Enemy.onHPChange.AddListener(() => { if (Enemy.HP <= 0) Victory(); });
         //demo
         onInit.Invoke();
         //add

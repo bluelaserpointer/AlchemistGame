@@ -60,7 +60,7 @@ public abstract class Gamer : MonoBehaviour
     /// </summary>
     public HandCardsArrange HandCardsDisplay => handCardsDisplay;
     int hp;
-    int mol;
+    int heatGem, electricGem;
     /// <summary>
     /// 体力初始值
     /// </summary>
@@ -70,26 +70,34 @@ public abstract class Gamer : MonoBehaviour
     /// </summary>
     public abstract List<Reaction> LearnedReactions { get; }
     public SubstanceCard CurrentAttacker { get; protected set; }
-    UnityEvent onHPChange = new UnityEvent();
-    UnityEvent onMolChange = new UnityEvent();
-    public UnityEvent OnHPChange => onHPChange;
-    public UnityEvent OnMolChange => onMolChange;
+    public readonly UnityEvent onHPChange = new UnityEvent();
+    public readonly UnityEvent onHeatGemChange = new UnityEvent();
+    public readonly UnityEvent onElectricGemChange = new UnityEvent();
     public int HP
     {
         get => hp;
         set
         {
             hp = value;
-            OnHPChange.Invoke();
+            onHPChange.Invoke();
         }
     }
-    public int Mol
+    public int HeatGem
     {
-        get => mol;
+        get => heatGem;
         set
         {
-            mol = value;
-            onMolChange.Invoke();
+            heatGem = value;
+            onHeatGemChange.Invoke();
+        }
+    }
+    public int ElectricGem
+    {
+        get => electricGem;
+        set
+        {
+            electricGem = value;
+            onElectricGemChange.Invoke();
         }
     }
     /// <summary>
@@ -129,6 +137,8 @@ public abstract class Gamer : MonoBehaviour
         this.character = character;
         this.deck = deck;
         hp = InitialHP;
+        heatGem = 16;
+        electricGem = 8;
         faceImage.sprite = character.FaceIcon;
         gamerNameText.text = character.Name;
         statusPanels.SetData(this);
@@ -186,19 +196,6 @@ public abstract class Gamer : MonoBehaviour
             return true;
         }
         return false;
-    }
-    /// <summary>
-    /// 解放卡牌(回收摩尔能量)
-    /// </summary>
-    /// <param name="substanceCard"></param>
-    public void ReleaseCard(SubstanceCard substanceCard)
-    {
-        Mol += substanceCard.Mol * substanceCard.CardAmount;
-        substanceCard.Dispose();
-    }
-    public void ReleaseCard(SubstanceCard substanceCard, int amount)
-    {
-        Mol += substanceCard.Mol * substanceCard.RemoveAmount(amount);
     }
     /// <summary>
     /// 手牌总数
@@ -290,6 +287,8 @@ public abstract class Gamer : MonoBehaviour
         List<Reaction.ReactionMethod> results = new List<Reaction.ReactionMethod>();
         foreach (Reaction reaction in LearnedReactions)
         {
+            if (reaction.heatRequire > HeatGem || reaction.electricRequire > ElectricGem)
+                continue;
             bool condition = true;
             bool addedAttacker = false;
             Dictionary<SubstanceCard, int> consumingCards = new Dictionary<SubstanceCard, int>();
@@ -345,19 +344,27 @@ public abstract class Gamer : MonoBehaviour
             AddHandCard(newCard, true);
         }
         Reaction reaction = method.reaction;
-        //special damage
-        if(reaction.explosionDamage > 0)
-            PushActionStack(() => DoExplosion(reaction.explosionDamage));
-        if (reaction.electricDamage > 0)
-            PushActionStack(() => DoElectricShock(reaction.electricDamage));
-        if (reaction.heatDamage > 0)
-            PushActionStack(() => DoBurn(reaction.heatDamage));
-        if (reaction.heatDamage == 0 && reaction.explosionDamage == 0 && reaction.electricDamage == 0)
+        //special
+        if (reaction.heatRequire > 0)
+            HeatGem -= reaction.heatRequire;
+        if (reaction.electricRequire > 0)
+            ElectricGem -= reaction.electricRequire;
+        if(reaction.explosion > 0)
+            PushActionStack(() => DoExplosion(reaction.explosion));
+        if (reaction.electric > 0)
+            PushActionStack(() => DoElectricShock(reaction.electric));
+        if (reaction.heat > 0)
+            PushActionStack(() => DoBurn(reaction.heat));
+        if (reaction.heat == 0 && reaction.explosion == 0 && reaction.electric == 0)
             MatchManager.PlaySE("Sound/SE/powerup10"); //TODO: make a single fusion SE play time
         //event invoke
         MatchManager.instance.onFusionFinish.Invoke();
     }
-    public abstract void DoBurn(int burnDamage);
+    public virtual void DoBurn(int burnDamage)
+    {
+        HeatGem += burnDamage;
+        DoStackedAction();
+    }
     public virtual void DoExplosion(int explosionDamage)
     {
         MatchManager.PlaySE("Sound/SE/attack2");
@@ -370,7 +377,7 @@ public abstract class Gamer : MonoBehaviour
     }
     public virtual void DoElectricShock(int electricDamage)
     {
-        //TODO: Edit
+        ElectricGem += electricDamage;
         DoStackedAction();
     }
     public bool BurnSlot(ShieldCardSlot cardSlot, int burnDamage)

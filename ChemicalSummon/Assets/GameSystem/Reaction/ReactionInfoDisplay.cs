@@ -40,15 +40,15 @@ public class ReactionInfoDisplay : MonoBehaviour
             card.Substance = each.type;
             card.InitCardAmount(each.amount);
         }
-        if(reaction.electricDamage > 0)
+        if(reaction.electric > 0)
         {
             Instantiate(reactionSpecialDamageLabelPrefab, specialsListTf).SetReactionDamageType(DamageType.Electronic);
         }
-        if (reaction.explosionDamage > 0)
+        if (reaction.explosion > 0)
         {
             Instantiate(reactionSpecialDamageLabelPrefab, specialsListTf).SetReactionDamageType(DamageType.Explosion);
         }
-        if (reaction.heatDamage > 0)
+        if (reaction.heat > 0)
         {
             Instantiate(reactionSpecialDamageLabelPrefab, specialsListTf).SetReactionDamageType(DamageType.Heat);
         }

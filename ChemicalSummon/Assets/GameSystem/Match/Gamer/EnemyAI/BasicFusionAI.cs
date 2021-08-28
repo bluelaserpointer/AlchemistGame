@@ -74,7 +74,7 @@ public class BasicFusionAI : NoFusionAI
     protected int JudgePriority(Reaction reaction)
     {
         int score = 0;
-        score += reaction.explosionDamage * 10;
+        score += reaction.explosion * 10;
         
         return score;
     }
