@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public abstract class ChemicalSummonManager : MonoBehaviour
 {
-    public static string Version => "alpha1.2.4";
+    public static string Version => "alpha1.2.5";
     public static Canvas MainCanvas
     {
         get;

@@ -349,13 +349,13 @@ public abstract class Gamer : MonoBehaviour
             HeatGem -= reaction.heatRequire;
         if (reaction.electricRequire > 0)
             ElectricGem -= reaction.electricRequire;
-        if(reaction.explosion > 0)
-            PushActionStack(() => DoExplosion(reaction.explosion));
-        if (reaction.electric > 0)
-            PushActionStack(() => DoElectricShock(reaction.electric));
         if (reaction.heat > 0)
             PushActionStack(() => DoBurn(reaction.heat));
-        if (reaction.heat == 0 && reaction.explosion == 0 && reaction.electric == 0)
+        if (reaction.electric > 0)
+            PushActionStack(() => DoElectricShock(reaction.electric));
+        if (reaction.explosion > 0)
+            PushActionStack(() => DoExplosion(reaction.explosion));
+        if (reaction.explosion == 0)
             MatchManager.PlaySE("Sound/SE/powerup10"); //TODO: make a single fusion SE play time
         //event invoke
         MatchManager.instance.onFusionFinish.Invoke();
