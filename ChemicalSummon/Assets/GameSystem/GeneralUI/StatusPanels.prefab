@@ -963,6 +963,8 @@ MonoBehaviour:
   deckPanel: {fileID: 4286407853331355792}
   deckIcon: {fileID: 4286407851673478961}
   deckText: {fileID: 4286407852569110718}
+  heatGemPanel: {fileID: 4286407852650463876}
+  electricGemPanel: {fileID: 4286407852962979984}
   heatGemText: {fileID: 2546680425716514205}
   electricGemText: {fileID: 5765283578910457893}
 --- !u!114 &3718142027790170328

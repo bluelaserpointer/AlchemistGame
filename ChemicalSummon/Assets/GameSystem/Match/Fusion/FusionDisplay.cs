@@ -120,7 +120,14 @@ public class FusionDisplay : MonoBehaviour
             SBA_FadingExpand expander = each.GetComponent<SBA_FadingExpand>();
             expander.StartAnimation();
         }
-        
+        for(int i = 0; i < reaction.heatRequire; ++i)
+        {
+            MatchManager.StartGemMoveAnimation(Color.red, MatchManager.Player.StatusPanels.HeatGemPanel.transform.position, transform.position);
+        }
+        for (int i = 0; i < reaction.electricRequire; ++i)
+        {
+            MatchManager.StartGemMoveAnimation(Color.yellow, MatchManager.Player.StatusPanels.ElectricGemPanel.transform.position, transform.position);
+        }
     }
     private void Update()
     {

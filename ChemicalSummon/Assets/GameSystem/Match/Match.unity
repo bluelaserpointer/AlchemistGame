@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3707403, g: 0.64136815, b: 0.87588, a: 1}
+  m_IndirectSpecularColor: {r: 0.37067807, g: 0.64145833, b: 0.87594736, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8527,6 +8527,8 @@ MonoBehaviour:
   damageTextPrefab: {fileID: 5373216035110347765, guid: 43eaf774cf55f9449b2b1f1444962168,
     type: 3}
   explosionEffectPrefab: {fileID: 247235651712881013, guid: 702bf75e37394b74fa6e4b7d6c9325ba,
+    type: 3}
+  movingGemPrefab: {fileID: 8747929785874210510, guid: 2be1ba3ff88992e4586186c98ac8e8fd,
     type: 3}
   clickCardSE: {fileID: 8300000, guid: a9d8a0075b0b3cb4fbec8e8caed91472, type: 3}
   victorySE: {fileID: 8300000, guid: 44d20c815aa1e4e44a81ad2e5113bfd5, type: 3}

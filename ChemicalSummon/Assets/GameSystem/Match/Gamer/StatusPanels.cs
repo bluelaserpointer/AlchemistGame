@@ -22,6 +22,8 @@ public class StatusPanels : MonoBehaviour
     [SerializeField]
     Text deckText;
     [SerializeField]
+    Image heatGemPanel, electricGemPanel;
+    [SerializeField]
     SBA_NumberApproachingText heatGemText, electricGemText;
     //data
     Gamer gamer;
@@ -31,6 +33,8 @@ public class StatusPanels : MonoBehaviour
     public SBA_NumberApproachingText HPText => hpText;
     public Image DeckPanel => deckPanel;
     public Text DeckText => deckText;
+    public Image HeatGemPanel => heatGemPanel;
+    public Image ElectricGemPanel => electricGemPanel;
 
     public void SetData(Gamer gamer)
     {

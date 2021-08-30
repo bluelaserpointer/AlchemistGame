@@ -59,6 +59,8 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     GameObject damageTextPrefab;
     [SerializeField]
     GameObject explosionEffectPrefab;
+    [SerializeField]
+    GameObject movingGemPrefab;
 
     [Header("SE/BGM")]
     [SerializeField]
@@ -377,5 +379,15 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
             Destroy(damageText);
         });
         trace.StartAnimation();
+    }
+    public static void StartGemMoveAnimation(Color color, Vector3 src, Vector3 dst, UnityAction reachAction = null)
+    {
+        GameObject gem = Instantiate(instance.movingGemPrefab, instance.transform);
+        gem.GetComponent<Image>().color = color;
+        SBA_TracePosition tracer = gem.GetComponent<SBA_TracePosition>();
+        tracer.transform.position = src;
+        tracer.SetTarget(dst);
+        tracer.AddReachAction(reachAction);
+        tracer.StartAnimation();
     }
 }

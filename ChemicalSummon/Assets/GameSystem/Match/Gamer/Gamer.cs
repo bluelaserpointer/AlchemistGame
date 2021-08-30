@@ -362,7 +362,10 @@ public abstract class Gamer : MonoBehaviour
     }
     public virtual void DoBurn(int burnDamage)
     {
-        HeatGem += burnDamage;
+        for (int i = 0; i < burnDamage; ++i)
+        {
+            MatchManager.StartGemMoveAnimation(Color.red, MatchManager.FusionDisplay.transform.position, StatusPanels.HeatGemPanel.transform.position, () => ++HeatGem);
+        }
         DoStackedAction();
     }
     public virtual void DoExplosion(int explosionDamage)
@@ -377,7 +380,10 @@ public abstract class Gamer : MonoBehaviour
     }
     public virtual void DoElectricShock(int electricDamage)
     {
-        ElectricGem += electricDamage;
+        for (int i = 0; i < electricDamage; ++i)
+        {
+            MatchManager.StartGemMoveAnimation(Color.yellow, MatchManager.FusionDisplay.transform.position, StatusPanels.ElectricGemPanel.transform.position, () => ++ElectricGem);
+        }
         DoStackedAction();
     }
     public bool BurnSlot(ShieldCardSlot cardSlot, int burnDamage)
