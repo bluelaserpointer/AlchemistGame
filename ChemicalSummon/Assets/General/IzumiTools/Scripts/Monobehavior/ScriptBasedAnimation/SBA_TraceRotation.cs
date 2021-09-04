@@ -7,8 +7,10 @@ using UnityEngine.Events;
 public class SBA_TraceRotation : MonoBehaviour
 {
     public bool useTransformTarget;
-    public Transform targetTransform;
-    public Vector3 targetRotation;
+    [SerializeField]
+    Transform targetTransform;
+    [SerializeField]
+    Quaternion targetRotation;
     [Min(0)]
     public float timeLength = 0.1F;
     [Min(0)]
@@ -17,20 +19,20 @@ public class SBA_TraceRotation : MonoBehaviour
     UnityEvent OnReach;
     //data
     float passedTime = float.MaxValue;
-    Vector3 originalRotation;
-    bool isBeforeReach;
+    Quaternion originalRotation;
+    public bool IsBeforeReach { get; protected set; }
     List<UnityAction> oneTimeReachActions = new List<UnityAction>();
     private void FixedUpdate()
     {
         if (passedTime < timeLength)
         {
             float timePassedRate = passedTime / timeLength;
-            transform.eulerAngles = Vector3.Lerp(originalRotation, useTransformTarget ? targetTransform.eulerAngles : targetRotation, Mathf.Pow(timePassedRate, power));
+            transform.rotation = Quaternion.Lerp(originalRotation, useTransformTarget ? targetTransform.rotation : targetRotation, Mathf.Pow(timePassedRate, power));
             passedTime += Time.fixedDeltaTime;
         }
-        if (isBeforeReach && passedTime >= timeLength)
+        if (IsBeforeReach && passedTime >= timeLength)
         {
-            isBeforeReach = false;
+            IsBeforeReach = false;
             OnReach.Invoke();
             foreach (UnityAction action in oneTimeReachActions)
                 OnReach.RemoveListener(action);
@@ -40,8 +42,8 @@ public class SBA_TraceRotation : MonoBehaviour
     public void StartAnimation()
     {
         passedTime = 0;
-        originalRotation = transform.eulerAngles;
-        isBeforeReach = true;
+        originalRotation = transform.rotation;
+        IsBeforeReach = true;
     }
     public void AddReachAction(UnityAction reachAction, bool isOneTime = true)
     {
@@ -56,7 +58,7 @@ public class SBA_TraceRotation : MonoBehaviour
         this.targetTransform = targetTransform;
         useTransformTarget = true;
     }
-    public void SetTarget(Vector3 targetRotation)
+    public void SetTarget(Quaternion targetRotation)
     {
         this.targetRotation = targetRotation;
         useTransformTarget = false;

@@ -18,6 +18,7 @@ public abstract class ChemicalSummonManager : MonoBehaviour
     protected void Init()
     {
         MainCanvas = mainCanvas;
+        DynamicGI.UpdateEnvironment();
     }
     public static bool CurrentSceneIsMatch => SceneManager.GetActiveScene().name.Equals("Match");
     public static bool CurrentSceneIsMap => SceneManager.GetActiveScene().name.Equals("Map");

@@ -21,6 +21,8 @@ public class Tab : MonoBehaviour
     List<ButtonAndContent> buttonAndContents;
     [SerializeField]
     UnityEvent onTabSelectChange;
+    [SerializeField]
+    Button closeButton;
     //data
     public ButtonAndContent SelectedTabPair { protected set; get; }
     public Button SelectedTabButton => SelectedTabPair == null ? null : SelectedTabPair.button;
@@ -43,14 +45,14 @@ public class Tab : MonoBehaviour
                 {
                     if (reselectToDisable)
                     {
-                        SelectedTabPair = null;
-                        pair.content.SetActive(false);
-                        onTabSelectChange.Invoke();
+                        CloseCurrent();
                     }
                 }
                 else
                 {
-                    if (SelectedTabPair != null)
+                    if (SelectedTabPair == null)
+                        closeButton.gameObject.SetActive(true);
+                    else
                         SelectedTabPair.content.SetActive(false);
                     SelectedTabPair = pair;
                     pair.content.SetActive(true);
@@ -58,5 +60,19 @@ public class Tab : MonoBehaviour
                 }
             });
         }
+        if(closeButton != null)
+        {
+            closeButton.onClick.AddListener(CloseCurrent);
+        }
+        closeButton.gameObject.SetActive(false);
+    }
+    public void CloseCurrent()
+    {
+        if (SelectedTabPair == null)
+            return;
+        SelectedTabContent.SetActive(false);
+        SelectedTabPair = null;
+        onTabSelectChange.Invoke();
+        closeButton.gameObject.SetActive(false);
     }
 }

@@ -38,7 +38,7 @@ public class FirstMoverDecider : MonoBehaviour
             mustCorrect = false;
         }
         playerIsFirstMover = isPure == drawedCard.Substance.IsPureElement;
-        drawedCard.TraceRotation(Vector3.zero, () =>
+        drawedCard.TraceRotation(Quaternion.identity, () =>
         {
             middleText.text = playerIsFirstMover ? firstMoverSentence : secondMoverSentence;
             Invoke("EndDecision", 1.5F);

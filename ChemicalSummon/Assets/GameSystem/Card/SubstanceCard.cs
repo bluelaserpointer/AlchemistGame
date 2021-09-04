@@ -306,9 +306,9 @@ public class SubstanceCard : MonoBehaviour
         sBA_TracePosition.AddReachAction(reachAction);
         sBA_TracePosition.StartAnimation();
     }
-    public void TraceRotation(Vector3 eularAngles, UnityAction reachAction = null)
+    public void TraceRotation(Quaternion rotation, UnityAction reachAction = null)
     {
-        sBA_TraceRotation.SetTarget(eularAngles);
+        sBA_TraceRotation.SetTarget(rotation);
         sBA_TraceRotation.AddReachAction(reachAction);
         sBA_TraceRotation.StartAnimation();
     }

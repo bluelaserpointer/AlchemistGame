@@ -35,6 +35,13 @@ public class Event : MonoBehaviour
     }
     public Transform CurrentEventNodeTf => transform.GetChild(currentIndex);
     /// <summary>
+    /// 开始事件
+    /// </summary>
+    public void StartNewEvent()
+    {
+        Instantiate(gameObject).GetComponent<Event>().Progress();
+    }
+    /// <summary>
     /// 推进事件(每当 推进对话 / 完成战斗 等情况调用)
     /// </summary>
     public void Progress()

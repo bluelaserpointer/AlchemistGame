@@ -9,6 +9,10 @@ public class MapManager : ChemicalSummonManager
     public static MapManager instance;
 
     [SerializeField]
+    World world;
+    [SerializeField]
+    WorldPlayer worldPlayer;
+    [SerializeField]
     ItemScreen itemScreen;
     [SerializeField]
     DeckScreen deckScreen;
@@ -23,6 +27,7 @@ public class MapManager : ChemicalSummonManager
     [SerializeField]
     Image newReactionSign;
 
+    public static WorldPlayer Player => instance.worldPlayer;
     public static ItemScreen ItemScreen => instance.itemScreen;
     public static DeckScreen DeckScreen => instance.deckScreen;
     public static ReactionScreen ReactionScreen => instance.reactionScreen;
