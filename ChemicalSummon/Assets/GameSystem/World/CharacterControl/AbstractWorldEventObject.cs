@@ -16,42 +16,43 @@ public abstract class AbstractWorldEventObject : MonoBehaviour
     UnityEvent OnEvent;
 
     //data
-    CanvasGroup canvasGroup;
+    GameObject generatedPopUp;
+    CanvasGroup popUpCanvasGroup;
     [SerializeField]
     TranslatableSentenceSO popUpSentence;
     [SerializeField]
-    Transform popUpPosition;
+    Vector3 popUpPosCorrect = new Vector3(0, 50, 0);
     public Collider EventCollider => eventCollider;
     public bool OccupyMovement { get; protected set; }
     private void Start()
     {
-        GameObject generatedPopup = Instantiate(Resources.Load<GameObject>("WorldPopUp"));
-        generatedPopup.transform.position = (popUpPosition ?? transform).position;
-        canvasGroup = generatedPopup.GetComponentInChildren<CanvasGroup>();
-        canvasGroup.GetComponentInChildren<Text>().text = popUpSentence;
-        canvasGroup.alpha = 0;
+        generatedPopUp = Instantiate(Resources.Load<GameObject>("PopUp"), WorldManager.MainCanvas.transform);
+        popUpCanvasGroup = generatedPopUp.GetComponentInChildren<CanvasGroup>();
+        popUpCanvasGroup.GetComponentInChildren<Text>().text = popUpSentence;
+        popUpCanvasGroup.alpha = 0;
     }
     private void Update()
     {
-        if(Equals(MapManager.Player.InInteractionColliderEventObject))
-            canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, 1, 16F * Time.deltaTime);
+        generatedPopUp.transform.position = Camera.main.WorldToScreenPoint(transform.position) + popUpPosCorrect;
+        if (Equals(WorldManager.Player.InInteractionColliderEventObject))
+            popUpCanvasGroup.alpha = Mathf.MoveTowards(popUpCanvasGroup.alpha, 1, 16F * Time.deltaTime);
         else
-            canvasGroup.alpha = Mathf.MoveTowards(canvasGroup.alpha, 0, 16F * Time.deltaTime);
+            popUpCanvasGroup.alpha = Mathf.MoveTowards(popUpCanvasGroup.alpha, 0, 16F * Time.deltaTime);
     }
     private void OnTriggerEnter(Collider other)
     {
         switch(eventType)
         {
             case EventType.StepIn:
-                if (other.Equals(MapManager.Player.StepInCollider))
+                if (other.Equals(WorldManager.Player.StepInCollider))
                 {
                     InvokeEvent();
                 }
                 break;
             case EventType.PressInteract:
-                if (other.Equals(MapManager.Player.InteractionCollider))
+                if (other.Equals(WorldManager.Player.InteractionCollider))
                 {
-                    MapManager.Player.InInteractionColliderEventObject = this; //TODO: priority
+                    WorldManager.Player.InInteractionColliderEventObject = this; //TODO: priority
                 }
                 break;
         }
@@ -63,11 +64,11 @@ public abstract class AbstractWorldEventObject : MonoBehaviour
             case EventType.StepIn:
                 break;
             case EventType.PressInteract:
-                if (other.Equals(MapManager.Player.InteractionCollider))
+                if (other.Equals(WorldManager.Player.InteractionCollider))
                 {
-                    if (Equals(MapManager.Player.InInteractionColliderEventObject))
+                    if (Equals(WorldManager.Player.InInteractionColliderEventObject))
                     {
-                        MapManager.Player.InInteractionColliderEventObject = null;
+                        WorldManager.Player.InInteractionColliderEventObject = null;
                     }
                 }
                 break;

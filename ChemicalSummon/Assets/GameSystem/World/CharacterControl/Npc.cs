@@ -20,7 +20,7 @@ public class Npc : MonoBehaviour
     {
         if(lookAtPlayer)
         {
-            WorldCharacter player = MapManager.Player.TargetModel;
+            WorldCharacter player = WorldManager.Player.TargetModel;
             if(player != null)
             {
                 Vector3 playerVecXZ = new Vector3(player.transform.position.x - transform.position.x, 0, player.transform.position.z - transform.position.z);

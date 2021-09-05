@@ -762,7 +762,7 @@ GameObject:
   - component: {fileID: 86238907}
   - component: {fileID: 86238913}
   m_Layer: 5
-  m_Name: MapScreen
+  m_Name: WorldScreen
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -843,7 +843,6 @@ RectTransform:
   - {fileID: 1440516224}
   - {fileID: 1827552680}
   - {fileID: 863027807}
-  - {fileID: 107621345}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -872,7 +871,7 @@ MonoBehaviour:
   reactionScreen: {fileID: 1048003081}
   characterScreen: {fileID: 167476439}
   debugScreen: {fileID: 546501146}
-  stageScreen: {fileID: 107621348}
+  stageScreen: {fileID: 0}
   newReactionSign: {fileID: 2102537447}
 --- !u!82 &86238913
 AudioSource:
@@ -1048,94 +1047,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 107185010}
   m_CullTransparentMesh: 1
---- !u!1 &107621344
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 107621345}
-  - component: {fileID: 107621348}
-  - component: {fileID: 107621347}
-  - component: {fileID: 107621346}
-  m_Layer: 5
-  m_Name: StageScreen
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 0
---- !u!224 &107621345
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107621344}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
-  m_Father: {fileID: 86238910}
-  m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 75, y: 0}
-  m_SizeDelta: {x: -150, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &107621346
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107621344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0.7075472, g: 0.7075472, b: 0.7075472, a: 1}
-  m_RaycastTarget: 1
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: e5fd4d9fecbda1240b1928386dadecbd, type: 3}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &107621347
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107621344}
-  m_CullTransparentMesh: 1
---- !u!114 &107621348
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 107621344}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b4089b3e94e536e47b7ab3be5440c59c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &123374983
 GameObject:
   m_ObjectHideFlags: 0
@@ -1586,12 +1497,6 @@ RectTransform:
   m_AnchoredPosition: {x: 427.5, y: -47.5}
   m_SizeDelta: {x: 95, y: 95}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!4 &160791303 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8758998947917825393, guid: d2e6cbce4b4adda47bc9e4436dfc307b,
-    type: 3}
-  m_PrefabInstance: {fileID: 6690159924079489724}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &160936170
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3534,7 +3439,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   popUpSentence: {fileID: 11400000, guid: f470d5e7cecee4f45a44540f2c9df574, type: 2}
-  popUpPosition: {fileID: 160791303}
+  popUpPosCorrect: {x: 0, y: 50, z: 0}
   progressEvent: {fileID: 774074941574847531, guid: 00b193ee9b514ae4ab49f98c121e9d98,
     type: 3}
 --- !u!1 &312271774

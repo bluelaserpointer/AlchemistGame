@@ -55,14 +55,14 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler, IPointerEnterH
             PlayerSave.ActiveDeck.Add(substance);
             ++deckCardCount;
             UpdateUI();
-            MapManager.DeckScreen.UpdateUI();
+            WorldManager.DeckScreen.UpdateUI();
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
             if(PlayerSave.ActiveDeck.Remove(substance))
                 --deckCardCount;
             UpdateUI();
-            MapManager.DeckScreen.UpdateUI();
+            WorldManager.DeckScreen.UpdateUI();
         }
     }
     private void OnValidate()
@@ -86,7 +86,7 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (substance == null)
             return;
         //info set
-        MapManager.DeckScreen.SetCardInfo(substance);
+        WorldManager.DeckScreen.SetCardInfo(substance);
     }
 
     public void OnPointerExit(PointerEventData eventData)
@@ -94,6 +94,6 @@ public class ElementButton : MonoBehaviour, IPointerClickHandler, IPointerEnterH
         if (substance == null)
             return;
         //info set
-        MapManager.DeckScreen.SetCardInfo(null);
+        WorldManager.DeckScreen.SetCardInfo(null);
     }
 }

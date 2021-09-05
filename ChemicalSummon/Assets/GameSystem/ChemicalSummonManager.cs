@@ -3,7 +3,7 @@ using UnityEngine.SceneManagement;
 
 public abstract class ChemicalSummonManager : MonoBehaviour
 {
-    public static string Version => "alpha1.2.5";
+    public static string Version => "alpha1.3.0";
     public static Canvas MainCanvas
     {
         get;
@@ -21,7 +21,7 @@ public abstract class ChemicalSummonManager : MonoBehaviour
         DynamicGI.UpdateEnvironment();
     }
     public static bool CurrentSceneIsMatch => SceneManager.GetActiveScene().name.Equals("Match");
-    public static bool CurrentSceneIsMap => SceneManager.GetActiveScene().name.Equals("Map");
+    public static bool CurrentSceneIsMap => SceneManager.GetActiveScene().name.Equals("World");
     public static bool CurrentSceneIsTitle => SceneManager.GetActiveScene().name.Equals("Title");
     /// <summary>
     /// 进入战斗(按钮事件参照用)
@@ -37,7 +37,7 @@ public abstract class ChemicalSummonManager : MonoBehaviour
     }
     public void GotoMap()
     {
-        SceneManager.LoadScene("Map");
+        SceneManager.LoadScene("World");
     }
     public void StartEvent(Event newEvent)
     {

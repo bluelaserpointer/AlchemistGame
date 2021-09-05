@@ -4,9 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
-public class MapManager : ChemicalSummonManager
+public class WorldManager : ChemicalSummonManager
 {
-    public static MapManager instance;
+    public static WorldManager instance;
 
     [SerializeField]
     World world;
@@ -33,7 +33,6 @@ public class MapManager : ChemicalSummonManager
     public static ReactionScreen ReactionScreen => instance.reactionScreen;
     public static CharacterScreen CharacterScreen => instance.characterScreen;
     public static DebugScreen DebugScreen => instance.debugScreen;
-    public static StageScreen StageScreen => instance.stageScreen;
     public static Image NewReactionSign => instance.newReactionSign;
 
 

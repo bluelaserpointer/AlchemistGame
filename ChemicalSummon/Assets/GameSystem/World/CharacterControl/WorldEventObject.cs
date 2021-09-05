@@ -19,10 +19,10 @@ public class WorldEventObject : AbstractWorldEventObject
         generatedEvent.Progress();
         generatedEvent.OnEventFinish.AddListener(() =>
         {
-            MapManager.Player.OccupyingMovementEventObject = null;
+            WorldManager.Player.OccupyingMovementEventObject = null;
             generatedEvent = null;
         });
-        MapManager.Player.OccupyingMovementEventObject = this;
+        WorldManager.Player.OccupyingMovementEventObject = this;
     }
     public override void Submit()
     {

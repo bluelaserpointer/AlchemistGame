@@ -31,7 +31,7 @@ public class ItemButton : MonoBehaviour
     }
     public void OnClick()
     {
-        MapManager.ItemScreen.ItemInfoDisplay.SetItem(this);
+        WorldManager.ItemScreen.ItemInfoDisplay.SetItem(this);
     }
     public void OnUse()
     {

@@ -9,7 +9,7 @@ public class DeckScreen : MonoBehaviour
 {
     [SerializeField]
     CardInfoDisplay cardInfoDisplay;
-    public static CardInfoDisplay CardInfoDisplay => MapManager.DeckScreen.cardInfoDisplay;
+    public static CardInfoDisplay CardInfoDisplay => WorldManager.DeckScreen.cardInfoDisplay;
     [SerializeField]
     Text cardCountText;
     //data

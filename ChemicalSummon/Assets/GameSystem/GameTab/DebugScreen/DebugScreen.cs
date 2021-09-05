@@ -11,7 +11,7 @@ public class DebugScreen : MonoBehaviour
         {
             PlayerSave.AddDiscoveredReaction(each);
         }
-        MapManager.ReactionScreen.Init();
+        WorldManager.ReactionScreen.Init();
     }
     public void AllSubstancePlusOne()
     {
@@ -20,7 +20,7 @@ public class DebugScreen : MonoBehaviour
             if(each.IsPureElement)
                 PlayerSave.SubstanceStorage.Add(each);
         }
-        MapManager.DeckScreen.Init();
+        WorldManager.DeckScreen.Init();
     }
     public void AllItemPlusOne()
     {

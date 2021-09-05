@@ -13,8 +13,8 @@ public class StageButton : MonoBehaviour
 
     private void Start()
     {
-        MapManager.StageScreen.StageHeader = stageHeader;
-        GetComponent<Button>().onClick.AddListener(() => MapManager.instance.StartEvent(theEvent));
+        //WorldManager.StageScreen.StageHeader = stageHeader;
+        GetComponent<Button>().onClick.AddListener(() => WorldManager.instance.StartEvent(theEvent));
     }
     private void OnValidate()
     {
