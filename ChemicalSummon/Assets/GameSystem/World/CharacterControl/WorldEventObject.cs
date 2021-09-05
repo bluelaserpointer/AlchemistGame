@@ -15,8 +15,7 @@ public class WorldEventObject : AbstractWorldEventObject
     {
         if (generatedEvent != null)
             return;
-        generatedEvent = Instantiate(progressEvent);
-        generatedEvent.Progress();
+        generatedEvent = PlayerSave.StartEvent(progressEvent);
         generatedEvent.OnEventFinish.AddListener(() =>
         {
             WorldManager.Player.OccupyingMovementEventObject = null;

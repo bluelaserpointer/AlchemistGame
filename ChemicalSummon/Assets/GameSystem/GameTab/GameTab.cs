@@ -11,10 +11,16 @@ public class GameTab : Tab
     Color tabButtonUnselectedColor;
     [SerializeField]
     Color tabButtonSelectedColor;
+    [SerializeField]
+    AudioClip clickSE;
 
     void Start()
     {
         OnTabSelectChange.AddListener(UpdateScreen);
+        foreach (ButtonAndContent pair in ButtonAndContents)
+        {
+            pair.button.onClick.AddListener(() => WorldManager.PlaySE(clickSE));
+        }
     }
     public void UpdateScreen()
     {

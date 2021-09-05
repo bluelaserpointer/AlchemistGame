@@ -64,7 +64,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
 
     [Header("SE/BGM")]
     [SerializeField]
-    AudioClip clickCardSE;
+    AudioClip clickSE;
     [SerializeField]
     AudioClip victorySE;
     [Header("Demo&Test")]
@@ -290,7 +290,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
 
     public void OnPointerDown(PointerEventData eventData)
     {
-        PlaySE(clickCardSE);
+        PlaySE(clickSE);
         List<RaycastResult> results = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, results);
         foreach(RaycastResult rayResult in results)

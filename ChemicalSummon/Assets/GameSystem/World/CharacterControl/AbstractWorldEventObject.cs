@@ -27,17 +27,21 @@ public abstract class AbstractWorldEventObject : MonoBehaviour
     private void Start()
     {
         generatedPopUp = Instantiate(Resources.Load<GameObject>("PopUp"), WorldManager.MainCanvas.transform);
+        generatedPopUp.GetComponent<Button>().onClick.AddListener(() => { if(popUpCanvasGroup.alpha > 0) InvokeEvent(); });
         popUpCanvasGroup = generatedPopUp.GetComponentInChildren<CanvasGroup>();
         popUpCanvasGroup.GetComponentInChildren<Text>().text = popUpSentence;
         popUpCanvasGroup.alpha = 0;
+        generatedPopUp.gameObject.SetActive(false);
     }
     private void Update()
     {
         generatedPopUp.transform.position = Camera.main.WorldToScreenPoint(transform.position) + popUpPosCorrect;
         if (Equals(WorldManager.Player.InInteractionColliderEventObject))
             popUpCanvasGroup.alpha = Mathf.MoveTowards(popUpCanvasGroup.alpha, 1, 16F * Time.deltaTime);
-        else
+        else if (popUpCanvasGroup.alpha > 0)
             popUpCanvasGroup.alpha = Mathf.MoveTowards(popUpCanvasGroup.alpha, 0, 16F * Time.deltaTime);
+        else
+            generatedPopUp.gameObject.SetActive(false);
     }
     private void OnTriggerEnter(Collider other)
     {
@@ -53,6 +57,7 @@ public abstract class AbstractWorldEventObject : MonoBehaviour
                 if (other.Equals(WorldManager.Player.InteractionCollider))
                 {
                     WorldManager.Player.InInteractionColliderEventObject = this; //TODO: priority
+                    generatedPopUp.gameObject.SetActive(true);
                 }
                 break;
         }

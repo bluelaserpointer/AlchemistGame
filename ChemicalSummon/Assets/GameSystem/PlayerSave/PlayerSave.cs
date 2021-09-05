@@ -168,9 +168,10 @@ public class PlayerSave : MonoBehaviour
         Instance.activeMatch = match;
         SceneManager.LoadScene("Match");
     }
-    public static void StartEvent(Event newEvent) {
+    public static Event StartEvent(Event newEvent) {
         Instance.activeEvent = Instantiate(newEvent, PermanentCanvas.transform);
         ActiveEvent.Progress();
+        return ActiveEvent;
     }
     public static void ProgressActiveEvent()
     {

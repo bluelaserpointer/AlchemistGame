@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3706972, g: 0.6413671, b: 0.8758512, a: 1}
+  m_IndirectSpecularColor: {r: 0.37070575, g: 0.64136815, b: 0.87590337, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -8530,7 +8530,7 @@ MonoBehaviour:
     type: 3}
   movingGemPrefab: {fileID: 8747929785874210510, guid: 2be1ba3ff88992e4586186c98ac8e8fd,
     type: 3}
-  clickCardSE: {fileID: 8300000, guid: a9d8a0075b0b3cb4fbec8e8caed91472, type: 3}
+  clickSE: {fileID: 8300000, guid: a9d8a0075b0b3cb4fbec8e8caed91472, type: 3}
   victorySE: {fileID: 8300000, guid: 44d20c815aa1e4e44a81ad2e5113bfd5, type: 3}
   onInit:
     m_PersistentCalls:

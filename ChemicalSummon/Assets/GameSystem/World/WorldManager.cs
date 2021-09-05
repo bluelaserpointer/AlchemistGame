@@ -1,10 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
-public class WorldManager : ChemicalSummonManager
+public class WorldManager : ChemicalSummonManager, IPointerDownHandler
 {
     public static WorldManager instance;
 
@@ -47,5 +48,13 @@ public class WorldManager : ChemicalSummonManager
         DebugScreen.gameObject.SetActive(false);
         //new reaction sign on the LeftTab
         newReactionSign.gameObject.SetActive(PlayerSave.NewDicoveredReactions.Count > 0);
+    }
+    public void OnPointerDown(PointerEventData eventData)
+    {
+    }
+    public static void PlaySE(AudioClip clip)
+    {
+        if (clip != null)
+            AudioSource.PlayClipAtPoint(clip, GameObject.FindGameObjectWithTag("SE Listener").transform.position);
     }
 }
