@@ -5,7 +5,7 @@ using UnityEngine;
 public class WorldPlayer : MovementControl3D
 {
     [SerializeField]
-    WorldCharacter playerModel;
+    PlayableCharacter playerModel;
     [SerializeField]
     CanvasGroup popUpCanvas;
 
@@ -14,7 +14,7 @@ public class WorldPlayer : MovementControl3D
     enum ModelState { Idle, Walk, Run, Jump }
     string[] stateNames = {"idleTrigger", "walkTrigger", "runTrigger", "jumpTrigger" };
     ModelState currentState;
-    public WorldCharacter TargetModel
+    public PlayableCharacter TargetModel
     {
         get => playerModel;
         set
