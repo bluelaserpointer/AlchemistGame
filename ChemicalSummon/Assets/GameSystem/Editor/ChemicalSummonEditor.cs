@@ -356,6 +356,7 @@ public static class ChemicalSummonEditor
                 substance.name.PutSentence_EmptyStrMeansRemove(Language.Chinese, row[5].ToString());
                 substance.name.PutSentence_EmptyStrMeansRemove(Language.Japanese, row[6].ToString());
                 substance.name.PutSentence_EmptyStrMeansRemove(Language.English, row[7].ToString());
+                substance.abilities = CardAbility.GetBySubstanceName(substanceName);
                 substance.description.defaultString = "";
                 substance.description.PutSentence_EmptyStrMeansRemove(Language.Chinese, row[8].ToString());
                 substance.description.PutSentence_EmptyStrMeansRemove(Language.Japanese, row[9].ToString());

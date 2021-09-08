@@ -47,4 +47,11 @@ public abstract class ChemicalSummonManager : MonoBehaviour
     {
         PlayerSave.ProgressActiveEvent();
     }
+    public static TranslatableSentenceSO LoadTranslatableSentence(string name)
+    {
+        TranslatableSentenceSO sentence = Resources.Load<TranslatableSentenceSO>("TranslatableSentence/" + name);
+        if (sentence == null)
+            Debug.LogWarning("Cannot find TranslatableSentence ScriptableObject by name: " + name);
+        return sentence;
+    }
 }

@@ -132,10 +132,11 @@ public abstract class Gamer : MonoBehaviour
     /// 手牌变化事件
     /// </summary>
     public UnityEvent OnHandCardsChanged => onHandCardsChanged;
-    public void Init(Character character, Deck deck)
+    public void Init(Character character, Deck copiedDeck)
     {
         this.character = character;
-        this.deck = deck;
+        deck = copiedDeck;
+        deck.Shuffle();
         hp = InitialHP;
         heatGem = 16;
         electricGem = 8;
@@ -145,9 +146,9 @@ public abstract class Gamer : MonoBehaviour
     }
     public virtual void DrawCard()
     {
-        if (Deck.CardCount > 0)
+        if (!Deck.IsEmpty)
         {
-            AddHandCard(Deck.DrawRandomCard(this), true);
+            AddHandCard(Deck.DrawTopCard(this), true);
         }
     }
     public SubstanceCard FindHandCard(Substance substance)
@@ -168,8 +169,9 @@ public abstract class Gamer : MonoBehaviour
         SubstanceCard duplicatedCard = FindHandCard(substanceCard);
         if (duplicatedCard == null)
         {
+            substanceCard.Gamer = this;
             HandCards.Add(substanceCard);
-            HandCardsDisplay.Add(substanceCard.gameObject);
+            HandCardsDisplay.Add(substanceCard.gameObject); //includes TracePosition animation
             substanceCard.SetDraggable(IsMyside);
         }
         else
@@ -181,7 +183,7 @@ public abstract class Gamer : MonoBehaviour
     }
     public void AddHandCard(Substance substance)
     {
-        AddHandCard(SubstanceCard.GenerateSubstanceCard(substance, this));
+        AddHandCard(SubstanceCard.GenerateSubstanceCard(substance));
     }
     public void RemoveHandCard(Substance substance)
     {
@@ -339,7 +341,7 @@ public abstract class Gamer : MonoBehaviour
         }
         foreach (var pair in method.reaction.RightSubstances)
         {
-            SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.type, this);
+            SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.type);
             newCard.CardAmount = pair.amount;
             AddHandCard(newCard, true);
         }
@@ -402,7 +404,7 @@ public abstract class Gamer : MonoBehaviour
             }
         }
         //TODO: show valid effect
-        SubstanceCard fireFairyCard = SubstanceCard.GenerateSubstanceCard(Substance.GetByName("FireFairy"), cardSlot.Field.Gamer);
+        SubstanceCard fireFairyCard = SubstanceCard.GenerateSubstanceCard(Substance.GetByName("FireFairy"));
         fireFairyCard.InitCardAmount(1);
         fireFairyCard.MeltingPoint = fireFairyCard.BoilingPoint = burnDamage * 1000;
         cardSlot.SlotSet(fireFairyCard.gameObject);
@@ -431,4 +433,6 @@ public abstract class Gamer : MonoBehaviour
                 actionStack.Peek().Invoke();
         }
     }
+    public abstract void SelectCard(List<SubstanceCard> cards, CardTransport.Method method, int amount, Action<List<SubstanceCard>> resultReceiver);
+    public abstract void SelectSlot(bool includeMyField, bool includeEnemyField, SubstanceCard card);
 }

@@ -30,6 +30,7 @@ public class Substance : ChemicalObject
     public bool isPhenomenon;
     public bool waterSoluble;
     public bool isOre;
+    public CardAbility[] abilities = new CardAbility[0];
     public TranslatableSentence description = new TranslatableSentence();
 
     //data

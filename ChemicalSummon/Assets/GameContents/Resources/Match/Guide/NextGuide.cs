@@ -18,7 +18,7 @@ public class NextGuide : MonoBehaviour, IPointerClickHandler
     {
         gameObject.SetActive(false);
         foreach (Substance substance in givePlayerCards)
-            MatchManager.Player.AddHandCard(SubstanceCard.GenerateSubstanceCard(substance, MatchManager.Player));
+            MatchManager.Player.AddHandCard(SubstanceCard.GenerateSubstanceCard(substance));
         OnClose();
     }
     protected virtual void OnClose()

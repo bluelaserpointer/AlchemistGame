@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
 [DisallowMultipleComponent]
 public class Player : Gamer
@@ -116,5 +117,15 @@ public class Player : Gamer
             return false;
         selectSlotAction.Invoke(slot);
         return true;
+    }
+
+    public override void SelectCard(List<SubstanceCard> cards, CardTransport.Method method, int amount, Action<List<SubstanceCard>> resultReceiver)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void SelectSlot(bool includeMyField, bool includeEnemyField, SubstanceCard card)
+    {
+        throw new NotImplementedException();
     }
 }

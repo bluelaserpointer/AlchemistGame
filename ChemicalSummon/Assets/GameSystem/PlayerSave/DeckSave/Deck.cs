@@ -11,6 +11,7 @@ using UnityEngine.Events;
 public class Deck
 {
     public readonly List<Substance> substances;
+    public bool IsEmpty => Substances.Count == 0;
     public Deck()
     {
         substances = new List<Substance>();
@@ -28,14 +29,36 @@ public class Deck
 
     [HideInInspector]
     public UnityEvent onCardCountChange = new UnityEvent();
-    public void Add(Substance substance)
+    public void Add(Substance substance, CardTransport.Method method = CardTransport.Method.Bottom)
     {
-        Substances.Add(substance);
+        switch(method)
+        {
+            case CardTransport.Method.Bottom:
+                Substances.Add(substance);
+                break;
+            case CardTransport.Method.Top:
+                Substances.Insert(0, substance);
+                break;
+            case CardTransport.Method.Select:
+                Debug.LogError("Insert to deck with specified index is not supported: " + substance.name);
+                break;
+        }
         onCardCountChange.Invoke();
     }
-    public void AddRange(List<Substance> substance)
+    public void AddRange(List<Substance> substances, CardTransport.Method method = CardTransport.Method.Bottom)
     {
-        Substances.AddRange(substance);
+        switch (method)
+        {
+            case CardTransport.Method.Bottom:
+                Substances.AddRange(substances);
+                break;
+            case CardTransport.Method.Top:
+                Substances.InsertRange(0, substances);
+                break;
+            case CardTransport.Method.Select:
+                Debug.LogError("Insert to deck with specified index is not supported: " + substances.Count + " cards.");
+                break;
+        }
         onCardCountChange.Invoke();
     }
     public bool Remove(Substance substance)
@@ -51,18 +74,29 @@ public class Deck
     {
         return Substances.FindAll(eachSubstance => eachSubstance.Equals(substance)).Count;
     }
+    public SubstanceCard DrawTopCard(Gamer gamer)
+    {
+        if (IsEmpty)
+            return null;
+        onCardCountChange.Invoke();
+        return SubstanceCard.GenerateSubstanceCard(Substances.RemoveFirst());
+    }
+    public SubstanceCard DrawBottomCard(Gamer gamer)
+    {
+        if (IsEmpty)
+            return null;
+        onCardCountChange.Invoke();
+        return SubstanceCard.GenerateSubstanceCard(Substances.RemoveLast());
+    }
     public SubstanceCard DrawRandomCard(Gamer gamer)
     {
-        return SubstanceCard.GenerateSubstanceCard(DrawRandomSubstance(), gamer);
-    }
-    public Substance DrawRandomSubstance()
-    {
-        if (substances.Count == 0)
-        {
+        if (IsEmpty)
             return null;
-        }
-        Substance randomSubstance = substances.RemoveRandomElement();
         onCardCountChange.Invoke();
-        return randomSubstance;
+        return SubstanceCard.GenerateSubstanceCard(Substances.RemoveRandomElement());
+    }
+    public void Shuffle()
+    {
+        Substances.Shuffle_InsideOut();
     }
 }

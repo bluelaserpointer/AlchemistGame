@@ -23,6 +23,10 @@ public class ShieldCardSlot : CardSlot, IAttackable
     /// 所属场地
     /// </summary>
     public Field Field => field;
+    /// <summary>
+    /// 所属玩家
+    /// </summary>
+    public Gamer Gamer => Field.Gamer;
     public float Tempreture {
         get
         {
@@ -52,6 +56,7 @@ public class ShieldCardSlot : CardSlot, IAttackable
                 {
                     Destroy(card.gameObject);
                 }
+                card.Gamer = Gamer;
             }
             Card.SetDraggable(CardDraggable);
             field.cardsChanged.Invoke();
@@ -88,7 +93,7 @@ public class ShieldCardSlot : CardSlot, IAttackable
         }
         if (substanceCard.IsPhenomenon)
             return true;
-        if (!Field.Gamer.InFusionTurn)
+        if (!Gamer.InFusionTurn)
         {
             MatchManager.MessagePanel.WarnNotPlaceBeforeFusionTurn();
             return false;
@@ -111,7 +116,7 @@ public class ShieldCardSlot : CardSlot, IAttackable
         }
         else
         {
-            MatchManager.StartDamageAnimation(transform.position, dmg, Field.Gamer);
+            MatchManager.StartDamageAnimation(transform.position, dmg, Gamer);
         }
     }
     public void HideAttackButton()
@@ -132,7 +137,7 @@ public class ShieldCardSlot : CardSlot, IAttackable
     {
         if (IsEmpty || Card.IsPhenomenon)
             return false;
-        Field.Gamer.AddHandCard(Card);
+        Gamer.AddHandCard(Card);
         SlotClear();
         return true;
     }

@@ -68,17 +68,31 @@ public static class IListExtension
         }
         return tempList;
     }
-    public static bool RemoveOne<T>(this List<T> list, Predicate<T> match)
+    public static T RemoveAndGetAt<T>(this List<T> list, int index)
+    {
+        T element = list[index];
+        list.RemoveAt(index);
+        return element;
+    }
+    public static T RemoveFirst<T>(this List<T> list)
+    {
+        return list.RemoveAndGetAt(0);
+    }
+    public static T RemoveLast<T>(this List<T> list)
+    {
+        return list.RemoveAndGetAt(list.Count - 1);
+    }
+    public static T RemoveOne<T>(this List<T> list, Predicate<T> match)
     {
         foreach (T element in list)
         {
             if (match.Invoke(element))
             {
                 list.Remove(element);
-                return true;
+                return element;
             }
         }
-        return false;
+        return default(T);
     }
     public static KeyValuePair<T, float> FindMostValuable<T>(this List<T> list, Func<T, float> valuer)
     {

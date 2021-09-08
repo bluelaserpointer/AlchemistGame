@@ -21,6 +21,10 @@ public class CardInfoDisplay : MonoBehaviour
     [SerializeField]
     FusionButton FusionButtonPrefab;
     [SerializeField]
+    Transform abilityListTransform;
+    [SerializeField]
+    AbilityLabel abilityLabelPrefab;
+    [SerializeField]
     Text cardDescriptionText;
 
     SubstanceCard referedCard;
@@ -54,6 +58,12 @@ public class CardInfoDisplay : MonoBehaviour
             cardDescriptionText.text = displayCard.Description;
             bool isMySide = substanceCard.IsMySide;
             displayBackground.color = isMySide ? new Color(1, 1, 1, 0.5F) : new Color(1, 0, 0, 0.5F);
+            abilityListTransform.DestroyAllChildren();
+            int abilityIndex = 0;
+            foreach(var ability in displayCard.Substance.abilities)
+            {
+                Instantiate(abilityLabelPrefab, abilityListTransform).Set(++abilityIndex, ability.Description);
+            }
             UpdateRelatedReactionList();
         }
     }

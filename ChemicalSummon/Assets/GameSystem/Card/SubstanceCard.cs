@@ -79,7 +79,17 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 所属游戏者
     /// </summary>
-    public Gamer Gamer => gamer;
+    public Gamer Gamer {
+        get => gamer;
+        set
+        {
+            gamer = value;
+            if (gamer == null)
+                SetDraggable(false);
+            else if (IsEnemySide)
+                transform.eulerAngles = new Vector3(0, 180, 180);
+        }
+    }
     /// <summary>
     /// 我方卡牌
     /// </summary>
@@ -250,7 +260,7 @@ public class SubstanceCard : MonoBehaviour
     /// </summary>
     /// <param name="substance"></param>
     /// <returns></returns>
-    public static SubstanceCard GenerateSubstanceCard(Substance substance, Gamer gamer = null)
+    public static SubstanceCard GenerateSubstanceCard(Substance substance, int amount = 1)
     {
         if(baseSubstanceCard == null)
         {
@@ -258,11 +268,7 @@ public class SubstanceCard : MonoBehaviour
         }
         SubstanceCard card = Instantiate(baseSubstanceCard);
         card.Substance = substance;
-        card.gamer = gamer;
-        if (gamer == null)
-            card.SetDraggable(false);
-        else if (card.IsEnemySide)
-            card.transform.eulerAngles = new Vector3(0, 180, 180);
+        card.InitCardAmount(amount);
         return card;
     }
     /// <summary>

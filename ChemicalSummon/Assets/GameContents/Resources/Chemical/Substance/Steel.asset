@@ -36,6 +36,7 @@ MonoBehaviour:
   isPhenomenon: 1
   waterSoluble: 0
   isOre: 0
+  abilities: []
   description:
     defaultString: 
     languageAndSentences: []

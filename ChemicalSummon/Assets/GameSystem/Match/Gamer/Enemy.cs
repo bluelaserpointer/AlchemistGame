@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
@@ -65,5 +66,15 @@ public class Enemy : Gamer
             BurnSlot(slot, burnDamage);
         }
         DoStackedAction();
+    }
+
+    public override void SelectCard(List<SubstanceCard> cards, CardTransport.Method method, int amount, Action<List<SubstanceCard>> resultReceiver)
+    {
+        throw new NotImplementedException();
+    }
+
+    public override void SelectSlot(bool includeMyField, bool includeEnemyField, SubstanceCard card)
+    {
+        throw new NotImplementedException();
     }
 }
