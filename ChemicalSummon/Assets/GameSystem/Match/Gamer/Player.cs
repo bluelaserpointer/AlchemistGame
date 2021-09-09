@@ -119,9 +119,10 @@ public class Player : Gamer
         return true;
     }
 
-    public override void SelectCard(List<SubstanceCard> cards, CardTransport.Method method, int amount, Action<List<SubstanceCard>> resultReceiver)
+    public override void SelectCard(List<SubstanceCard> cards, int amount, Action<StackedElementList<SubstanceCard>> resultReceiver, Action cancelAction)
     {
-        throw new NotImplementedException();
+        MatchManager.CardSelectPanel.InitList(amount, resultReceiver, cancelAction);
+        cards.ForEach(card => MatchManager.CardSelectPanel.AddSelection("Loc", card));
     }
 
     public override void SelectSlot(bool includeMyField, bool includeEnemyField, SubstanceCard card)

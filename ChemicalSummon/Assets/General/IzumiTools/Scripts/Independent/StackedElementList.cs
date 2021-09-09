@@ -5,6 +5,11 @@ using System.Collections.Generic;
 [Serializable]
 public class StackedElementList<T> : IEnumerable<StackedElementList<T>.StackedElement>, IEnumerable
 {
+    public StackedElementList() { }
+    public StackedElementList(StackedElementList<T> sample)
+    {
+        list = sample.list;
+    }
     [Serializable]
     public class StackedElement
     {
@@ -63,26 +68,32 @@ public class StackedElementList<T> : IEnumerable<StackedElementList<T>.StackedEl
     {
         return list.Count;
     }
-    public void Add(T type, int amount = 1)
+    public bool IsEmpty => CountType() == 0;
+    public bool Add(T type, int amount = 1)
     {
         StackedElement find = FindByType(type);
         if (find != null)
         {
             if (!AcceptAmount(find.amount += amount))
+            {
                 list.Remove(find);
+                return true;
+            }
         }
         else if (AcceptAmount(amount))
         {
             list.Add(new StackedElement(type, amount));
+            return true;
         }
+        return false;
     }
     public void AddAll(StackedElementList<T> anotherList)
     {
         anotherList.ForEach(each => Add(each.type, each.amount));
     }
-    public void Remove(T type, int amount = -1)
+    public bool Remove(T type, int amount = -1)
     {
-        Add(type, amount);
+        return Add(type, amount);
     }
     public void ForEach(Action<StackedElement> action)
     {

@@ -9,13 +9,24 @@ public class AbilityLabel : MonoBehaviour
     [SerializeField]
     Text headerText;
     [SerializeField]
+    Image abilityIcon;
+    [SerializeField]
     Text descriptionText;
     [SerializeField]
     TranslatableSentenceSO abilitySentence;
 
-    public void Set(int abilityIndex, string description)
+    SubstanceCard card;
+    CardAbility ability;
+    public void Set(SubstanceCard card, int abilityIndex, CardAbility ability)
     {
+        this.card = card;
+        this.ability = ability;
         headerText.text = abilitySentence + abilityIndex;
-        descriptionText.text = description;
+        abilityIcon.sprite = ability.Icon;
+        descriptionText.text = ability.Description;
+    }
+    public void OnClick()
+    {
+        ability.DoAbility(card);
     }
 }

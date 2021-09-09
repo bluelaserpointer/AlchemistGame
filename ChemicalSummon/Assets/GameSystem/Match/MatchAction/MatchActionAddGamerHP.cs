@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -13,7 +14,7 @@ public class MatchActionAddGamerHP : MatchAction
     {
         throw new System.NotImplementedException();
     }
-    public override void DoAction(Gamer gamer)
+    public override void DoAction(Gamer gamer, Action afterAction, Action cancelAction)
     {
         if (target.Equals(Target.Self))
         {
@@ -21,6 +22,7 @@ public class MatchActionAddGamerHP : MatchAction
         }
         else
             gamer.Opponent.HP += amount;
+        afterAction.Invoke();
     }
 
     public override bool CanAction(Gamer gamer)

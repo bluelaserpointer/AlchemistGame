@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 /// <summary>
-/// 战斗
+/// 战斗关卡
 /// </summary>
 [CreateAssetMenu(menuName = "Match/Match", fileName = "NewMatch", order = -1)]
 public class Match : ScriptableObject
@@ -18,7 +18,7 @@ public class Match : ScriptableObject
     [SerializeField]
     Character enemySideCharacter;
     [SerializeField]
-    List<Substance> enemyDeck;
+    Deck enemyDeck;
     [SerializeField]
     StackedElementList<Reaction> enemyReactionsPriority;
     [SerializeField]
@@ -49,7 +49,7 @@ public class Match : ScriptableObject
     /// <summary>
     /// 敌方卡组
     /// </summary>
-    public List<Substance> EnemyDeck => enemyDeck;
+    public Deck EnemyDeck => enemyDeck;
     /// <summary>
     /// 敌方习得反应式
     /// </summary>

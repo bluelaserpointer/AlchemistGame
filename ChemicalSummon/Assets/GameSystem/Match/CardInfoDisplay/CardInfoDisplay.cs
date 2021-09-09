@@ -13,8 +13,6 @@ public class CardInfoDisplay : MonoBehaviour
     [SerializeField]
     SubstanceCard displayCard;
     [SerializeField]
-    Button checkReactionButton;
-    [SerializeField]
     Text checkReactionText;
     [SerializeField]
     Transform reactionListTransform;
@@ -62,7 +60,7 @@ public class CardInfoDisplay : MonoBehaviour
             int abilityIndex = 0;
             foreach(var ability in displayCard.Substance.abilities)
             {
-                Instantiate(abilityLabelPrefab, abilityListTransform).Set(++abilityIndex, ability.Description);
+                Instantiate(abilityLabelPrefab, abilityListTransform).Set(referedCard, ++abilityIndex, ability);
             }
             UpdateRelatedReactionList();
         }

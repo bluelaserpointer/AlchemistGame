@@ -9,11 +9,19 @@ using UnityEngine;
 public class DemoDataInjector : MonoBehaviour
 {
     [Header("Deck")]
-    public List<Substance> substances;
+    public StackedElementList<Substance> substances;
     public void Inject()
     {
         //deck
-        if(MatchManager.Player.Deck.CardCount == 0)
-            MatchManager.Player.Deck.AddRange(substances);
+        if(MatchManager.Player.DrawPile.Count == 0)
+        {
+            foreach (var substanceStack in substances) {
+                for (int i = 0; i < substanceStack.amount; ++i)
+                {
+                    MatchManager.Player.AddDrawPile(SubstanceCard.GenerateSubstanceCard(substanceStack.type));
+                }
+            }
+            MatchManager.Player.ShuffleDrawPile();
+        }
     }
 }

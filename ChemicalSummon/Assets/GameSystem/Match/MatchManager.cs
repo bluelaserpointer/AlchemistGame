@@ -33,6 +33,8 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     [SerializeField]
     FusionPanelButton fusionPanel;
     [SerializeField]
+    DecideCardSelectButton cardSelectPanel;
+    [SerializeField]
     CurrentDrawingCardsPanel currentDrawingCardsPanel;
     [SerializeField]
     FusionDisplay fusionDisplay;
@@ -72,7 +74,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
 
     //data
     /// <summary>
-    /// 当前战斗
+    /// 当前战斗关卡
     /// </summary>
     public static Match Match => PlayerSave.ActiveMatch;
     /// <summary>
@@ -119,6 +121,10 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// </summary>
     public static FusionPanelButton FusionPanel => instance.fusionPanel;
     /// <summary>
+    /// 卡牌选择列表
+    /// </summary>
+    public static DecideCardSelectButton CardSelectPanel => instance.cardSelectPanel;
+    /// <summary>
     /// 新抽卡展示
     /// </summary>
     public static CurrentDrawingCardsPanel CurrentDrawingCardsPanel => instance.currentDrawingCardsPanel;
@@ -164,8 +170,8 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         audioSource.Play();
         Instantiate(Match.BackGround);
         //gamer
-        Player.Init(Match.MySideCharacter, new Deck(PlayerSave.ActiveDeck));
-        Enemy.Init(Match.EnemySideCharacter, new Deck(Match.EnemyDeck));
+        Player.Init(Match.MySideCharacter, PlayerSave.ActiveDeck);
+        Enemy.Init(Match.EnemySideCharacter, Match.EnemyDeck);
         onTurnStart.AddListener(Player.Field.UpdateCardsDraggable);
         MyField.cardsChanged.AddListener(fusionPanel.UpdateList);
         Player.OnHandCardsChanged.AddListener(fusionPanel.UpdateList);
@@ -177,7 +183,6 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         if(Match.AdditionalObject != null)
             Instantiate(Match.AdditionalObject);
         currentTurnType = TurnType.FirstMoveDecide;
-        //decide first mover
         firstMoverDecider.Draw();
     }
     public void Victory()

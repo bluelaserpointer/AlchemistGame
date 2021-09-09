@@ -69,7 +69,7 @@ public class SubstanceCard : MonoBehaviour
     public int CardAmount
     {
         get => cardAmount;
-        set {
+        protected set {
             cardAmount = value;
             amountText.text = "x" + cardAmount.ToString();
             attackText.targetValue = ATK;
@@ -220,6 +220,10 @@ public class SubstanceCard : MonoBehaviour
     /// 在我方场地
     /// </summary>
     public bool InGamerField => IsMySide && InField;
+    /// <summary>
+    /// 初始化叠加数(防止数字增减动画播放)
+    /// </summary>
+    /// <param name="amount"></param>
     public void InitCardAmount(int amount)
     {
         CardAmount = amount;

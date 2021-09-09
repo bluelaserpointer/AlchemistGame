@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,5 +16,5 @@ public abstract class MatchAction : MonoBehaviour
         description = InitDescription();
     }
     public abstract bool CanAction(Gamer gamer);
-    public abstract void DoAction(Gamer gamer);
+    public abstract void DoAction(Gamer gamer, Action afterAction = null, Action cancelAction = null);
 }

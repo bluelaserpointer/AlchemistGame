@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 public class MatchActionCardTransport : MatchAction
@@ -34,8 +35,8 @@ public class MatchActionCardTransport : MatchAction
         return CardTransport.CanTransport(srcLocation, cardCondition, amount);
     }
 
-    public override void DoAction(Gamer gamer)
+    public override void DoAction(Gamer gamer, Action afterAction, Action cancelAction)
     {
-        CardTransport.Transport(isCopy, gamer, cardCondition, amount, srcLocation, srcMethod, dstLocation, dstMethod);
+        CardTransport.Transport(isCopy, gamer, cardCondition, amount, srcLocation, srcMethod, dstLocation, dstMethod, afterAction, cancelAction);
     }
 }

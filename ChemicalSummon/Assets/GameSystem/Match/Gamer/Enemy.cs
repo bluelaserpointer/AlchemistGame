@@ -68,7 +68,7 @@ public class Enemy : Gamer
         DoStackedAction();
     }
 
-    public override void SelectCard(List<SubstanceCard> cards, CardTransport.Method method, int amount, Action<List<SubstanceCard>> resultReceiver)
+    public override void SelectCard(List<SubstanceCard> cards, int amount, Action<StackedElementList<SubstanceCard>> resultReceiver, Action cancelAction)
     {
         throw new NotImplementedException();
     }

@@ -42,7 +42,7 @@ public class StatusPanels : MonoBehaviour
         hpText.SetValueImmediate(gamer.HP);
         heatGemText.SetValueImmediate(gamer.HeatGem);
         electricGemText.SetValueImmediate(gamer.ElectricGem);
-        deckText.text = gamer.Deck.CardCount.ToString();
+        deckText.text = gamer.DrawPile.Count.ToString();
         //auto partial update
         gamer.onHPChange.AddListener(() => {
             int hp = gamer.HP;
@@ -68,8 +68,8 @@ public class StatusPanels : MonoBehaviour
         });
         gamer.onHeatGemChange.AddListener(() => heatGemText.targetValue = gamer.HeatGem);
         gamer.onElectricGemChange.AddListener(() => electricGemText.targetValue = gamer.ElectricGem);
-        gamer.Deck.onCardCountChange.AddListener(() => {
-            int cardCount = gamer.Deck.CardCount;
+        gamer.OnDrawPileChange.AddListener(() => {
+            int cardCount = gamer.DrawPile.Count;
             deckText.text = cardCount.ToString();
             if (cardCount > 3)
             {

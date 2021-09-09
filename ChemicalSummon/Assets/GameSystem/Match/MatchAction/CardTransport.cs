@@ -74,51 +74,13 @@ public class CardTransport
             case Location.MyHandCard:
                 return MatchManager.Player.HandCards.FindAll(card => condition.Accept(null, card.Substance));
             case Location.MyDeck:
-                foreach (var substance in MatchManager.Player.Deck.Substances.FindAll(substance => condition.Accept(null, substance)))
-                {
-                    cards.Add(SubstanceCard.GenerateSubstanceCard(substance));
-                }
-                return cards;
+                return MatchManager.Player.DrawPile.FindAll(card => condition.Accept(null, card.Substance));
             case Location.EnemyHandCard:
                 return MatchManager.Enemy.HandCards.FindAll(card => condition.Accept(null, card.Substance));
             case Location.EnemyDeck:
-                foreach (var substance in MatchManager.Enemy.Deck.Substances.FindAll(substance => condition.Accept(null, substance)))
-                {
-                    cards.Add(SubstanceCard.GenerateSubstanceCard(substance));
-                }
-                break;
+                return MatchManager.Enemy.DrawPile.FindAll(card => condition.Accept(null, card.Substance));
         }
         return null;
-    }
-    public static void RemoveCard(Location location, List<SubstanceCard> cards)
-    {
-        List<SubstanceCard> selectedCards = new List<SubstanceCard>();
-        switch (location)
-        {
-            case Location.OffSite:
-                break;
-            case Location.Field:
-            case Location.MyField:
-            case Location.EnemyField:
-                cards.ForEach(card =>
-                {
-                    if (card.Slot != null)
-                        card.Slot.SlotClear();
-                });
-                break;
-            case Location.MyHandCard:
-                cards.ForEach(card => MatchManager.Player.RemoveHandCard(card));
-                break;
-            case Location.MyDeck:
-                cards.ForEach(card => MatchManager.Player.Deck.Remove(card.Substance));
-                break;
-            case Location.EnemyHandCard:
-                cards.ForEach(card => MatchManager.Enemy.RemoveHandCard(card));
-                break;
-            case Location.EnemyDeck:
-                cards.ForEach(card => MatchManager.Enemy.Deck.Remove(card.Substance));
-                break;
-        }
     }
     public static void AddCard(Gamer gamer, Location location, Method method, List<SubstanceCard> cards)
     {
@@ -139,24 +101,45 @@ public class CardTransport
                 cards.ForEach(card => MatchManager.Player.AddHandCard(card));
                 break;
             case Location.MyDeck:
-                cards.ForEach(card => MatchManager.Player.Deck.Add(card.Substance, method));
+                cards.ForEach(card => MatchManager.Player.AddDrawPile(card, method));
                 break;
             case Location.EnemyHandCard:
                 cards.ForEach(card => MatchManager.Enemy.AddHandCard(card));
                 break;
             case Location.EnemyDeck:
-                cards.ForEach(card => MatchManager.Enemy.Deck.Add(card.Substance, method));
+                cards.ForEach(card => MatchManager.Enemy.AddDrawPile(card, method));
                 break;
         }
     }
-    public static void Transport(bool isCopy, Gamer gamer, CardCondition cond, int amount, Location src, Method srcMethod, Location dst, Method dstMethod)
+    public static void SelectCard(Gamer gamer, List<SubstanceCard> cards, Method method, int amount, Action<StackedElementList<SubstanceCard>> resultReceiver, Action cancelAction)
     {
-        gamer.SelectCard(SearchCard(src, cond), srcMethod, amount, (selectedCards) =>
+        switch(method)
         {
-            if(!isCopy)
-                RemoveCard(src, selectedCards);
-            AddCard(gamer, dst, dstMethod, selectedCards);
-        }); 
+            case Method.Select:
+                gamer.SelectCard(cards, amount, resultReceiver, cancelAction);
+                break;
+            case Method.Top:
+                //TODO: edit
+                break;
+            case Method.Bottom:
+                //TODO: edit
+                break;
+        }
+    }
+    public static void Transport(bool isCopy, Gamer gamer, CardCondition cond, int amount, Location src, Method srcMethod, Location dst, Method dstMethod, Action afterAction, Action cancelAction = null)
+    {
+        SelectCard(gamer, SearchCard(src, cond), srcMethod, amount, (selectedCards) =>
+        {
+            if(!isCopy && !src.Equals(Location.OffSite))
+            {
+                selectedCards.ForEach(each => each.type.RemoveAmount(each.amount));
+            }
+            List<SubstanceCard> cards = new List<SubstanceCard>();
+            selectedCards.ForEach(selection => cards.Add(SubstanceCard.GenerateSubstanceCard(selection.type.Substance, selection.amount)));
+            AddCard(gamer, dst, dstMethod, cards);
+            if(afterAction != null)
+                afterAction.Invoke();
+        }, cancelAction);
     }
     public static bool CanTransport(Location src, CardCondition cond, int amount)
     {

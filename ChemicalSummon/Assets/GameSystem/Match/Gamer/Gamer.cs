@@ -23,7 +23,7 @@ public abstract class Gamer : MonoBehaviour
     HandCardsArrange handCardsDisplay;
 
     [SerializeField]
-    UnityEvent onHandCardsChanged;
+    UnityEvent onDrawPileChange, onHandCardsChanged;
     [SerializeField]
     UnityEvent onFusionTurnStart, onFusiontTurnEnd, onAttackTurnStart, onAttackTurnEnd;
 
@@ -36,20 +36,23 @@ public abstract class Gamer : MonoBehaviour
     /// 对手
     /// </summary>
     public Gamer Opponent => IsMyside ? MatchManager.Enemy : (Gamer)MatchManager.Player;
-    Character character;
     /// <summary>
     /// 游戏者
     /// </summary>
-    public Character Character => character;
+    public Character Character { get; protected set; }
     /// <summary>
     /// 属性面板
     /// </summary>
     public StatusPanels StatusPanels => statusPanels;
-    Deck deck;
     /// <summary>
-    /// 卡组
+    /// 战斗前卡组(静态卡组)
     /// </summary>
-    public Deck Deck => deck;
+    public Deck InitialDeck { get; protected set; }
+    List<SubstanceCard> drawPile = new List<SubstanceCard>();
+    /// <summary>
+    /// 战斗内卡组(动态卡组)
+    /// </summary>
+    public List<SubstanceCard> DrawPile => drawPile;
     List<SubstanceCard> handCards = new List<SubstanceCard>();
     /// <summary>
     /// 手牌
@@ -64,7 +67,7 @@ public abstract class Gamer : MonoBehaviour
     /// <summary>
     /// 体力初始值
     /// </summary>
-    public int InitialHP => character.initialHP;
+    public int InitialHP => Character.initialHP;
     /// <summary>
     /// 习得的反应式
     /// </summary>
@@ -129,14 +132,24 @@ public abstract class Gamer : MonoBehaviour
     /// </summary>
     public Field Field => IsMyside ? MatchManager.MyField : MatchManager.EnemyField;
     /// <summary>
+    /// 卡组变化事件
+    /// </summary>
+    public UnityEvent OnDrawPileChange => onDrawPileChange;
+    /// <summary>
     /// 手牌变化事件
     /// </summary>
     public UnityEvent OnHandCardsChanged => onHandCardsChanged;
-    public void Init(Character character, Deck copiedDeck)
+    public void Init(Character character, Deck deck)
     {
-        this.character = character;
-        deck = copiedDeck;
-        deck.Shuffle();
+        Character = character;
+        InitialDeck = deck;
+        drawPile.Clear();
+        foreach (var substanceStack in deck.Substances)
+        {
+            for (int i = 0; i < substanceStack.amount; ++i)
+                drawPile.Add(SubstanceCard.GenerateSubstanceCard(substanceStack.type));
+        }
+        ShuffleDrawPile();
         hp = InitialHP;
         heatGem = 16;
         electricGem = 8;
@@ -144,12 +157,77 @@ public abstract class Gamer : MonoBehaviour
         gamerNameText.text = character.Name;
         statusPanels.SetData(this);
     }
-    public virtual void DrawCard()
+    public void ShuffleDrawPile()
     {
-        if (!Deck.IsEmpty)
+        drawPile = drawPile.Shuffle_InsideOut();
+    }
+    public void DrawCard()
+    {
+        if (DrawPile.Count > 0)
         {
-            AddHandCard(Deck.DrawTopCard(this), true);
+            AddHandCard(DrawTopCard(), true);
         }
+    }
+    public void AddDrawPile(SubstanceCard card, CardTransport.Method method = CardTransport.Method.Bottom)
+    {
+        switch (method)
+        {
+            case CardTransport.Method.Bottom:
+                DrawPile.Add(card);
+                break;
+            case CardTransport.Method.Top:
+                DrawPile.Insert(0, card);
+                break;
+            case CardTransport.Method.Select:
+                Debug.LogError("Insert to deck with specified index is not supported: " + card.Substance.name);
+                break;
+        }
+        OnDrawPileChange.Invoke();
+    }
+    public void AddRangeDrawPile(List<SubstanceCard> cards, CardTransport.Method method = CardTransport.Method.Bottom)
+    {
+        switch (method)
+        {
+            case CardTransport.Method.Bottom:
+                DrawPile.AddRange(cards);
+                break;
+            case CardTransport.Method.Top:
+                DrawPile.InsertRange(0, cards);
+                break;
+            case CardTransport.Method.Select:
+                Debug.LogError("Insert to deck with specified index is not supported: " + cards.Count + " cards.");
+                break;
+        }
+        OnDrawPileChange.Invoke();
+    }
+    public void RemoveDrawPile(SubstanceCard card)
+    {
+        if(DrawPile.Remove(card))
+            OnDrawPileChange.Invoke();
+    }
+    public SubstanceCard DrawTopCard()
+    {
+        if (DrawPile.Count == 0)
+            return null;
+        SubstanceCard card = DrawPile.RemoveFirst();
+        OnDrawPileChange.Invoke();
+        return card;
+    }
+    public SubstanceCard DrawBottomCard()
+    {
+        if (DrawPile.Count == 0)
+            return null;
+        SubstanceCard card = DrawPile.RemoveLast();
+        OnDrawPileChange.Invoke();
+        return card;
+    }
+    public SubstanceCard DrawRandomCard()
+    {
+        if (DrawPile.Count == 0)
+            return null;
+        SubstanceCard card = DrawPile.RemoveRandomElement();
+        OnDrawPileChange.Invoke();
+        return card;
     }
     public SubstanceCard FindHandCard(Substance substance)
     {
@@ -342,7 +420,7 @@ public abstract class Gamer : MonoBehaviour
         foreach (var pair in method.reaction.RightSubstances)
         {
             SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.type);
-            newCard.CardAmount = pair.amount;
+            newCard.InitCardAmount(pair.amount);
             AddHandCard(newCard, true);
         }
         Reaction reaction = method.reaction;
@@ -433,6 +511,6 @@ public abstract class Gamer : MonoBehaviour
                 actionStack.Peek().Invoke();
         }
     }
-    public abstract void SelectCard(List<SubstanceCard> cards, CardTransport.Method method, int amount, Action<List<SubstanceCard>> resultReceiver);
+    public abstract void SelectCard(List<SubstanceCard> cards, int amount, Action<StackedElementList<SubstanceCard>> resultReceiver, Action cancelAction);
     public abstract void SelectSlot(bool includeMyField, bool includeEnemyField, SubstanceCard card);
 }

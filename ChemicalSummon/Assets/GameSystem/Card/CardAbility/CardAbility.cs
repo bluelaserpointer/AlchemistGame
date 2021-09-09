@@ -5,28 +5,51 @@ using UnityEngine;
 public class CardAbility : MonoBehaviour
 {
     [SerializeField]
+    Sprite icon;
+    [SerializeField]
+    [Min(0)]
+    int cost = 1;
+    [SerializeField]
     List<MatchAction> actions;
 
+    //data
+    public Sprite Icon => icon;
     string description;
     public string Description => description;
     private void OnValidate()
     {
         description = "";
+        //costs
+        string costDescription = ChemicalSummonManager.LoadTranslatableSentence("AbilityCost").ToString().Replace("$amount", cost.ToString());
+        //effects
+        string effectDescription = "";
         foreach (var action in actions)
         {
-            if (description.Length == 0)
+            if (effectDescription.Length == 0)
             {
-                description = action.Description;
+                effectDescription = action.Description;
             }
             else
             {
-                description += ChemicalSummonManager.LoadTranslatableSentence("AfterThat") + action.Description;
+                effectDescription += ChemicalSummonManager.LoadTranslatableSentence("AfterThat") + action.Description;
             }
         }
+        description = costDescription + effectDescription;
     }
-    public void DoAbility(SubstanceCard self)
+    public void DoAbility(SubstanceCard card)
     {
-        actions.ForEach(action => action.DoAction(self.Gamer));
+        ActionLoop(card, 0);
+    }
+    public void ActionLoop(SubstanceCard card, int actionIndex)
+    {
+        if (actionIndex < actions.Count)
+        {
+            actions[actionIndex].DoAction(card.Gamer, () => ActionLoop(card, ++actionIndex));
+        }
+        else
+        {
+            card.RemoveAmount(cost);
+        }
     }
     public static CardAbility[] GetBySubstanceName(string cardName)
     {

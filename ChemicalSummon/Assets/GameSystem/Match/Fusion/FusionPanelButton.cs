@@ -3,8 +3,11 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[DisallowMultipleComponent]
 public class FusionPanelButton : MonoBehaviour
 {
+    [SerializeField]
+    SBA_Slide fusionButtonListSlider;
     [SerializeField]
     TranslatableSentenceSO fusionSentence;
     [SerializeField]
@@ -14,20 +17,16 @@ public class FusionPanelButton : MonoBehaviour
     [SerializeField]
     Image fusionCountImage;
     [SerializeField]
-    VerticalLayoutGroup fusionButtonList;
-    [SerializeField]
-    Transform showListAnchor, hideListAnchor;
-    [SerializeField]
     Color noFusionColor, hasFusionColor;
     [SerializeField]
     SBA_FadingExpand newFusionNoticeAnimation;
     [SerializeField]
     AudioClip clickSE;
 
+    //data
     Reaction lastReaction;
     public Reaction LastReaction => lastReaction;
     int lastFusionAmount;
-    bool showingList;
 
     private void Start()
     {
@@ -39,13 +38,13 @@ public class FusionPanelButton : MonoBehaviour
         //in counterMode, only counter fusions are avaliable
         SubstanceCard currentAttacker = MatchManager.Player.CurrentAttacker;
         bool counterMode = MatchManager.CurrentTurnType.Equals(TurnType.EnemyAttackTurn) && currentAttacker != null;
-        foreach (Transform childTransform in fusionButtonList.transform)
+        foreach (Transform childTransform in fusionButtonListSlider.transform)
             Destroy(childTransform.gameObject);
         List<Reaction.ReactionMethod> reactionMethods = MatchManager.Player.FindAvailiableReactions();
         foreach (var method in reactionMethods)
         {
             Reaction reaction = method.reaction;
-            FusionButton fusionButton = Instantiate(prefabFusionButton, fusionButtonList.transform);
+            FusionButton fusionButton = Instantiate(prefabFusionButton, fusionButtonListSlider.transform);
             fusionButton.SetReaction(reaction, counterMode);
             fusionButton.Button.onClick.AddListener(() => {
                 MatchManager.FusionDisplay.StartReactionAnimation(() =>
@@ -71,19 +70,10 @@ public class FusionPanelButton : MonoBehaviour
     public void OnFusionPanelButtonPress()
     {
         MatchManager.PlaySE(clickSE);
-        showingList = !showingList;
-        SBA_TracePosition tracer = fusionButtonList.GetComponent<SBA_TracePosition>();
-        tracer.SetTarget(showingList ? showListAnchor : hideListAnchor);
-        tracer.StartAnimation();
+        fusionButtonListSlider.Switch();
     }
     public void HideFusionList()
     {
-        if(showingList)
-        {
-            SBA_TracePosition tracer = fusionButtonList.GetComponent<SBA_TracePosition>();
-            tracer.SetTarget(hideListAnchor);
-            tracer.StartAnimation();
-            showingList = false;
-        }
+        fusionButtonListSlider.SlideBack();
     }
 }
