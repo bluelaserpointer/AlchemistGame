@@ -23,9 +23,9 @@ public class CardSelectButton : MonoBehaviour
         }
     }
 
-    public void Set(string locationName, SubstanceCard card)
+    public void Set(SubstanceCard card)
     {
-        locationText.text = locationName;
+        locationText.text = CardTransport.LocationName(card.location);
         Card = card;
         substanceText.text = card.Substance.name;
         SelectedAmount = 0;

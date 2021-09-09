@@ -91,6 +91,10 @@ public class SubstanceCard : MonoBehaviour
         }
     }
     /// <summary>
+    /// 卡牌位置
+    /// </summary>
+    public CardTransport.Location location;
+    /// <summary>
     /// 我方卡牌
     /// </summary>
     public bool IsMySide => MatchManager.Player.Equals(Gamer);
@@ -273,6 +277,7 @@ public class SubstanceCard : MonoBehaviour
         SubstanceCard card = Instantiate(baseSubstanceCard);
         card.Substance = substance;
         card.InitCardAmount(amount);
+        card.location = CardTransport.Location.OffSite;
         return card;
     }
     /// <summary>

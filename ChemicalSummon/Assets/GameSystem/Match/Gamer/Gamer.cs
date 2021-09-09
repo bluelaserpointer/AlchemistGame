@@ -147,7 +147,11 @@ public abstract class Gamer : MonoBehaviour
         foreach (var substanceStack in deck.Substances)
         {
             for (int i = 0; i < substanceStack.amount; ++i)
-                drawPile.Add(SubstanceCard.GenerateSubstanceCard(substanceStack.type));
+            {
+                SubstanceCard card = SubstanceCard.GenerateSubstanceCard(substanceStack.type);
+                card.location = IsMyside ? CardTransport.Location.MyDeck : CardTransport.Location.EnemyDeck;
+                drawPile.Add(card);
+            }
         }
         ShuffleDrawPile();
         hp = InitialHP;
@@ -249,6 +253,7 @@ public abstract class Gamer : MonoBehaviour
         {
             substanceCard.Gamer = this;
             HandCards.Add(substanceCard);
+            substanceCard.location = IsMyside ? CardTransport.Location.MyHandCard : CardTransport.Location.EnemyHandCard;
             HandCardsDisplay.Add(substanceCard.gameObject); //includes TracePosition animation
             substanceCard.SetDraggable(IsMyside);
         }

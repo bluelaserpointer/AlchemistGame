@@ -122,7 +122,7 @@ public class Player : Gamer
     public override void SelectCard(List<SubstanceCard> cards, int amount, Action<StackedElementList<SubstanceCard>> resultReceiver, Action cancelAction)
     {
         MatchManager.CardSelectPanel.InitList(amount, resultReceiver, cancelAction);
-        cards.ForEach(card => MatchManager.CardSelectPanel.AddSelection("Loc", card));
+        cards.ForEach(card => MatchManager.CardSelectPanel.AddSelection(card));
     }
 
     public override void SelectSlot(bool includeMyField, bool includeEnemyField, SubstanceCard card)

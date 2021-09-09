@@ -58,6 +58,7 @@ public class ShieldCardSlot : CardSlot, IAttackable
                 }
                 card.Gamer = Gamer;
             }
+            Card.location = IsMySide ? CardTransport.Location.MyField : CardTransport.Location.EnemyField;
             Card.SetDraggable(CardDraggable);
             field.cardsChanged.Invoke();
         });

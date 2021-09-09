@@ -75,10 +75,8 @@ public class StackedElementList<T> : IEnumerable<StackedElementList<T>.StackedEl
         if (find != null)
         {
             if (!AcceptAmount(find.amount += amount))
-            {
                 list.Remove(find);
-                return true;
-            }
+            return true;
         }
         else if (AcceptAmount(amount))
         {

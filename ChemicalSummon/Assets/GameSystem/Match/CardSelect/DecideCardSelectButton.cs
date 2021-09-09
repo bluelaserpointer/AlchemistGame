@@ -60,10 +60,10 @@ public class DecideCardSelectButton : MonoBehaviour
             cancelAction.Invoke();
         gameObject.SetActive(false);
     }
-    public void AddSelection(string locationName, SubstanceCard card)
+    public void AddSelection(SubstanceCard card)
     {
         CardSelectButton button = Instantiate(cardSelectButtonPrefab, selectListTransform);
-        button.Set(locationName, card);
+        button.Set(card);
         button.GetComponent<Button>().onClick.AddListener(() =>
         {
             if (selectedAmount < requiredAmountMax && button.OnButtonClick())

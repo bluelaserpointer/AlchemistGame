@@ -27,6 +27,7 @@ public class AbilityLabel : MonoBehaviour
     }
     public void OnClick()
     {
-        ability.DoAbility(card);
+        if(card.IsMySide)
+            ability.DoAbility(card);
     }
 }
