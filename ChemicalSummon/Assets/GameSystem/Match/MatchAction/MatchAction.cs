@@ -10,10 +10,10 @@ public abstract class MatchAction : MonoBehaviour
     /// 执行内容说明
     /// </summary>
     public string Description => description;
-    protected abstract string InitDescription();
-    private void OnValidate()
+    protected abstract string GetDescription();
+    public void InitDescription()
     {
-        description = InitDescription();
+        description = GetDescription();
     }
     public abstract bool CanAction(Gamer gamer);
     public abstract void DoAction(Gamer gamer, Action afterAction = null, Action cancelAction = null);

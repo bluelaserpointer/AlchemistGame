@@ -16,17 +16,20 @@ public class CardAbility : MonoBehaviour
     public Sprite Icon => icon;
     string description;
     public string Description => description;
-    private void OnValidate()
+    public void InitDescription()
     {
         description = "";
         //costs
         string costDescription = ChemicalSummonManager.LoadTranslatableSentence("AbilityCost").ToString().Replace("$amount", cost.ToString());
         //effects
         string effectDescription = "";
+        bool isFirst = true;
         foreach (var action in actions)
         {
-            if (effectDescription.Length == 0)
+            action.InitDescription();
+            if (isFirst)
             {
+                isFirst = false;
                 effectDescription = action.Description;
             }
             else
@@ -35,6 +38,10 @@ public class CardAbility : MonoBehaviour
             }
         }
         description = costDescription + effectDescription;
+    }
+    public bool IsAvaliable(SubstanceCard card)
+    {
+        return !actions.Exists(action => !action.CanAction(card.Gamer));
     }
     public void DoAbility(SubstanceCard card)
     {

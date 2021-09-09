@@ -6,11 +6,17 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public class TitleManager : ChemicalSummonManager
 {
+    public static TitleManager Instance { get; protected set; }
     [SerializeField]
     Text versionText;
+    [SerializeField]
+    SettingScreen settingScreen;
+    public static SettingScreen SettingScreen => Instance.settingScreen;
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        Init();
+        Instance = this;
         versionText.text = "Version " + ChemicalSummonManager.Version;
     }
 }

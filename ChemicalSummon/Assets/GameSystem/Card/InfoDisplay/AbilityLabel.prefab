@@ -187,10 +187,10 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 14
+    m_FontSize: 32
     m_FontStyle: 0
-    m_BestFit: 1
-    m_MinSize: 1
+    m_BestFit: 0
+    m_MinSize: 3
     m_MaxSize: 40
     m_Alignment: 0
     m_AlignByGeometry: 0
@@ -257,6 +257,8 @@ MonoBehaviour:
   abilityIcon: {fileID: 5993728312665033481}
   descriptionText: {fileID: 4919414050787411167}
   abilitySentence: {fileID: 11400000, guid: 815411fc150a6a7488706a54ea7e8a78, type: 2}
+  avaliableColor: {r: 1, g: 1, b: 1, a: 1}
+  unavaliableColor: {r: 0.4811321, g: 0.4811321, b: 0.4811321, a: 1}
 --- !u!222 &4919414050994821180
 CanvasRenderer:
   m_ObjectHideFlags: 0

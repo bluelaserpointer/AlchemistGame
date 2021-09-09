@@ -14,7 +14,7 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public class MatchManager : ChemicalSummonManager, IPointerDownHandler
 {
-    public static MatchManager instance;
+    public static MatchManager Instance { get; protected set; }
 
     //inspector
     [Header("Field")]
@@ -84,11 +84,11 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// <summary>
     /// 我方场地
     /// </summary>
-    public static CardField MyField => instance.myField;
+    public static CardField MyField => Instance.myField;
     /// <summary>
     /// 敌方场地
     /// </summary>
-    public static CardField EnemyField => instance.enemyField;
+    public static CardField EnemyField => Instance.enemyField;
     /// <summary>
     /// 我方手牌
     /// </summary>
@@ -96,11 +96,11 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// <summary>
     /// 我方信息栏
     /// </summary>
-    public static Player Player => instance.player;
+    public static Player Player => Instance.player;
     /// <summary>
     /// 敌方信息栏
     /// </summary>
-    public static Enemy Enemy => instance.enemy;
+    public static Enemy Enemy => Instance.enemy;
     /// <summary>
     /// 先手
     /// </summary>
@@ -110,48 +110,48 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// </summary>
     public static Gamer SecondMover => FirstMover.Opponent;
     TurnType currentTurnType;
-    public static TurnType CurrentTurnType => instance.currentTurnType;
+    public static TurnType CurrentTurnType => Instance.currentTurnType;
     int turn;
     /// <summary>
     /// 卡牌信息栏
     /// </summary>
-    public static CardInfoDisplay CardInfoDisplay => instance.cardInfoDisplay;
+    public static CardInfoDisplay CardInfoDisplay => Instance.cardInfoDisplay;
     /// <summary>
     /// 融合列表
     /// </summary>
-    public static FusionPanelButton FusionPanel => instance.fusionPanel;
+    public static FusionPanelButton FusionPanel => Instance.fusionPanel;
     /// <summary>
     /// 卡牌选择列表
     /// </summary>
-    public static DecideCardSelectButton CardSelectPanel => instance.cardSelectPanel;
+    public static DecideCardSelectButton CardSelectPanel => Instance.cardSelectPanel;
     /// <summary>
     /// 新抽卡展示
     /// </summary>
-    public static CurrentDrawingCardsPanel CurrentDrawingCardsPanel => instance.currentDrawingCardsPanel;
+    public static CurrentDrawingCardsPanel CurrentDrawingCardsPanel => Instance.currentDrawingCardsPanel;
     /// <summary>
     /// 融合展示
     /// </summary>
-    public static FusionDisplay FusionDisplay => instance.fusionDisplay;
+    public static FusionDisplay FusionDisplay => Instance.fusionDisplay;
     /// <summary>
     /// 行动历史栏
     /// </summary>
-    public static MatchLogDisplay MatchLogDisplay => instance.matchLogDisplay;
+    public static MatchLogDisplay MatchLogDisplay => Instance.matchLogDisplay;
     /// <summary>
     /// 消息栏
     /// </summary>
-    public static MessagePanel MessagePanel => instance.messagePanel;
+    public static MessagePanel MessagePanel => Instance.messagePanel;
     /// <summary>
     /// 先手决定栏
     /// </summary>
-    public static FirstMoverDecider FirstMoverDecider => instance.firstMoverDecider;
+    public static FirstMoverDecider FirstMoverDecider => Instance.firstMoverDecider;
     /// <summary>
     /// 回合栏
     /// </summary>
-    public static TurnPanel TurnPanel => instance.turnPanel;
+    public static TurnPanel TurnPanel => Instance.turnPanel;
     /// <summary>
     /// 结果页面
     /// </summary>
-    public static ResultPanel ResultPanel => instance.resultPanel;
+    public static ResultPanel ResultPanel => Instance.resultPanel;
     /// <summary>
     /// 是否对局结束
     /// </summary>
@@ -159,11 +159,11 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// <summary>
     /// 回合
     /// </summary>
-    public static int Turn => instance.turn;
+    public static int Turn => Instance.turn;
     private void Awake()
     {
         Init();
-        instance = this;
+        Instance = this;
         //set background and music
         AudioSource audioSource = GetComponent<AudioSource>();
         audioSource.clip = Match.PickRandomBGM();
@@ -215,7 +215,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// 结束回合
     /// </summary>
     public static void TurnEnd() {
-        instance.TurnEnd_nonstatic();
+        Instance.TurnEnd_nonstatic();
     }
     /// <summary>
     /// 结束回合非静态函数(用于按钮事件)
@@ -352,16 +352,16 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     //animations
     public static void StartAttackAnimation(ShieldCardSlot slot1, ShieldCardSlot slot2, UnityAction onBump)
     {
-        slot1.SBA_Bump.target = instance.transform;
+        slot1.SBA_Bump.target = Instance.transform;
         slot1.SBA_Bump.StartAnimation();
         if(slot2 != null)
         {
-            slot2.SBA_Bump.target = instance.transform;
+            slot2.SBA_Bump.target = Instance.transform;
             slot2.SBA_Bump.StartAnimation();
         }
         slot1.SBA_Bump.AddBumpAction(() =>
         {
-            Instantiate(instance.attackEffectPrefab, instance.transform);
+            Instantiate(Instance.attackEffectPrefab, Instance.transform);
             if (onBump != null)
                 onBump.Invoke();
         });
@@ -369,11 +369,11 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     public static void StartExplosionAnimation(Field field)
     {
         foreach(var each in field.Slots)
-            Instantiate(instance.explosionEffectPrefab, instance.transform).transform.position = each.transform.position;
+            Instantiate(Instance.explosionEffectPrefab, Instance.transform).transform.position = each.transform.position;
     }
     public static void StartDamageAnimation(Vector3 startPosition, int damage, Gamer damagedGamer)
     {
-        GameObject damageText = Instantiate(instance.damageTextPrefab, MainCanvas.transform);
+        GameObject damageText = Instantiate(Instance.damageTextPrefab, MainCanvas.transform);
         damageText.transform.position = startPosition;
         damageText.GetComponent<Text>().text = (-damage).ToString();
         SBA_TracePosition trace = damageText.GetComponent<SBA_TracePosition>();
@@ -387,7 +387,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     }
     public static void StartGemMoveAnimation(Color color, Vector3 src, Vector3 dst, UnityAction reachAction = null)
     {
-        GameObject gem = Instantiate(instance.movingGemPrefab, instance.transform);
+        GameObject gem = Instantiate(Instance.movingGemPrefab, Instance.transform);
         gem.GetComponent<Image>().color = color;
         SBA_TracePosition tracer = gem.GetComponent<SBA_TracePosition>();
         tracer.transform.position = src;

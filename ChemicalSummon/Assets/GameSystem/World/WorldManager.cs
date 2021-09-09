@@ -7,7 +7,7 @@ using UnityEngine.UI;
 [DisallowMultipleComponent]
 public class WorldManager : ChemicalSummonManager, IPointerDownHandler
 {
-    public static WorldManager instance;
+    public static WorldManager Instance { get; protected set; }
 
     [SerializeField]
     World world;
@@ -28,19 +28,19 @@ public class WorldManager : ChemicalSummonManager, IPointerDownHandler
     [SerializeField]
     Image newReactionSign;
 
-    public static WorldPlayer Player => instance.worldPlayer;
-    public static ItemScreen ItemScreen => instance.itemScreen;
-    public static DeckScreen DeckScreen => instance.deckScreen;
-    public static ReactionScreen ReactionScreen => instance.reactionScreen;
-    public static CharacterScreen CharacterScreen => instance.characterScreen;
-    public static DebugScreen DebugScreen => instance.debugScreen;
-    public static Image NewReactionSign => instance.newReactionSign;
+    public static WorldPlayer Player => Instance.worldPlayer;
+    public static ItemScreen ItemScreen => Instance.itemScreen;
+    public static DeckScreen DeckScreen => Instance.deckScreen;
+    public static ReactionScreen ReactionScreen => Instance.reactionScreen;
+    public static CharacterScreen CharacterScreen => Instance.characterScreen;
+    public static DebugScreen DebugScreen => Instance.debugScreen;
+    public static Image NewReactionSign => Instance.newReactionSign;
 
 
     private void Awake()
     {
         Init();
-        instance = this;
+        Instance = this;
         ItemScreen.gameObject.SetActive(false);
         DeckScreen.gameObject.SetActive(false);
         ReactionScreen.gameObject.SetActive(false);

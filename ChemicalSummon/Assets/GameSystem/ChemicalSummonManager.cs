@@ -35,7 +35,7 @@ public abstract class ChemicalSummonManager : MonoBehaviour
     {
         SceneManager.LoadScene("Title");
     }
-    public void GotoMap()
+    public void GotoWorld()
     {
         SceneManager.LoadScene("World");
     }
@@ -53,5 +53,13 @@ public abstract class ChemicalSummonManager : MonoBehaviour
         if (sentence == null)
             Debug.LogWarning("Cannot find TranslatableSentence ScriptableObject by name: " + name);
         return sentence;
+    }
+    public static void UpdateAllSentence()
+    {
+        foreach (var substance in Substance.GetAll())
+        {
+            foreach (var ability in substance.abilities)
+                ability.InitDescription();
+        }
     }
 }

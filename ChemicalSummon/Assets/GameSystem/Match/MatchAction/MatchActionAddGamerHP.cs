@@ -10,7 +10,7 @@ public class MatchActionAddGamerHP : MatchAction
     Target target;
     [SerializeField]
     int amount;
-    protected override string InitDescription()
+    protected override string GetDescription()
     {
         throw new System.NotImplementedException();
     }

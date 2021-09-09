@@ -14,7 +14,7 @@ public class StageButton : MonoBehaviour
     private void Start()
     {
         //WorldManager.StageScreen.StageHeader = stageHeader;
-        GetComponent<Button>().onClick.AddListener(() => WorldManager.instance.StartEvent(theEvent));
+        GetComponent<Button>().onClick.AddListener(() => WorldManager.Instance.StartEvent(theEvent));
     }
     private void OnValidate()
     {

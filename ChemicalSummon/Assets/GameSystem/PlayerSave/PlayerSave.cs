@@ -20,9 +20,11 @@ public class PlayerSave : MonoBehaviour
             return Instantiate(Resources.Load<PlayerSave>("__PlayerSave__"));
         }
     }
-    public void OnFirstInit()
+    public void OnFirstInit() //refered by DontDestroyOnLoad
     {
         instance = this;
+        ChemicalSummonManager.UpdateAllSentence();
+        InitSaveData();
     }
     //inspector
     [SerializeField]

@@ -217,6 +217,10 @@ public class SubstanceCard : MonoBehaviour
     /// </summary>
     public bool InGamerHandCards => gamer != null && gamer.HandCards.Contains(this);
     /// <summary>
+    /// 在我方卡组
+    /// </summary>
+    public bool InGamerDrawPile => gamer != null && gamer.DrawPile.Contains(this);
+    /// <summary>
     /// 在场地(不考虑敌我)
     /// </summary>
     public bool InField => Slot != null;
@@ -289,6 +293,8 @@ public class SubstanceCard : MonoBehaviour
             Slot.SlotClear();
         else if (InGamerHandCards)
             gamer.RemoveHandCard(this);
+        else if (InGamerDrawPile)
+            gamer.RemoveDrawPile(this);
         Destroy(gameObject);
     }
     /// <summary>

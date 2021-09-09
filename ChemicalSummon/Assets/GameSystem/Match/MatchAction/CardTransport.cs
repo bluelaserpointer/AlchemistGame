@@ -113,17 +113,57 @@ public class CardTransport
     }
     public static void SelectCard(Gamer gamer, List<SubstanceCard> cards, Method method, int amount, Action<StackedElementList<SubstanceCard>> resultReceiver, Action cancelAction)
     {
-        switch(method)
+        if (method.Equals(Method.Select))
         {
-            case Method.Select:
-                gamer.SelectCard(cards, amount, resultReceiver, cancelAction);
-                break;
-            case Method.Top:
-                //TODO: edit
-                break;
-            case Method.Bottom:
-                //TODO: edit
-                break;
+            gamer.SelectCard(cards, amount, resultReceiver, cancelAction);
+        }
+        else
+        {
+            StackedElementList<SubstanceCard> selectedCards = new StackedElementList<SubstanceCard>();
+            int addedAmount = 0;
+            switch (method)
+            {
+                case Method.Top:
+                    foreach (var card in cards)
+                    {
+                        int lestRequired = amount - addedAmount;
+                        if (card.CardAmount <= lestRequired)
+                        {
+                            selectedCards.Add(card, card.CardAmount);
+                            addedAmount += card.CardAmount;
+                        }
+                        else
+                        {
+                            if (lestRequired > 0)
+                            {
+                                selectedCards.Add(card, lestRequired);
+                            }
+                            break;
+                        }
+                    }
+                    break;
+                case Method.Bottom:
+                    for (int i = cards.Count - 1; i >= 0; --i)
+                    {
+                        SubstanceCard card = cards[i];
+                        int lestRequired = amount - addedAmount;
+                        if (card.CardAmount <= lestRequired)
+                        {
+                            selectedCards.Add(card, card.CardAmount);
+                            addedAmount += card.CardAmount;
+                        }
+                        else
+                        {
+                            if (lestRequired > 0)
+                            {
+                                selectedCards.Add(card, lestRequired);
+                            }
+                            break;
+                        }
+                    }
+                    break;
+            }
+            resultReceiver.Invoke(selectedCards);
         }
     }
     public static void Transport(bool isCopy, Gamer gamer, CardCondition cond, int amount, Location src, Method srcMethod, Location dst, Method dstMethod, Action afterAction, Action cancelAction = null)

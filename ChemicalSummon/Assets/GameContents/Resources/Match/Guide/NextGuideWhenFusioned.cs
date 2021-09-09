@@ -8,7 +8,7 @@ public class NextGuideWhenFusioned : NextGuide
     List<Reaction> reactions;
     protected override void OnClose()
     {
-        MatchManager.instance.onFusionFinish.AddListener(CheckFusion);
+        MatchManager.Instance.onFusionFinish.AddListener(CheckFusion);
     }
     private void CheckFusion()
     {
@@ -16,7 +16,7 @@ public class NextGuideWhenFusioned : NextGuide
         if (reactions.Contains(reaction))
         {
             ShowNextGuide();
-            MatchManager.instance.onFusionFinish.RemoveListener(CheckFusion);
+            MatchManager.Instance.onFusionFinish.RemoveListener(CheckFusion);
         }
     }
 }

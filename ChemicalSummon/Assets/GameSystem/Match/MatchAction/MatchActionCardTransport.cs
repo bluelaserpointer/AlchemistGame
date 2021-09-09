@@ -17,7 +17,7 @@ public class MatchActionCardTransport : MatchAction
     CardTransport.Location dstLocation;
     [SerializeField]
     CardTransport.Method dstMethod;
-    protected override string InitDescription()
+    protected override string GetDescription()
     {
         string baseString = ChemicalSummonManager.LoadTranslatableSentence("CardTransport");
         baseString = baseString.Replace("$action", ChemicalSummonManager.LoadTranslatableSentence(isCopy ? "Copy" : "Move"));

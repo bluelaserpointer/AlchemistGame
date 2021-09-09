@@ -17,14 +17,12 @@ public class SettingScreen : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    private void Start()
+    public void SetLanguage(Language language, bool init = false)
     {
-        SetLanguage(TranslatableSentence.currentLanguage); //update UI
-    }
-    public void SetLanguage(Language language)
-    {
+        if (!init && TranslatableSentence.currentLanguage.Equals(language))
+            return;
         TranslatableSentence.currentLanguage = language;
-        switch(language)
+        switch (language)
         {
             case Language.Chinese:
                 languageText.text = "中文";
@@ -36,6 +34,7 @@ public class SettingScreen : MonoBehaviour
                 languageText.text = "日本語";
                 break;
         }
+        ChemicalSummonManager.UpdateAllSentence();
     }
     public void NextLanguage()
     {

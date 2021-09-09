@@ -34,7 +34,8 @@ MonoBehaviour:
   isPhenomenon: 0
   waterSoluble: 0
   isOre: 0
-  abilities: []
+  abilities:
+  - {fileID: 7719961831192476887, guid: 7eba9b62aaf1c784ba2cf16e5b246a6a, type: 3}
   description:
     defaultString: 
     languageAndSentences: []

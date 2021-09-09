@@ -169,7 +169,7 @@ public abstract class Gamer : MonoBehaviour
     {
         if (DrawPile.Count > 0)
         {
-            AddHandCard(DrawTopCard(), true);
+            AddHandCard(RemoveDrawPileTop(), true);
         }
     }
     public void AddDrawPile(SubstanceCard card, CardTransport.Method method = CardTransport.Method.Bottom)
@@ -209,7 +209,7 @@ public abstract class Gamer : MonoBehaviour
         if(DrawPile.Remove(card))
             OnDrawPileChange.Invoke();
     }
-    public SubstanceCard DrawTopCard()
+    public SubstanceCard RemoveDrawPileTop()
     {
         if (DrawPile.Count == 0)
             return null;
@@ -217,7 +217,7 @@ public abstract class Gamer : MonoBehaviour
         OnDrawPileChange.Invoke();
         return card;
     }
-    public SubstanceCard DrawBottomCard()
+    public SubstanceCard RemoveDrawPileBottom()
     {
         if (DrawPile.Count == 0)
             return null;
@@ -225,7 +225,7 @@ public abstract class Gamer : MonoBehaviour
         OnDrawPileChange.Invoke();
         return card;
     }
-    public SubstanceCard DrawRandomCard()
+    public SubstanceCard RemoveDrawPileRandom()
     {
         if (DrawPile.Count == 0)
             return null;
@@ -443,7 +443,7 @@ public abstract class Gamer : MonoBehaviour
         if (reaction.explosion == 0)
             MatchManager.PlaySE("Sound/SE/powerup10"); //TODO: make a single fusion SE play time
         //event invoke
-        MatchManager.instance.onFusionFinish.Invoke();
+        MatchManager.Instance.onFusionFinish.Invoke();
     }
     public virtual void DoBurn(int burnDamage)
     {

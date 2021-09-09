@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37056723, g: 0.64136004, b: 0.8759154, a: 1}
+  m_IndirectSpecularColor: {r: 0.37068045, g: 0.6413987, b: 0.8758817, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1947,7 +1947,7 @@ GameObject:
   - component: {fileID: 646528452}
   - component: {fileID: 646528451}
   m_Layer: 5
-  m_Name: GameMenu
+  m_Name: Return
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2018,8 +2018,8 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2121452840}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: GotoMap
+        m_TargetAssemblyTypeName: ChemicalSummonManager, Assembly-CSharp
+        m_MethodName: GotoWorld
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -4123,11 +4123,7 @@ MonoBehaviour:
     list:
     - type: {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
       amount: 4
-    - type: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
-      amount: 4
-    - type: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
-      amount: 3
-    - type: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
+    - type: {fileID: 11400000, guid: 30f423d9287afc148a0fdff25df732dd, type: 2}
       amount: 4
     amountAcception: 0
 --- !u!4 &1205043622

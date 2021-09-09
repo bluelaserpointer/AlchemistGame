@@ -14,9 +14,12 @@ public class AbilityLabel : MonoBehaviour
     Text descriptionText;
     [SerializeField]
     TranslatableSentenceSO abilitySentence;
+    [SerializeField]
+    Color avaliableColor, unavaliableColor;
 
     SubstanceCard card;
     CardAbility ability;
+    bool abilityAvaliable;
     public void Set(SubstanceCard card, int abilityIndex, CardAbility ability)
     {
         this.card = card;
@@ -24,10 +27,18 @@ public class AbilityLabel : MonoBehaviour
         headerText.text = abilitySentence + abilityIndex;
         abilityIcon.sprite = ability.Icon;
         descriptionText.text = ability.Description;
+        UpdateAbilityState();
+    }
+    public void UpdateAbilityState()
+    {
+        GetComponent<Image>().color = (abilityAvaliable = ability.IsAvaliable(card)) ? avaliableColor : unavaliableColor;
     }
     public void OnClick()
     {
-        if(card.IsMySide)
+        if(abilityAvaliable && card.IsMySide)
+        {
             ability.DoAbility(card);
+            UpdateAbilityState();
+        }
     }
 }

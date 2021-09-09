@@ -7,14 +7,14 @@ public class NextGuideWhenTurnType : NextGuide
     TurnType turnType;
     protected override void OnClose()
     {
-        MatchManager.instance.onTurnStart.AddListener(CheckTurnType);
+        MatchManager.Instance.onTurnStart.AddListener(CheckTurnType);
     }
     private void CheckTurnType()
     {
         if (MatchManager.CurrentTurnType.Equals(turnType))
         {
             ShowNextGuide();
-            MatchManager.instance.onTurnStart.RemoveListener(CheckTurnType);
+            MatchManager.Instance.onTurnStart.RemoveListener(CheckTurnType);
         }
     }
 }

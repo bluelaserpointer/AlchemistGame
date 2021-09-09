@@ -105,7 +105,7 @@ public class FusionDisplay : MonoBehaviour
             {
                 tracer.AddReachAction(() => {
                     action.Invoke();
-                    Instantiate(fusionEffectPrefab, MatchManager.instance.transform);
+                    Instantiate(fusionEffectPrefab, MatchManager.Instance.transform);
                     isAnimating = false;
                     HidePreview();
                 });
