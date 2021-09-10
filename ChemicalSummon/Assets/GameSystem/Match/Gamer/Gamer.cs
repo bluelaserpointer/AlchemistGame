@@ -186,6 +186,8 @@ public abstract class Gamer : MonoBehaviour
                 Debug.LogError("Insert to deck with specified index is not supported: " + card.Substance.name);
                 break;
         }
+        card.TracePosition(new Vector3(-300, -300)); //TODO: create DrawPile and move to there
+        card.transform.localEulerAngles = Vector3.zero;
         OnDrawPileChange.Invoke();
     }
     public void AddRangeDrawPile(List<SubstanceCard> cards, CardTransport.Method method = CardTransport.Method.Bottom)
@@ -420,7 +422,7 @@ public abstract class Gamer : MonoBehaviour
     {
         foreach (KeyValuePair<SubstanceCard, int> consume in method.consumingCards)
         {
-            consume.Key.RemoveAmount(consume.Value);
+            consume.Key.RemoveAmount(consume.Value, SubstanceCard.DecreaseReason.FusionMaterial);
         }
         foreach (var pair in method.reaction.RightSubstances)
         {

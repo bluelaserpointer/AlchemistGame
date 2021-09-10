@@ -1,6 +1,6 @@
 using System;
 
-public class MatchActionShuffleDeck : MatchAction
+public class ShuffleDeck : MatchAction
 {
     public override bool CanAction(Gamer gamer)
     {

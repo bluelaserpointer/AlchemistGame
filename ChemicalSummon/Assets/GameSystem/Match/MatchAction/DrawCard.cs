@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MatchActionDrawCard : MatchAction
+public class DrawCard : MatchAction
 {
     [SerializeField]
     [Min(1)]

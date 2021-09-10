@@ -30,6 +30,7 @@ public class SBA_TracePosition : MonoBehaviour
         if (isBeforeReach && passedTime >= timeLength)
         {
             isBeforeReach = false;
+            transform.position = useTransformTarget ? targetTransform.position : targetPosition;
             OnReach.Invoke();
             foreach (UnityAction action in oneTimeReachActions)
                 OnReach.RemoveListener(action);
@@ -41,6 +42,12 @@ public class SBA_TracePosition : MonoBehaviour
         passedTime = 0;
         originalPos = transform.position;
         isBeforeReach = true;
+    }
+    public void SkipAnimation()
+    {
+        if (!isBeforeReach)
+            return;
+        passedTime = timeLength;
     }
     public void AddReachAction(UnityAction reachAction, bool isOneTime = true)
     {

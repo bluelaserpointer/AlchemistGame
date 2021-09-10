@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class MatchActionAddGamerHP : MatchAction
+public class AddGamerHP : MatchAction
 {
     enum Target { Self, Opponent }
     [SerializeField]
@@ -12,7 +12,8 @@ public class MatchActionAddGamerHP : MatchAction
     int amount;
     protected override string GetDescription()
     {
-        throw new System.NotImplementedException();
+        return ChemicalSummonManager.LoadTranslatableSentence(target.Equals(Target.Self) ? "PlayerHP" : "EnemyHP")
+            + (amount < 0 ? amount.ToString() : "+" + amount);
     }
     public override void DoAction(Gamer gamer, Action afterAction, Action cancelAction)
     {

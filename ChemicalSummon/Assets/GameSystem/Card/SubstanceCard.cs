@@ -199,7 +199,7 @@ public class SubstanceCard : MonoBehaviour
         if (overDamage >= 0)
         {
             if(!IsPhenomenon)
-                RemoveAmount(1);
+                RemoveAmount(1, DecreaseReason.Damage);
             if (overDamage > 0)
             {
                 MatchManager.StartDamageAnimation(transform.position, overDamage, gamer);
@@ -287,7 +287,7 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 安全丢弃该卡
     /// </summary>
-    public void Dispose()
+    public void Dispose(DecreaseReason decreaseReason = DecreaseReason.Other)
     {
         if (Slot != null)
             Slot.SlotClear();
@@ -295,14 +295,29 @@ public class SubstanceCard : MonoBehaviour
             gamer.RemoveHandCard(this);
         else if (InGamerDrawPile)
             gamer.RemoveDrawPile(this);
-        Destroy(gameObject);
+        switch(decreaseReason)
+        {
+            case DecreaseReason.Damage:
+            case DecreaseReason.FusionMaterial:
+                for(int i = 0; i < CardAmount; ++i)
+                    Gamer.AddDrawPile(GenerateSubstanceCard(Substance));
+                Destroy(gameObject);
+                break;
+            default:
+                Destroy(gameObject);
+                break;
+        }
     }
+    /// <summary>
+    /// 减少原因
+    /// </summary>
+    public enum DecreaseReason { Damage, FusionMaterial, SkillCost, Other }
     /// <summary>
     /// 减少叠加数(到零自动Dispose)
     /// </summary>
     /// <param name="amount"></param>
-    /// <returns></returns>
-    public int RemoveAmount(int amount)
+    /// <returns>实际减少量</returns>
+    public int RemoveAmount(int amount, DecreaseReason decreaseReason = DecreaseReason.Other)
     {
         if (CardAmount > amount)
         {
@@ -310,7 +325,7 @@ public class SubstanceCard : MonoBehaviour
             return amount;
         }
         amount = CardAmount;
-        Dispose();
+        Dispose(decreaseReason);
         return amount;
     }
     public void SetDraggable(bool cond)
@@ -332,5 +347,10 @@ public class SubstanceCard : MonoBehaviour
         sBA_TraceRotation.SetTarget(rotation);
         sBA_TraceRotation.AddReachAction(reachAction);
         sBA_TraceRotation.StartAnimation();
+    }
+    public void SkipMovingAnimation()
+    {
+        sBA_TracePosition.SkipAnimation();
+        sBA_TraceRotation.SkipAnimation();
     }
 }

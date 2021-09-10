@@ -14,6 +14,8 @@ public class DrawCardAnchor : MonoBehaviour
     {
         this.substanceCard = substanceCard;
         substanceCard.transform.SetParent(cardCarrier);
+        substanceCard.SkipMovingAnimation();
+        substanceCard.transform.localPosition = Vector3.zero;
     }
     public void OnAnimationEnd()
     {

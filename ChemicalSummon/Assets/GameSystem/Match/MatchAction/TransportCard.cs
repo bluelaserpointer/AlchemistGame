@@ -1,7 +1,7 @@
 using System;
 using UnityEngine;
 
-public class MatchActionCardTransport : MatchAction
+public class TransportCard : MatchAction
 {
     [SerializeField]
     bool isCopy;

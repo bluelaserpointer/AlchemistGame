@@ -172,7 +172,7 @@ public class CardTransport
         {
             if(!isCopy && !src.Equals(Location.OffSite))
             {
-                selectedCards.ForEach(each => each.type.RemoveAmount(each.amount));
+                selectedCards.ForEach(each => each.type.RemoveAmount(each.amount, SubstanceCard.DecreaseReason.Other));
             }
             List<SubstanceCard> cards = new List<SubstanceCard>();
             selectedCards.ForEach(selection => cards.Add(SubstanceCard.GenerateSubstanceCard(selection.type.Substance, selection.amount)));

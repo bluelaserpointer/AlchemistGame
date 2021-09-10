@@ -10,12 +10,18 @@ public class CardAbility : MonoBehaviour
     [Min(0)]
     int cost = 1;
     [SerializeField]
+    bool isActiveAbility = true;
+    [SerializeField]
     List<MatchAction> actions;
 
     //data
     public Sprite Icon => icon;
     string description;
     public string Description => description;
+    /// <summary>
+    /// 是否为主动技能
+    /// </summary>
+    public bool IsActiveAbility => isActiveAbility;
     public void InitDescription()
     {
         description = "";
@@ -41,7 +47,7 @@ public class CardAbility : MonoBehaviour
     }
     public bool IsAvaliable(SubstanceCard card)
     {
-        return !actions.Exists(action => !action.CanAction(card.Gamer));
+        return IsActiveAbility || !actions.Exists(action => !action.CanAction(card.Gamer));
     }
     public void DoAbility(SubstanceCard card)
     {
@@ -55,7 +61,7 @@ public class CardAbility : MonoBehaviour
         }
         else
         {
-            card.RemoveAmount(cost);
+            card.RemoveAmount(cost, SubstanceCard.DecreaseReason.SkillCost);
         }
     }
     public static CardAbility[] GetBySubstanceName(string cardName)
