@@ -12,7 +12,7 @@ public class Player : Gamer
     public override void AddHandCard(SubstanceCard substanceCard, bool fromNewGenerated = false)
     {
         if (fromNewGenerated)
-            MatchManager.CurrentDrawingCardsPanel.StartDrawCardAnimation(substanceCard);
+            MatchManager.StartDrawCardAnimation(substanceCard);
         else
             base.AddHandCard(substanceCard);
     }

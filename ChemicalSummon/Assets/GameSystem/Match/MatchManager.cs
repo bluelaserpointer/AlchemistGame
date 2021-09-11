@@ -35,8 +35,6 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     [SerializeField]
     DecideCardSelectButton cardSelectPanel;
     [SerializeField]
-    CurrentDrawingCardsPanel currentDrawingCardsPanel;
-    [SerializeField]
     FusionDisplay fusionDisplay;
     [SerializeField]
     MatchLogDisplay matchLogDisplay;
@@ -54,7 +52,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     public UnityEvent onFusionFinish;
     public Animator animatedTurnPanel;
 
-    [Header("Prefab")]
+    [Header("Animation")]
     [SerializeField]
     GameObject attackEffectPrefab;
     [SerializeField]
@@ -63,6 +61,10 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     GameObject explosionEffectPrefab;
     [SerializeField]
     GameObject movingGemPrefab;
+    [SerializeField]
+    DrawCardAnchor drawCardAnchorPrefab;
+    [SerializeField]
+    Transform drawCardAnchorParent;
 
     [Header("SE/BGM")]
     [SerializeField]
@@ -124,10 +126,6 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// 卡牌选择列表
     /// </summary>
     public static DecideCardSelectButton CardSelectPanel => Instance.cardSelectPanel;
-    /// <summary>
-    /// 新抽卡展示
-    /// </summary>
-    public static CurrentDrawingCardsPanel CurrentDrawingCardsPanel => Instance.currentDrawingCardsPanel;
     /// <summary>
     /// 融合展示
     /// </summary>
@@ -394,5 +392,10 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         tracer.SetTarget(dst);
         tracer.AddReachAction(reachAction);
         tracer.StartAnimation();
+    }
+    public static void StartDrawCardAnimation(SubstanceCard substanceCard)
+    {
+        DrawCardAnchor anchor = Instantiate(Instance.drawCardAnchorPrefab, Instance.drawCardAnchorParent);
+        anchor.SetCard(substanceCard);
     }
 }

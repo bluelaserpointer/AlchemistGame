@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37059084, g: 0.6413453, b: 0.87588876, a: 1}
+  m_IndirectSpecularColor: {r: 0.37056518, g: 0.64129543, b: 0.8758668, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -4603,7 +4603,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1359749068}
-  - component: {fileID: 1359749070}
   - component: {fileID: 1359749069}
   m_Layer: 5
   m_Name: CurrentDrawingCardsPanel
@@ -4657,20 +4656,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
---- !u!114 &1359749070
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1359749067}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 924e19765c269774c923ee8146982657, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  drawCardAnchorPrefab: {fileID: 7709142645193499436, guid: 665ed62195820e346a5e20413444570c,
-    type: 3}
 --- !u!1 &1390793889
 GameObject:
   m_ObjectHideFlags: 0
@@ -9447,7 +9432,6 @@ MonoBehaviour:
   cardInfoDisplay: {fileID: 1541449892}
   fusionPanel: {fileID: 810751219}
   cardSelectPanel: {fileID: 2132090821}
-  currentDrawingCardsPanel: {fileID: 1359749070}
   fusionDisplay: {fileID: 1644933718}
   matchLogDisplay: {fileID: 742822864}
   messagePanel: {fileID: 578644689}
@@ -9469,6 +9453,9 @@ MonoBehaviour:
     type: 3}
   movingGemPrefab: {fileID: 8747929785874210510, guid: 2be1ba3ff88992e4586186c98ac8e8fd,
     type: 3}
+  drawCardAnchorPrefab: {fileID: 7709142645193499436, guid: 665ed62195820e346a5e20413444570c,
+    type: 3}
+  drawCardAnchorParent: {fileID: 1359749068}
   clickSE: {fileID: 8300000, guid: a9d8a0075b0b3cb4fbec8e8caed91472, type: 3}
   victorySE: {fileID: 8300000, guid: 44d20c815aa1e4e44a81ad2e5113bfd5, type: 3}
   onInit:

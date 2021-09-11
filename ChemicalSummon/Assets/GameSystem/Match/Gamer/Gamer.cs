@@ -247,7 +247,7 @@ public abstract class Gamer : MonoBehaviour
     }
     public SubstanceCard FindHandCard(SubstanceCard substanceCard)
     {
-        return HandCards.Find(card => card.IsSameSubstance(substanceCard));
+        return FindHandCard(substanceCard.Substance);
     }
     /// <summary>
     /// 加入手牌
