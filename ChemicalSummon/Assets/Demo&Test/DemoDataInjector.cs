@@ -13,7 +13,7 @@ public class DemoDataInjector : MonoBehaviour
     public void Inject()
     {
         //deck
-        if(MatchManager.Player.DrawPile.Count == 0)
+        if(MatchManager.Player.InitialDeck.Substances.CountStack() == 0)
         {
             foreach (var substanceStack in substances) {
                 for (int i = 0; i < substanceStack.amount; ++i)

@@ -22,9 +22,7 @@ public class WorldManager : ChemicalSummonManager, IPointerDownHandler
     [SerializeField]
     CharacterScreen characterScreen;
     [SerializeField]
-    DebugScreen debugScreen;
-    [SerializeField]
-    StageScreen stageScreen;
+    SettingScreen settingScreen;
     [SerializeField]
     Image newReactionSign;
 
@@ -33,7 +31,7 @@ public class WorldManager : ChemicalSummonManager, IPointerDownHandler
     public static DeckScreen DeckScreen => Instance.deckScreen;
     public static ReactionScreen ReactionScreen => Instance.reactionScreen;
     public static CharacterScreen CharacterScreen => Instance.characterScreen;
-    public static DebugScreen DebugScreen => Instance.debugScreen;
+    public static SettingScreen SettingScreen => Instance.settingScreen;
     public static Image NewReactionSign => Instance.newReactionSign;
 
 
@@ -45,7 +43,7 @@ public class WorldManager : ChemicalSummonManager, IPointerDownHandler
         DeckScreen.gameObject.SetActive(false);
         ReactionScreen.gameObject.SetActive(false);
         CharacterScreen.gameObject.SetActive(false);
-        DebugScreen.gameObject.SetActive(false);
+        SettingScreen.gameObject.SetActive(false);
         //new reaction sign on the LeftTab
         newReactionSign.gameObject.SetActive(PlayerSave.NewDicoveredReactions.Count > 0);
         //load last player position

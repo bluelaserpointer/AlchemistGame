@@ -93,7 +93,7 @@ GameObject:
   - component: {fileID: 8784484742103286613}
   - component: {fileID: 9085008505002528027}
   m_Layer: 5
-  m_Name: Event_ChangeCardBackground
+  m_Name: Event_SetFusionCircle
   m_TagString: Event
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

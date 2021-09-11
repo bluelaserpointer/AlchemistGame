@@ -1,14 +1,35 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
-public class SettingScreen : MonoBehaviour
+public class SettingScreen : ChemicalSummonManager
 {
     [SerializeField]
+    Transform thingsInTitle, thingsInWorld, thingsInMatch;
+    [SerializeField]
     Text languageText;
+    private void Start()
+    {
+        if(CurrentSceneIsTitle)
+        {
+            thingsInTitle.gameObject.SetActive(true);
+            thingsInWorld.gameObject.SetActive(false);
+            thingsInMatch.gameObject.SetActive(false);
+        }
+        else if (CurrentSceneIsWorld)
+        {
+            thingsInTitle.gameObject.SetActive(false);
+            thingsInWorld.gameObject.SetActive(true);
+            thingsInMatch.gameObject.SetActive(false);
+        }
+        else if (CurrentSceneIsMatch)
+        {
+            thingsInTitle.gameObject.SetActive(false);
+            thingsInWorld.gameObject.SetActive(false);
+            thingsInMatch.gameObject.SetActive(true);
+        }
+    }
     public void Show()
     {
         gameObject.SetActive(true);
@@ -57,5 +78,26 @@ public class SettingScreen : MonoBehaviour
         {
             SetLanguage(TranslatableSentence.currentLanguage - 1);
         }
+    }
+    public void UnlockAllReaction()
+    {
+        foreach (Reaction each in Reaction.GetAll())
+        {
+            PlayerSave.AddDiscoveredReaction(each);
+        }
+        WorldManager.ReactionScreen.Init();
+    }
+    public void AllSubstancePlusOne()
+    {
+        foreach (Substance each in Substance.GetAll())
+        {
+            if (each.IsPureElement)
+                PlayerSave.SubstanceStorage.Add(each);
+        }
+        WorldManager.DeckScreen.Init();
+    }
+    public void AllItemPlusOne()
+    {
+
     }
 }
