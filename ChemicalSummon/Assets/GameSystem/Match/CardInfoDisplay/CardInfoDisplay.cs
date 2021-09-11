@@ -70,6 +70,12 @@ public class CardInfoDisplay : MonoBehaviour
         displayCard.Substance = substance;
         UpdateRelatedReactionList();
         cardDescriptionText.text = displayCard.Description;
+        abilityListTransform.DestroyAllChildren();
+        int abilityIndex = 0;
+        foreach (var ability in displayCard.Substance.abilities)
+        {
+            Instantiate(abilityLabelPrefab, abilityListTransform).Set(referedCard, ++abilityIndex, ability);
+        }
     }
     public void UpdateRelatedReactionList()
     {
