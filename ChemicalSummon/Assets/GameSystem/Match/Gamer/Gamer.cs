@@ -264,13 +264,16 @@ public abstract class Gamer : MonoBehaviour
             substanceCard.location = IsMyside ? CardTransport.Location.MyHandCard : CardTransport.Location.EnemyHandCard;
             HandCardsDisplay.Add(substanceCard.gameObject); //includes TracePosition animation
             substanceCard.SetDraggable(IsMyside);
+            OnHandCardsChanged.Invoke();
         }
         else
         {
-            substanceCard.TracePosition(duplicatedCard.transform.position);
-            duplicatedCard.UnionSameCard(substanceCard);
+            substanceCard.TracePosition(duplicatedCard.transform.position, () =>
+            {
+                duplicatedCard.UnionSameCard(substanceCard);
+                OnHandCardsChanged.Invoke();
+            });
         }
-        OnHandCardsChanged.Invoke();
     }
     public void AddHandCard(Substance substance)
     {

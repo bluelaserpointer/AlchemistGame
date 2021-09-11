@@ -72,6 +72,8 @@ public class SubstanceCard : MonoBehaviour
             cardAmount = value;
             amountText.text = "x" + cardAmount.ToString();
             attackText.targetValue = ATK;
+            if(Slot != null)
+                Slot.Field.cardsChanged.Invoke();
         }
     }
     Gamer gamer;
