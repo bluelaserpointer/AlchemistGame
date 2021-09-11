@@ -240,11 +240,12 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         if(turn == 1)
         {
             //initial draw
-            for (int i = 0; i < 5; ++i)
+            for (int i = 0; i < 4; ++i)
             {
                 Player.DrawCard();
                 Enemy.DrawCard();
             }
+            FirstMover.Opponent.DrawCard();
             currentTurnType = FirstMover.FusionTurn;
         }
         else if (turn == 2)
