@@ -1,30 +1,45 @@
 ﻿using UnityEngine;
+using UnityEngine.Events;
 
 /// <summary>
 /// 卡槽
 /// </summary>
 public abstract class CardSlot : ObjectSlot
 {
-    public override void DoAlignment()
+    public void DoAlignment(Transform childTransform, UnityAction afterAction)
     {
-        foreach (Transform childTransform in ArrangeParent)
+        childTransform.GetComponent<SubstanceCard>().TracePosition(ArrangeParent.position, () => {
+            OnAlignmentEnd(childTransform);
+            afterAction?.Invoke();
+        });
+        if (doArrangeRotation)
         {
-            childTransform.GetComponent<SubstanceCard>().TracePosition(ArrangeParent.position, OnPlaceAnimationEnd);
-            if (doArrangeRotation)
-            {
-                oldLocalRotation = childTransform.localEulerAngles;
-                childTransform.localEulerAngles = arrangeLocalRotation;
-            }
-            if (doArrangeScale)
-            {
-                oldLocalScale = childTransform.localScale;
-                childTransform.localScale = arrangeLocalScale;
-            }
+            oldLocalRotation = childTransform.localEulerAngles;
+            childTransform.GetComponent<SubstanceCard>().TraceRotation(arrangeLocalRotation);
+        }
+        if (doArrangeScale)
+        {
+            oldLocalScale = childTransform.localScale;
+            childTransform.localScale = arrangeLocalScale;
         }
     }
-    public abstract void OnPlaceAnimationEnd();
-    public void SlotSet(SubstanceCard card)
+    public override void DoAlignment(Transform childTransform)
     {
-        base.SlotSet(card.gameObject);
+        DoAlignment(childTransform, null);
+    }
+    public abstract void OnAlignmentEnd(Transform childTransform);
+    public void SlotSet(SubstanceCard card, UnityAction afterAction = null)
+    {
+        if(afterAction == null)
+            base.SlotSet(card.gameObject);
+        else
+        {
+            if (!AllowSlotSet(card.gameObject))
+                return;
+            oldParent = card.transform.parent;
+            card.transform.SetParent(ArrangeParent);
+            DoAlignment(card.transform, afterAction);
+            onSet.Invoke();
+        }
     }
 }

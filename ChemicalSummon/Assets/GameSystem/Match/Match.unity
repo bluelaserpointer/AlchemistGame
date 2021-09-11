@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3708781, g: 0.6415258, b: 0.87599933, a: 1}
+  m_IndirectSpecularColor: {r: 0.37059084, g: 0.6413453, b: 0.87588876, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -446,6 +446,26 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 651814591}
     m_Modifications:
+    - target: {fileID: 1058104856171772658, guid: 5250a44761209dc4dbdb04ceed421736,
+        type: 3}
+      propertyPath: arrangeLocalRotation.w
+      value: 1.9106855e-15
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058104856171772658, guid: 5250a44761209dc4dbdb04ceed421736,
+        type: 3}
+      propertyPath: arrangeLocalRotation.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058104856171772658, guid: 5250a44761209dc4dbdb04ceed421736,
+        type: 3}
+      propertyPath: arrangeLocalRotation.y
+      value: -0.00000004371139
+      objectReference: {fileID: 0}
+    - target: {fileID: 1058104856171772658, guid: 5250a44761209dc4dbdb04ceed421736,
+        type: 3}
+      propertyPath: arrangeLocalRotation.z
+      value: -0.00000004371139
+      objectReference: {fileID: 0}
     - target: {fileID: 5082981264573647524, guid: 5250a44761209dc4dbdb04ceed421736,
         type: 3}
       propertyPath: m_Pivot.x
@@ -9323,7 +9343,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.4
   m_Pitch: 1
   Loop: 1
   Mute: 0

@@ -103,6 +103,7 @@ MonoBehaviour:
   boilingPointText: {fileID: 5435250675722637136}
   descriptionText: {fileID: 2943065904065050970}
   cardMoveSE: {fileID: 8300000, guid: 42bd5c13934c6304da33ef5f5c402724, type: 3}
+  location: 0
   threeState: 2
 --- !u!1 &1275440200304212076
 GameObject:

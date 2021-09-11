@@ -93,7 +93,7 @@ public class FusionDisplay : MonoBehaviour
         else
             electricMark.SetActive(false);
     }
-    public void StartReactionAnimation(UnityAction action)
+    public void StartReactionAnimation(UnityAction afterAction)
     {
         isAnimating = true;
         bool isFirstOne = true;
@@ -104,7 +104,7 @@ public class FusionDisplay : MonoBehaviour
             if(isFirstOne)
             {
                 tracer.AddReachAction(() => {
-                    action.Invoke();
+                    afterAction.Invoke();
                     Instantiate(fusionEffectPrefab, MatchManager.Instance.transform);
                     isAnimating = false;
                     HidePreview();

@@ -10,7 +10,7 @@ public class SBA_TraceRotation : MonoBehaviour
     [SerializeField]
     Transform targetTransform;
     [SerializeField]
-    Quaternion targetRotation;
+    Quaternion targetRotation = Quaternion.identity;
     [Min(0)]
     public float timeLength = 0.1F;
     [Min(0)]
@@ -22,18 +22,28 @@ public class SBA_TraceRotation : MonoBehaviour
     Quaternion originalRotation;
     public bool IsBeforeReach { get; protected set; }
     List<UnityAction> oneTimeReachActions = new List<UnityAction>();
+    Quaternion RotationGoal
+    {
+        get
+        {
+            Quaternion rotation = useTransformTarget ? targetTransform.rotation : targetRotation;
+            if (rotation.x == 0 && rotation.y == 0 && rotation.z == 0 && rotation.w == 0)
+                rotation = Quaternion.identity;
+            return rotation;
+        }
+    }
     private void FixedUpdate()
     {
         if (passedTime < timeLength)
         {
             float timePassedRate = passedTime / timeLength;
-            transform.rotation = Quaternion.Lerp(originalRotation, useTransformTarget ? targetTransform.rotation : targetRotation, Mathf.Pow(timePassedRate, power));
+            transform.rotation = Quaternion.Lerp(originalRotation, RotationGoal, Mathf.Pow(timePassedRate, power));
             passedTime += Time.fixedDeltaTime;
         }
         if (IsBeforeReach && passedTime >= timeLength)
         {
             IsBeforeReach = false;
-            transform.rotation = useTransformTarget ? targetTransform.rotation : targetRotation;
+            transform.rotation = RotationGoal;
             OnReach.Invoke();
             foreach (UnityAction action in oneTimeReachActions)
                 OnReach.RemoveListener(action);

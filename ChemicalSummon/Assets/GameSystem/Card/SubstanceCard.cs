@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
 using UnityEngine.Events;
 
 /// <summary>
@@ -287,7 +286,7 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 安全丢弃该卡
     /// </summary>
-    public void Dispose(DecreaseReason decreaseReason = DecreaseReason.Other)
+    public void Dispose()
     {
         if (Slot != null)
             Slot.SlotTopClear();
@@ -295,21 +294,7 @@ public class SubstanceCard : MonoBehaviour
             gamer.RemoveHandCard(this);
         else if (InGamerDrawPile)
             gamer.RemoveDrawPile(this);
-        switch(decreaseReason)
-        {
-            case DecreaseReason.Damage:
-            case DecreaseReason.FusionMaterial:
-                for(int i = 0; i < CardAmount; ++i)
-                {
-                    SubstanceCard card = GenerateSubstanceCard(Substance);
-                    Gamer.AddDrawPile(card);
-                }
-                Destroy(gameObject);
-                break;
-            default:
-                Destroy(gameObject);
-                break;
-        }
+        Destroy(gameObject);
     }
     /// <summary>
     /// 减少原因
@@ -322,14 +307,32 @@ public class SubstanceCard : MonoBehaviour
     /// <returns>实际减少量</returns>
     public int RemoveAmount(int amount, DecreaseReason decreaseReason = DecreaseReason.Other)
     {
+        int decreasedAmount;
         if (CardAmount > amount)
         {
-            CardAmount -= amount;
-            return amount;
+            CardAmount -= (decreasedAmount = amount);
         }
-        amount = CardAmount;
-        Dispose(decreaseReason);
-        return amount;
+        else
+        {
+            CardAmount -= (decreasedAmount = CardAmount);
+        }
+        switch (decreaseReason)
+        {
+            case DecreaseReason.Damage:
+            case DecreaseReason.FusionMaterial:
+                for (int i = 0; i < decreasedAmount; ++i)
+                {
+                    SubstanceCard card = GenerateSubstanceCard(Substance);
+                    card.transform.position = transform.position;
+                    card.location = location;
+                    card.gamer = Gamer;
+                    Gamer.AddDrawPile(card);
+                }
+                break;
+        }
+        if(CardAmount == 0)
+            Dispose();
+        return decreasedAmount;
     }
     public void SetDraggable(bool cond)
     {
@@ -345,9 +348,21 @@ public class SubstanceCard : MonoBehaviour
         sBA_TracePosition.AddReachAction(reachAction);
         sBA_TracePosition.StartAnimation();
     }
+    public void TracePosition(Transform target, UnityAction reachAction = null)
+    {
+        sBA_TracePosition.SetTarget(target);
+        sBA_TracePosition.AddReachAction(reachAction);
+        sBA_TracePosition.StartAnimation();
+    }
     public void TraceRotation(Quaternion rotation, UnityAction reachAction = null)
     {
         sBA_TraceRotation.SetTarget(rotation);
+        sBA_TraceRotation.AddReachAction(reachAction);
+        sBA_TraceRotation.StartAnimation();
+    }
+    public void TraceRotation(Transform target, UnityAction reachAction = null)
+    {
+        sBA_TraceRotation.SetTarget(target);
         sBA_TraceRotation.AddReachAction(reachAction);
         sBA_TraceRotation.StartAnimation();
     }

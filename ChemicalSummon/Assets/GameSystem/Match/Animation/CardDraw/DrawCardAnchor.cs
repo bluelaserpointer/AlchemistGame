@@ -15,7 +15,16 @@ public class DrawCardAnchor : MonoBehaviour
         this.substanceCard = substanceCard;
         substanceCard.transform.SetParent(cardCarrier);
         substanceCard.SkipMovingAnimation();
-        substanceCard.transform.localPosition = Vector3.zero;
+        if(substanceCard.location.Equals(CardTransport.Location.MyDeck))
+        {
+            substanceCard.TracePosition(transform);
+            substanceCard.transform.localRotation = Quaternion.identity;
+        }
+        else
+        {
+            substanceCard.transform.localPosition = Vector3.zero;
+            substanceCard.transform.localRotation = Quaternion.identity;
+        }
     }
     public void OnAnimationEnd()
     {

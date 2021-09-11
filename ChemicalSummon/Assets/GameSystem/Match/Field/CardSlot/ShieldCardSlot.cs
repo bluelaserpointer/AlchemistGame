@@ -66,6 +66,10 @@ public class ShieldCardSlot : CardSlot, IAttackable
         });
         onClear.AddListener(field.cardsChanged.Invoke);
     }
+    public void DoAlignment()
+    {
+        base.DoAlignment(GetTop());
+    }
     /// <summary>
     /// 是否属于这个场地
     /// </summary>
@@ -146,7 +150,7 @@ public class ShieldCardSlot : CardSlot, IAttackable
         return true;
     }
 
-    public override void OnPlaceAnimationEnd()
+    public override void OnAlignmentEnd(Transform childTransform)
     {
         placeAnimation.StartAnimation();
         MatchManager.PlaySE(placeSE);

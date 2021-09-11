@@ -15,7 +15,7 @@ public class ObjectSlot : MonoBehaviour
     [SerializeField]
     protected bool doArrangeRotation = true;
     [SerializeField]
-    protected Vector3 arrangeLocalRotation;
+    protected Quaternion arrangeLocalRotation;
     [SerializeField]
     protected bool returnToOriginalRotationWhenDisband;
     [Header("Scale")]
@@ -47,24 +47,23 @@ public class ObjectSlot : MonoBehaviour
             return;
         oldParent = obj.transform.parent;
         obj.transform.SetParent(ArrangeParent);
-        DoAlignment();
+        DoAlignment(obj.transform);
         onSet.Invoke();
-    }
-    public virtual void DoAlignment()
+    } 
+    public virtual void DoAlignment(Transform childTransform)
     {
-        foreach(Transform childTransform in ArrangeParent)
+        if (!childTransform.IsChildOf(ArrangeParent))
+            return;
+        childTransform.position = ArrangeParent.position;
+        if (doArrangeRotation)
         {
-            childTransform.position = ArrangeParent.position;
-            if (doArrangeRotation)
-            {
-                oldLocalRotation = childTransform.localEulerAngles;
-                childTransform.localEulerAngles = arrangeLocalRotation;
-            }
-            if (doArrangeScale)
-            {
-                oldLocalScale = childTransform.localScale;
-                childTransform.localScale = arrangeLocalScale;
-            }
+            oldLocalRotation = childTransform.localEulerAngles;
+            childTransform.localRotation = arrangeLocalRotation;
+        }
+        if (doArrangeScale)
+        {
+            oldLocalScale = childTransform.localScale;
+            childTransform.localScale = arrangeLocalScale;
         }
     }
     public virtual bool AllowSlotClear()

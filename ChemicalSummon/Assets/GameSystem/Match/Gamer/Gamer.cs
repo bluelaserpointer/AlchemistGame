@@ -146,15 +146,15 @@ public abstract class Gamer : MonoBehaviour
         Character = character;
         InitialDeck = deck;
         drawPile.Clear();
+        List<SubstanceCard> cards = new List<SubstanceCard>();
         foreach (var substanceStack in deck.Substances)
         {
             for (int i = 0; i < substanceStack.amount; ++i)
             {
-                SubstanceCard card = SubstanceCard.GenerateSubstanceCard(substanceStack.type);
-                AddDrawPile(card);
+                cards.Add(SubstanceCard.GenerateSubstanceCard(substanceStack.type));
             }
         }
-        ShuffleDrawPile();
+        ContinuousAddDrawPile(cards, CardTransport.Method.Bottom, () => ShuffleDrawPile());
         hp = InitialHP;
         heatGem = 16;
         electricGem = 8;
@@ -173,42 +173,38 @@ public abstract class Gamer : MonoBehaviour
             AddHandCard(RemoveDrawPileTop(), true);
         }
     }
-    public void AddDrawPile(SubstanceCard card, CardTransport.Method method = CardTransport.Method.Bottom)
+    public void AddDrawPile(SubstanceCard card, CardTransport.Method method = CardTransport.Method.Bottom, UnityAction afterAction = null)
     {
+        if (card.location.Equals(CardTransport.Location.OffSite))
+        {
+            card.transform.position = drawPileDisplay.CardSpawnPosition.position;
+            card.transform.eulerAngles = card.IsMySide ? Vector3.zero : new Vector3(0, 180, 0);
+        }
+        card.Gamer = this;
+        card.location = IsMyside ? CardTransport.Location.MyDeck : CardTransport.Location.EnemyDeck;
+        card.SetDraggable(false);
         switch (method)
         {
             case CardTransport.Method.Bottom:
-                DrawPile.Add(card);
+                drawPileDisplay.SlotSet(card, () => { DrawPile.Add(card); afterAction?.Invoke(); });
                 break;
             case CardTransport.Method.Top:
-                DrawPile.Insert(0, card);
+                drawPileDisplay.SlotSet(card, () => { DrawPile.Insert(0, card); afterAction?.Invoke(); });
                 break;
             case CardTransport.Method.Select:
                 Debug.LogError("Insert to deck with specified index is not supported: " + card.Substance.name);
                 break;
         }
-        if (card.location.Equals(CardTransport.Location.OffSite))
-            card.transform.position = drawPileDisplay.transform.position;
-        card.location = IsMyside ? CardTransport.Location.MyDeck : CardTransport.Location.EnemyDeck;
-        card.SetDraggable(false);
-        drawPileDisplay.SlotSet(card);
         OnDrawPileChange.Invoke();
     }
-    public void AddRangeDrawPile(List<SubstanceCard> cards, CardTransport.Method method = CardTransport.Method.Bottom)
+    public void ContinuousAddDrawPile(List<SubstanceCard> cards, CardTransport.Method method = CardTransport.Method.Bottom, UnityAction afterAction = null)
     {
-        switch (method)
+        if (cards.Count == 0)
         {
-            case CardTransport.Method.Bottom:
-                DrawPile.AddRange(cards);
-                break;
-            case CardTransport.Method.Top:
-                DrawPile.InsertRange(0, cards);
-                break;
-            case CardTransport.Method.Select:
-                Debug.LogError("Insert to deck with specified index is not supported: " + cards.Count + " cards.");
-                break;
+            afterAction?.Invoke();
+            return;
         }
-        OnDrawPileChange.Invoke();
+        AddDrawPile(cards.RemoveFirst(), method, () => ContinuousAddDrawPile(cards, method, afterAction));
     }
     public void RemoveDrawPile(SubstanceCard card)
     {
@@ -453,7 +449,7 @@ public abstract class Gamer : MonoBehaviour
         if (reaction.explosion > 0)
             PushActionStack(() => DoExplosion(reaction.explosion));
         if (reaction.explosion == 0)
-            MatchManager.PlaySE("Sound/SE/powerup10"); //TODO: make a single fusion SE play time
+            MatchManager.PlaySE("Sound/SE/powerup10");
         //event invoke
         MatchManager.Instance.onFusionFinish.Invoke();
     }
