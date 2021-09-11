@@ -49,7 +49,7 @@ public class CardDrag : Draggable
                             continue;
                         if (CurrentSlot != null)
                         {
-                            CurrentSlot.SlotClear();
+                            CurrentSlot.SlotTopClear();
                         }
                         cardSlot.SlotSet(substanceCard.gameObject);
                         return;
@@ -103,7 +103,7 @@ public class CardDrag : Draggable
         {
             if (disbandable)
             {
-                CurrentSlot.SlotClear();
+                CurrentSlot.SlotTopClear();
                 MatchManager.Player.AddHandCard(substanceCard);
             }
         }

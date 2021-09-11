@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CardCondition_Substance : CardCondition
+public class SpecificSubstances : SubstanceCondition
 {
     [SerializeField]
     List<Substance> whiteList;
@@ -26,7 +26,7 @@ public class CardCondition_Substance : CardCondition
         }
         return ChemicalSummonManager.LoadTranslatableSentence("SpecificCards").ToString().Replace("$cards", cardsStr);
     }
-    public override bool Accept(ShieldCardSlot slot, Substance substance)
+    public override bool Accept(Substance substance)
     {
         return whiteList.Contains(substance);
     }

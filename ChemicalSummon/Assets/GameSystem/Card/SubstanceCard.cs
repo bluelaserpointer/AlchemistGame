@@ -290,7 +290,7 @@ public class SubstanceCard : MonoBehaviour
     public void Dispose(DecreaseReason decreaseReason = DecreaseReason.Other)
     {
         if (Slot != null)
-            Slot.SlotClear();
+            Slot.SlotTopClear();
         else if (InGamerHandCards)
             gamer.RemoveHandCard(this);
         else if (InGamerDrawPile)
@@ -300,7 +300,10 @@ public class SubstanceCard : MonoBehaviour
             case DecreaseReason.Damage:
             case DecreaseReason.FusionMaterial:
                 for(int i = 0; i < CardAmount; ++i)
-                    Gamer.AddDrawPile(GenerateSubstanceCard(Substance));
+                {
+                    SubstanceCard card = GenerateSubstanceCard(Substance);
+                    Gamer.AddDrawPile(card);
+                }
                 Destroy(gameObject);
                 break;
             default:

@@ -19,6 +19,7 @@ public class ShieldCardSlot : CardSlot, IAttackable
     SBA_FadingExpand placeAnimation;
     [SerializeField]
     AudioClip placeSE;
+
     /// <summary>
     /// 所属场地
     /// </summary>
@@ -27,6 +28,7 @@ public class ShieldCardSlot : CardSlot, IAttackable
     /// 所属玩家
     /// </summary>
     public Gamer Gamer => Field.Gamer;
+    public SubstanceCard Card => IsEmpty ? null : GetTop().GetComponent<SubstanceCard>();
     public float Tempreture {
         get
         {
@@ -138,8 +140,9 @@ public class ShieldCardSlot : CardSlot, IAttackable
     {
         if (IsEmpty || Card.IsPhenomenon)
             return false;
-        Gamer.AddHandCard(Card);
-        SlotClear();
+        SubstanceCard card = Card;
+        SlotTopClear();
+        Gamer.AddHandCard(card);
         return true;
     }
 

@@ -42,7 +42,7 @@ public class Field : MonoBehaviour
         get
         {
             List<SubstanceCard> cards = new List<SubstanceCard>();
-            foreach (CardSlot slot in Slots)
+            foreach (ShieldCardSlot slot in Slots)
             {
                 SubstanceCard card = slot.Card;
                 if (card != null)
@@ -110,7 +110,7 @@ public class Field : MonoBehaviour
     public void UpdateCardsDraggable()
     {
         bool cond = CardsDraggable;
-        foreach (CardSlot slot in Slots)
+        foreach (ShieldCardSlot slot in Slots)
         {
             if (!slot.IsEmpty && !slot.Card.DenideMove)
                 slot.Card.SetDraggable(cond);

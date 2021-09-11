@@ -145,7 +145,7 @@ public class NoFusionAI : EnemyAI
     {
         SubstanceCard candidateCard = null;
         int candidateATK = 0;
-        foreach (CardSlot slot in Field.Slots)
+        foreach (ShieldCardSlot slot in Field.Slots)
         {
             if (slot.IsEmpty)
                 continue;

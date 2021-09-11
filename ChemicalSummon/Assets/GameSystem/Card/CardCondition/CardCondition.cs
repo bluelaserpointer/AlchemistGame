@@ -21,5 +21,5 @@ public abstract class CardCondition : MonoBehaviour
     /// <param name="slot">所在卡槽</param>
     /// <param name="substance">物质</param>
     /// <returns></returns>
-    public abstract bool Accept(ShieldCardSlot slot, Substance substance);
+    public abstract bool Accept(SubstanceCard card);
 }

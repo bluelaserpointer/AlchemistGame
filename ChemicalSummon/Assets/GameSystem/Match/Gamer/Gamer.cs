@@ -21,6 +21,8 @@ public abstract class Gamer : MonoBehaviour
     InMatchDialog inMatchDialog;
     [SerializeField]
     HandCardsArrange handCardsDisplay;
+    [SerializeField]
+    DrawPileDisplay drawPileDisplay;
 
     [SerializeField]
     UnityEvent onDrawPileChange, onHandCardsChanged;
@@ -149,8 +151,7 @@ public abstract class Gamer : MonoBehaviour
             for (int i = 0; i < substanceStack.amount; ++i)
             {
                 SubstanceCard card = SubstanceCard.GenerateSubstanceCard(substanceStack.type);
-                card.location = IsMyside ? CardTransport.Location.MyDeck : CardTransport.Location.EnemyDeck;
-                drawPile.Add(card);
+                AddDrawPile(card);
             }
         }
         ShuffleDrawPile();
@@ -186,8 +187,11 @@ public abstract class Gamer : MonoBehaviour
                 Debug.LogError("Insert to deck with specified index is not supported: " + card.Substance.name);
                 break;
         }
-        card.TracePosition(new Vector3(-300, -300)); //TODO: create DrawPile and move to there
-        card.transform.localEulerAngles = Vector3.zero;
+        if (card.location.Equals(CardTransport.Location.OffSite))
+            card.transform.position = drawPileDisplay.transform.position;
+        card.location = IsMyside ? CardTransport.Location.MyDeck : CardTransport.Location.EnemyDeck;
+        card.SetDraggable(false);
+        drawPileDisplay.SlotSet(card);
         OnDrawPileChange.Invoke();
     }
     public void AddRangeDrawPile(List<SubstanceCard> cards, CardTransport.Method method = CardTransport.Method.Bottom)
@@ -209,13 +213,17 @@ public abstract class Gamer : MonoBehaviour
     public void RemoveDrawPile(SubstanceCard card)
     {
         if(DrawPile.Remove(card))
+        {
+            drawPileDisplay.SlotClear(card);
             OnDrawPileChange.Invoke();
+        }
     }
     public SubstanceCard RemoveDrawPileTop()
     {
         if (DrawPile.Count == 0)
             return null;
         SubstanceCard card = DrawPile.RemoveFirst();
+        drawPileDisplay.SlotClear(card);
         OnDrawPileChange.Invoke();
         return card;
     }
@@ -224,6 +232,7 @@ public abstract class Gamer : MonoBehaviour
         if (DrawPile.Count == 0)
             return null;
         SubstanceCard card = DrawPile.RemoveLast();
+        drawPileDisplay.SlotClear(card);
         OnDrawPileChange.Invoke();
         return card;
     }
@@ -232,6 +241,7 @@ public abstract class Gamer : MonoBehaviour
         if (DrawPile.Count == 0)
             return null;
         SubstanceCard card = DrawPile.RemoveRandomElement();
+        drawPileDisplay.SlotClear(card);
         OnDrawPileChange.Invoke();
         return card;
     }

@@ -50,35 +50,44 @@ public class CardTransport
         switch (location)
         {
             case Location.OffSite:
-                if (condition.GetType().Equals(typeof(CardCondition_Any)))
+                Type conditionType = condition.GetType();
+                if (conditionType.Equals(typeof(Condition_Any)))
                 {
-                    Debug.LogWarning("Tried get any type card from OffSite");
+                    Debug.LogWarning("<ChemicalSummon>Denided trying get all cards from OffSite.");
                 }
-                else if (condition.GetType().Equals(typeof(CardCondition_Substance)))
+                else if (conditionType.Equals(typeof(SpecificSubstances)))
                 {
-                    ((CardCondition_Substance)condition).WhiteList.ForEach(substance => cards.Add(SubstanceCard.GenerateSubstanceCard(substance, 99)));
+                    ((SpecificSubstances)condition).WhiteList.ForEach(substance => cards.Add(SubstanceCard.GenerateSubstanceCard(substance, 99)));
                 }
                 else
                 {
-                    Substance.GetAll().FindAll(substance => condition.Accept(null, substance)).ForEach(substance => cards.Add(SubstanceCard.GenerateSubstanceCard(substance, 99)));
+                    Debug.LogWarning("<ChemicalSummon>Using default card search on offsite for \"" + conditionType.Name + "\"  which is bad for performance.");
+                    foreach(Substance substance in Substance.GetAll())
+                    {
+                        SubstanceCard card = SubstanceCard.GenerateSubstanceCard(substance);
+                        if (condition.Accept(card))
+                            cards.Add(card);
+                        else
+                            card.Dispose();
+                    }
                 }
                 return cards;
             case Location.Field:
-                cards = MatchManager.MyField.Cards.FindAll(card => condition.Accept(null, card.Substance));
-                cards.AddRange(MatchManager.EnemyField.Cards.FindAll(card => condition.Accept(null, card.Substance)));
+                cards = MatchManager.MyField.Cards.FindAll(card => condition.Accept(card));
+                cards.AddRange(MatchManager.EnemyField.Cards.FindAll(card => condition.Accept(card)));
                 return cards;
             case Location.MyField:
-                return MatchManager.MyField.Cards.FindAll(card => condition.Accept(null, card.Substance));
+                return MatchManager.MyField.Cards.FindAll(card => condition.Accept(card));
             case Location.EnemyField:
-                return MatchManager.EnemyField.Cards.FindAll(card => condition.Accept(null, card.Substance));
+                return MatchManager.EnemyField.Cards.FindAll(card => condition.Accept(card));
             case Location.MyHandCard:
-                return MatchManager.Player.HandCards.FindAll(card => condition.Accept(null, card.Substance));
+                return MatchManager.Player.HandCards.FindAll(card => condition.Accept(card));
             case Location.MyDeck:
-                return MatchManager.Player.DrawPile.FindAll(card => condition.Accept(null, card.Substance));
+                return MatchManager.Player.DrawPile.FindAll(card => condition.Accept(card));
             case Location.EnemyHandCard:
-                return MatchManager.Enemy.HandCards.FindAll(card => condition.Accept(null, card.Substance));
+                return MatchManager.Enemy.HandCards.FindAll(card => condition.Accept(card));
             case Location.EnemyDeck:
-                return MatchManager.Enemy.DrawPile.FindAll(card => condition.Accept(null, card.Substance));
+                return MatchManager.Enemy.DrawPile.FindAll(card => condition.Accept(card));
         }
         return null;
     }

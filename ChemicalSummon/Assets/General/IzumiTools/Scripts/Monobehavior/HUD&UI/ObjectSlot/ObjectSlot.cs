@@ -72,26 +72,38 @@ public class ObjectSlot : MonoBehaviour
         return true;
     }
 
-    public virtual void SlotClear()
+    public virtual void SlotTopClear()
     {
-        if (!AllowSlotClear() || IsEmpty)
+        SlotClear(GetTop());
+    }
+    public virtual void SlotClear(Transform childTf)
+    {
+        if (!AllowSlotClear() || !childTf.IsChildOf(ArrangeParent))
             return;
-        Transform top = GetTop();
         if (returnToOriginalParentWhenDisband)
         {
-            top.SetParent(oldParent);
+            if(oldParent == null)
+            {
+                Vector3 oldPos = childTf.position;
+                childTf.SetParent(null);
+                childTf.position = oldPos; //set nullParent causes position shift
+            }
+            else
+            {
+                childTf.SetParent(oldParent);
+            }
         }
         else
         {
-            top.SetParent(ArrangeParent.GetComponentInParent<Canvas>().transform);
+            childTf.SetParent(ArrangeParent.GetComponentInParent<Canvas>().transform);
         }
         if (doArrangeRotation && returnToOriginalRotationWhenDisband)
         {
-            top.localEulerAngles = oldLocalRotation;
+            childTf.localEulerAngles = oldLocalRotation;
         }
         if (doArrangeScale && returnToOriginalScaleWhenDisband)
         {
-            top.localScale = oldLocalScale;
+            childTf.localScale = oldLocalScale;
         }
         onClear.Invoke();
     }
