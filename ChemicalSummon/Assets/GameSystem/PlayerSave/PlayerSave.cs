@@ -52,6 +52,9 @@ public class PlayerSave : MonoBehaviour
 
     //data
     public static Canvas PermanentCanvas => Instance.permanentCanvas;
+    public static bool hasLastWorldPositionSave;
+    public static Vector3 lastWorldPlayerPosition;
+    public static Quaternion lastWorldPlayerRotation;
     public static StackedElementList<Item> ItemStorage => Instance.itemStorage;
     public static StackedElementList<Substance> SubstanceStorage => Instance.substanceStorage;
     /// <summary>
@@ -107,7 +110,8 @@ public class PlayerSave : MonoBehaviour
     public static Event ActiveEvent => Instance.activeEvent;
     public void InitSaveData()
     {
-        foreach(var pair in substanceStorage)
+        hasLastWorldPositionSave = false;
+        foreach (var pair in substanceStorage)
         {
             for(int i = 0; i < pair.amount; ++i)
                 activeDeck.Add(pair.type);
@@ -168,6 +172,13 @@ public class PlayerSave : MonoBehaviour
     public static void StartMatch(Match match)
     {
         Instance.activeMatch = match;
+        if (ChemicalSummonManager.CurrentSceneIsWorld)
+        {
+            hasLastWorldPositionSave = true;
+            Transform playerTransform = WorldManager.Player.TargetModel.transform;
+            lastWorldPlayerPosition = playerTransform.position;
+            lastWorldPlayerRotation = playerTransform.rotation;
+        }
         SceneManager.LoadScene("Match");
     }
     public static Event StartEvent(Event newEvent) {

@@ -12,10 +12,6 @@ public class Npc : MonoBehaviour
     [SerializeField]
     bool lookAtPlayer;
 
-    void Start()
-    {
-        animator.SetBool("idleTrigger", true);
-    }
     private void Update()
     {
         if(lookAtPlayer)

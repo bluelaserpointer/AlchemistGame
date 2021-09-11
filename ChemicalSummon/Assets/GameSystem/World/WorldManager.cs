@@ -48,6 +48,12 @@ public class WorldManager : ChemicalSummonManager, IPointerDownHandler
         DebugScreen.gameObject.SetActive(false);
         //new reaction sign on the LeftTab
         newReactionSign.gameObject.SetActive(PlayerSave.NewDicoveredReactions.Count > 0);
+        //load last player position
+        if(PlayerSave.hasLastWorldPositionSave)
+        {
+            Player.TargetModel.transform.position = PlayerSave.lastWorldPlayerPosition;
+            Player.TargetModel.transform.rotation = PlayerSave.lastWorldPlayerRotation;
+        }
     }
     public void OnPointerDown(PointerEventData eventData)
     {

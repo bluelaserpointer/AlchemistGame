@@ -21,7 +21,7 @@ public abstract class ChemicalSummonManager : MonoBehaviour
         DynamicGI.UpdateEnvironment();
     }
     public static bool CurrentSceneIsMatch => SceneManager.GetActiveScene().name.Equals("Match");
-    public static bool CurrentSceneIsMap => SceneManager.GetActiveScene().name.Equals("World");
+    public static bool CurrentSceneIsWorld => SceneManager.GetActiveScene().name.Equals("World");
     public static bool CurrentSceneIsTitle => SceneManager.GetActiveScene().name.Equals("Title");
     /// <summary>
     /// 进入战斗(按钮事件参照用)
