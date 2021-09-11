@@ -23,5 +23,6 @@ public class ItemScreen : MonoBehaviour
             ItemButton itemButton = Instantiate(itemButtonPrefab, itemParentTf);
             itemButton.SetItem(each.type, each.amount);
         }
+        WorldManager.ItemScreen.ItemInfoDisplay.SetItem(null);
     }
 }

@@ -574,6 +574,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   itemName: {fileID: 592721195}
   itemDescription: {fileID: 1693942502}
+  clickAnyItemGuide: {fileID: 11400000, guid: 6d127f1d94c233d49bf2db077c3207cf, type: 2}
 --- !u!1001 &79924155
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5393,7 +5394,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 32
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 3
     m_MaxSize: 40
@@ -9263,7 +9264,7 @@ MonoBehaviour:
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
     m_FontSize: 43
-    m_FontStyle: 0
+    m_FontStyle: 1
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 64

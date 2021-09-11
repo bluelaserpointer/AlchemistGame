@@ -9,6 +9,53 @@ using UnityEngine;
 public static class ChemicalSummonEditor
 {
     /// <summary>
+    /// 读取道具标头表自动生成ScriptableObject
+    /// </summary>
+    [MenuItem("ChemicalSummon/Load ItemHeader From Excel")]
+    private static void LoadItemHeaderExcel()
+    {
+        DataSet result = ReadExcelFromStreamingAsset("ItemHeader.xlsx");
+        if (result == null)
+            return;
+        int newCreatedCount = 0;
+        int updatedCount = 0;
+        foreach (DataTable table in result.Tables)
+        {
+            int rows = table.Rows.Count;
+            for (int row = 1; row < rows; row++)
+            {
+                DataRow rowData = table.Rows[row];
+                string itemHeaderFileName = rowData[0].ToString();
+                ItemHeader itemHeader = ItemHeader.GetByName(itemHeaderFileName);
+                bool newCreated = itemHeader == null;
+                if (newCreated)
+                {
+                    itemHeader = ScriptableObject.CreateInstance<ItemHeader>();
+                }
+                itemHeader.name.defaultString = itemHeaderFileName;
+                itemHeader.name.PutSentence_EmptyStrMeansRemove(Language.English, rowData[1].ToString());
+                itemHeader.name.PutSentence_EmptyStrMeansRemove(Language.Chinese, rowData[2].ToString());
+                itemHeader.name.PutSentence_EmptyStrMeansRemove(Language.Japanese, rowData[3].ToString());
+                itemHeader.description.PutSentence_EmptyStrMeansRemove(Language.English, rowData[4].ToString());
+                itemHeader.description.PutSentence_EmptyStrMeansRemove(Language.Chinese, rowData[5].ToString());
+                itemHeader.description.PutSentence_EmptyStrMeansRemove(Language.Japanese, rowData[6].ToString());
+                if (newCreated)
+                {
+                    AssetDatabase.CreateAsset(itemHeader, @"Assets/GameContents/Resources/ItemHeader/" + itemHeaderFileName + ".asset");
+                    ++newCreatedCount;
+                }
+                else
+                {
+                    EditorUtility.SetDirty(itemHeader);
+                    ++updatedCount;
+                }
+            }
+        }
+        AssetDatabase.SaveAssets(); //存储资源
+        AssetDatabase.Refresh(); //刷新
+        Debug.Log("ItemHeaderAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);
+    }
+    /// <summary>
     /// 读取关卡标头表自动生成ScriptableObject
     /// </summary>
     [MenuItem("ChemicalSummon/Load StageHeader From Excel")]

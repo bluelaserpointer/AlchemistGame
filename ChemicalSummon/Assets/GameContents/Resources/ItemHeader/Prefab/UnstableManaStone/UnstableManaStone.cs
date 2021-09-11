@@ -14,6 +14,15 @@ public class UnstableManaStone : Item
     int lootAmount;
 
     public override bool Usable => true;
+    public override string Description
+    {
+        get
+        {
+            string rootsStr = "";
+            pool.ForEach(substance => rootsStr += rootsStr.Length == 0 ? substance.name : "/" + substance.name);
+            return base.Description.Replace("$root", rootsStr + " x" + lootAmount);
+        }
+    }
 
     public override void Use()
     {
