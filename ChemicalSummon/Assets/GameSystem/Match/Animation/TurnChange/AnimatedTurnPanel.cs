@@ -21,6 +21,6 @@ public class AnimatedTurnPanel : MonoBehaviour
     public void Play()
     {
         animator.SetBool("Play", true);
-        turnTypeText.text = MatchManager.TurnPanel.GetTranslatedName(MatchManager.CurrentTurnType);
+        turnTypeText.text = MatchManager.TurnTypeToString(MatchManager.CurrentTurnType);
     }
 }

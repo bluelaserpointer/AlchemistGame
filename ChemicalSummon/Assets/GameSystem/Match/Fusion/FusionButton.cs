@@ -36,8 +36,7 @@ public class FusionButton : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     {
         Reaction = reaction;
         formulaText.text = Reaction.description;
-        foreach (Transform each in iconsTf)
-            Destroy(each.gameObject);
+        iconsTf.DestroyAllChildren();
         if (isCounter)
             Instantiate(counterIconPrefab, iconsTf);
         //requirementsIcon

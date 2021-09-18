@@ -3,15 +3,12 @@ using UnityEngine;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
-public class GamerAction : MonoBehaviour
+public class EnemyThinking : MonoBehaviour
 {
-    [SerializeField]
-    Image icon;
-
     public Action action;
 
     bool finished;
-    float generalWaitTime = 0.75F;
+    float generalThinkingTime = 0.75F;
     float awakenTime;
     public void DoAction()
     {
@@ -23,7 +20,7 @@ public class GamerAction : MonoBehaviour
     }
     private void Update()
     {
-        if(!finished && Time.timeSinceLevelLoad - awakenTime > generalWaitTime)
+        if(!finished && Time.timeSinceLevelLoad - awakenTime > generalThinkingTime)
         {
             DoAction();
             finished = true;

@@ -1,17 +1,55 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [DisallowMultipleComponent]
 public class MatchLogDisplay : MonoBehaviour
 {
     [SerializeField]
-    GamerAction gamerActionPrefab;
+    DrawLog drawLogPrefab;
+    [SerializeField]
+    DeclareAttackLog declareAttackLog;
+    [SerializeField]
+    AttackLog attackLogPrefab;
+    [SerializeField]
+    CardReturnDeckLog cardReturnDeckLogPrefab;
+    [SerializeField]
+    TurnLog turnLogPrefab;
+    [SerializeField]
+    HPLog hpLogPrefab;
+    [SerializeField]
+    FusionLog fusionLogPrefab;
+    [SerializeField]
+    Transform scrollViewContent;
 
-    public void AddAction(Action action)
+    public void AddTurnLog(int turn, string turnTypeStr)
     {
-        GamerAction gamerAction = Instantiate(gamerActionPrefab, transform);
-        gamerAction.action = action;
+        Instantiate(turnLogPrefab, scrollViewContent).Set(turn, turnTypeStr);
+    }
+    public void AddDrawLog(Gamer gamer, SubstanceCard card)
+    {
+        Instantiate(drawLogPrefab, scrollViewContent).Set(gamer, card);
+    }
+    public void AddFusionLog(Gamer gamer, Reaction reaction)
+    {
+        Instantiate(fusionLogPrefab, scrollViewContent).Set(gamer, reaction);
+    }
+    public void AddBattleLog(SubstanceCard card1, SubstanceCard card2)
+    {
+        Instantiate(attackLogPrefab, scrollViewContent).Set(card1, card2);
+    }
+    public void AddDeclareAttackLog(SubstanceCard card)
+    {
+        Instantiate(declareAttackLog, scrollViewContent).Set(card);
+    }
+    public void AddAttackPlayerLog(SubstanceCard card)
+    {
+        Instantiate(attackLogPrefab, scrollViewContent).Set(card, card.Gamer.Opponent);
+    }
+    public void AddPlayerHPLog(Gamer gamer, int hpChange)
+    {
+        Instantiate(hpLogPrefab, scrollViewContent).Set(gamer, hpChange);
+    }
+    public void AddCardReturnDeckLog(SubstanceCard card, int amount)
+    {
+        Instantiate(cardReturnDeckLogPrefab, scrollViewContent).Set(card, amount);
     }
 }

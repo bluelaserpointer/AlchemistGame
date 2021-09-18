@@ -50,8 +50,9 @@ public class SubstanceCard : MonoBehaviour
         set
         {
             substance = value;
-            nameText.text = Name;
+            nameText.text = name;
             symbolText.text = Symbol;
+            gameObject.name = "Card " + Symbol;
             MeltingPoint = substance.MeltingPoint;
             BoilingPoint = substance.BoilingPoint;
             mol = substance.GetMol();
@@ -110,7 +111,7 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 物质名
     /// </summary>
-    public string Name => Substance.name;
+    public new string name => Substance.name;
     /// <summary>
     /// 化学表达式
     /// </summary>
@@ -176,6 +177,7 @@ public class SubstanceCard : MonoBehaviour
     /// <param name="opponentCard"></param>
     public void Battle(SubstanceCard opponentCard)
     {
+        MatchManager.MatchLogDisplay.AddBattleLog(this, opponentCard);
         MatchManager.StartAttackAnimation(Slot, opponentCard.Slot, () => {
             MatchManager.PlaySE("Sound/SE/sword-kill-1");
             int myAtk = ATK;
@@ -189,6 +191,7 @@ public class SubstanceCard : MonoBehaviour
     /// <param name="gamer"></param>
     public void Battle(Gamer gamer)
     {
+        MatchManager.MatchLogDisplay.AddAttackPlayerLog(this);
         MatchManager.StartAttackAnimation(Slot, null, () => {
             MatchManager.PlaySE("Sound/SE/sword-kill-2");
             MatchManager.StartDamageAnimation(transform.position, ATK, gamer);
@@ -322,6 +325,7 @@ public class SubstanceCard : MonoBehaviour
         {
             case DecreaseReason.Damage:
             case DecreaseReason.FusionMaterial:
+                MatchManager.MatchLogDisplay.AddCardReturnDeckLog(this, decreasedAmount);
                 for (int i = 0; i < decreasedAmount; ++i)
                 {
                     SubstanceCard card = GenerateSubstanceCard(Substance);

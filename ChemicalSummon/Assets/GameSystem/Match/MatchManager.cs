@@ -15,7 +15,6 @@ using UnityEngine.UI;
 public class MatchManager : ChemicalSummonManager, IPointerDownHandler
 {
     public static MatchManager Instance { get; protected set; }
-
     //inspector
     [Header("Field")]
     [SerializeField]
@@ -160,8 +159,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     public static int Turn => Instance.turn;
     private void Awake()
     {
-        Init();
-        Instance = this;
+        ManagerInit(Instance = this);
         //set background and music
         AudioSource audioSource = GetComponent<AudioSource>();
         audioSource.clip = Match.PickRandomBGM();
@@ -181,6 +179,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         if(Match.AdditionalObject != null)
             Instantiate(Match.AdditionalObject);
         currentTurnType = TurnType.FirstMoveDecide;
+        matchLogDisplay.AddTurnLog(0, TurnTypeToString(TurnType.FirstMoveDecide));
         firstMoverDecider.Draw();
     }
     public void Victory()
@@ -271,6 +270,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
             }
         }
         turnPanel.SetTurn(turn, currentTurnType);
+        matchLogDisplay.AddTurnLog(turn, TurnTypeToString(currentTurnType));
         onTurnStart.Invoke();
         switch (CurrentTurnType)
         {
@@ -290,6 +290,23 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
                 break;
         }
         animatedTurnPanel.GetComponent<AnimatedTurnPanel>().Play();
+    }
+    public static string TurnTypeToString(TurnType turnType)
+    {
+        switch (turnType)
+        {
+            case TurnType.FirstMoveDecide:
+                return LoadTranslatableSentence("DecidingFirstMover");
+            case TurnType.MyFusionTurn:
+                return LoadTranslatableSentence("FusionTurn");
+            case TurnType.MyAttackTurn:
+                return LoadTranslatableSentence("AttackTurn");
+            case TurnType.EnemyFusionTurn:
+                return LoadTranslatableSentence("EnemyFusionTurn");
+            case TurnType.EnemyAttackTurn:
+                return LoadTranslatableSentence("EnemyAttackTurn");
+        }
+        return null;
     }
 
     public void OnPointerDown(PointerEventData eventData)

@@ -37,8 +37,7 @@ public class WorldManager : ChemicalSummonManager, IPointerDownHandler
 
     private void Awake()
     {
-        Init();
-        Instance = this;
+        ManagerInit(Instance = this);
         ItemScreen.gameObject.SetActive(false);
         DeckScreen.gameObject.SetActive(false);
         ReactionScreen.gameObject.SetActive(false);

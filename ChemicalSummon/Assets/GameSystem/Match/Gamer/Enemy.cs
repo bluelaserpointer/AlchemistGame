@@ -6,6 +6,15 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Enemy : Gamer
 {
+    [SerializeField]
+    EnemyThinking enemyThinkingPrefab;
+    [SerializeField]
+    Transform enemyThinkingPreview;
+    public void AddEnemyAction(Action action)
+    {
+        EnemyThinking gamerAction = Instantiate(enemyThinkingPrefab, enemyThinkingPreview);
+        gamerAction.action = action;
+    }
     public EnemyAI AI => MatchManager.Match.EnemyAI;
     public override TurnType FusionTurn => TurnType.EnemyFusionTurn;
     public override TurnType AttackTurn => TurnType.EnemyAttackTurn;

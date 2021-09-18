@@ -37,7 +37,7 @@ public class NoFusionAI : EnemyAI
         switch (step)
         {
             case 0: //back all cards & find highestATK
-                MatchManager.MatchLogDisplay.AddAction(() =>
+                Enemy.AddEnemyAction(() =>
                 {
                     foreach (ShieldCardSlot slot in slots)
                     {
@@ -80,7 +80,7 @@ public class NoFusionAI : EnemyAI
                             continue;
                         foundSlot = true;
                         highestATKs.RemoveAt(i);
-                        MatchManager.MatchLogDisplay.AddAction(() =>
+                        Enemy.AddEnemyAction(() =>
                         {
                             lestEmptySlots.Remove(slot);
                             Enemy.SetShieldCardSlotFromHand(slot, card);
@@ -100,7 +100,7 @@ public class NoFusionAI : EnemyAI
                     OnFusionTurnLoop(2);
                 break;
             case 2:
-                MatchManager.MatchLogDisplay.AddAction(() =>
+                Enemy.AddEnemyAction(() =>
                 {
                     MatchManager.TurnEnd();
                 });
@@ -120,7 +120,7 @@ public class NoFusionAI : EnemyAI
         {
             return;
         }
-        MatchManager.MatchLogDisplay.AddAction(() =>
+        Enemy.AddEnemyAction(() =>
         {
             foreach (ShieldCardSlot slot in slots)
             {
@@ -133,6 +133,7 @@ public class NoFusionAI : EnemyAI
                     if (!notAttackingSlot.Equals(slot) && !notAttackingSlot.IsEmpty)
                         notAttackingSlot.Card.SetAlpha(0.5F);
                 }
+                MatchManager.MatchLogDisplay.AddDeclareAttackLog(slot.Card);
                 MatchManager.Player.Defense(slot.Card);
                 return;
             }

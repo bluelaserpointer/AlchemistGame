@@ -20,8 +20,7 @@ public class OpeningManager : ChemicalSummonManager
     void Awake()
     {
         substances = Substance.GetAll();
-        base.Init();
-        Instance = this;
+        ManagerInit(Instance = this);
     }
 
     // Update is called once per frame

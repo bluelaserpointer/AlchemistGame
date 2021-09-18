@@ -36,6 +36,7 @@ public class Player : Gamer
             SubstanceCard card = slot.Card;
             slot.ShowAttackButton(() =>
             {
+                MatchManager.MatchLogDisplay.AddDeclareAttackLog(card);
                 MatchManager.Enemy.Defense(card);
                 slot.HideAttackButton();
             });

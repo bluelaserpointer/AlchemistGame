@@ -37,7 +37,7 @@ public abstract class Gamer : MonoBehaviour
     /// <summary>
     /// 对手
     /// </summary>
-    public Gamer Opponent => IsMyside ? MatchManager.Enemy : (Gamer)MatchManager.Player;
+    public Gamer Opponent => IsMySide ? MatchManager.Enemy : (Gamer)MatchManager.Player;
     /// <summary>
     /// 游戏者
     /// </summary>
@@ -83,7 +83,9 @@ public abstract class Gamer : MonoBehaviour
         get => hp;
         set
         {
+            int change = value - HP;
             hp = value;
+            MatchManager.MatchLogDisplay.AddPlayerHPLog(this, change);
             onHPChange.Invoke();
         }
     }
@@ -108,7 +110,7 @@ public abstract class Gamer : MonoBehaviour
     /// <summary>
     /// 是我方玩家
     /// </summary>
-    public bool IsMyside => MatchManager.Player.Equals(this);
+    public bool IsMySide => MatchManager.Player.Equals(this);
     /// <summary>
     /// 是敌方玩家
     /// </summary>
@@ -132,7 +134,7 @@ public abstract class Gamer : MonoBehaviour
     /// <summary>
     /// 场地
     /// </summary>
-    public Field Field => IsMyside ? MatchManager.MyField : MatchManager.EnemyField;
+    public Field Field => IsMySide ? MatchManager.MyField : MatchManager.EnemyField;
     /// <summary>
     /// 卡组变化事件
     /// </summary>
@@ -170,7 +172,9 @@ public abstract class Gamer : MonoBehaviour
     {
         if (DrawPile.Count > 0)
         {
-            AddHandCard(RemoveDrawPileTop(), true);
+            SubstanceCard card = RemoveDrawPileTop();
+            MatchManager.MatchLogDisplay.AddDrawLog(this, card);
+            AddHandCard(card, true);
         }
     }
     public void AddDrawPile(SubstanceCard card, CardTransport.Method method = CardTransport.Method.Bottom, UnityAction afterAction = null)
@@ -181,7 +185,7 @@ public abstract class Gamer : MonoBehaviour
             card.transform.eulerAngles = card.IsMySide ? Vector3.zero : new Vector3(0, 180, 0);
         }
         card.Gamer = this;
-        card.location = IsMyside ? CardTransport.Location.MyDeck : CardTransport.Location.EnemyDeck;
+        card.location = IsMySide ? CardTransport.Location.MyDeck : CardTransport.Location.EnemyDeck;
         card.SetDraggable(false);
         switch (method)
         {
@@ -261,9 +265,9 @@ public abstract class Gamer : MonoBehaviour
         {
             substanceCard.Gamer = this;
             HandCards.Add(substanceCard);
-            substanceCard.location = IsMyside ? CardTransport.Location.MyHandCard : CardTransport.Location.EnemyHandCard;
+            substanceCard.location = IsMySide ? CardTransport.Location.MyHandCard : CardTransport.Location.EnemyHandCard;
             HandCardsDisplay.Add(substanceCard.gameObject); //includes TracePosition animation
-            substanceCard.SetDraggable(IsMyside);
+            substanceCard.SetDraggable(IsMySide);
             OnHandCardsChanged.Invoke();
         }
         else
@@ -429,6 +433,7 @@ public abstract class Gamer : MonoBehaviour
     }
     public virtual void DoReaction(Reaction.ReactionMethod method)
     {
+        MatchManager.MatchLogDisplay.AddFusionLog(this, method.reaction);
         foreach (KeyValuePair<SubstanceCard, int> consume in method.consumingCards)
         {
             consume.Key.RemoveAmount(consume.Value, SubstanceCard.DecreaseReason.FusionMaterial);

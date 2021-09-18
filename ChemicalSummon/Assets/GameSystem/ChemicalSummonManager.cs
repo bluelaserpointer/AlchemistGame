@@ -4,22 +4,18 @@ using UnityEngine.SceneManagement;
 public abstract class ChemicalSummonManager : MonoBehaviour
 {
     public static string Version => "alpha3.1.0";
-    public static Canvas MainCanvas
-    {
-        get;
-        private set;
-    }
-
     //inspector
     [SerializeField]
     Canvas mainCanvas;
 
     //data
-    protected void Init()
+    protected void ManagerInit(ChemicalSummonManager manager)
     {
-        MainCanvas = mainCanvas;
+        CurrentManagerInstance = manager;
         DynamicGI.UpdateEnvironment();
     }
+    public static ChemicalSummonManager CurrentManagerInstance { get; private set; }
+    public static Canvas MainCanvas => CurrentManagerInstance.mainCanvas;
     public static bool CurrentSceneIsMatch => SceneManager.GetActiveScene().name.Equals("Match");
     public static bool CurrentSceneIsWorld => SceneManager.GetActiveScene().name.Equals("World");
     public static bool CurrentSceneIsTitle => SceneManager.GetActiveScene().name.Equals("Title");

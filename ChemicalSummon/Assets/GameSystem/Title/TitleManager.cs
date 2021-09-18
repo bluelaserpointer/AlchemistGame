@@ -15,8 +15,7 @@ public class TitleManager : ChemicalSummonManager
     // Start is called before the first frame update
     void Awake()
     {
-        Init();
-        Instance = this;
+        ManagerInit(Instance = this);
         versionText.text = "Version " + ChemicalSummonManager.Version;
     }
 }

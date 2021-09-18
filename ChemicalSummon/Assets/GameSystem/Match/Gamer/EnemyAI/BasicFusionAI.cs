@@ -26,7 +26,7 @@ public class BasicFusionAI : NoFusionAI
             }
             if(maxPriority > 0)
             {
-                MatchManager.MatchLogDisplay.AddAction(() =>
+                Enemy.AddEnemyAction(() =>
                 {
                     Enemy.DoReaction(candidateMethod);
                     OnFusionTurnLoop(2);
@@ -51,7 +51,7 @@ public class BasicFusionAI : NoFusionAI
             return;
         }
         int highestATK = MatchManager.Player.Field.TopATK;
-        MatchManager.MatchLogDisplay.AddAction(() =>
+        Enemy.AddEnemyAction(() =>
         {
             foreach (ShieldCardSlot slot in slots)
             {
@@ -64,6 +64,7 @@ public class BasicFusionAI : NoFusionAI
                     if (!notAttackingSlot.Equals(slot) && !notAttackingSlot.IsEmpty)
                         notAttackingSlot.Card.SetAlpha(0.5F);
                 }
+                MatchManager.MatchLogDisplay.AddDeclareAttackLog(slot.Card);
                 MatchManager.Player.Defense(slot.Card);
                 return;
             }
@@ -100,7 +101,7 @@ public class BasicFusionAI : NoFusionAI
         }
         if (maxPriority > 0)
         {
-            MatchManager.MatchLogDisplay.AddAction(() =>
+            Enemy.AddEnemyAction(() =>
             {
                 Enemy.DoReaction(candidateMethod);
             });
