@@ -67,8 +67,6 @@ public class CardAbility : MonoBehaviour
     public static CardAbility[] GetBySubstanceName(string cardName)
     {
         GameObject abilityObject = Resources.Load<GameObject>("Chemical/CardAbility/" + cardName);
-        if (abilityObject != null && abilityObject.GetComponentsInChildren<CardAbility>().Length > 0)
-            print(abilityObject.name);
         return abilityObject == null ? new CardAbility[0] : abilityObject.GetComponentsInChildren<CardAbility>();
     }
 }

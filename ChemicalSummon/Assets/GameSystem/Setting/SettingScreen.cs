@@ -82,9 +82,7 @@ public class SettingScreen : ChemicalSummonManager
     public void UnlockAllReaction()
     {
         foreach (Reaction each in Reaction.GetAll())
-        {
             PlayerSave.AddDiscoveredReaction(each);
-        }
         WorldManager.ReactionScreen.Init();
     }
     public void AllSubstancePlusOne()

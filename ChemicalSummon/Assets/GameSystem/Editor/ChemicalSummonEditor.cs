@@ -8,6 +8,7 @@ using UnityEngine;
 
 public static class ChemicalSummonEditor
 {
+    private static List<string> unknownNames = new List<string>();
     /// <summary>
     /// 读取道具标头表自动生成ScriptableObject
     /// </summary>
@@ -258,6 +259,7 @@ public static class ChemicalSummonEditor
     [MenuItem("ChemicalSummon/Load Reaction From Excel")]
     private static void LoadReactionExcel()
     {
+        unknownNames.Clear();
         DataSet result = ReadExcelFromStreamingAsset("Reaction.xlsx");
         if (result == null)
             return;
@@ -269,7 +271,7 @@ public static class ChemicalSummonEditor
             for (int row = 1; row < rows; row++)
             {
                 DataRow rowData = table.Rows[row];
-                string reactionName = rowData[0].ToString() + "=" + rowData[2].ToString() + "=" + rowData[1].ToString();
+                string reactionName = rowData[0].ToString();
                 Reaction reaction = Reaction.GetByName(reactionName);
                 bool newCreated = reaction == null;
                 if (newCreated)
@@ -277,16 +279,16 @@ public static class ChemicalSummonEditor
                     reaction = ScriptableObject.CreateInstance<Reaction>();
                 }
                 reaction.description = reactionName;
-                //Left substances
-                reaction.leftSubstances = StrToSubstanceAndAmount(rowData[0].ToString());
-                reaction.rightSubstances = StrToSubstanceAndAmount(rowData[1].ToString());
-                reaction.catalysts = StrToSubstanceAndAmount(rowData[2].ToString());
+                string[] strs = reactionName.Split('=');
+                reaction.leftSubstances = StrToSubstanceAndAmount(strs[0]);
+                reaction.catalysts = StrToSubstanceAndAmount(strs[1]);
+                reaction.rightSubstances = StrToSubstanceAndAmount(strs[2]);
                 //Special
-                reaction.heatRequire = ToInt(rowData[3].ToString());
-                reaction.electricRequire = ToInt(rowData[4].ToString());
-                reaction.explosion = ToInt(rowData[5].ToString());
-                reaction.heat = ToInt(rowData[6].ToString());
-                reaction.electric = ToInt(rowData[7].ToString());
+                reaction.heatRequire = ToInt(rowData[1].ToString());
+                reaction.electricRequire = ToInt(rowData[2].ToString());
+                reaction.explosion = ToInt(rowData[3].ToString());
+                reaction.heat = ToInt(rowData[4].ToString());
+                reaction.electric = ToInt(rowData[5].ToString());
                 if (newCreated)
                 {
                     AssetDatabase.CreateAsset(reaction, @"Assets/GameContents/Resources/Chemical/Reaction/" + reactionName + ".asset");
@@ -302,6 +304,12 @@ public static class ChemicalSummonEditor
         AssetDatabase.SaveAssets(); //存储资源
         AssetDatabase.Refresh(); //刷新
         Debug.Log("ReactionAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);
+        if(unknownNames.Count > 0)
+        {
+            string names = "";
+            unknownNames.ForEach(name => names += "\r\n" + name);
+            Debug.LogWarning("UnknownNames: " + unknownNames.Count + names);
+        }
     }
     /// <summary>
     /// 读取物质表自动生成ScriptableObject
@@ -351,7 +359,7 @@ public static class ChemicalSummonEditor
                     }
                     else if (char.IsUpper(letter))
                     {
-                        if (!lastIsNumber) // exp. CO
+                        if (!lastIsNumber) // exp. CO, (NH4)2SO4
                         {
                             AvoidNull(Element.GetByNameWithWarn(lastLetter), element => substance.elements.Add(element));
                         }
@@ -499,11 +507,11 @@ public static class ChemicalSummonEditor
         string lastLetter = "";
         foreach (char letter in str)
         {
-            if (char.IsNumber(letter) || char.IsLower(letter))
+            if (char.IsNumber(letter) || char.IsLower(letter) || letter == ')' || letter == '.')
             {
                 lastLetter += letter;
             }
-            else if (char.IsUpper(letter))
+            else if (char.IsUpper(letter) || letter == '(')
             {
                 if (readingAmountNumber)
                 {
@@ -521,7 +529,9 @@ public static class ChemicalSummonEditor
             }
             else if (letter.Equals('+'))
             {
-                AvoidNull(Substance.GetByNameWithWarn(lastLetter), substance => substances.Add(substance, amountTmp));
+                if(!AvoidNull(Substance.GetByNameWithWarn(lastLetter), substance => substances.Add(substance, amountTmp)))
+                    if(!unknownNames.Contains(lastLetter))
+                        unknownNames.Add(lastLetter);
                 readingAmountNumber = true;
                 lastLetter = "";
             }
@@ -530,7 +540,9 @@ public static class ChemicalSummonEditor
                 Debug.Log("encounted unknown character: " + letter);
             }
         }
-        AvoidNull(Substance.GetByNameWithWarn(lastLetter), substance => substances.Add(substance, amountTmp));
+        if (!AvoidNull(Substance.GetByNameWithWarn(lastLetter), substance => substances.Add(substance, amountTmp)))
+            if (!unknownNames.Contains(lastLetter)) 
+                unknownNames.Add(lastLetter);
         return substances;
     }
     private static bool AvoidNull<T>(T element, Action<T> action)
