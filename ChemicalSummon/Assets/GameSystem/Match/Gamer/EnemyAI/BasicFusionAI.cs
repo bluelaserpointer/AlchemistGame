@@ -4,38 +4,59 @@ using UnityEngine;
 
 public class BasicFusionAI : NoFusionAI
 {
-    public override void OnFusionTurnLoop(int step)
+    public virtual void FusionAction(int step)
     {
-        if(step == 2) //try fusion before turn end
+        int maxPriority = 0;
+        Reaction.ReactionMethod candidateMethod = default;
+        SubstanceCard topATKCard = Enemy.Field.TopATKCard;
+        foreach (Reaction.ReactionMethod method in Enemy.FindAvailiableReactions())
         {
-            int maxPriority = 0;
-            Reaction.ReactionMethod candidateMethod = default;
-            SubstanceCard topATKCard = Enemy.Field.TopATKCard;
-            foreach (Reaction.ReactionMethod method in Enemy.FindAvailiableReactions())
+            int priority = Enemy.ReactionsPriority.CountStack(method.reaction);
+            if (method.consumingCards.ContainsKey(topATKCard)) //hate decrese of top ATK
             {
-                int priority = Enemy.ReactionsPriority.CountStack(method.reaction);
-                if (method.consumingCards.ContainsKey(topATKCard)) //hate decrese of top ATK
-                {
-                    priority -= 100;
-                }
-                if (priority > maxPriority)
-                {
-                    maxPriority = priority;
-                    candidateMethod = method;
-                }
+                priority -= 100;
             }
-            if(maxPriority > 0)
+            if (priority > maxPriority)
             {
-                Enemy.AddEnemyAction(() =>
-                {
-                    Enemy.DoReaction(candidateMethod);
-                    OnFusionTurnLoop(2);
-                });
-                return;
+                maxPriority = priority;
+                candidateMethod = method;
             }
         }
-        //else place the cards
-        base.OnFusionTurnLoop(step);
+        if (maxPriority > 0)
+        {
+            Enemy.AddEnemyAction(() =>
+            {
+                Enemy.DoReaction(candidateMethod);
+                OnFusionTurnLoop(step); //recalculate next fusion
+            });
+            return;
+        }
+        else
+            OnFusionTurnLoop(step + 1);
+    }
+    public override void OnFusionTurnLoop(int step)
+    {
+        switch (step)
+        {
+            case 0:
+                FusionAction(step);
+                break;
+            case 1:
+                TakeBackCardsAction(step);
+                break;
+            case 2:
+                FindHighestATK(step);
+                break;
+            case 3:
+                PlaceCardsAction(step);
+                break;
+            case 4:
+                Enemy.AddEnemyAction(() =>
+                {
+                    MatchManager.TurnEnd();
+                });
+                break;
+        }
     }
     public override void AttackTurnLoop()
     {

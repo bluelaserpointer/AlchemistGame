@@ -31,75 +31,88 @@ public class NoFusionAI : EnemyAI
     protected List<SubstanceCardAndATK> highestATKs = new List<SubstanceCardAndATK>();
     protected List<CardSlot> lestEmptySlots = new List<CardSlot>();
     protected List<CardSlot> attackedSlot = new List<CardSlot>();
-    public virtual void OnFusionTurnLoop(int step)
+    public virtual void TakeBackCardsAction(int step)
     {
         ShieldCardSlot[] slots = Field.Slots;
-        switch (step)
+        Enemy.AddEnemyAction(() =>
         {
-            case 0: //back all cards & find highestATK
+            foreach (ShieldCardSlot slot in slots)
+            {
+                slot.TakeBackCard();
+            }
+            lestEmptySlots.Clear();
+            lestEmptySlots.AddRange(slots);
+            OnFusionTurnLoop(step + 1);
+        });
+    }
+    public virtual void FindHighestATK(int step)
+    {
+        highestATKs.Clear();
+        foreach (SubstanceCard card in HandCards)
+        {
+            int atk = card.ATK;
+            for (int i = 0; ; ++i)
+            {
+                if (i == highestATKs.Count)
+                {
+                    highestATKs.Add(new SubstanceCardAndATK(card, atk));
+                    break;
+                }
+                if (atk > highestATKs[i].atk)
+                {
+                    highestATKs.Insert(i, new SubstanceCardAndATK(card, atk));
+                    break;
+                }
+            }
+        }
+        OnFusionTurnLoop(step + 1);
+    }
+    public virtual void PlaceCardsAction(int step)
+    {
+        bool foundSlot = false;
+        for (int i = 0; i < highestATKs.Count; ++i)
+        {
+            SubstanceCardAndATK highestATKPair = highestATKs[i];
+            SubstanceCard card = highestATKPair.card;
+            foreach (ShieldCardSlot slot in lestEmptySlots)
+            {
+                if (!card.GetStateInTempreture(slot.Tempreture).Equals(ThreeState.Solid))
+                    continue;
+                foundSlot = true;
+                highestATKs.RemoveAt(i);
                 Enemy.AddEnemyAction(() =>
                 {
-                    foreach (ShieldCardSlot slot in slots)
-                    {
-                        slot.TakeBackCard();
-                    }
-                    //find highestATK
-                    highestATKs.Clear();
-                    foreach (SubstanceCard card in HandCards)
-                    {
-                        int atk = card.ATK;
-                        for (int i = 0; ; ++i)
-                        {
-                            if (i == highestATKs.Count)
-                            {
-                                highestATKs.Add(new SubstanceCardAndATK(card, atk));
-                                break;
-                            }
-                            if (atk > highestATKs[i].atk)
-                            {
-                                highestATKs.Insert(i, new SubstanceCardAndATK(card, atk));
-                                break;
-                            }
-                        }
-                    }
-                    lestEmptySlots.Clear();
-                    lestEmptySlots.AddRange(slots);
-                    OnFusionTurnLoop(step + 1);
+                    lestEmptySlots.Remove(slot);
+                    Enemy.SetShieldCardSlotFromHand(slot, card);
+                    OnFusionTurnLoop((highestATKs.Count > 0 && lestEmptySlots.Count > 0) ? step : step + 1);
                 });
                 break;
+            }
+            if (foundSlot)
+            {
+                break;
+            }
+            //no slot can place in
+            highestATKs.RemoveAt(i);
+            --i;
+        }
+        if (!foundSlot)
+            OnFusionTurnLoop(step + 1);
+    }
+    public virtual void OnFusionTurnLoop(int step)
+    {
+        switch (step)
+        {
+            case 0:
+                TakeBackCardsAction(step);
+                break;
             case 1:
-                //place strongest card
-                bool foundSlot = false;
-                for (int i = 0; i < highestATKs.Count; ++i)
-                {
-                    SubstanceCardAndATK highestATKPair = highestATKs[i];
-                    SubstanceCard card = highestATKPair.card;
-                    foreach (ShieldCardSlot slot in lestEmptySlots)
-                    {
-                        if (!card.GetStateInTempreture(slot.Tempreture).Equals(ThreeState.Solid))
-                            continue;
-                        foundSlot = true;
-                        highestATKs.RemoveAt(i);
-                        Enemy.AddEnemyAction(() =>
-                        {
-                            lestEmptySlots.Remove(slot);
-                            Enemy.SetShieldCardSlotFromHand(slot, card);
-                            OnFusionTurnLoop((highestATKs.Count > 0 && lestEmptySlots.Count > 0) ? 1 : 2);
-                        });
-                        break;
-                    }
-                    if(foundSlot)
-                    {
-                        break;
-                    }
-                    //no slot can place in
-                    highestATKs.RemoveAt(i);
-                    --i;
-                }
-                if(!foundSlot)
-                    OnFusionTurnLoop(2);
+                FindHighestATK(step);
                 break;
             case 2:
+                PlaceCardsAction(step);
+                break;
+            case 3:
                 Enemy.AddEnemyAction(() =>
                 {
                     MatchManager.TurnEnd();

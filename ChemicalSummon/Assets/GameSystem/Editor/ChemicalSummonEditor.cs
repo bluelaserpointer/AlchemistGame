@@ -398,11 +398,15 @@ public static class ChemicalSummonEditor
                     if (lastLetter.Equals("?")) //Phenomenons does not have elements
                         substance.isPhenomenon = true;
                     else
+                    {
                         AvoidNull(Element.GetByNameWithWarn(lastLetter), element => substance.elements.Add(element));
+                        substance.isPhenomenon = false;
+                    }
                 }
                 else //exp. H2
                 {
                     AvoidNull(Element.GetByNameWithWarn(tmpElementName), element => substance.elements.Add(element, ToInt(lastLetter)));
+                    substance.isPhenomenon = false;
                 }
                 substance.atk = ToInt(row[2].ToString());
                 substance.meltingPoint = ToInt(row[3].ToString());
