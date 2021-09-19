@@ -212,7 +212,7 @@ public abstract class Gamer : MonoBehaviour
     }
     public void RemoveDrawPile(SubstanceCard card)
     {
-        if(DrawPile.Remove(card))
+        if (DrawPile.Remove(card))
         {
             drawPileDisplay.SlotClear(card);
             OnDrawPileChange.Invoke();
@@ -285,11 +285,11 @@ public abstract class Gamer : MonoBehaviour
     }
     public void RemoveHandCard(Substance substance)
     {
-       RemoveHandCard(FindHandCard(substance));
+        RemoveHandCard(FindHandCard(substance));
     }
     public virtual bool RemoveHandCard(SubstanceCard substanceCard)
     {
-        if(HandCards.Remove(substanceCard))
+        if (HandCards.Remove(substanceCard))
         {
             HandCardsDisplay.Remove(substanceCard.gameObject);
             OnHandCardsChanged.Invoke();
@@ -301,14 +301,13 @@ public abstract class Gamer : MonoBehaviour
     /// 手牌总数
     /// </summary>
     /// <returns></returns>
-    public int GetHandCardCount()
+    public int HandCardCount 
     {
-        int count = 0;
-        foreach(SubstanceCard card in HandCards)
-        {
-            count += card.CardAmount;
+        get {
+            int count = 0;
+            HandCards.ForEach(card => count += card.CardAmount);
+            return count;
         }
-        return count;
     }
     /// <summary>
     /// 融合回合开始
@@ -375,10 +374,9 @@ public abstract class Gamer : MonoBehaviour
             }
         }
     }
-    public List<Reaction.ReactionMethod> FindAvailiableReactions()
+    public List<Reaction.ReactionMethod> FindAvailiableReactions(SubstanceCard attacker = null)
     {
         List<SubstanceCard> consumableCards = GetConsumableCards();
-        SubstanceCard attacker = CurrentAttacker;
         bool counterMode = attacker != null; //in counterMode, only counter fusions are avaliable
         if (counterMode)
         {

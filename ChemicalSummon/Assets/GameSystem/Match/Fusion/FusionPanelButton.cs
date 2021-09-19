@@ -40,7 +40,7 @@ public class FusionPanelButton : MonoBehaviour
         bool counterMode = MatchManager.CurrentTurnType.Equals(TurnType.EnemyAttackTurn) && currentAttacker != null;
         foreach (Transform childTransform in fusionButtonListSlider.transform)
             Destroy(childTransform.gameObject);
-        List<Reaction.ReactionMethod> reactionMethods = MatchManager.Player.FindAvailiableReactions();
+        List<Reaction.ReactionMethod> reactionMethods = MatchManager.Player.FindAvailiableReactions(currentAttacker);
         foreach (var method in reactionMethods)
         {
             Reaction reaction = method.reaction;

@@ -50,12 +50,16 @@ public class BasicFusionAI : NoFusionAI
         {
             return;
         }
-        int highestATK = MatchManager.Player.Field.TopATK;
+        int highestATK = Player.Field.TopATK;
         Enemy.AddEnemyAction(() =>
         {
             foreach (ShieldCardSlot slot in slots)
             {
                 if (slot.IsEmpty || slot.Card.DenideAttack || attackedSlot.Contains(slot) || slot.Card.ATK < highestATK)
+                    continue;
+                //guess counter risk
+                float counterRisk = GuessCounterPossibility(slot.Card);
+                if (counterRisk == 1 || Random.Range(0, 1) < counterRisk)
                     continue;
                 attackedSlot.Add(slot);
                 slot.ShowAttackButton();
@@ -65,7 +69,7 @@ public class BasicFusionAI : NoFusionAI
                         notAttackingSlot.Card.SetAlpha(0.5F);
                 }
                 MatchManager.MatchLogDisplay.AddDeclareAttackLog(slot.Card);
-                MatchManager.Player.Defense(slot.Card);
+                Player.Defense(slot.Card);
                 return;
             }
             //no more slot can attack
@@ -86,7 +90,7 @@ public class BasicFusionAI : NoFusionAI
         int playerStrongestATK = MatchManager.Player.Field.TopATK;
         int maxPriority = 0;
         Reaction.ReactionMethod candidateMethod = default;
-        foreach (Reaction.ReactionMethod method in Enemy.FindAvailiableReactions())
+        foreach (Reaction.ReactionMethod method in Enemy.FindAvailiableReactions(attacker))
         {
             if (enemyStrongestATK > playerStrongestATK && method.consumingCards.ContainsKey(enemyStrongestCard))
             { //if our top ATK is higher than the player, should not do counter fusion that includes the highest ATK card
