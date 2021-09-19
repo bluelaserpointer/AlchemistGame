@@ -36,5 +36,6 @@ MonoBehaviour:
   additionalObject: {fileID: 0}
   loots:
   - {fileID: 59571194470741858, guid: b8b8dccc053580949910be8426a7a65a, type: 3}
-  unlockReactions: []
+  unlockReactions:
+  - {fileID: 11400000, guid: 41d41cf14a46363448d4453cb9d85727, type: 2}
   mySideCharacter: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}
