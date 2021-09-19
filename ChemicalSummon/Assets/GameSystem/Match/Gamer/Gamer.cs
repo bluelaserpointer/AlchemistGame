@@ -143,6 +143,7 @@ public abstract class Gamer : MonoBehaviour
     /// 手牌变化事件
     /// </summary>
     public UnityEvent OnHandCardsChanged => onHandCardsChanged;
+    public StackedElementList<Substance> exposedSubstances = new StackedElementList<Substance>();
     public void Init(Character character, Deck deck)
     {
         Character = character;
@@ -440,6 +441,7 @@ public abstract class Gamer : MonoBehaviour
         {
             SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(pair.type);
             newCard.InitCardAmount(pair.amount);
+            exposedSubstances.Add(newCard.Substance);
             AddHandCard(newCard, true);
         }
         Reaction reaction = method.reaction;
@@ -456,6 +458,8 @@ public abstract class Gamer : MonoBehaviour
             PushActionStack(() => DoExplosion(reaction.explosion));
         if (reaction.explosion == 0)
             MatchManager.PlaySE("Sound/SE/powerup10");
+        //talk
+        SpeakInMatch(MatchManager.CurrentTurnType.Equals(FusionTurn) ? Character.SpeakType.Fusion : Character.SpeakType.Counter);
         //event invoke
         MatchManager.Instance.onFusionFinish.Invoke();
     }

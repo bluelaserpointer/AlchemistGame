@@ -45,19 +45,6 @@ public class Enemy : Gamer
         RemoveHandCard(card);
         slot.SlotSet(card.gameObject);
     }
-    public override void DoReaction(Reaction.ReactionMethod method)
-    {
-        base.DoReaction(method);
-        //talk
-        if (MatchManager.CurrentTurnType.Equals(TurnType.EnemyFusionTurn))
-        {
-            MatchManager.Enemy.SpeakInMatch(Character.SpeakType.Fusion);
-        }
-        else
-        {
-            MatchManager.Enemy.SpeakInMatch(Character.SpeakType.Counter);
-        }
-    }
     public void DoBurn_FireFairy(int burnDamage)
     {
         ShieldCardSlot slot = new List<ShieldCardSlot>(MatchManager.Player.Field.Slots).FindMostValuable(slot =>

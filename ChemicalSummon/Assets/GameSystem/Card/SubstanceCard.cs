@@ -137,7 +137,7 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 攻击力(最新值)
     /// </summary>
-    public int ATK => OriginalATK * CardAmount + ATKChange;
+    public int ATK => OriginalATK /** CardAmount*/ + ATKChange;
     /// <summary>
     /// 攻击力变动
     /// </summary>
@@ -180,9 +180,7 @@ public class SubstanceCard : MonoBehaviour
         MatchManager.MatchLogDisplay.AddBattleLog(this, opponentCard);
         MatchManager.StartAttackAnimation(Slot, opponentCard.Slot, () => {
             MatchManager.PlaySE("Sound/SE/sword-kill-1");
-            int myAtk = ATK;
-            Damage(opponentCard.ATK);
-            opponentCard.Damage(myAtk); //counter
+            opponentCard.Damage(ATK, CardAmount);
         });
     }
     /// <summary>
@@ -197,7 +195,7 @@ public class SubstanceCard : MonoBehaviour
             MatchManager.StartDamageAnimation(transform.position, ATK, gamer);
         });
     }
-    public void Damage(int dmg)
+    public void Damage(int dmg, int count = 1)
     {
         int overDamage = dmg - ATK;
         if (overDamage >= 0)
@@ -206,7 +204,7 @@ public class SubstanceCard : MonoBehaviour
                 RemoveAmount(1, DecreaseReason.Damage);
             if (overDamage > 0)
             {
-                MatchManager.StartDamageAnimation(transform.position, overDamage, gamer);
+                MatchManager.StartDamageAnimation(transform.position, overDamage * count, gamer);
             }
         }
     }

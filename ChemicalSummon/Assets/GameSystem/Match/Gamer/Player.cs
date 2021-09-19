@@ -80,20 +80,6 @@ public class Player : Gamer
         CurrentAttacker.Battle(this);
         EndDefence();
     }
-    public override void DoReaction(Reaction.ReactionMethod method)
-    {
-        //disable preview
-        base.DoReaction(method);
-        //talk
-        if (MatchManager.CurrentTurnType.Equals(TurnType.EnemyAttackTurn))
-        {
-            MatchManager.Player.SpeakInMatch(Character.SpeakType.Counter);
-        }
-        else
-        {
-            MatchManager.Player.SpeakInMatch(Character.SpeakType.Fusion);
-        }
-    }
     Func<ShieldCardSlot, bool> selectSlotAction;
     public void DoBurn_FireFairy(int burnDamage)
     {

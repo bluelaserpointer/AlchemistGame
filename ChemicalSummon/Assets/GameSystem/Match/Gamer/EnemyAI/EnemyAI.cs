@@ -32,6 +32,7 @@ public abstract class EnemyAI : MonoBehaviour
             bool condition = true;
             bool addedAttacker = false;
             Dictionary<SubstanceCard, int> consumingCards = new Dictionary<SubstanceCard, int>();
+            StackedElementList<Substance> lackedSubstances = new StackedElementList<Substance>();
             int lackCardCount = 0;
             foreach (var pair in reaction.LeftSubstances)
             {
@@ -65,11 +66,36 @@ public abstract class EnemyAI : MonoBehaviour
                     condition = false;
                     break;
                 }
+                lackedSubstances.Add(requiredSubstance, requiredAmount);
             }
             if (condition && addedAttacker)
             {
                 float possiblity = Mathf.Clamp(0.75f + 0.25F * (opponentHandCardCount - lackCardCount) / lackCardCount, 0, 1);
-                //print(reaction.description + " -> lackCardCount: " + lackCardCount + ", counter risk: " + possiblity);
+                foreach(var each in lackedSubstances)
+                {
+                    Substance substance = each.type;
+                    if(!substance.IsPureElement)
+                    {
+                        int exposedCount = Player.exposedSubstances.CountStack(substance);
+                        if (exposedCount > 0)
+                        {
+                            float subPossibility = 1;
+                            int playerTotalCards = Player.DrawPile.Count + opponentHandCardCount;
+                            for (int i = 0; i < opponentHandCardCount; ++i)
+                            {
+                                subPossibility *= (playerTotalCards - exposedCount - i) / (playerTotalCards - i);
+                            }
+                            print(substance.chemicalSymbol + " chance: " + (1 - subPossibility) + " of total " + playerTotalCards);
+                            possiblity *= 1 - subPossibility;
+                        }
+                        else
+                        {
+                            print("player never fusioned " + substance.chemicalSymbol);
+                            possiblity = 0;
+                        }
+                    }
+                }
+                print(reaction.description + " -> lackCardCount: " + lackCardCount + ", counter risk: " + possiblity);
                 if (possiblity > maxPossiblity)
                 {
                     maxPossiblity = possiblity;
