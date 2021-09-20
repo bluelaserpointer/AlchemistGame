@@ -50,7 +50,13 @@ public class FusionPanelButton : MonoBehaviour
                 MatchManager.FusionDisplay.StartReactionAnimation(() =>
                 {
                     lastReaction = reaction;
-                    MatchManager.Player.DoReaction(method);
+                    //must recheck because player cards may union/distribute in handcards/fields
+                    List<SubstanceCard> atNewTimeConsumableCards = MatchManager.Player.GetConsumableCards();
+                    if (currentAttacker != null)
+                        atNewTimeConsumableCards.Insert(0, currentAttacker);
+                    Reaction.ReactionMethod method;
+                    if(Reaction.GenerateReactionMethod(reaction, MatchManager.Player, atNewTimeConsumableCards, currentAttacker, out method))
+                        MatchManager.Player.DoReaction(method);
                     //counter fusion
                     if (counterMode)
                     {

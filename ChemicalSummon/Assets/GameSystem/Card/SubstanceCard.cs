@@ -14,9 +14,9 @@ public class SubstanceCard : MonoBehaviour
     [SerializeField]
     CardDrag cardDrag;
     [SerializeField]
-    SBA_TracePosition sBA_TracePosition;
+    SBA_TracePosition tracer;
     [SerializeField]
-    SBA_TraceRotation sBA_TraceRotation;
+    SBA_TraceRotation rotater;
     [SerializeField]
     CanvasGroup canvasGroup;
 
@@ -73,7 +73,7 @@ public class SubstanceCard : MonoBehaviour
             cardAmount = value;
             amountText.text = "x" + cardAmount.ToString();
             attackText.targetValue = ATK;
-            if(Slot != null)
+            if (Slot != null)
                 Slot.Field.cardsChanged.Invoke();
         }
     }
@@ -192,7 +192,7 @@ public class SubstanceCard : MonoBehaviour
         MatchManager.MatchLogDisplay.AddAttackPlayerLog(this);
         MatchManager.StartAttackAnimation(Slot, null, () => {
             MatchManager.PlaySE("Sound/SE/sword-kill-2");
-            MatchManager.StartDamageAnimation(transform.position, ATK, gamer);
+            MatchManager.StartDamageAnimation(transform.position, ATK * CardAmount, gamer);
         });
     }
     public void Damage(int dmg, int count = 1)
@@ -200,7 +200,7 @@ public class SubstanceCard : MonoBehaviour
         int overDamage = dmg - ATK;
         if (overDamage >= 0)
         {
-            if(!IsPhenomenon)
+            if (!IsPhenomenon)
                 RemoveAmount(1, DecreaseReason.Damage);
             if (overDamage > 0)
             {
@@ -262,7 +262,7 @@ public class SubstanceCard : MonoBehaviour
     public void UnionSameCard(SubstanceCard substanceCard)
     {
         CardAmount += substanceCard.CardAmount;
-        Destroy(substanceCard.gameObject);
+        substanceCard.Dispose();
     }
     public bool IsSameSubstance(SubstanceCard substanceCard)
     {
@@ -276,7 +276,7 @@ public class SubstanceCard : MonoBehaviour
     /// <returns></returns>
     public static SubstanceCard GenerateSubstanceCard(Substance substance, int amount = 1)
     {
-        if(baseSubstanceCard == null)
+        if (baseSubstanceCard == null)
         {
             baseSubstanceCard = Resources.Load<SubstanceCard>("SubstanceCard"); //Assets/GameSystem/Card/Resources/SubstanceCard
         }
@@ -302,7 +302,7 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 减少原因
     /// </summary>
-    public enum DecreaseReason { Damage, FusionMaterial, SkillCost, Other }
+    public enum DecreaseReason { Damage, FusionMaterial, SkillCost, SkillEffect, Other }
     /// <summary>
     /// 减少叠加数(到零自动Dispose)
     /// </summary>
@@ -334,6 +334,18 @@ public class SubstanceCard : MonoBehaviour
                 }
                 break;
         }
+        if (IsMySide && (MatchManager.CurrentTurnType.Equals(MatchManager.Player.FusionTurn) || MatchManager.CurrentTurnType.Equals(MatchManager.Player.AttackTurn)))
+        {
+            switch (decreaseReason)
+            {
+                //FusionMaterial case is done by FusionPanelButton
+                case DecreaseReason.Damage:
+                case DecreaseReason.SkillCost:
+                case DecreaseReason.SkillEffect:
+                    MatchManager.FusionPanel.UpdateList();
+                    break;
+            }
+        }
         if(CardAmount == 0)
             Dispose();
         return decreasedAmount;
@@ -348,31 +360,33 @@ public class SubstanceCard : MonoBehaviour
     }
     public void TracePosition(Vector3 position, UnityAction reachAction = null)
     {
-        sBA_TracePosition.SetTarget(position);
-        sBA_TracePosition.AddReachAction(reachAction);
-        sBA_TracePosition.StartAnimation();
+        tracer.SetTarget(position);
+        tracer.AddReachAction(reachAction);
+        tracer.StartAnimation();
     }
     public void TracePosition(Transform target, UnityAction reachAction = null)
     {
-        sBA_TracePosition.SetTarget(target);
-        sBA_TracePosition.AddReachAction(reachAction);
-        sBA_TracePosition.StartAnimation();
+        tracer.SetTarget(target);
+        tracer.AddReachAction(reachAction);
+        tracer.StartAnimation();
     }
     public void TraceRotation(Quaternion rotation, UnityAction reachAction = null)
     {
-        sBA_TraceRotation.SetTarget(rotation);
-        sBA_TraceRotation.AddReachAction(reachAction);
-        sBA_TraceRotation.StartAnimation();
+        rotater.SetTarget(rotation);
+        rotater.AddReachAction(reachAction);
+        rotater.StartAnimation();
     }
     public void TraceRotation(Transform target, UnityAction reachAction = null)
     {
-        sBA_TraceRotation.SetTarget(target);
-        sBA_TraceRotation.AddReachAction(reachAction);
-        sBA_TraceRotation.StartAnimation();
+        rotater.SetTarget(target);
+        rotater.AddReachAction(reachAction);
+        rotater.StartAnimation();
     }
+    public Vector3 TracePositionTarget => tracer.Target;
+    public Quaternion TraceRotationTarget => rotater.Target;
     public void SkipMovingAnimation()
     {
-        sBA_TracePosition.SkipAnimation();
-        sBA_TraceRotation.SkipAnimation();
+        tracer.SkipAnimation();
+        rotater.SkipAnimation();
     }
 }

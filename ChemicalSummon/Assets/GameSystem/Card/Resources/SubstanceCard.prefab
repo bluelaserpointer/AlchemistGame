@@ -90,8 +90,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cardDrag: {fileID: 2270947354730837286}
-  sBA_TracePosition: {fileID: 726923724765722980}
-  sBA_TraceRotation: {fileID: 1780371275191337411}
+  tracer: {fileID: 726923724765722980}
+  rotater: {fileID: 1780371275191337411}
   canvasGroup: {fileID: 8055087973708886126}
   nameText: {fileID: 7935647516824716674}
   amountText: {fileID: 7299781318539408529}

@@ -15,6 +15,7 @@ public class SBA_TracePosition : MonoBehaviour
     [SerializeField]
     UnityEvent OnReach;
     //data
+    public Vector3 Target => useTransformTarget ? targetTransform.position : targetPosition;
     float passedTime = float.MaxValue;
     Vector3 originalPos;
     bool isBeforeReach;
@@ -24,7 +25,7 @@ public class SBA_TracePosition : MonoBehaviour
         if (passedTime < timeLength)
         {
             float timePassedRate = passedTime / timeLength;
-            transform.position = Vector3.Lerp(originalPos, useTransformTarget ? targetTransform.position : targetPosition, Mathf.Pow(timePassedRate, power));
+            transform.position = Vector3.Lerp(originalPos, Target, Mathf.Pow(timePassedRate, power));
             passedTime += Time.fixedDeltaTime;
         }
         if (isBeforeReach && passedTime >= timeLength)

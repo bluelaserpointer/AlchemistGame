@@ -18,6 +18,7 @@ public class SBA_TraceRotation : MonoBehaviour
     [SerializeField]
     UnityEvent OnReach;
     //data
+    public Quaternion Target => useTransformTarget ? targetTransform.rotation : targetRotation;
     float passedTime = float.MaxValue;
     Quaternion originalRotation;
     public bool IsBeforeReach { get; protected set; }
@@ -26,7 +27,7 @@ public class SBA_TraceRotation : MonoBehaviour
     {
         get
         {
-            Quaternion rotation = useTransformTarget ? targetTransform.rotation : targetRotation;
+            Quaternion rotation = Target;
             if (rotation.x == 0 && rotation.y == 0 && rotation.z == 0 && rotation.w == 0)
                 rotation = Quaternion.identity;
             return rotation;

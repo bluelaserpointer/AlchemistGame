@@ -60,6 +60,22 @@ public class ShieldCardSlot : CardSlot, IAttackable
                 }
                 card.Gamer = Gamer;
             }
+            bool needUpdateFusionList = true;
+            switch(Card.location)
+            {
+                case CardTransport.Location.MyField:
+                case CardTransport.Location.MyHandCard:
+                    if (IsMySide)
+                        needUpdateFusionList = false;
+                    break;
+                case CardTransport.Location.EnemyField:
+                case CardTransport.Location.EnemyHandCard:
+                    if (IsEnemySide)
+                        needUpdateFusionList = false;
+                    break;
+            }
+            if(needUpdateFusionList)
+                MatchManager.FusionPanel.UpdateList();
             Card.location = IsMySide ? CardTransport.Location.MyField : CardTransport.Location.EnemyField;
             Card.SetDraggable(CardDraggable);
             field.cardsChanged.Invoke();

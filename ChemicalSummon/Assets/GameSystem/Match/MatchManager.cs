@@ -169,8 +169,6 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         Player.Init(Match.MySideCharacter, PlayerSave.ActiveDeck);
         Enemy.Init(Match.EnemySideCharacter, Match.EnemyDeck);
         onTurnStart.AddListener(Player.Field.UpdateCardsDraggable);
-        MyField.cardsChanged.AddListener(fusionPanel.UpdateList);
-        Player.OnHandCardsChanged.AddListener(fusionPanel.UpdateList);
         Player.onHPChange.AddListener(() => { if (Player.HP <= 0) Defeat(); });
         Enemy.onHPChange.AddListener(() => { if (Enemy.HP <= 0) Victory(); });
         //demo

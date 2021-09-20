@@ -2,19 +2,28 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 [DisallowMultipleComponent]
 public class Player : Gamer
 {
+    [SerializeField]
+    Text switchStackHandCardText;
+
     public override TurnType FusionTurn => TurnType.MyFusionTurn;
     public override TurnType AttackTurn => TurnType.MyAttackTurn;
     public override List<Reaction> LearnedReactions => PlayerSave.DiscoveredReactions;
-    public override void AddHandCard(SubstanceCard substanceCard, bool fromNewGenerated = false)
+    public override void AddHandCard(SubstanceCard substanceCard, bool playSE = true)
     {
-        if (fromNewGenerated)
+        if (!substanceCard.location.Equals(CardTransport.Location.MyField) && !substanceCard.location.Equals(CardTransport.Location.MyHandCard))
             MatchManager.StartDrawCardAnimation(substanceCard);
         else
-            base.AddHandCard(substanceCard);
+            base.AddHandCard(substanceCard, playSE);
+    }
+    public override void SetStackHandCardMode(bool cond)
+    {
+        base.SetStackHandCardMode(cond);
+        switchStackHandCardText.text = ChemicalSummonManager.LoadTranslatableSentence(cond ? "DestackHandCard" : "StackHandCard");
     }
     public override void FusionTurnStart()
     {

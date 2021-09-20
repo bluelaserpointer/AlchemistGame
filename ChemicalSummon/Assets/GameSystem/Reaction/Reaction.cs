@@ -67,4 +67,57 @@ public class Reaction : ScriptableObject
             this.consumingCards = consumingCards;
         }
     }
+    public static bool GenerateReactionMethod(Reaction reaction, Gamer gamer, List<SubstanceCard> consumableCards, SubstanceCard attacker, out ReactionMethod method)
+    {
+        if (reaction.heatRequire > gamer.HeatGem || reaction.electricRequire > gamer.ElectricGem || attacker != null && !consumableCards.Contains(attacker))
+        {
+            method = default(ReactionMethod);
+            return false;
+        }
+        bool condition = true;
+        bool addedAttacker = false;
+        Dictionary<SubstanceCard, int> consumingCards = new Dictionary<SubstanceCard, int>();
+        foreach (var pair in reaction.LeftSubstances)
+        {
+            Substance requiredSubstance = pair.type;
+            int requiredAmount = pair.amount;
+            foreach (SubstanceCard card in consumableCards)
+            {
+                if (card.Substance.Equals(requiredSubstance))
+                {
+                    if (attacker != null && !addedAttacker && card.Equals(attacker))
+                    {
+                        addedAttacker = true;
+                    }
+                    if (card.CardAmount >= requiredAmount)
+                    {
+                        consumingCards.Add(card, requiredAmount);
+                        requiredAmount = 0;
+                        break;
+                    }
+                    else
+                    {
+                        consumingCards.Add(card, card.CardAmount);
+                        requiredAmount -= card.CardAmount;
+                    }
+                }
+            }
+            if (requiredAmount > 0)
+            {
+                //print("luck of requiredAmount: " + requiredAmount + " of " + requiredSubstance.Name + " in " + reaction.Description);
+                condition = false;
+                break;
+            }
+        }
+        if (condition && (attacker == null || addedAttacker))
+        {
+            method = new ReactionMethod(reaction, consumingCards);
+            return true;
+        }
+        else
+        {
+            method = default(ReactionMethod);
+            return false;
+        }
+    }
 }

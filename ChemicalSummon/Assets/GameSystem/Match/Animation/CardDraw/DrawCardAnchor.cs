@@ -29,7 +29,9 @@ public class DrawCardAnchor : MonoBehaviour
     public void OnAnimationEnd()
     {
         substanceCard.transform.SetParent(MatchManager.Instance.transform); //prevent destroy children before animation play
+        substanceCard.location = CardTransport.Location.MyHandCard;
         MatchManager.Player.AddHandCard(substanceCard);
+        MatchManager.FusionPanel.UpdateList();
         Destroy(gameObject);
     }
 }
