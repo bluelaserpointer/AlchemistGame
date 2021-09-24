@@ -74,7 +74,7 @@ public class SubstanceCard : MonoBehaviour
             amountText.text = "x" + cardAmount.ToString();
             attackText.targetValue = ATK;
             if (Slot != null)
-                Slot.Field.cardsChanged.Invoke();
+                Slot.Field.onCardsChanged.Invoke();
         }
     }
     Gamer gamer;
@@ -285,6 +285,45 @@ public class SubstanceCard : MonoBehaviour
         card.InitCardAmount(amount);
         card.location = CardTransport.Location.OffSite;
         return card;
+    }
+    public static List<SubstanceCard> GenerateSubstanceCard(List<Substance> substances)
+    {
+        if (baseSubstanceCard == null)
+        {
+            baseSubstanceCard = Resources.Load<SubstanceCard>("SubstanceCard"); //Assets/GameSystem/Card/Resources/SubstanceCard
+        }
+        List<SubstanceCard> list = new List<SubstanceCard>();
+        foreach(Substance substance in substances)
+        {
+            list.Add(GenerateSubstanceCard(substance));
+        }
+        return list;
+    }
+    public static List<SubstanceCard> GenerateSubstanceCard(StackedElementList<Substance> substanceStacks, bool stackCard = false)
+    {
+        if (baseSubstanceCard == null)
+        {
+            baseSubstanceCard = Resources.Load<SubstanceCard>("SubstanceCard"); //Assets/GameSystem/Card/Resources/SubstanceCard
+        }
+        List<SubstanceCard> list = new List<SubstanceCard>();
+        if(stackCard)
+        {
+            foreach (var substanceStack in substanceStacks)
+            {
+                list.Add(GenerateSubstanceCard(substanceStack.type, substanceStack.amount));
+            }
+        }
+        else
+        {
+            foreach (var substanceStack in substanceStacks)
+            {
+                for (int i = 0; i < substanceStack.amount; ++i)
+                {
+                    list.Add(GenerateSubstanceCard(substanceStack.type));
+                }
+            }
+        }
+        return list;
     }
     /// <summary>
     /// 安全丢弃该卡

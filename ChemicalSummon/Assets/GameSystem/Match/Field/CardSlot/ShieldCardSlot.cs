@@ -78,9 +78,9 @@ public class ShieldCardSlot : CardSlot, IAttackable
                 MatchManager.FusionPanel.UpdateList();
             Card.location = IsMySide ? CardTransport.Location.MyField : CardTransport.Location.EnemyField;
             Card.SetDraggable(CardDraggable);
-            field.cardsChanged.Invoke();
+            field.onCardsChanged.Invoke();
         });
-        onClear.AddListener(field.cardsChanged.Invoke);
+        onClear.AddListener(field.onCardsChanged.Invoke);
     }
     public void DoAlignment()
     {

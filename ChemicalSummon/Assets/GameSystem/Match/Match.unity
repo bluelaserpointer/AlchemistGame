@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.3707518, g: 0.6414095, b: 0.8759149, a: 1}
+  m_IndirectSpecularColor: {r: 0.3707183, g: 0.6414182, b: 0.875901, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1572,6 +1572,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06329cb1148214448a01f30c784a3283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  containChildrenOnAwake: 1
   arrangeOnAwake: 1
   rightIsUpper: 1
   newerIsUpper: 1
@@ -4632,6 +4633,10 @@ MonoBehaviour:
   onAttackTurnEnd:
     m_PersistentCalls:
       m_Calls: []
+  initialDeck:
+    substances:
+      list: []
+      amountAcception: 0
   exposedSubstances:
     list: []
     amountAcception: 0
@@ -8736,6 +8741,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 06329cb1148214448a01f30c784a3283, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  containChildrenOnAwake: 1
   arrangeOnAwake: 1
   rightIsUpper: 1
   newerIsUpper: 1
@@ -9950,6 +9956,10 @@ MonoBehaviour:
   onAttackTurnEnd:
     m_PersistentCalls:
       m_Calls: []
+  initialDeck:
+    substances:
+      list: []
+      amountAcception: 0
   exposedSubstances:
     list: []
     amountAcception: 0
@@ -10217,21 +10227,6 @@ MonoBehaviour:
   drawCardAnchorParent: {fileID: 1359749068}
   clickSE: {fileID: 8300000, guid: a9d8a0075b0b3cb4fbec8e8caed91472, type: 3}
   victorySE: {fileID: 8300000, guid: 44d20c815aa1e4e44a81ad2e5113bfd5, type: 3}
-  onInit:
-    m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 1205043621}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: Inject
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
 --- !u!114 &2121452841
 MonoBehaviour:
   m_ObjectHideFlags: 0

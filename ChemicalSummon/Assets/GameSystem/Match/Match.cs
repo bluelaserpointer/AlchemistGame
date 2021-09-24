@@ -24,7 +24,7 @@ public class Match : ScriptableObject
     [SerializeField]
     EnemyAI enemyAI;
     [SerializeField]
-    GameObject additionalObject;
+    GameObject modObject;
     [SerializeField]
     List<Item> loots;
     [SerializeField]
@@ -55,7 +55,7 @@ public class Match : ScriptableObject
     /// </summary>
     public StackedElementList<Reaction> EnemyReactionsPriority => enemyReactionsPriority;
     public EnemyAI EnemyAI => enemyAI;
-    public GameObject AdditionalObject => additionalObject;
+    public GameObject ModObject => modObject;
     public AudioClip PickRandomBGM() {
         return bgmSets == null ? null : bgmSets.PickRandom();
     }

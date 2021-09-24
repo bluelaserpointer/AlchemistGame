@@ -33,6 +33,7 @@ public abstract class Gamer : MonoBehaviour
     public UnityEvent OnFusionTurnEnd => onFusiontTurnEnd;
     public UnityEvent OnAttackTurnStart => onAttackTurnStart;
     public UnityEvent OnAttackTurnEnd => onAttackTurnEnd;
+    public readonly UnityEvent<Reaction.ReactionMethod> onFusionExecute = new UnityEvent<Reaction.ReactionMethod>();
     //data
     /// <summary>
     /// 对手
@@ -49,7 +50,7 @@ public abstract class Gamer : MonoBehaviour
     /// <summary>
     /// 战斗前卡组(静态卡组)
     /// </summary>
-    public Deck InitialDeck { get; protected set; }
+    public Deck initialDeck;
     List<SubstanceCard> drawPile = new List<SubstanceCard>();
     /// <summary>
     /// 战斗内卡组(动态卡组)
@@ -149,27 +150,22 @@ public abstract class Gamer : MonoBehaviour
     public UnityEvent OnHandCardsChanged => onHandCardsChanged;
     [HideInInspector]
     public StackedElementList<Substance> exposedSubstances = new StackedElementList<Substance>();
-    public void Init(Character character, Deck deck)
+    public void Init(Character character)
     {
         Character = character;
-        InitialDeck = deck;
-        drawPile.Clear();
-        List<SubstanceCard> cards = new List<SubstanceCard>();
-        foreach (var substanceStack in deck.Substances)
-        {
-            for (int i = 0; i < substanceStack.amount; ++i)
-            {
-                cards.Add(SubstanceCard.GenerateSubstanceCard(substanceStack.type));
-            }
-        }
-        ContinuousAddDrawPile(cards, CardTransport.Method.Bottom, () => ShuffleDrawPile());
+        ContinuousAddDrawPile(SubstanceCard.GenerateSubstanceCard(initialDeck.substances).Shuffle_InsideOut(), CardTransport.Method.Bottom);
         SetStackHandCardMode(false);
-        hp = InitialHP;
+        if(hp == 0) //if MatchStateChanger didnt jack hp
+            hp = InitialHP;
         heatGem = 16;
         electricGem = 8;
         faceImage.sprite = character.FaceIcon;
         gamerNameText.text = character.Name;
         statusPanels.SetData(this);
+    }
+    public void InitHP(int value)
+    {
+        statusPanels.HPText.SetValueImmediate(hp = value);
     }
     public void ShuffleDrawPile()
     {
@@ -460,6 +456,7 @@ public abstract class Gamer : MonoBehaviour
     }
     public virtual void DoReaction(Reaction.ReactionMethod method)
     {
+        onFusionExecute.Invoke(method);
         MatchManager.MatchLogDisplay.AddFusionLog(this, method.reaction);
         foreach (KeyValuePair<SubstanceCard, int> consume in method.consumingCards)
         {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class SpecificSubstances : SubstanceCondition
 {
     [SerializeField]
-    List<Substance> whiteList;
+    List<Substance> whiteList = new List<Substance>();
     public List<Substance> WhiteList => whiteList;
 
     protected override string InitDescription()

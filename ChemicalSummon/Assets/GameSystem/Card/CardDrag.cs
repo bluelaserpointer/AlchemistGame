@@ -11,6 +11,9 @@ public class CardDrag : Draggable
 {
     SubstanceCard substanceCard;
     public ShieldCardSlot CurrentSlot => transform.parent == null ? null : transform.GetComponentInParent<ShieldCardSlot>();
+
+    int originalHandCardSiblingIndex;
+    
     private void Awake()
     {
         substanceCard = GetComponent<SubstanceCard>();
@@ -19,13 +22,19 @@ public class CardDrag : Draggable
     {
         base.OnBeginDrag(eventData);
         substanceCard.EnableShadow(true);
-        MatchManager.Player.RemoveHandCard(substanceCard);
+        MatchManager.Player.draggingCard = substanceCard;
+        if(MatchManager.Player.HandCardsDisplay.cards.Contains(gameObject))
+        {
+            originalHandCardSiblingIndex = substanceCard.transform.GetSiblingIndex();
+            MatchManager.Player.HandCardsDisplay.Remove(gameObject);
+        }
         substanceCard.transform.SetParent(MatchManager.MainCanvas.transform);
     }
     public override void OnEndDrag(PointerEventData eventData)
     {
         base.OnEndDrag(eventData);
         substanceCard.EnableShadow(false);
+        MatchManager.Player.draggingCard = null;
         bool disbandable = CurrentSlot == null || CurrentSlot.AllowSlotClear(); //check dibandbility
         List<RaycastResult> raycastResults = new List<RaycastResult>();
         EventSystem.current.RaycastAll(eventData, raycastResults);
@@ -45,12 +54,16 @@ public class CardDrag : Draggable
                         continue;
                     if (cardSlot.IsEmpty)
                     {
-                        //switch container slot
+                        //set slot
                         if (!disbandable)
                             continue;
-                        if (CurrentSlot != null)
+                        if (CurrentSlot != null) //move from another slot
                         {
                             CurrentSlot.SlotTopClear();
+                        }
+                        else //move from handcard
+                        {
+                            MatchManager.Player.RemoveHandCard(substanceCard);
                         }
                         cardSlot.SlotSet(substanceCard.gameObject);
                         return;
@@ -66,36 +79,6 @@ public class CardDrag : Draggable
                         }
                     }
                 }
-                else if (cardSlot.IsEnemySide)
-                {
-                    //attack enemy card
-                    if (cardSlot.AllowAttack(substanceCard))
-                    {
-                        cardSlot.Attack(substanceCard);
-                        //TODO: check attackbility from handcard
-                        if (CurrentSlot != null)
-                            CurrentSlot.DoAlignment(); //return to original position
-                        else
-                            MatchManager.Player.AddHandCard(substanceCard);
-                        return;
-                    }
-                    continue;
-                }
-                continue;
-            }
-            //attack face
-            AttackableGamer face = hitUI.GetComponent<AttackableGamer>();
-            if (face != null)
-            {
-                if (face.AllowAttack(substanceCard)) {
-                    face.Attack(substanceCard);
-                    //TODO: check attackbility from handcard
-                    if (CurrentSlot != null)
-                        CurrentSlot.DoAlignment(); //return to original position
-                    else
-                        MatchManager.Player.AddHandCard(substanceCard);
-                    return;
-                }
                 continue;
             }
         }
@@ -109,6 +92,15 @@ public class CardDrag : Draggable
             }
         }
         else
-            MatchManager.Player.AddHandCard(substanceCard);
+            MatchManager.Player.HandCardsDisplay.Add(gameObject);
+    }
+    private void ReturnOrigin()
+    {
+        if (CurrentSlot != null)
+            CurrentSlot.DoAlignment(); //return to original position
+        else
+        {
+            MatchManager.Player.HandCardsDisplay.Add(gameObject);
+        }
     }
 }

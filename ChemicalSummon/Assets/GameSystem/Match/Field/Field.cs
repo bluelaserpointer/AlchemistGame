@@ -12,7 +12,7 @@ public class Field : MonoBehaviour
     /// <summary>
     /// 卡牌发生变化
     /// </summary>
-    public UnityEvent cardsChanged;
+    public UnityEvent onCardsChanged;
     /// <summary>
     /// 是我方场地
     /// </summary>

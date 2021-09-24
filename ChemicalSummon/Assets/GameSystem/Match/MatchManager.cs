@@ -70,10 +70,12 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     AudioClip clickSE;
     [SerializeField]
     AudioClip victorySE;
-    [Header("Demo&Test")]
-    public UnityEvent onInit;
 
     //data
+    /// <summary>
+    /// 回合开始事件
+    /// </summary>
+    public static UnityEvent OnTurnStart => Instance.onTurnStart;
     /// <summary>
     /// 当前战斗关卡
     /// </summary>
@@ -165,20 +167,25 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         audioSource.clip = Match.PickRandomBGM();
         audioSource.Play();
         Instantiate(Match.BackGround);
-        //gamer
-        Player.Init(Match.MySideCharacter, PlayerSave.ActiveDeck);
-        Enemy.Init(Match.EnemySideCharacter, Match.EnemyDeck);
+        //deck install
+        Player.initialDeck = PlayerSave.ActiveDeck;
+        Enemy.initialDeck = Match.EnemyDeck;
+        //mod
+        if (Match.ModObject != null)
+            Instantiate(Match.ModObject);
+        //gamer info init
+        Player.Init(Match.MySideCharacter);
+        Enemy.Init(Match.EnemySideCharacter);
         onTurnStart.AddListener(Player.Field.UpdateCardsDraggable);
         Player.onHPChange.AddListener(() => { if (Player.HP <= 0) Defeat(); });
         Enemy.onHPChange.AddListener(() => { if (Enemy.HP <= 0) Victory(); });
-        //demo
-        onInit.Invoke();
-        //add
-        if(Match.AdditionalObject != null)
-            Instantiate(Match.AdditionalObject);
-        currentTurnType = TurnType.FirstMoveDecide;
-        matchLogDisplay.AddTurnLog(0, TurnTypeToString(TurnType.FirstMoveDecide));
-        firstMoverDecider.Draw();
+        //first turn start
+        if(FirstMover == null)
+        {
+            currentTurnType = TurnType.FirstMoveDecide;
+            matchLogDisplay.AddTurnLog(0, TurnTypeToString(TurnType.FirstMoveDecide));
+            firstMoverDecider.Draw();
+        }
     }
     public void Victory()
     {
@@ -204,6 +211,12 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     public static void SetFirstMover(Gamer gamer)
     {
         FirstMover = gamer;
+        TurnEnd();
+    }
+    public static void SetInitialTurn(int turn, Gamer firstMover)
+    {
+        Instance.turn = turn - 1;
+        FirstMover = firstMover;
         TurnEnd();
     }
     /// <summary>
@@ -242,16 +255,11 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
                 Player.DrawCard();
                 Enemy.DrawCard();
             }
-            FirstMover.Opponent.DrawCard();
             currentTurnType = FirstMover.FusionTurn;
-        }
-        else if (turn == 2)
-        {
-            currentTurnType = SecondMover.FusionTurn;
         }
         else
         {
-            switch((turn - 3) % 4)
+            switch(turn % 4)
             {
                 case 0:
                     currentTurnType = FirstMover.FusionTurn;

@@ -8,7 +8,7 @@ using UnityEngine.Events;
 public class Conversation : ScriptableObject
 {
     [SerializeField]
-    List<EventNodeTalk> speakings;
+    List<Talk_EventNode> speakings;
 
-    public List<EventNodeTalk> Speakings => speakings;
+    public List<Talk_EventNode> Speakings => speakings;
 }

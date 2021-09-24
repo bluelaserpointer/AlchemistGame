@@ -9,7 +9,6 @@ using UnityEngine.Events;
 [DisallowMultipleComponent]
 public class Event : MonoBehaviour
 {
-    //inspector
     [SerializeField]
     UnityEvent onEventNodeChange;
     [SerializeField]
@@ -34,12 +33,9 @@ public class Event : MonoBehaviour
         }
     }
     public Transform CurrentEventNodeTf => transform.GetChild(currentIndex);
-    /// <summary>
-    /// 开始事件
-    /// </summary>
-    public void StartNewEvent()
+    public void StartEvent()
     {
-        Instantiate(gameObject).GetComponent<Event>().Progress();
+        PlayerSave.StartEvent(this);
     }
     /// <summary>
     /// 推进事件(每当 推进对话 / 完成战斗 等情况调用)
@@ -54,7 +50,6 @@ public class Event : MonoBehaviour
     public void Finish()
     {
         onEventFinish.Invoke();
-        if (ConversationWindow.IsOpen)
-            ConversationWindow.Close();
+        ConversationWindow.Close();
     }
 }

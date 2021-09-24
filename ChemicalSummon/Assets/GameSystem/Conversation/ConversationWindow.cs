@@ -22,7 +22,7 @@ public class ConversationWindow : MonoBehaviour
     UnityEvent OnConversationFinish;
 
     //data
-    EventNodeTalk activeTalk;
+    Talk_EventNode activeTalk;
 
     /// <summary>
     /// 设置背景
@@ -37,7 +37,7 @@ public class ConversationWindow : MonoBehaviour
     /// <summary>
     /// 当前发言
     /// </summary>
-    public static EventNodeTalk ActiveTalk
+    public static Talk_EventNode ActiveTalk
     {
         get => instance.activeTalk;
         set

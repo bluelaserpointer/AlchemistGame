@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
@@ -27,6 +28,10 @@ public class FusionPanelButton : MonoBehaviour
     Reaction lastReaction;
     public Reaction LastReaction => lastReaction;
     int lastFusionAmount;
+    [HideInInspector]
+    public readonly List<Reaction.ReactionMethod> lastAvaliableReactionMethods = new List<Reaction.ReactionMethod>();
+    [HideInInspector]
+    public readonly UnityEvent onFusionListUpdate = new UnityEvent();
 
     private void Start()
     {
@@ -70,8 +75,11 @@ public class FusionPanelButton : MonoBehaviour
             newFusionNoticeAnimation.StartAnimation();
         }
         lastFusionAmount = reactionMethods.Count;
+        lastAvaliableReactionMethods.Clear();
+        lastAvaliableReactionMethods.AddRange(reactionMethods);
         fusionCountImage.color = lastFusionAmount == 0 ? noFusionColor : hasFusionColor;
         fusionCountText.text = fusionSentence + " " + lastFusionAmount;
+        onFusionListUpdate.Invoke();
     }
     public void OnFusionPanelButtonPress()
     {

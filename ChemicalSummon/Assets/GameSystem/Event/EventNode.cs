@@ -13,6 +13,10 @@ public abstract class EventNode : MonoBehaviour
     Text DescriptionText => descriptionText ?? (descriptionText = GetComponentInChildren<Text>());
     public abstract string PreferredGameObjectName { get; }
     public Event BelongEvent => transform.parent == null ? null : transform.parent.GetComponent<Event>();
+    protected void ProgressEvent()
+    {
+        BelongEvent?.Progress();
+    }
     protected void HideDescriptionText(bool cond)
     {
         if(cond)
@@ -32,5 +36,10 @@ public abstract class EventNode : MonoBehaviour
         gameObject.name = PreferredGameObjectName;
         OnDataEdit();
     }
-    public abstract void OnDataEdit();
+    public virtual void OnDataEdit()
+    {
+        Text sentenceText = GetComponentInChildren<Text>();
+        sentenceText.text = name;
+        HideDescriptionText(true);
+    }
 }

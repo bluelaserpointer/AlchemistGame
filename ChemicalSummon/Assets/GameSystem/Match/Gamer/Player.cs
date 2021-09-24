@@ -10,6 +10,8 @@ public class Player : Gamer
     [SerializeField]
     Text switchStackHandCardText;
 
+    [HideInInspector]
+    public SubstanceCard draggingCard;
     public override TurnType FusionTurn => TurnType.MyFusionTurn;
     public override TurnType AttackTurn => TurnType.MyAttackTurn;
     public override List<Reaction> LearnedReactions => PlayerSave.DiscoveredReactions;

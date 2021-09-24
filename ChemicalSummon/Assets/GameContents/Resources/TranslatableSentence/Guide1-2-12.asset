@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 13f6bc1912b56ba48aa6189bf3c6e169, type: 3}
+  m_Name: Guide1-2-12
+  m_EditorClassIdentifier: 
+  sentence:
+    defaultString: Guide1-2-12
+    languageAndSentences:
+    - language: 0
+      sentence: "\u5F53\u6211\u4EEC\u53EF\u4EE5\u4F7F\u7528\u5BF9\u65B9\u653B\u51FB\u7684\u5361\u6267\u884C\u878D\u5408\u65F6\uFF0C\u5C06\u80FD\u53D1\u52A8\u3010\u53CD\u51FB\u878D\u5408\u3011\uFF0C\u65E0\u6548\u8FD9\u4E2A\u653B\u51FB\u5E76\u6D88\u8017\u5BF9\u65B9\u7684\u5361\u724C\u6267\u884C\u878D\u5408\uFF01"
