@@ -90,16 +90,25 @@ public abstract class EnemyAI : MonoBehaviour
                         }
                         else
                         {
-                            print("player never fusioned " + substance.chemicalSymbol);
+                            //print("player never fusioned " + substance.chemicalSymbol);
                             possiblity = 0;
                         }
                     }
                 }
-                print(reaction.description + " -> lackCardCount: " + lackCardCount + ", counter risk: " + possiblity);
+                //print(reaction.description + " -> lackCardCount: " + lackCardCount + ", counter risk: " + possiblity);
+                //ignore not dangerous counter
+                if (possiblity > 0)
+                {
+                    float consumptionRate = (float)attacker.CardAmount / lackCardCount;
+                    if (consumptionRate <= 1)
+                        possiblity = 0; //never mind same or worse comsumption rate counter risk
+                    else
+                        possiblity *= consumptionRate;
+                }
                 if (possiblity > maxPossiblity)
                 {
                     maxPossiblity = possiblity;
-                    if (maxPossiblity == 1)
+                    if (maxPossiblity >= 1)
                         return 1;
                 }
             }
