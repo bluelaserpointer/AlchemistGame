@@ -17,3 +17,5 @@ MonoBehaviour:
     languageAndSentences:
     - language: 0
       sentence: "\u6211\u8D1F\u8D23\u5411\u5927\u5BB6\u6559\u5BFC\u6218\u6597\u7684\u57FA\u7840\u77E5\u8BC6\u3002"
+    - language: 2
+      sentence: "\u307F\u3093\u306A\u306B\u6226\u95D8\u306E\u57FA\u672C\u77E5\u8B58\u3092\u6559\u3048\u308B\u306D\u3002"
