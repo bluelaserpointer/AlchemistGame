@@ -22,30 +22,18 @@ MonoBehaviour:
   enemyDeck:
     substances:
       list:
-      - type: {fileID: 11400000, guid: fec21780cd1312e4b9fa3963ce7e3683, type: 2}
-        amount: 4
-      - type: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
-        amount: 4
       - type: {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
         amount: 7
       - type: {fileID: 11400000, guid: 97ca178e8f5373a4c9bc5a78b42e0d71, type: 2}
-        amount: 1
+        amount: 2
       amountAcception: 0
   enemyReactionsPriority:
     list:
-    - type: {fileID: 11400000, guid: dc4a2a3162dab6e40b815ca35831b7be, type: 2}
-      amount: 1000
-    - type: {fileID: 11400000, guid: a5ab38efb11c11c44b81510ca1d1dc15, type: 2}
-      amount: 1000
-    - type: {fileID: 11400000, guid: 96a9a5f1b0c7fde4782125169b1e55e5, type: 2}
-      amount: 100
-    - type: {fileID: 11400000, guid: fdf8cb3a493566a4a939097b8dd44620, type: 2}
-      amount: 75
     - type: {fileID: 11400000, guid: 3805f5dd0ed56e24c963fd147faa2392, type: 2}
       amount: 1000
     amountAcception: 0
   enemyAI: {fileID: 6555474248779233031, guid: c254310169522e34ca9f4e470b686fca, type: 3}
-  additionalObject: {fileID: 0}
+  modObject: {fileID: 0}
   loots:
   - {fileID: 59571194470741858, guid: b8b8dccc053580949910be8426a7a65a, type: 3}
   unlockReactions: []
