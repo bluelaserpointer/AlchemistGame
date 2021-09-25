@@ -105,9 +105,15 @@ public class StackedElementList<T> : IEnumerable<StackedElementList<T>.StackedEl
     {
         return list.GetEnumerator();
     }
-
     public void Clear()
     {
         list.Clear();
+    }
+    public void SortByStackAmount(bool increasing)
+    {
+        if(increasing)
+            list.Sort((stack1, stack2) => stack1.amount - stack2.amount);
+        else
+            list.Sort((stack1, stack2) => stack2.amount - stack1.amount);
     }
 }

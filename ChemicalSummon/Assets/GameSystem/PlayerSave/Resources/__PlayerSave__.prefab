@@ -192,7 +192,8 @@ MonoBehaviour:
   discoveredReactions:
   - {fileID: 11400000, guid: 6487f0bafa1875c4ab10266b4020d402, type: 2}
   - {fileID: 11400000, guid: 2d36dfa6859f87f49a208934d46219bc, type: 2}
-  - {fileID: 11400000, guid: cfb6f1f96bc92d7458b9052c285f0574, type: 2}
+  - {fileID: 11400000, guid: 122e1cab5a904c143bb0d70bcc488287, type: 2}
+  - {fileID: 11400000, guid: fdf8cb3a493566a4a939097b8dd44620, type: 2}
   selectedCharacter: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}
   enabledCharacters:
   - {fileID: 11400000, guid: 00d6169fe0a61a34dafa92d806eebf97, type: 2}

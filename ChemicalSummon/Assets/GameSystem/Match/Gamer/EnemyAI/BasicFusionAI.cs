@@ -45,7 +45,7 @@ public class BasicFusionAI : NoFusionAI
                 TakeBackCardsAction(step);
                 break;
             case 2:
-                FindHighestATK(step);
+                UpdateSubstancesTotalATK(step);
                 break;
             case 3:
                 PlaceCardsAction(step);

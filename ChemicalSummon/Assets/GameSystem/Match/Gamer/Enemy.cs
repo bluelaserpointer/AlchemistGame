@@ -40,11 +40,6 @@ public class Enemy : Gamer
         AI.Defense(attacker);
         CurrentAttacker = null;
     }
-    public void SetShieldCardSlotFromHand(ShieldCardSlot slot, SubstanceCard card)
-    {
-        RemoveHandCard(card);
-        slot.SlotSet(card.gameObject);
-    }
     public void DoBurn_FireFairy(int burnDamage)
     {
         ShieldCardSlot slot = new List<ShieldCardSlot>(MatchManager.Player.Field.Slots).FindMostValuable(slot =>

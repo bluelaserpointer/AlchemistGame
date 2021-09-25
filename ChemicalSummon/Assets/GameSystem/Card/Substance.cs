@@ -76,6 +76,18 @@ public class Substance : ChemicalObject
     /// 是否为矿物主成分(魔法阵"镐子"的效果对象)
     /// </summary>
     public bool IsOre => isOre;
+    public ThreeState GetStateInTempreture(float tempreture)
+    {
+        if (tempreture < MeltingPoint)
+        {
+            return ThreeState.Solid;
+        }
+        else if (tempreture < BoilingPoint)
+        {
+            return ThreeState.Liquid;
+        }
+        return ThreeState.Gas;
+    }
     public static Substance GetByName(string name)
     {
         Substance substance = Resources.Load<Substance>("Chemical/Substance/" + name);

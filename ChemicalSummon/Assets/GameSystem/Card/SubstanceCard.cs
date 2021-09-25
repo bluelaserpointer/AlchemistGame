@@ -137,7 +137,7 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 攻击力(最新值)
     /// </summary>
-    public int ATK => OriginalATK /** CardAmount*/ + ATKChange;
+    public int ATK => OriginalATK * CardAmount + ATKChange;
     /// <summary>
     /// 攻击力变动
     /// </summary>
@@ -180,7 +180,9 @@ public class SubstanceCard : MonoBehaviour
         MatchManager.MatchLogDisplay.AddBattleLog(this, opponentCard);
         MatchManager.StartAttackAnimation(Slot, opponentCard.Slot, () => {
             MatchManager.PlaySE("Sound/SE/sword-kill-1");
-            opponentCard.Damage(ATK, CardAmount);
+            int originalOpponentATK = opponentCard.ATK;
+            opponentCard.Damage(ATK);
+            Damage(originalOpponentATK);
         });
     }
     /// <summary>
@@ -192,10 +194,10 @@ public class SubstanceCard : MonoBehaviour
         MatchManager.MatchLogDisplay.AddAttackPlayerLog(this);
         MatchManager.StartAttackAnimation(Slot, null, () => {
             MatchManager.PlaySE("Sound/SE/sword-kill-2");
-            MatchManager.StartDamageAnimation(transform.position, ATK * CardAmount, gamer);
+            MatchManager.StartDamageAnimation(transform.position, ATK, gamer);
         });
     }
-    public void Damage(int dmg, int count = 1)
+    public void Damage(int dmg)
     {
         int overDamage = dmg - ATK;
         if (overDamage >= 0)
@@ -204,7 +206,7 @@ public class SubstanceCard : MonoBehaviour
                 RemoveAmount(1, DecreaseReason.Damage);
             if (overDamage > 0)
             {
-                MatchManager.StartDamageAnimation(transform.position, overDamage * count, gamer);
+                MatchManager.StartDamageAnimation(transform.position, overDamage, gamer);
             }
         }
     }
@@ -245,15 +247,7 @@ public class SubstanceCard : MonoBehaviour
     }
     public ThreeState GetStateInTempreture(float tempreture)
     {
-        if (tempreture < Substance.MeltingPoint)
-        {
-            return ThreeState.Solid;
-        }
-        else if (tempreture < Substance.BoilingPoint)
-        {
-            return ThreeState.Liquid;
-        }
-        return ThreeState.Gas;
+        return Substance.GetStateInTempreture(tempreture);
     }
     /// <summary>
     /// 合并同种类的卡(不会检查是否同种类)
