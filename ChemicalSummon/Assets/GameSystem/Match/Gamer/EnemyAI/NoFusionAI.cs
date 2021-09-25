@@ -141,23 +141,39 @@ public class NoFusionAI : EnemyAI
 
     public override void Defense(SubstanceCard attacker)
     {
-        SubstanceCard candidateCard = null;
-        int candidateATK = 0;
-        foreach (ShieldCardSlot slot in Field.Slots)
+        SubstanceCard candidateCard = Enemy.Field.TopATKCard;
+        if (candidateCard == null)
         {
-            if (slot.IsEmpty)
-                continue;
-            SubstanceCard card = slot.Card;
-            int atk = card.ATK;
-            if (atk > candidateATK)
-            {
-                candidateCard = slot.Card;
-                candidateATK = atk;
-            }
-        }
-        if (candidateCard != null)
-            attacker.Battle(candidateCard);
-        else
             attacker.Battle(Enemy);
+            return;
+        }
+        int atk = candidateCard.ATK;
+        if (atk > attacker.ATK)
+        {
+            attacker.Battle(candidateCard);
+            return;
+        }
+        SubstanceCard subCandidateCard = null;
+        foreach (var slot in Enemy.Field.Slots)
+        {
+            SubstanceCard card = slot.Card;
+            if (card == null || card.Equals(candidateCard))
+                continue;
+            if (subCandidateCard == null || card.ATK > subCandidateCard.ATK)
+                subCandidateCard = card;
+        }
+        int dangerHP = 10 + Random.Range(0, 5);
+        if (subCandidateCard != null && Enemy.HP - attacker.ATK + subCandidateCard.ATK > dangerHP)
+        {
+            attacker.Battle(subCandidateCard);
+        }
+        else if (Enemy.HP - attacker.ATK > dangerHP)
+        {
+            attacker.Battle(Enemy);
+        }
+        else
+        {
+            attacker.Battle(candidateCard);
+        }
     }
 }

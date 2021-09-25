@@ -254,6 +254,10 @@ public abstract class Gamer : MonoBehaviour
     {
         return HandCards.Find(card => card.Substance.Equals(substance));
     }
+    public List<SubstanceCard> FindAllHandCard(Substance substance)
+    {
+        return HandCards.FindAll(card => card.Substance.Equals(substance));
+    }
     public SubstanceCard FindHandCard(SubstanceCard substanceCard)
     {
         return FindHandCard(substanceCard.Substance);

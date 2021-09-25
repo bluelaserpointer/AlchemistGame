@@ -30,7 +30,7 @@ MonoBehaviour:
       amount: 1
     amountAcception: 0
   image: {fileID: 21300000, guid: 2d9118eea13922e44b0569cdd96ce4c7, type: 3}
-  atk: 9
+  atk: 7
   meltingPoint: 100
   boilingPoint: 0
   isPhenomenon: 0

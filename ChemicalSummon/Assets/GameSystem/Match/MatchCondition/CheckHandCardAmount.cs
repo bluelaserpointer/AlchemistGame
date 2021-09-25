@@ -7,9 +7,12 @@ public class CheckHandCardAmount : MatchCondition
     Relational relational;
     [SerializeField]
     int amount;
+    [SerializeField]
+    Substance specificSubstance;
     protected override string InitDescription()
     {
-        return "Player HandCard has " + relational.ToString() + " " + amount;
+        return "Player HandCard has " + (specificSubstance != null ? specificSubstance.chemicalSymbol + " " : "")
+            + relational.ToString() + " " + amount;
     }
     public override void StartCheck()
     {
@@ -18,24 +21,34 @@ public class CheckHandCardAmount : MatchCondition
     }
     private void Check()
     {
-        int handCardAmount = MatchManager.Player.HandCardCount;
+        int foundAmount;
+        if(specificSubstance != null)
+        {
+            foundAmount = 0;
+            foreach (var card in MatchManager.Player.FindAllHandCard(specificSubstance))
+                foundAmount += card.CardAmount;
+        }
+        else
+        {
+            foundAmount = MatchManager.Player.HandCardCount;
+        }
         bool cond = false;
         switch(relational)
         {
             case Relational.Eq:
-                cond = handCardAmount == amount;
+                cond = foundAmount == amount;
                 break;
             case Relational.LessEq:
-                cond = handCardAmount <= amount;
+                cond = foundAmount <= amount;
                 break;
             case Relational.MoreEq:
-                cond = handCardAmount >= amount;
+                cond = foundAmount >= amount;
                 break;
             case Relational.Less:
-                cond = handCardAmount < amount;
+                cond = foundAmount < amount;
                 break;
             case Relational.More:
-                cond = handCardAmount > amount;
+                cond = foundAmount > amount;
                 break;
         }
         if(cond)

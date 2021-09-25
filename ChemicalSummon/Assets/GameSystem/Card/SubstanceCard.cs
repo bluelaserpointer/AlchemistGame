@@ -180,9 +180,9 @@ public class SubstanceCard : MonoBehaviour
         MatchManager.MatchLogDisplay.AddBattleLog(this, opponentCard);
         MatchManager.StartAttackAnimation(Slot, opponentCard.Slot, () => {
             MatchManager.PlaySE("Sound/SE/sword-kill-1");
-            int originalOpponentATK = opponentCard.ATK;
+            //int originalOpponentATK = opponentCard.ATK;
             opponentCard.Damage(ATK);
-            Damage(originalOpponentATK);
+            //Damage(originalOpponentATK);
         });
     }
     /// <summary>
