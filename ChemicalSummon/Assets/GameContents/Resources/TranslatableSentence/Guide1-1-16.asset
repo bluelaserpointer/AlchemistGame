@@ -17,3 +17,5 @@ MonoBehaviour:
     languageAndSentences:
     - language: 0
       sentence: "\u8F6E\u5230\u4F60\u8FDB\u653B\u4E86!"
+    - language: 2
+      sentence: "\u541B\u306E\u653B\u6483\u306E\u756A\uFF01"
