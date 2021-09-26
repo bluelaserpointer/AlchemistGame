@@ -82,7 +82,7 @@ public class CardDrag : Draggable
                 continue;
             }
         }
-        //no target
+        //TODO: acctually CurrentSlot always null because when drag start transform parent must be changed. redesign this.
         if (CurrentSlot != null)
         {
             if (disbandable)
@@ -91,16 +91,13 @@ public class CardDrag : Draggable
                 MatchManager.Player.AddHandCard(substanceCard);
             }
         }
-        else
-            MatchManager.Player.HandCardsDisplay.Add(gameObject);
-    }
-    private void ReturnOrigin()
-    {
-        if (CurrentSlot != null)
-            CurrentSlot.DoAlignment(); //return to original position
-        else
+        else if(MatchManager.Player.HandCards.Contains(substanceCard))
         {
             MatchManager.Player.HandCardsDisplay.Add(gameObject);
+        }
+        else
+        {
+            MatchManager.Player.AddHandCard(substanceCard);
         }
     }
 }
