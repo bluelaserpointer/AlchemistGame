@@ -5,7 +5,7 @@ using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
-public class WorldManager : ChemicalSummonManager, IPointerDownHandler
+public class WorldManager : ChemicalSummonManager
 {
     public static WorldManager Instance { get; protected set; }
 
@@ -51,9 +51,6 @@ public class WorldManager : ChemicalSummonManager, IPointerDownHandler
             Player.TargetModel.transform.position = PlayerSave.lastWorldPlayerPosition;
             Player.TargetModel.transform.rotation = PlayerSave.lastWorldPlayerRotation;
         }
-    }
-    public void OnPointerDown(PointerEventData eventData)
-    {
     }
     public static void PlaySE(AudioClip clip)
     {

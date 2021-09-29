@@ -15,7 +15,9 @@ MonoBehaviour:
   chemicalSymbol: HNO3
   name:
     defaultString: HNO3
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u785D\u9178"
   elements:
     list:
     - type: {fileID: 11400000, guid: c0d0bee058945db48940bb40b3e80e06, type: 2}
@@ -26,6 +28,7 @@ MonoBehaviour:
       amount: 3
     amountAcception: 0
   image: {fileID: 0}
+  echelon: 2
   atk: 0
   meltingPoint: 0
   boilingPoint: 0

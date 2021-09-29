@@ -23,6 +23,6 @@ public class DrawCard : MatchAction
 
     protected override string GetDescription()
     {
-        return ChemicalSummonManager.LoadTranslatableSentence("DrawXCard").ToString().Replace("$amount", amount.ToString());
+        return ChemicalSummonManager.LoadSentence("DrawXCard").ToString().Replace("$amount", amount.ToString());
     }
 }

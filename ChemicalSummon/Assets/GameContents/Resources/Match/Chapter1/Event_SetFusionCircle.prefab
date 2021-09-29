@@ -251,6 +251,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 9f3e1bd9e8bf5e14698ec45c31e5930d, type: 2}
+  sentenceSO: {fileID: 0}
   sentence:
     defaultString: "(\u8BBE\u7F6E\u878D\u5408\u9B54\u6CD5\u9635\u529F\u80FD\u5C1A\u672A\u5F00\u653E)"
     languageAndSentences:

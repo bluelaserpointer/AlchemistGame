@@ -12,7 +12,7 @@ public class AddGamerHP : MatchAction
     int amount;
     protected override string GetDescription()
     {
-        return ChemicalSummonManager.LoadTranslatableSentence(target.Equals(Target.Self) ? "PlayerHP" : "EnemyHP")
+        return ChemicalSummonManager.LoadSentence(target.Equals(Target.Self) ? "PlayerHP" : "EnemyHP")
             + (amount < 0 ? amount.ToString() : "+" + amount);
     }
     public override void DoAction(Gamer gamer, Action afterAction, Action cancelAction)

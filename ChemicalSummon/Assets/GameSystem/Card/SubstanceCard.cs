@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Events;
+using UnityEngine.EventSystems;
 
 /// <summary>
 /// 物质卡(动态数据)
 /// </summary>
 [DisallowMultipleComponent]
-public class SubstanceCard : MonoBehaviour
+public class SubstanceCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     //inspector
     [SerializeField]
@@ -27,7 +28,9 @@ public class SubstanceCard : MonoBehaviour
     [SerializeField]
     Text symbolText;
     [SerializeField]
-    Text molText;
+    Image echelonLabel;
+    [SerializeField]
+    Text echelonText;
     [SerializeField]
     Image cardImage;
     [SerializeField]
@@ -38,6 +41,9 @@ public class SubstanceCard : MonoBehaviour
     Text descriptionText;
     [SerializeField]
     AudioClip cardMoveSE;
+
+    [SerializeField]
+    List<Color> echelonColors = new List<Color>();
 
     //data
     Substance substance;
@@ -58,7 +64,15 @@ public class SubstanceCard : MonoBehaviour
             mol = substance.GetMol();
             cardImage.sprite = Image;
             InitCardAmount(1);
-            molText.text = mol.ToString();
+            echelonText.text = Echelon.ToString();
+            if(Echelon < 1 || Echelon > 3)
+            {
+                Debug.LogWarning(Symbol + " invalid echelon: " + Echelon);
+            }
+            else
+            {
+                echelonLabel.color = echelonColors[Echelon - 1];
+            }
             descriptionText.text = Substance.description;
         }
     }
@@ -71,7 +85,15 @@ public class SubstanceCard : MonoBehaviour
         get => cardAmount;
         protected set {
             cardAmount = value;
-            amountText.text = "x" + cardAmount.ToString();
+            if (value != 1 && (IsCursorPointing || !ChemicalSummonManager.CurrentSceneIsMatch || Slot == null))
+            {
+                amountText.transform.parent.gameObject.SetActive(true);
+                amountText.text = cardAmount.ToString();
+            }
+            else
+            {
+                amountText.transform.parent.gameObject.SetActive(false);
+            }
             attackText.targetValue = ATK;
             if (Slot != null)
                 Slot.Field.onCardsChanged.Invoke();
@@ -116,6 +138,7 @@ public class SubstanceCard : MonoBehaviour
     /// 化学表达式
     /// </summary>
     public string Symbol => Substance.chemicalSymbol;
+    public int Echelon => Substance.echelon;
     /// <summary>
     /// 三态
     /// </summary>
@@ -137,7 +160,7 @@ public class SubstanceCard : MonoBehaviour
     /// <summary>
     /// 攻击力(最新值)
     /// </summary>
-    public int ATK => OriginalATK * CardAmount + ATKChange;
+    public int ATK => ChemicalSummonManager.CurrentSceneIsMatch ? OriginalATK * CardAmount + ATKChange : OriginalATK;
     /// <summary>
     /// 攻击力变动
     /// </summary>
@@ -300,6 +323,8 @@ public class SubstanceCard : MonoBehaviour
             baseSubstanceCard = Resources.Load<SubstanceCard>("SubstanceCard"); //Assets/GameSystem/Card/Resources/SubstanceCard
         }
         List<SubstanceCard> list = new List<SubstanceCard>();
+        if (substanceStacks == null)
+            return list;
         if(stackCard)
         {
             foreach (var substanceStack in substanceStacks)
@@ -352,31 +377,34 @@ public class SubstanceCard : MonoBehaviour
         {
             CardAmount -= (decreasedAmount = CardAmount);
         }
-        switch (decreaseReason)
-        {
-            case DecreaseReason.Damage:
-            case DecreaseReason.FusionMaterial:
-                MatchManager.MatchLogDisplay.AddCardReturnDeckLog(this, decreasedAmount);
-                for (int i = 0; i < decreasedAmount; ++i)
-                {
-                    SubstanceCard card = GenerateSubstanceCard(Substance);
-                    card.transform.position = transform.position;
-                    card.location = location;
-                    card.gamer = Gamer;
-                    Gamer.AddDrawPile(card);
-                }
-                break;
-        }
-        if (IsMySide && (MatchManager.CurrentTurnType.Equals(MatchManager.Player.FusionTurn) || MatchManager.CurrentTurnType.Equals(MatchManager.Player.AttackTurn)))
+        if(ChemicalSummonManager.CurrentSceneIsMatch)
         {
             switch (decreaseReason)
             {
-                //FusionMaterial case is done by FusionPanelButton
                 case DecreaseReason.Damage:
-                case DecreaseReason.SkillCost:
-                case DecreaseReason.SkillEffect:
-                    MatchManager.FusionPanel.UpdateList();
+                case DecreaseReason.FusionMaterial:
+                    MatchManager.MatchLogDisplay.AddCardReturnDeckLog(this, decreasedAmount);
+                    for (int i = 0; i < decreasedAmount; ++i)
+                    {
+                        SubstanceCard card = GenerateSubstanceCard(Substance);
+                        card.transform.position = transform.position;
+                        card.location = location;
+                        card.gamer = Gamer;
+                        Gamer.AddDrawPile(card);
+                    }
                     break;
+            }
+            if (IsMySide && (MatchManager.CurrentTurnType.Equals(MatchManager.Player.FusionTurn) || MatchManager.CurrentTurnType.Equals(MatchManager.Player.AttackTurn)))
+            {
+                switch (decreaseReason)
+                {
+                    //FusionMaterial case is done by FusionPanelButton
+                    case DecreaseReason.Damage:
+                    case DecreaseReason.SkillCost:
+                    case DecreaseReason.SkillEffect:
+                        MatchManager.FusionPanel.UpdateList();
+                        break;
+                }
             }
         }
         if(CardAmount == 0)
@@ -421,5 +449,24 @@ public class SubstanceCard : MonoBehaviour
     {
         tracer.SkipAnimation();
         rotater.SkipAnimation();
+    }
+    public bool IsCursorPointing { get; protected set; }
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        IsCursorPointing = true;
+        if (CardAmount != 1)
+        {
+            amountText.transform.parent.gameObject.SetActive(true);
+            amountText.text = cardAmount.ToString();
+        }
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        IsCursorPointing = false;
+        if (Slot != null)
+        {
+            amountText.transform.parent.gameObject.SetActive(false);
+        }
     }
 }

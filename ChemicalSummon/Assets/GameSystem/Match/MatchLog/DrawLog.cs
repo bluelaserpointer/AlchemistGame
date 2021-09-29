@@ -26,7 +26,7 @@ public class DrawLog : MonoBehaviour
             cardImageFrame.color = enemySideColor;
             cardImage.sprite = cardReverseSprite;
         }
-        logText.text = ChemicalSummonManager.LoadTranslatableSentence("PlayerActionLog_Draw").ToString()
+        logText.text = ChemicalSummonManager.LoadSentence("PlayerActionLog_Draw").ToString()
             .Replace("$card", card.IsMySide ? card.name : "");
     }
 }

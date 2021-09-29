@@ -26,7 +26,7 @@ public class CardAbility : MonoBehaviour
     {
         description = "";
         //costs
-        string costDescription = ChemicalSummonManager.LoadTranslatableSentence("AbilityCost").ToString().Replace("$amount", cost.ToString());
+        string costDescription = ChemicalSummonManager.LoadSentence("AbilityCost").ToString().Replace("$amount", cost.ToString());
         //effects
         string effectDescription = "";
         bool isFirst = true;
@@ -40,7 +40,7 @@ public class CardAbility : MonoBehaviour
             }
             else
             {
-                effectDescription += ChemicalSummonManager.LoadTranslatableSentence("AfterThat") + action.Description;
+                effectDescription += ChemicalSummonManager.LoadSentence("AfterThat") + action.Description;
             }
         }
         description = costDescription + effectDescription;

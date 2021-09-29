@@ -11,7 +11,7 @@ public class SpecificSubstances : SubstanceCondition
     protected override string InitDescription()
     {
         if (whiteList.Count == 1)
-            return ChemicalSummonManager.LoadTranslatableSentence("SpecificCard").ToString().Replace("$name", whiteList[0].name);
+            return ChemicalSummonManager.LoadSentence("SpecificCard").ToString().Replace("$name", whiteList[0].name);
         string cardsStr = "";
         bool isFirst = true;
         foreach(var each in whiteList)
@@ -24,7 +24,7 @@ public class SpecificSubstances : SubstanceCondition
             else
                 cardsStr += "/" + each.name;
         }
-        return ChemicalSummonManager.LoadTranslatableSentence("SpecificCards").ToString().Replace("$cards", cardsStr);
+        return ChemicalSummonManager.LoadSentence("SpecificCards").ToString().Replace("$cards", cardsStr);
     }
     public override bool Accept(Substance substance)
     {

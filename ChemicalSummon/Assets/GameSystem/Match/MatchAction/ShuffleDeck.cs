@@ -15,6 +15,6 @@ public class ShuffleDeck : MatchAction
 
     protected override string GetDescription()
     {
-        return ChemicalSummonManager.LoadTranslatableSentence("ShuffleDeck");
+        return ChemicalSummonManager.LoadSentence("ShuffleDeck");
     }
 }

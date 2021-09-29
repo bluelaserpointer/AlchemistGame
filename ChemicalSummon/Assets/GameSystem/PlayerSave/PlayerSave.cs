@@ -114,7 +114,7 @@ public class PlayerSave : MonoBehaviour
         foreach (var pair in substanceStorage)
         {
             for(int i = 0; i < pair.amount; ++i)
-                activeDeck.Add(pair.type);
+                activeDeck.Echelons[0].Add(pair.type);
         }
     }
     private void Update()

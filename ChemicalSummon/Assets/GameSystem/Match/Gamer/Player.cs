@@ -9,9 +9,7 @@ public class Player : Gamer
 {
     [SerializeField]
     Text switchStackHandCardText;
-
-    [HideInInspector]
-    public SubstanceCard draggingCard;
+    
     public override TurnType FusionTurn => TurnType.MyFusionTurn;
     public override TurnType AttackTurn => TurnType.MyAttackTurn;
     public override List<Reaction> LearnedReactions => PlayerSave.DiscoveredReactions;
@@ -25,7 +23,7 @@ public class Player : Gamer
     public override void SetStackHandCardMode(bool cond)
     {
         base.SetStackHandCardMode(cond);
-        switchStackHandCardText.text = ChemicalSummonManager.LoadTranslatableSentence(cond ? "DestackHandCard" : "StackHandCard");
+        switchStackHandCardText.text = ChemicalSummonManager.LoadSentence(cond ? "DestackHandCard" : "StackHandCard");
     }
     public override void FusionTurnStart()
     {

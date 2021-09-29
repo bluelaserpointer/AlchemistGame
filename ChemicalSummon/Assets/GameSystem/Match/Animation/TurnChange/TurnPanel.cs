@@ -3,7 +3,7 @@ using UnityEngine.UI;
 
 public enum TurnType
 {
-    FirstMoveDecide,
+    FirstMoverDecide,
     MyFusionTurn,
     MyAttackTurn,
     EnemyFusionTurn,
@@ -19,7 +19,7 @@ public class TurnPanel : MonoBehaviour
     private void Start()
     {
         turnNumberText.text = turnSentence + " " + 0;
-        turnTypeText.text = MatchManager.TurnTypeToString(TurnType.FirstMoveDecide);
+        turnTypeText.text = MatchManager.TurnTypeToString(TurnType.FirstMoverDecide);
     }
     public void SetTurn(int turnNumber, TurnType turnType)
     {

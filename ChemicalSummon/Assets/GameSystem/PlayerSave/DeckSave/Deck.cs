@@ -1,4 +1,5 @@
 ﻿using System;
+using UnityEngine;
 
 /// <summary>
 /// 战斗前卡组(静态卡组)
@@ -8,31 +9,29 @@ public class Deck
 {
     public Deck()
     {
-        substances = new StackedElementList<Substance>();
-    }
-    public Deck(StackedElementList<Substance> initialSubstances)
-    {
-        substances = new StackedElementList<Substance>(initialSubstances);
+        for (int i = 0; i < echelons.Length; ++i)
+            echelons[i] = new StackedElementList<Substance>();
     }
     public Deck(Deck sampleDeck)
     {
-        substances = new StackedElementList<Substance>(sampleDeck.Substances);
+        for(int i = 0; i < echelons.Length; ++i)
+        {
+            echelons[i] = new StackedElementList<Substance>(sampleDeck.echelons[i]);
+        }
     }
-    public StackedElementList<Substance> substances;
-    public StackedElementList<Substance> Substances => substances;
-    public bool IsEmpty => Substances.IsEmpty;
-    public int CardCount => Substances.CountStack();
-
-    public void Add(Substance substance)
-    {
-        Substances.Add(substance);
-    }
-    public bool Remove(Substance substance)
-    {
-        return Substances.Remove(substance);
-    }
-    public int CountCard(Substance substance)
-    {
-        return Substances.CountStack(substance);
+    [SerializeField]
+    StackedElementList<Substance>[] echelons = new StackedElementList<Substance>[3];
+    public StackedElementList<Substance>[] Echelons => echelons;
+    public bool IsEmpty => CardCount == 0;
+    public int CardCount {
+        get
+        {
+            int sum = 0;
+            foreach(var list in echelons)
+            {
+                sum += list.CountStack();
+            }
+            return sum;
+        }
     }
 }

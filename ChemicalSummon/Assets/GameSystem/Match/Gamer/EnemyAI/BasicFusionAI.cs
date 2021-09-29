@@ -12,7 +12,7 @@ public class BasicFusionAI : NoFusionAI
         foreach (Reaction.ReactionMethod method in Enemy.FindAvailiableReactions())
         {
             int priority = Enemy.ReactionsPriority.CountStack(method.reaction);
-            if (method.consumingCards.ContainsKey(topATKCard)) //hate decrese of top ATK
+            if (topATKCard != null && method.consumingCards.ContainsKey(topATKCard)) //hate decrese of top ATK
             {
                 priority -= 100;
             }

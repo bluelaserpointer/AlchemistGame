@@ -267,7 +267,7 @@ GameObject:
   - component: {fileID: 2711833726700148633}
   - component: {fileID: 6668586408680899951}
   m_Layer: 0
-  m_Name: '[DEMO]VS BronzeGolem'
+  m_Name: 1-1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -305,7 +305,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 97c3375fd475a9746a523de887a00677, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  match: {fileID: 11400000, guid: e2b4fbb47de3b884b8bced28ff74ac22, type: 2}
+  match: {fileID: 4458566537615115070, guid: ba3ed70f3c76d3449a31176abbf438f4, type: 3}
 --- !u!222 &2711833726700148633
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -816,4 +816,4 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: '[DEMO]VS BronzeGolem'
+  m_Text: 1-1

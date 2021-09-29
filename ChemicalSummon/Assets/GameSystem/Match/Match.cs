@@ -5,8 +5,7 @@ using UnityEngine;
 /// <summary>
 /// 战斗关卡
 /// </summary>
-[CreateAssetMenu(menuName = "Match/Match", fileName = "NewMatch", order = -1)]
-public class Match : ScriptableObject
+public class Match : MonoBehaviour
 {
     //inspector
     [SerializeField]
@@ -23,8 +22,6 @@ public class Match : ScriptableObject
     StackedElementList<Reaction> enemyReactionsPriority;
     [SerializeField]
     EnemyAI enemyAI;
-    [SerializeField]
-    GameObject modObject;
     [SerializeField]
     List<Item> loots;
     [SerializeField]
@@ -55,7 +52,6 @@ public class Match : ScriptableObject
     /// </summary>
     public StackedElementList<Reaction> EnemyReactionsPriority => enemyReactionsPriority;
     public EnemyAI EnemyAI => enemyAI;
-    public GameObject ModObject => modObject;
     public AudioClip PickRandomBGM() {
         return bgmSets == null ? null : bgmSets.PickRandom();
     }

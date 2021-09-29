@@ -15,13 +15,16 @@ MonoBehaviour:
   chemicalSymbol: Br2
   name:
     defaultString: Br2
-    languageAndSentences: []
+    languageAndSentences:
+    - language: 0
+      sentence: "\u6EB4"
   elements:
     list:
     - type: {fileID: 11400000, guid: 4ad16e9d91c1e2742ba0daf3d25737fd, type: 2}
       amount: 2
     amountAcception: 0
   image: {fileID: 0}
+  echelon: 1
   atk: 0
   meltingPoint: 0
   boilingPoint: 0

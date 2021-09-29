@@ -332,6 +332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 9f3e1bd9e8bf5e14698ec45c31e5930d, type: 2}
+  sentenceSO: {fileID: 0}
   sentence:
     defaultString: "\u5982\u679C\u4F60\u60F3\u770B\u4EE5\u540E\u8FFD\u52A0\u7684\u5361\u724C\u4E0E\u53CD\u5E94\u5F0F\uFF0C\u53EF\u4EE5\u8BD5\u8BD5\u6253\u5F00\u8BBE\u7F6E\u91CC\u7684\u4F5C\u5F0A"
     languageAndSentences:
@@ -506,6 +507,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 9f3e1bd9e8bf5e14698ec45c31e5930d, type: 2}
+  sentenceSO: {fileID: 0}
   sentence:
     defaultString: "\u4E0B\u4E2A\u7248\u672C\u8BA1\u5212\u5B8C\u5584\u4E00\u90E8\u5206\u5361\u724C\uFF0C\u8FFD\u52A0\u5361\u724C\u80FD\u529B\uFF0C\u8FD8\u60F3\u641E\u4E00\u4E9B\u5B9E\u9A8C\u6027\u7684\u8FF7\u5BAB\u5462\u3002"
     languageAndSentences:
@@ -601,6 +603,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   character: {fileID: 11400000, guid: 9f3e1bd9e8bf5e14698ec45c31e5930d, type: 2}
+  sentenceSO: {fileID: 0}
   sentence:
     defaultString: "\u53E6\u5916\u73B0\u5728\u7684\u654C\u4EBAAI\u90FD\u6709\u70B9\u50BB...\u8FD9\u5757\u6211\u4EEC\u4F1A\u6162\u6162\u89E3\u51B3\u7684\u3002"
     languageAndSentences:

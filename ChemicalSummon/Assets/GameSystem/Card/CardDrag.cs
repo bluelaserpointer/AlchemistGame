@@ -22,82 +22,87 @@ public class CardDrag : Draggable
     {
         base.OnBeginDrag(eventData);
         substanceCard.EnableShadow(true);
-        MatchManager.Player.draggingCard = substanceCard;
-        if(MatchManager.Player.HandCardsDisplay.cards.Contains(gameObject))
+        if (ChemicalSummonManager.CurrentSceneIsMatch)
         {
-            originalHandCardSiblingIndex = substanceCard.transform.GetSiblingIndex();
-            MatchManager.Player.HandCardsDisplay.Remove(gameObject);
+            if (MatchManager.Player.HandCardsDisplay.cards.Contains(gameObject))
+            {
+                originalHandCardSiblingIndex = substanceCard.transform.GetSiblingIndex();
+                MatchManager.Player.HandCardsDisplay.Remove(gameObject);
+            }
         }
-        substanceCard.transform.SetParent(MatchManager.MainCanvas.transform);
+        substanceCard.transform.SetParent(ChemicalSummonManager.MainCanvas.transform);
     }
     public override void OnEndDrag(PointerEventData eventData)
     {
         base.OnEndDrag(eventData);
         substanceCard.EnableShadow(false);
-        MatchManager.Player.draggingCard = null;
-        bool disbandable = CurrentSlot == null || CurrentSlot.AllowSlotClear(); //check dibandbility
-        List<RaycastResult> raycastResults = new List<RaycastResult>();
-        EventSystem.current.RaycastAll(eventData, raycastResults);
-        foreach (RaycastResult eachResult in raycastResults)
+        if (ChemicalSummonManager.CurrentSceneIsMatch)
         {
-            GameObject hitUI = eachResult.gameObject;
-            ShieldCardSlot cardSlot = hitUI.GetComponent<ShieldCardSlot>();
-            if (cardSlot != null) {
-                if (cardSlot.Equals(CurrentSlot))
+            bool disbandable = CurrentSlot == null || CurrentSlot.AllowSlotClear(); //check dibandbility
+            List<RaycastResult> raycastResults = new List<RaycastResult>();
+            EventSystem.current.RaycastAll(eventData, raycastResults);
+            foreach (RaycastResult eachResult in raycastResults)
+            {
+                GameObject hitUI = eachResult.gameObject;
+                ShieldCardSlot cardSlot = hitUI.GetComponent<ShieldCardSlot>();
+                if (cardSlot != null)
                 {
-                    CurrentSlot.DoAlignment();
-                    return;
-                }
-                if (cardSlot.IsMySide)
-                {
-                    if (!cardSlot.AllowSlotSet(substanceCard.gameObject))
-                        continue;
-                    if (cardSlot.IsEmpty)
+                    if (cardSlot.Equals(CurrentSlot))
                     {
-                        //set slot
-                        if (!disbandable)
-                            continue;
-                        if (CurrentSlot != null) //move from another slot
-                        {
-                            CurrentSlot.SlotTopClear();
-                        }
-                        else //move from handcard
-                        {
-                            MatchManager.Player.RemoveHandCard(substanceCard);
-                        }
-                        cardSlot.SlotSet(substanceCard.gameObject);
+                        CurrentSlot.DoAlignment();
                         return;
                     }
-                    else
+                    if (cardSlot.IsMySide)
                     {
-                        SubstanceCard existedCard = cardSlot.Card;
-                        if(existedCard.Substance.Equals(substanceCard.Substance))
+                        if (!cardSlot.AllowSlotSet(substanceCard.gameObject))
+                            continue;
+                        if (cardSlot.IsEmpty)
                         {
-                            //union same cards
-                            existedCard.UnionSameCard(substanceCard);
+                            //set slot
+                            if (!disbandable)
+                                continue;
+                            if (CurrentSlot != null) //move from another slot
+                            {
+                                CurrentSlot.SlotTopClear();
+                            }
+                            else //move from handcard
+                            {
+                                MatchManager.Player.RemoveHandCard(substanceCard);
+                            }
+                            cardSlot.SlotSet(substanceCard.gameObject);
                             return;
                         }
+                        else
+                        {
+                            SubstanceCard existedCard = cardSlot.Card;
+                            if (existedCard.Substance.Equals(substanceCard.Substance))
+                            {
+                                //union same cards
+                                existedCard.UnionSameCard(substanceCard);
+                                return;
+                            }
+                        }
                     }
+                    continue;
                 }
-                continue;
             }
-        }
-        //TODO: acctually CurrentSlot always null because when drag start transform parent must be changed. redesign this.
-        if (CurrentSlot != null)
-        {
-            if (disbandable)
+            //TODO: acctually CurrentSlot always null because when drag start transform parent must be changed. redesign this.
+            if (CurrentSlot != null)
             {
-                CurrentSlot.SlotTopClear();
+                if (disbandable)
+                {
+                    CurrentSlot.SlotTopClear();
+                    MatchManager.Player.AddHandCard(substanceCard);
+                }
+            }
+            else if (MatchManager.Player.HandCards.Contains(substanceCard))
+            {
+                MatchManager.Player.HandCardsDisplay.Add(gameObject);
+            }
+            else
+            {
                 MatchManager.Player.AddHandCard(substanceCard);
             }
-        }
-        else if(MatchManager.Player.HandCards.Contains(substanceCard))
-        {
-            MatchManager.Player.HandCardsDisplay.Add(gameObject);
-        }
-        else
-        {
-            MatchManager.Player.AddHandCard(substanceCard);
         }
     }
 }

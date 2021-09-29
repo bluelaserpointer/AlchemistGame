@@ -50,7 +50,7 @@ public abstract class Gamer : MonoBehaviour
     /// <summary>
     /// 战斗前卡组(静态卡组)
     /// </summary>
-    public Deck initialDeck;
+    public Deck deck;
     List<SubstanceCard> drawPile = new List<SubstanceCard>();
     /// <summary>
     /// 战斗内卡组(动态卡组)
@@ -153,9 +153,8 @@ public abstract class Gamer : MonoBehaviour
     public void Init(Character character)
     {
         Character = character;
-        ContinuousAddDrawPile(SubstanceCard.GenerateSubstanceCard(initialDeck.substances).Shuffle_InsideOut(), CardTransport.Method.Bottom);
         SetStackHandCardMode(false);
-        if(hp == 0) //if MatchStateChanger didnt jack hp
+        if (hp == 0) //if MatchStateChanger didnt jack hp
             hp = InitialHP;
         heatGem = 16;
         electricGem = 8;
@@ -166,6 +165,11 @@ public abstract class Gamer : MonoBehaviour
     public void InitHP(int value)
     {
         statusPanels.HPText.SetValueImmediate(hp = value);
+    }
+    public void InstallEchelon(int echelonNameIndex, UnityAction afterAction = null)
+    {
+        ContinuousAddDrawPile(SubstanceCard.GenerateSubstanceCard(deck.Echelons[echelonNameIndex - 1]), CardTransport.Method.Bottom,
+            () => { ShuffleDrawPile(); afterAction?.Invoke(); });
     }
     public void ShuffleDrawPile()
     {
@@ -276,6 +280,7 @@ public abstract class Gamer : MonoBehaviour
             substanceCard.TracePosition(duplicatedCard.transform.position, () =>
             {
                 duplicatedCard.UnionSameCard(substanceCard);
+                MatchManager.FusionPanel.UpdateList();
                 OnHandCardsChanged.Invoke();
             });
         }
@@ -289,6 +294,7 @@ public abstract class Gamer : MonoBehaviour
             else
                 HandCardsDisplay.Insert(HandCardsDisplay.cards.IndexOf(duplicatedCard.gameObject) + 1, substanceCard.gameObject);
             substanceCard.SetDraggable(IsMySide);
+            MatchManager.FusionPanel.UpdateList();
             OnHandCardsChanged.Invoke();
         }
     }

@@ -24,6 +24,7 @@ MonoBehaviour:
       amount: 1
     amountAcception: 0
   image: {fileID: 0}
+  echelon: 2
   atk: 3
   meltingPoint: 100
   boilingPoint: 0

@@ -8,7 +8,8 @@ public class StackedElementList<T> : IEnumerable<StackedElementList<T>.StackedEl
     public StackedElementList() { }
     public StackedElementList(StackedElementList<T> sample)
     {
-        list = sample.list;
+        foreach (var stackedElement in sample.list)
+            list.Add(new StackedElement(stackedElement));
     }
     [Serializable]
     public class StackedElement
@@ -85,13 +86,31 @@ public class StackedElementList<T> : IEnumerable<StackedElementList<T>.StackedEl
         }
         return false;
     }
+    public bool Add(StackedElement stackedElement)
+    {
+        return Add(stackedElement.type, stackedElement.amount);
+    }
     public void AddAll(StackedElementList<T> anotherList)
     {
         anotherList.ForEach(each => Add(each.type, each.amount));
     }
-    public bool Remove(T type, int amount = -1)
+    public bool Remove(T type, int amount = 1)
     {
-        return Add(type, amount);
+        return Add(type, -amount);
+    }
+    public bool Remove(StackedElement stackedElement)
+    {
+        return Remove(stackedElement.type, stackedElement.amount);
+    }
+    public bool RemoveAll(StackedElementList<T> anotherList)
+    {
+        bool cond = true;
+        foreach(var stack in anotherList)
+        {
+            if (!Remove(stack))
+                cond = false;
+        }
+        return cond;
     }
     public void ForEach(Action<StackedElement> action)
     {

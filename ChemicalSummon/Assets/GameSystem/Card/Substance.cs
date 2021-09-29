@@ -22,6 +22,10 @@ public class Substance : ChemicalObject
     /// 三态卡牌图片
     /// </summary>
     public Sprite image;
+    /// <summary>
+    /// 梯队
+    /// </summary>
+    public int echelon;
     public int atk;
     [Min(-273.15f)]
     public float meltingPoint;

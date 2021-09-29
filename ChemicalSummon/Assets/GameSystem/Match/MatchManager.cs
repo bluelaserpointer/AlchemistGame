@@ -115,6 +115,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     TurnType currentTurnType;
     public static TurnType CurrentTurnType => Instance.currentTurnType;
     int turn;
+    int echelonPhase;
     /// <summary>
     /// 卡牌信息栏
     /// </summary>
@@ -159,6 +160,10 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     /// 回合
     /// </summary>
     public static int Turn => Instance.turn;
+    /// <summary>
+    /// 卡组阶段
+    /// </summary>
+    public static int EchelonPhase => Instance.echelonPhase;
     private void Awake()
     {
         ManagerInit(Instance = this);
@@ -168,11 +173,10 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         audioSource.Play();
         Instantiate(Match.BackGround);
         //deck install
-        Player.initialDeck = PlayerSave.ActiveDeck;
-        Enemy.initialDeck = Match.EnemyDeck;
+        Player.deck = PlayerSave.ActiveDeck;
+        Enemy.deck = Match.EnemyDeck;
         //mod
-        if (Match.ModObject != null)
-            Instantiate(Match.ModObject);
+        Instantiate(Match.gameObject);
         //gamer info init
         Player.Init(Match.MySideCharacter);
         Enemy.Init(Match.EnemySideCharacter);
@@ -182,8 +186,9 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         //first turn start
         if(FirstMover == null)
         {
-            currentTurnType = TurnType.FirstMoveDecide;
-            matchLogDisplay.AddTurnLog(0, TurnTypeToString(TurnType.FirstMoveDecide));
+            currentTurnType = TurnType.FirstMoverDecide;
+            EchelonPhaseUp();
+            matchLogDisplay.AddTurnLog(0, TurnTypeToString(TurnType.FirstMoverDecide));
             firstMoverDecider.Draw();
         }
     }
@@ -277,7 +282,14 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         }
         turnPanel.SetTurn(turn, currentTurnType);
         matchLogDisplay.AddTurnLog(turn, TurnTypeToString(currentTurnType));
-        onTurnStart.Invoke();
+        if (turn % 16 == 0)
+            EchelonPhaseUp(GamerStartNewTurn);
+        else
+            GamerStartNewTurn();
+    }
+    private static void GamerStartNewTurn()
+    {
+        Instance.onTurnStart.Invoke();
         switch (CurrentTurnType)
         {
             case TurnType.MyFusionTurn:
@@ -295,22 +307,45 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
             default:
                 break;
         }
-        animatedTurnPanel.GetComponent<AnimatedTurnPanel>().Play();
+        Instance.animatedTurnPanel.GetComponent<AnimatedTurnPanel>().Play();
+    }
+    public static void EchelonPhaseUp(UnityAction afterAction = null)
+    {
+        int echelonPhase = ++Instance.echelonPhase;
+        bool playerDone = false, enemyDone = false;
+        Player.InstallEchelon(echelonPhase, () =>
+        {
+            if (enemyDone)
+            {
+                afterAction?.Invoke();
+            }
+            else
+                playerDone = true;
+        });
+        Enemy.InstallEchelon(echelonPhase, () =>
+        {
+            if (playerDone)
+            {
+                afterAction?.Invoke();
+            }
+            else
+                enemyDone = true;
+        });
     }
     public static string TurnTypeToString(TurnType turnType)
     {
         switch (turnType)
         {
-            case TurnType.FirstMoveDecide:
-                return LoadTranslatableSentence("DecidingFirstMover");
+            case TurnType.FirstMoverDecide:
+                return LoadSentence("DecidingFirstMover");
             case TurnType.MyFusionTurn:
-                return LoadTranslatableSentence("FusionTurn");
+                return LoadSentence("FusionTurn");
             case TurnType.MyAttackTurn:
-                return LoadTranslatableSentence("AttackTurn");
+                return LoadSentence("AttackTurn");
             case TurnType.EnemyFusionTurn:
-                return LoadTranslatableSentence("EnemyFusionTurn");
+                return LoadSentence("EnemyFusionTurn");
             case TurnType.EnemyAttackTurn:
-                return LoadTranslatableSentence("EnemyAttackTurn");
+                return LoadSentence("EnemyAttackTurn");
         }
         return null;
     }
@@ -324,7 +359,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
         {
             GameObject obj = rayResult.gameObject;
             //if it is CardInfoDisplay
-            if (obj.GetComponent<CardInfoDisplay>() != null || obj.transform.parent != null && obj.transform.parent.GetComponent<CardInfoDisplay>() != null)
+            if (obj.GetComponent<CardInfoDisplay>() != null)
                 return; //keep info display shown
             //if it is card
             SubstanceCard card = obj.GetComponent<SubstanceCard>();

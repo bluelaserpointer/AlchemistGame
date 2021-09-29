@@ -19,8 +19,8 @@ public class TransportCard : MatchAction
     CardTransport.Method dstMethod;
     protected override string GetDescription()
     {
-        string baseString = ChemicalSummonManager.LoadTranslatableSentence("CardTransport");
-        baseString = baseString.Replace("$action", ChemicalSummonManager.LoadTranslatableSentence(isCopy ? "Copy" : "Move"));
+        string baseString = ChemicalSummonManager.LoadSentence("CardTransport");
+        baseString = baseString.Replace("$action", ChemicalSummonManager.LoadSentence(isCopy ? "Copy" : "Move"));
         baseString = baseString.Replace("$cond", cardCondition.Description);
         baseString = baseString.Replace("$amount", amount.ToString());
         baseString = baseString.Replace("$srcPos", CardTransport.MethodName(srcMethod));

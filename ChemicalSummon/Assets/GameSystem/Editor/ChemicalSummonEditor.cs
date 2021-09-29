@@ -322,6 +322,7 @@ public static class ChemicalSummonEditor
             return;
         int newCreatedCount = 0;
         int updatedCount = 0;
+        List<string> noImageSubstancesName = new List<string>();
         foreach (DataTable table in result.Tables)
         {
             bool isFirstLine = true;
@@ -408,19 +409,24 @@ public static class ChemicalSummonEditor
                     AvoidNull(Element.GetByNameWithWarn(tmpElementName), element => substance.elements.Add(element, ToInt(lastLetter)));
                     substance.isPhenomenon = false;
                 }
-                substance.atk = ToInt(row[2].ToString());
-                substance.meltingPoint = ToInt(row[3].ToString());
-                substance.boilingPoint = ToInt(row[4].ToString());
+                substance.echelon = ToInt(row[2].ToString());
+                if (substance.echelon == 0)
+                    substance.echelon = 3;
+                substance.atk = ToInt(row[3].ToString());
+                substance.meltingPoint = ToInt(row[4].ToString());
+                substance.boilingPoint = ToInt(row[5].ToString());
                 substance.name.defaultString = substanceName;
-                substance.name.PutSentence_EmptyStrMeansRemove(Language.Chinese, row[5].ToString());
-                substance.name.PutSentence_EmptyStrMeansRemove(Language.Japanese, row[6].ToString());
-                substance.name.PutSentence_EmptyStrMeansRemove(Language.English, row[7].ToString());
+                substance.name.PutSentence_EmptyStrMeansRemove(Language.Chinese, row[6].ToString());
+                substance.name.PutSentence_EmptyStrMeansRemove(Language.Japanese, row[7].ToString());
+                substance.name.PutSentence_EmptyStrMeansRemove(Language.English, row[8].ToString());
                 substance.abilities = CardAbility.GetBySubstanceName(substanceName);
                 substance.description.defaultString = "";
-                substance.description.PutSentence_EmptyStrMeansRemove(Language.Chinese, row[8].ToString());
-                substance.description.PutSentence_EmptyStrMeansRemove(Language.Japanese, row[9].ToString());
-                substance.description.PutSentence_EmptyStrMeansRemove(Language.English, row[10].ToString());
+                substance.description.PutSentence_EmptyStrMeansRemove(Language.Chinese, row[9].ToString());
+                substance.description.PutSentence_EmptyStrMeansRemove(Language.Japanese, row[10].ToString());
+                substance.description.PutSentence_EmptyStrMeansRemove(Language.English, row[11].ToString());
                 substance.image = Resources.Load<Sprite>("Chemical/Sprites/" + substanceName);
+                if (substance.image == null)
+                    noImageSubstancesName.Add(substance.chemicalSymbol);
                 if (newCreated)
                 {
                     Substance caseConflictSubstance = Resources.Load<Substance>("Chemical/Substance/" + substanceName);
@@ -440,6 +446,13 @@ public static class ChemicalSummonEditor
         AssetDatabase.SaveAssets(); //存储资源
         AssetDatabase.Refresh(); //刷新
         Debug.Log("SubstanceAssetsCreated. updatedCount: " + updatedCount + ", newCreated: " + newCreatedCount);
+        if(noImageSubstancesName.Count > 0)
+        {
+            string str = "";
+            noImageSubstancesName.Sort();
+            noImageSubstancesName.ForEach(each => str += each + "\t");
+            Debug.LogWarning("Those substances doesn\'t have image (" + noImageSubstancesName.Count + "):\r\n" + str);
+        }
     }
     /// <summary>
     /// 读取元素表自动生成ScriptableObject

@@ -12,7 +12,7 @@ public class CardReturnDeckLog : MonoBehaviour
 
     public void Set(SubstanceCard card, int amount)
     {
-        logText.text = card.name + " x " + amount + "\r\n" + ChemicalSummonManager.LoadTranslatableSentence("ReturnDeck");
+        logText.text = card.name + " x " + amount + "\r\n" + ChemicalSummonManager.LoadSentence("ReturnDeck");
         amountText.text = "x" + amount;
         cardDisplay.SetCard(card);
     }

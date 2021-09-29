@@ -26,6 +26,7 @@ MonoBehaviour:
       amount: 2
     amountAcception: 0
   image: {fileID: 21300000, guid: 813346dacb870c44ea2b77a9d5c96e45, type: 3}
+  echelon: 3
   atk: 0
   meltingPoint: 0
   boilingPoint: 0

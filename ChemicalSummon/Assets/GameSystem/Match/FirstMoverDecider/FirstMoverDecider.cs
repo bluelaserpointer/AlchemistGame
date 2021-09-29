@@ -22,16 +22,21 @@ public class FirstMoverDecider : MonoBehaviour
     bool playerIsFirstMover;
     [HideInInspector]
     public bool mustCorrect;
+    bool doneGuess;
     public void Draw()
     {
         drawedCard = Instantiate(substanceCardPrefab, cardParentTf);
         drawedCard.Substance = (Random.Range(0, 2) == 0 ? PurePool : CompoundPool).GetRandomElement();
         drawedCard.SetDraggable(false);
         drawedCard.transform.eulerAngles = new Vector3(0, 180, 0);
+        doneGuess = false;
     }
     public void Guess(bool isPure)
     {
-        if(mustCorrect)
+        if (doneGuess)
+            return;
+        doneGuess = true;
+        if (mustCorrect)
         {
             drawedCard.Substance = (isPure ? PurePool : CompoundPool).GetRandomElement();
             drawedCard.InitCardAmount(1);

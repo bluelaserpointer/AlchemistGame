@@ -13,21 +13,21 @@ public class CardTransport
         switch (location)
         {
             case Location.OffSite:
-                return ChemicalSummonManager.LoadTranslatableSentence("OffSite");
+                return ChemicalSummonManager.LoadSentence("OffSite");
             case Location.Field:
-                return ChemicalSummonManager.LoadTranslatableSentence("Field");
+                return ChemicalSummonManager.LoadSentence("Field");
             case Location.MyField:
-                return ChemicalSummonManager.LoadTranslatableSentence("MyField");
+                return ChemicalSummonManager.LoadSentence("MyField");
             case Location.EnemyField:
-                return ChemicalSummonManager.LoadTranslatableSentence("EnemyField");
+                return ChemicalSummonManager.LoadSentence("EnemyField");
             case Location.MyHandCard:
-                return ChemicalSummonManager.LoadTranslatableSentence("MyHandCard");
+                return ChemicalSummonManager.LoadSentence("MyHandCard");
             case Location.MyDeck:
-                return ChemicalSummonManager.LoadTranslatableSentence("MyDeck");
+                return ChemicalSummonManager.LoadSentence("MyDeck");
             case Location.EnemyHandCard:
-                return ChemicalSummonManager.LoadTranslatableSentence("EnemyHandCard");
+                return ChemicalSummonManager.LoadSentence("EnemyHandCard");
             case Location.EnemyDeck:
-                return ChemicalSummonManager.LoadTranslatableSentence("EnemyDeck");
+                return ChemicalSummonManager.LoadSentence("EnemyDeck");
         }
         return "";
     }
@@ -36,9 +36,9 @@ public class CardTransport
         switch (method)
         {
             case Method.Top:
-                return ChemicalSummonManager.LoadTranslatableSentence("Top");
+                return ChemicalSummonManager.LoadSentence("Top");
             case Method.Bottom:
-                return ChemicalSummonManager.LoadTranslatableSentence("Bottom");
+                return ChemicalSummonManager.LoadSentence("Bottom");
             case Method.Select:
                 return "";
         }
