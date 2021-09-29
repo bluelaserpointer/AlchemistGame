@@ -7,8 +7,6 @@ using UnityEngine.UI;
 public class CardInfoDisplay : MonoBehaviour
 {
     [SerializeField]
-    bool isInBattle = true;
-    [SerializeField]
     Image displayBackground;
     [SerializeField]
     SubstanceCard displayCard;
@@ -25,19 +23,20 @@ public class CardInfoDisplay : MonoBehaviour
     [SerializeField]
     Text cardDescriptionText;
 
+    public bool IsInBattle => ChemicalSummonManager.CurrentSceneIsMatch;
     SubstanceCard referedCard;
     public SubstanceCard ReferedCard => referedCard;
     List<Reaction> relatedReactions = new List<Reaction>();
     private void Awake()
     {
-        if (isInBattle)
+        if (IsInBattle)
         {
             gameObject.SetActive(false);
         }
     }
     private void Update()
     {
-        if(isInBattle)
+        if(IsInBattle)
         {
             displayCard.InitCardAmount(referedCard.CardAmount);
             checkReactionText.text = relatedReactions.Count.ToString();
