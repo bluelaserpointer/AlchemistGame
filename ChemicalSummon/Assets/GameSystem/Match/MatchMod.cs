@@ -5,6 +5,10 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class MatchMod : MonoBehaviour
 {
+    [Header("EchelonPhase")]
+    [SerializeField]
+    bool disableEchelonPhaseProgressing;
+
     [Header("LimitTurn")]
     [SerializeField]
     bool setLimitTurn;
@@ -61,6 +65,7 @@ public class MatchMod : MonoBehaviour
     private Player Player => MatchManager.Player;
     void Awake()
     {
+        MatchManager.Instance.disableEchelonPhaseChange = disableEchelonPhaseProgressing;
         if (setLimitTurn)
         {
             MatchManager.Instance.onTurnStart.AddListener(() =>

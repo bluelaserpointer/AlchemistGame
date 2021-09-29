@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.37066516, g: 0.64140457, b: 0.8759268, a: 1}
+  m_IndirectSpecularColor: {r: 0.37066615, g: 0.64139456, b: 0.87589246, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -2820,6 +2820,8 @@ MonoBehaviour:
   cardReturnDeckLogPrefab: {fileID: 5619833164950451456, guid: 6f2255a677674834da584e6988933264,
     type: 3}
   turnLogPrefab: {fileID: 8385222882232018132, guid: 177cf2c78e26b3847b8731e679893d0c,
+    type: 3}
+  echelonPhaseLog: {fileID: 593690791002083295, guid: 9993d9d75d6ad7146a58968178a67d19,
     type: 3}
   hpLogPrefab: {fileID: 1283099744860674524, guid: 7a991ad437bbffb4ca294cb445a67c00,
     type: 3}

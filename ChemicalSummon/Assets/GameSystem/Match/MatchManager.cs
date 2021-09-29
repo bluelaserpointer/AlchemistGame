@@ -116,6 +116,7 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     public static TurnType CurrentTurnType => Instance.currentTurnType;
     int turn;
     int echelonPhase;
+    public bool disableEchelonPhaseChange;
     /// <summary>
     /// 卡牌信息栏
     /// </summary>
@@ -311,7 +312,13 @@ public class MatchManager : ChemicalSummonManager, IPointerDownHandler
     }
     public static void EchelonPhaseUp(UnityAction afterAction = null)
     {
+        if (EchelonPhase > 0 && Instance.disableEchelonPhaseChange)
+        {
+            afterAction?.Invoke();
+            return;
+        }
         int echelonPhase = ++Instance.echelonPhase;
+        MatchLogDisplay.AddEchelonPhaseLog(echelonPhase);
         bool playerDone = false, enemyDone = false;
         Player.InstallEchelon(echelonPhase, () =>
         {

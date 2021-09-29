@@ -14,6 +14,8 @@ public class MatchLogDisplay : MonoBehaviour
     [SerializeField]
     TurnLog turnLogPrefab;
     [SerializeField]
+    EchelonPhaseLog echelonPhaseLog;
+    [SerializeField]
     HPLog hpLogPrefab;
     [SerializeField]
     FusionLog fusionLogPrefab;
@@ -51,5 +53,9 @@ public class MatchLogDisplay : MonoBehaviour
     public void AddCardReturnDeckLog(SubstanceCard card, int amount)
     {
         Instantiate(cardReturnDeckLogPrefab, scrollViewContent).Set(card, amount);
+    }
+    public void AddEchelonPhaseLog(int echelonPhase)
+    {
+        Instantiate(echelonPhaseLog, scrollViewContent).Set(echelonPhase);
     }
 }
