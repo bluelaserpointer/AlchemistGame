@@ -105,9 +105,9 @@ MonoBehaviour:
   descriptionText: {fileID: 2943065904065050970}
   cardMoveSE: {fileID: 8300000, guid: 42bd5c13934c6304da33ef5f5c402724, type: 3}
   echelonColors:
-  - {r: 0, g: 0.99029756, b: 1, a: 1}
-  - {r: 0, g: 1, b: 0.7487786, a: 1}
-  - {r: 0.6037736, g: 0.6037736, b: 0.6037736, a: 1}
+  - {r: 0, g: 0.3882353, b: 0.6784314, a: 1}
+  - {r: 0, g: 0.6784314, b: 0.47058824, a: 1}
+  - {r: 0.9882353, g: 0.35686275, b: 0.39607844, a: 1}
   location: 0
   threeState: 2
 --- !u!1 &1275440200304212076
@@ -1250,7 +1250,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.98823535, g: 0.35686275, b: 0.39607847, a: 1}
+  m_Color: {r: 0, g: 0.3892468, b: 0.6784314, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
