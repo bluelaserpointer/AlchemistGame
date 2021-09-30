@@ -412,7 +412,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   poolNameText: {fileID: 5806518577823375884}
   cardAmountText: {fileID: 8480552493742983108}
-  searchText: {fileID: 180231874462666597}
+  searchInputField: {fileID: 1305101932519432309}
   cardListTransform: {fileID: 1443433132758402513}
   cardScale: 0.85
   capacity: -1
@@ -584,10 +584,34 @@ MonoBehaviour:
   m_CharacterLimit: 0
   m_OnEndEdit:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6534425337575824595}
+        m_TargetAssemblyTypeName: CardPoolDisplay, Assembly-CSharp
+        m_MethodName: OnEndSearchFieldEdit
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_OnValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 6534425337575824595}
+        m_TargetAssemblyTypeName: CardPoolDisplay, Assembly-CSharp
+        m_MethodName: OnSearchFieldChange
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_CaretColor: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
   m_CustomCaretColor: 0
   m_SelectionColor: {r: 0.65882355, g: 0.80784315, b: 1, a: 0.7529412}

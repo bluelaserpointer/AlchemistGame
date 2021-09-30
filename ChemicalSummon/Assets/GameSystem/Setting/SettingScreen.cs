@@ -89,8 +89,7 @@ public class SettingScreen : ChemicalSummonManager
     {
         foreach (Substance each in Substance.GetAll())
         {
-            if (each.IsPureElement)
-                PlayerSave.SubstanceStorage.Add(each);
+            PlayerSave.SubstanceStorage.Add(each);
         }
         WorldManager.DeckScreen.Init();
     }

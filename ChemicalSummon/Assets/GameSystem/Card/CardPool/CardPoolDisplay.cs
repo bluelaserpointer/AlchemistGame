@@ -7,7 +7,9 @@ using UnityEngine.UI;
 public class CardPoolDisplay : MonoBehaviour
 {
     [SerializeField]
-    Text poolNameText, cardAmountText, searchText;
+    Text poolNameText, cardAmountText;
+    [SerializeField]
+    InputField searchInputField;
     [SerializeField]
     Transform cardListTransform;
     [SerializeField]
@@ -71,5 +73,25 @@ public class CardPoolDisplay : MonoBehaviour
         cardListTransform.DestroyAllChildren();
         cards.Clear();
         CardAmount = 0;
+    }
+    public void OnSearchFieldChange()
+    {
+        if(ChemicalSummonManager.CurrentSceneIsWorld)
+            WorldManager.Player.IsDoingInput = true;
+        if(searchInputField.text.Length == 0)
+        {
+            cards.ForEach(card => card.gameObject.SetActive(true));
+        }
+        else
+        {
+            cards.ForEach(card => card.gameObject.SetActive(
+                card.Symbol.IndexOf(searchInputField.text, System.StringComparison.OrdinalIgnoreCase) >= 0
+                || card.name.IndexOf(searchInputField.text, System.StringComparison.OrdinalIgnoreCase) >= 0));
+        }
+    }
+    public void OnEndSearchFieldEdit()
+    {
+        if (ChemicalSummonManager.CurrentSceneIsWorld)
+            WorldManager.Player.IsDoingInput = false;
     }
 }
