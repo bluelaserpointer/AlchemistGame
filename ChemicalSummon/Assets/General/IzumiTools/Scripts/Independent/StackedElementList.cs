@@ -70,6 +70,22 @@ public class StackedElementList<T> : IEnumerable<StackedElementList<T>.StackedEl
         return list.Count;
     }
     public bool IsEmpty => CountType() == 0;
+    public bool Set(T type, int amount)
+    {
+        StackedElement find = FindByType(type);
+        if (find != null)
+        {
+            if (!AcceptAmount(amount))
+                list.Remove(find);
+            return true;
+        }
+        else if (AcceptAmount(amount))
+        {
+            list.Add(new StackedElement(type, amount));
+            return true;
+        }
+        return false;
+    }
     public bool Add(T type, int amount = 1)
     {
         StackedElement find = FindByType(type);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 
 [DisallowMultipleComponent]
@@ -39,5 +40,13 @@ public class ReactionListDisplay : MonoBehaviour
         buttonListTransform.DestroyAllChildren();
         originalButtons.ForEach(button => button.transform.SetParent(buttonListTransform));
         searchInputField.text = "";
+    }
+    public void AddButtonAction(UnityAction<FusionButton> buttonAction)
+    {
+        foreach (Transform buttonTf in buttonListTransform)
+        {
+            FusionButton fusionButton = buttonTf.GetComponent<FusionButton>();
+            fusionButton.Button.onClick.AddListener(() => buttonAction.Invoke(fusionButton));
+        }
     }
 }

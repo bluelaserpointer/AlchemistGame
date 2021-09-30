@@ -15,11 +15,11 @@ public class Match : MonoBehaviour
     [SerializeField]
     BGMRandomChooser bgmSets;
     [SerializeField]
-    Character enemySideCharacter;
+    protected Character enemySideCharacter;
     [SerializeField]
-    Deck enemyDeck;
+    protected Deck enemyDeck;
     [SerializeField]
-    StackedElementList<Reaction> enemyReactionsPriority;
+    protected StackedElementList<Reaction> enemyReactionsPriority;
     [SerializeField]
     EnemyAI enemyAI;
     [SerializeField]

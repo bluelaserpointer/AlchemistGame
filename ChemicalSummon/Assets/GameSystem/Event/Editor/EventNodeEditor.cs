@@ -60,4 +60,12 @@ public static class EventNodeEditor
             return;
         eventNodeObject.GetComponent<EventNode>().OnDataEdit();
     }
+    [MenuItem("GameObject/事件/显示UI", priority = 1)]
+    public static void CreateShowUI()
+    {
+        GameObject eventNodeObject = makeEventNode(Resources.Load<GameObject>("ShowUI_EventNode"));
+        if (eventNodeObject == null)
+            return;
+        eventNodeObject.GetComponent<EventNode>().OnDataEdit();
+    }
 }
