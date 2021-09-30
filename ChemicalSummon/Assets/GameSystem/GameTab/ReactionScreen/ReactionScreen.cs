@@ -10,7 +10,7 @@ public class ReactionScreen : MonoBehaviour
     [SerializeField]
     FusionButton fusionButtonPrefab;
     [SerializeField]
-    Transform fusionButtonListTransform;
+    ReactionListDisplay reactionListDisplay;
     [SerializeField]
     Slider reactionUnlockRateSlider;
     [SerializeField]
@@ -25,22 +25,23 @@ public class ReactionScreen : MonoBehaviour
     // Start is called before the first frame update
     public void Init()
     {
-        foreach (Transform each in fusionButtonListTransform)
-            Destroy(each.gameObject);
+        List<FusionButton> fusionButtons = new List<FusionButton>();
         foreach (Reaction reaction in PlayerSave.DiscoveredReactions)
         {
-            FusionButton reactionButton = Instantiate(fusionButtonPrefab, fusionButtonListTransform);
-            reactionButton.SetReaction(reaction);
+            FusionButton fusionButton = Instantiate(fusionButtonPrefab);
+            fusionButton.SetReaction(reaction);
             if (PlayerSave.NewDicoveredReactions.Contains(reaction))
-                reactionButton.MarkNew(true);
-            reactionButton.Button.onClick.AddListener(() => {
+                fusionButton.MarkNew(true);
+            fusionButton.Button.onClick.AddListener(() => {
                 reactionInfoDisplay.SetReaction(reaction);
-                reactionButton.MarkNew(false);
-                PlayerSave.CheckedReaction(reactionButton.Reaction);
+                fusionButton.MarkNew(false);
+                PlayerSave.CheckedReaction(fusionButton.Reaction);
                 if (PlayerSave.NewDicoveredReactions.Count == 0)
                     WorldManager.NewReactionSign.gameObject.SetActive(false);
             });
+            fusionButtons.Add(fusionButton);
         }
+        reactionListDisplay.InitList(fusionButtons);
         float unlocked = PlayerSave.DiscoveredReactions.Count, total = Reaction.GetAll().Count;
         float unlockRate = unlocked / total;
         reactionUnlockRateSlider.value = unlockRate;

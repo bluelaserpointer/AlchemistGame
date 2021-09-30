@@ -11,9 +11,7 @@ public class CardInfoDisplay : MonoBehaviour
     [SerializeField]
     SubstanceCard displayCard;
     [SerializeField]
-    Text checkReactionText;
-    [SerializeField]
-    Transform reactionListTransform;
+    ReactionListDisplay reactionListDisplay;
     [SerializeField]
     FusionButton FusionButtonPrefab;
     [SerializeField]
@@ -34,14 +32,6 @@ public class CardInfoDisplay : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
-    private void Update()
-    {
-        if(IsInBattle)
-        {
-            displayCard.InitCardAmount(referedCard.CardAmount);
-            checkReactionText.text = relatedReactions.Count.ToString();
-        }
-    }
     public void SetCard(SubstanceCard substanceCard)
     {
         if(!gameObject.activeSelf)
@@ -50,6 +40,7 @@ public class CardInfoDisplay : MonoBehaviour
         {
             referedCard = substanceCard;
             displayCard.Substance = substanceCard.Substance;
+            displayCard.InitCardAmount(1);
             displayCard.MeltingPoint = substanceCard.MeltingPoint;
             displayCard.BoilingPoint = substanceCard.BoilingPoint;
             cardDescriptionText.text = displayCard.Description;
@@ -80,16 +71,13 @@ public class CardInfoDisplay : MonoBehaviour
     {
         relatedReactions.Clear();
         relatedReactions.AddRange(PlayerSave.FindDiscoveredReactionsByLeftSubstance(displayCard.Substance));
-        foreach (Transform childTransform in reactionListTransform)
-            Destroy(childTransform.gameObject);
+        List<FusionButton> fusionButtons = new List<FusionButton>();
         foreach (Reaction reaction in relatedReactions)
         {
-            FusionButton fusionButton = Instantiate(FusionButtonPrefab, reactionListTransform);
+            FusionButton fusionButton = Instantiate(FusionButtonPrefab);
             fusionButton.SetReaction(reaction);
+            fusionButtons.Add(fusionButton);
         }
-    }
-    public void OnCheckReactionButtonClick()
-    {
-        reactionListTransform.gameObject.SetActive(!reactionListTransform.gameObject.activeSelf);
+        reactionListDisplay.InitList(fusionButtons);
     }
 }

@@ -43,13 +43,12 @@ public class FusionPanelButton : MonoBehaviour
         //in counterMode, only counter fusions are avaliable
         SubstanceCard currentAttacker = MatchManager.Player.CurrentAttacker;
         bool counterMode = MatchManager.CurrentTurnType.Equals(TurnType.EnemyAttackTurn) && currentAttacker != null;
-        foreach (Transform childTransform in fusionButtonListSlider.transform)
-            Destroy(childTransform.gameObject);
         List<Reaction.ReactionMethod> reactionMethods = MatchManager.Player.FindAvailiableReactions(currentAttacker);
+        List<FusionButton> fusionButtons = new List<FusionButton>();
         foreach (var method in reactionMethods)
         {
             Reaction reaction = method.reaction;
-            FusionButton fusionButton = Instantiate(prefabFusionButton, fusionButtonListSlider.transform);
+            FusionButton fusionButton = Instantiate(prefabFusionButton);
             fusionButton.SetReaction(reaction, counterMode);
             fusionButton.Button.onClick.AddListener(() => {
                 MatchManager.FusionDisplay.StartReactionAnimation(() =>
@@ -69,8 +68,10 @@ public class FusionPanelButton : MonoBehaviour
                     }
                 });
             });
+            fusionButtons.Add(fusionButton);
         }
-        if(lastFusionAmount < reactionMethods.Count)
+        fusionButtonListSlider.GetComponent<ReactionListDisplay>().InitList(fusionButtons);
+        if (lastFusionAmount < reactionMethods.Count)
         {
             newFusionNoticeAnimation.StartAnimation();
         }
