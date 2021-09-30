@@ -194,6 +194,23 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2d36dfa6859f87f49a208934d46219bc, type: 2}
   - {fileID: 11400000, guid: 122e1cab5a904c143bb0d70bcc488287, type: 2}
   - {fileID: 11400000, guid: fdf8cb3a493566a4a939097b8dd44620, type: 2}
+  initialDeck:
+    name: Initiater
+    echelons:
+    - list:
+      - type: {fileID: 11400000, guid: 7b5edf5392ec2a243a8ed92570ed0f01, type: 2}
+        amount: 4
+      - type: {fileID: 11400000, guid: 1985c22d2651fa148affbed385ebe7ad, type: 2}
+        amount: 4
+      - type: {fileID: 11400000, guid: 13e656293f977114ab98baf3a739544d, type: 2}
+        amount: 3
+      - type: {fileID: 11400000, guid: 0ea7f1a2a301f9d48b2bb22f8ea1505b, type: 2}
+        amount: 4
+      amountAcception: 0
+    - list: []
+      amountAcception: 0
+    - list: []
+      amountAcception: 0
   selectedCharacter: {fileID: 11400000, guid: 9bf26b0a4f3c8014a9d63d6d101ef3a3, type: 2}
   enabledCharacters:
   - {fileID: 11400000, guid: 00d6169fe0a61a34dafa92d806eebf97, type: 2}

@@ -36,6 +36,8 @@ public class PlayerSave : MonoBehaviour
     [SerializeField]
     List<Reaction> discoveredReactions;
     [SerializeField]
+    Deck initialDeck;
+    [SerializeField]
     Character selectedCharacter;
     [SerializeField]
     List<Character> enabledCharacters;
@@ -45,7 +47,7 @@ public class PlayerSave : MonoBehaviour
     Match activeMatch;
 
     Deck activeDeck = new Deck();
-    List<Deck> standbyDecks = new List<Deck>();
+    List<Deck> savedDecks = new List<Deck>();
     Chapter activeChapter;
     List<Chapter> openedChapters = new List<Chapter>();
     List<Chapter> allChapters = new List<Chapter>();
@@ -82,11 +84,15 @@ public class PlayerSave : MonoBehaviour
     /// <summary>
     /// 当前卡组
     /// </summary>
-    public static Deck ActiveDeck => Instance.activeDeck;
+    public static Deck ActiveDeck {
+        get => Instance.activeDeck;
+        set => Instance.activeDeck = value;
+    }
+    
     /// <summary>
     /// 预留卡组
     /// </summary>
-    public static List<Deck> StandbyDecks => Instance.standbyDecks;
+    public static List<Deck> SavedDecks => Instance.savedDecks;
     /// <summary>
     /// 当前章节
     /// </summary>
@@ -111,11 +117,9 @@ public class PlayerSave : MonoBehaviour
     public void InitSaveData()
     {
         hasLastWorldPositionSave = false;
-        foreach (var pair in substanceStorage)
-        {
-            for(int i = 0; i < pair.amount; ++i)
-                activeDeck.Echelons[0].Add(pair.type);
-        }
+        initialDeck.name = ChemicalSummonManager.LoadSentence("Initiater");
+        savedDecks.Add(initialDeck);
+        activeDeck = initialDeck;
     }
     private void Update()
     {

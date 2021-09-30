@@ -19,6 +19,7 @@ public class Deck
             echelons[i] = new StackedElementList<Substance>(sampleDeck.echelons[i]);
         }
     }
+    public string name;
     [SerializeField]
     StackedElementList<Substance>[] echelons = new StackedElementList<Substance>[3];
     public StackedElementList<Substance>[] Echelons => echelons;

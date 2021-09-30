@@ -38,6 +38,7 @@ public class WorldPlayer : MovementControl3D
     public Collider InteractionCollider => TargetModel.InteractionCollider;
     public AbstractWorldEventObject InInteractionColliderEventObject { get; set; }
     public AbstractWorldEventObject OccupyingMovementEventObject { get; set; }
+    public bool IsDoingInput { get; set; }
     public Animator Animator { get; protected set; }
     // Start is called before the first frame update
     void Start()
@@ -61,7 +62,7 @@ public class WorldPlayer : MovementControl3D
                 OccupyingMovementEventObject.Submit();
             }
         }
-        else
+        else if (!IsDoingInput)
         {
             if (controller.isGrounded)
             {

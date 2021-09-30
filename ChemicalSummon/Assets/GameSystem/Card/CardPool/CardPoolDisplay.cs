@@ -29,11 +29,10 @@ public class CardPoolDisplay : MonoBehaviour
             cardAmountText.text = text;
         }
     }
-    List<SubstanceCard> cards = new List<SubstanceCard>();
+    public readonly List<SubstanceCard> cards = new List<SubstanceCard>();
     public void Init(StackedElementList<Substance> substanceStacks)
     {
-        cardListTransform.DestroyAllChildren();
-        cards.Clear();
+        Clear();
         foreach(var substanceStack in substanceStacks)
             AddNewCard(substanceStack.type, substanceStack.amount);
         CardAmount = substanceStacks.CountStack();
@@ -47,16 +46,18 @@ public class CardPoolDisplay : MonoBehaviour
         card.SetDraggable(false);
         cards.Add(card);
     }
-    public void AddCard(Substance substance)
+    public int AddCard(Substance substance, int amount = 1)
     {
-        if (CardAmount >= capacity)
-            return;
+        int addableAmount = (CardAmount + amount <= capacity) ? amount : capacity - CardAmount;
+        if (addableAmount <= 0)
+            return 0;
         SubstanceCard card = cards.Find(card => card.Substance.Equals(substance));
         if (card == null)
-            AddNewCard(substance);
+            AddNewCard(substance, addableAmount);
         else
-            card.InitCardAmount(card.CardAmount + 1);
-        ++CardAmount;
+            card.InitCardAmount(card.CardAmount + addableAmount);
+        CardAmount += addableAmount;
+        return addableAmount;
     }
     public void RemoveCard(SubstanceCard card)
     {
@@ -64,5 +65,11 @@ public class CardPoolDisplay : MonoBehaviour
             cards.Remove(card);
         card.RemoveAmount(1);
         --CardAmount;
+    }
+    public void Clear()
+    {
+        cardListTransform.DestroyAllChildren();
+        cards.Clear();
+        CardAmount = 0;
     }
 }
