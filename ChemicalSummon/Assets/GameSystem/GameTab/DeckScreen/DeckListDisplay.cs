@@ -21,6 +21,7 @@ public class DeckListDisplay : MonoBehaviour
         {
             DeckButton deckButton = Instantiate(deckButtonPrefab, buttonListTransform);
             deckButton.deck = deck;
+            deckButton.DeckNameText.text = deck.name;
         }
     }
     public void AddButtonAction(UnityAction<DeckButton> buttonAction)
