@@ -28,7 +28,6 @@ public class ShieldCardSlot : CardSlot, IAttackable
     /// 所属玩家
     /// </summary>
     public Gamer Gamer => Field.Gamer;
-    public SubstanceCard Card => IsEmpty ? null : GetTop().GetComponent<SubstanceCard>();
     public float Tempreture {
         get
         {

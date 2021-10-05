@@ -229,7 +229,7 @@ public class DeckScreen : MonoBehaviour, IPointerDownHandler
                         {
                             echelonOnEdit.CardPool.AddCard(card.Substance);
                             SelectingDeck.Echelons[echelonOnEdit.ArrayIndex].Add(card.Substance);
-                            storageCardPool.RemoveCard(card);
+                            storageCardPool.RemoveOneCard(card);
                             leftCardsInStorage.Remove(card.Substance);
                         }
                         else if (belongCardPool.Equals(echelonOnEdit.CardPool))
@@ -237,7 +237,7 @@ public class DeckScreen : MonoBehaviour, IPointerDownHandler
                             storageCardPool.AddCard(card.Substance);
                             leftCardsInStorage.Add(card.Substance);
                             SelectingDeck.Echelons[echelonOnEdit.ArrayIndex].Remove(card.Substance);
-                            echelonOnEdit.CardPool.RemoveCard(card);
+                            echelonOnEdit.CardPool.RemoveOneCard(card);
                         }
                     }
                 }

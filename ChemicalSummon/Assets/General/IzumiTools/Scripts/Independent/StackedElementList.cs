@@ -151,4 +151,15 @@ public class StackedElementList<T> : IEnumerable<StackedElementList<T>.StackedEl
         else
             list.Sort((stack1, stack2) => stack2.amount - stack1.amount);
     }
+    public bool ContentsEquals(StackedElementList<T> anotherStackList)
+    {
+        if (CountType() != anotherStackList.CountType())
+            return false;
+        foreach (var stack in list)
+        {
+            if (anotherStackList.CountStack(stack.type) != stack.amount)
+                return false;
+        }
+        return true;
+    }
 }

@@ -15,7 +15,7 @@ public class CardPoolDisplay : MonoBehaviour
     [SerializeField]
     float cardScale;
     [Min(-1)]
-    public int capacity = -1;
+    public int capacity = int.MaxValue;
 
     public Text PoolNameText => poolNameText;
     int cardAmount;
@@ -26,7 +26,7 @@ public class CardPoolDisplay : MonoBehaviour
         {
             cardAmount = value;
             string text = ChemicalSummonManager.LoadSentence("CardAmount") + " " + value;
-            if(capacity != -1)
+            if(capacity != int.MaxValue)
                 text += "/" + capacity;
             cardAmountText.text = text;
         }
@@ -41,9 +41,11 @@ public class CardPoolDisplay : MonoBehaviour
     }
     private void AddNewCard(Substance substance, int amount = 1)
     {
+        //anchor protects card scale collapse from grid layout arranging
+        GameObject cardAnchor = new GameObject(substance.chemicalSymbol + " anchor", typeof(RectTransform));
+        cardAnchor.transform.SetParent(cardListTransform);
         SubstanceCard card = SubstanceCard.GenerateSubstanceCard(substance, amount);
-        card.transform.SetParent(cardListTransform);
-        ((RectTransform)card.transform).pivot = new Vector2(0, 1);
+        card.transform.SetParent(cardAnchor.transform);
         card.transform.localScale = Vector3.one * cardScale;
         card.SetDraggable(false);
         cards.Add(card);
@@ -61,11 +63,14 @@ public class CardPoolDisplay : MonoBehaviour
         CardAmount += addableAmount;
         return addableAmount;
     }
-    public void RemoveCard(SubstanceCard card)
+    public void RemoveOneCard(SubstanceCard card)
     {
-        if (card.CardAmount == 1)
-            cards.Remove(card);
         card.RemoveAmount(1);
+        if (card.CardAmount == 0)
+        {
+            cards.Remove(card);
+            Destroy(card.transform.parent.gameObject);
+        }
         --CardAmount;
     }
     public void Clear()
@@ -80,11 +85,11 @@ public class CardPoolDisplay : MonoBehaviour
             WorldManager.Player.IsDoingInput = true;
         if(searchInputField.text.Length == 0)
         {
-            cards.ForEach(card => card.gameObject.SetActive(true));
+            cards.ForEach(card => card.transform.parent.gameObject.SetActive(true));
         }
         else
         {
-            cards.ForEach(card => card.gameObject.SetActive(
+            cards.ForEach(card => card.transform.parent.gameObject.SetActive(
                 card.Symbol.IndexOf(searchInputField.text, System.StringComparison.OrdinalIgnoreCase) >= 0
                 || card.name.IndexOf(searchInputField.text, System.StringComparison.OrdinalIgnoreCase) >= 0));
         }

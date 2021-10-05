@@ -4,8 +4,9 @@ using UnityEngine.Events;
 /// <summary>
 /// 卡槽
 /// </summary>
-public abstract class CardSlot : ObjectSlot
+public class CardSlot : ObjectSlot
 {
+    public SubstanceCard Card => IsEmpty ? null : GetTop().GetComponent<SubstanceCard>();
     public void DoAlignment(Transform childTransform, UnityAction afterAction)
     {
         childTransform.GetComponent<SubstanceCard>().TracePosition(ArrangeParent.position, () => {
@@ -27,7 +28,7 @@ public abstract class CardSlot : ObjectSlot
     {
         DoAlignment(childTransform, null);
     }
-    public abstract void OnAlignmentEnd(Transform childTransform);
+    public virtual void OnAlignmentEnd(Transform childTransform) { }
     public void SlotSet(SubstanceCard card, UnityAction afterAction = null)
     {
         if(afterAction == null)

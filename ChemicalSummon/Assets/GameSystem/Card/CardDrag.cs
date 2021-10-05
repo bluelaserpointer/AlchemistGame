@@ -11,8 +11,6 @@ public class CardDrag : Draggable
 {
     SubstanceCard substanceCard;
     public ShieldCardSlot CurrentSlot => transform.parent == null ? null : transform.GetComponentInParent<ShieldCardSlot>();
-
-    int originalHandCardSiblingIndex;
     
     private void Awake()
     {
@@ -26,7 +24,6 @@ public class CardDrag : Draggable
         {
             if (MatchManager.Player.HandCardsDisplay.cards.Contains(gameObject))
             {
-                originalHandCardSiblingIndex = substanceCard.transform.GetSiblingIndex();
                 MatchManager.Player.HandCardsDisplay.Remove(gameObject);
             }
         }

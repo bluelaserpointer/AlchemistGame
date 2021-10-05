@@ -17,6 +17,8 @@ public class ReactionScreen : MonoBehaviour
     Text reactionUnlockProgressText;
     [SerializeField]
     ReactionInfoDisplay reactionInfoDisplay;
+    [SerializeField]
+    ReactionAnalyzer reactionAnalyzer;
 
     private void Start()
     {
@@ -48,5 +50,9 @@ public class ReactionScreen : MonoBehaviour
         reactionUnlockProgressText.text = unlocked + "/" + total + "(" + (float)Math.Round(unlockRate * 100, 2) + "%)";
         //new reaction sign on the LeftTab
         WorldManager.NewReactionSign.gameObject.SetActive(PlayerSave.NewDicoveredReactions.Count > 0);
+    }
+    public void ShowAnalyzer(bool cond)
+    {
+        reactionAnalyzer.gameObject.SetActive(cond);
     }
 }

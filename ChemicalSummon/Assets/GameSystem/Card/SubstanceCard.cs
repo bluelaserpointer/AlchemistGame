@@ -99,6 +99,10 @@ public class SubstanceCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
                 Slot.Field.onCardsChanged.Invoke();
         }
     }
+    /// <summary>
+    /// 是否正在摧毁(RemoveAmount调用后使用)
+    /// </summary>
+    public bool IsDisposing => CardAmount <= 0;
     Gamer gamer;
     /// <summary>
     /// 所属游戏者
@@ -365,8 +369,8 @@ public class SubstanceCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
     /// 减少叠加数(到零自动Dispose)
     /// </summary>
     /// <param name="amount"></param>
-    /// <returns>实际减少量</returns>
-    public int RemoveAmount(int amount, DecreaseReason decreaseReason = DecreaseReason.Other)
+    /// <returns>是否至零</returns>
+    public void RemoveAmount(int amount, DecreaseReason decreaseReason = DecreaseReason.Other)
     {
         int decreasedAmount;
         if (CardAmount > amount)
@@ -409,7 +413,6 @@ public class SubstanceCard : MonoBehaviour, IPointerEnterHandler, IPointerExitHa
         }
         if(CardAmount == 0)
             Dispose();
-        return decreasedAmount;
     }
     public void SetDraggable(bool cond)
     {
