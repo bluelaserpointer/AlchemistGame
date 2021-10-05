@@ -101,10 +101,25 @@ public class ReactionAnalyzer : MonoBehaviour, IPointerDownHandler
                 magicCircleImage.color = magiCircleDiscoverNewColor;
             }
         }
-        else if (nearEqReactionCount > 0 && discoveredNearEqReactionCount < nearEqReactionCount)
-        {
-            messageText.text = ChemicalSummonManager.LoadSentence("AlmostDiscoverReaction");
-            magicCircleImage.color = magicCircleAlmostDiscoverColor;
+        else if (nearEqReactionCount > 0) {
+            if(discoveredNearEqReactionCount < nearEqReactionCount)
+            {
+                if(discoveredNearEqReactionCount == 0)
+                {
+                    messageText.text = ChemicalSummonManager.LoadSentence("AlmostDiscoverReaction");
+                    magicCircleImage.color = magicCircleAlmostDiscoverColor;
+                }
+                else
+                {
+                    messageText.text = ChemicalSummonManager.LoadSentence("AlmostDiscoverAnotherReaction");
+                    magicCircleImage.color = magicCircleAlmostDiscoverColor;
+                }
+            }
+            else
+            {
+                messageText.text = ChemicalSummonManager.LoadSentence("CombinationAlreadyResearched");
+                magicCircleImage.color = magicCircleAlreadyHadColor;
+            }
         }
         else
         {

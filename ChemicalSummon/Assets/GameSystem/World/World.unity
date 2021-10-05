@@ -2349,6 +2349,7 @@ GameObject:
   - component: {fileID: 286893770}
   - component: {fileID: 286893772}
   - component: {fileID: 286893771}
+  - component: {fileID: 286893773}
   m_Layer: 5
   m_Name: '"ResearchNewReaction"'
   m_TagString: Untagged
@@ -2408,7 +2409,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: RESEARCH NEW REACTION
+  m_Text: "\u7814\u7A76\u65B0\u53CD\u5E94\u5F0F"
 --- !u!222 &286893772
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2417,6 +2418,29 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 286893769}
   m_CullTransparentMesh: 1
+--- !u!114 &286893773
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 286893769}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b03c1e6606bb6418172a8fd99c1de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alwaysUpdate: 0
+  scriptableObject: {fileID: 11400000, guid: 8a43fb9d38d994546ad88a6730374f75, type: 2}
+  sentence:
+    defaultString: ResearchNewReaction
+    languageAndSentences:
+    - language: 1
+      sentence: RESEARCH NEW REACTION
+    - language: 0
+      sentence: "\u7814\u7A76\u65B0\u53CD\u5E94\u5F0F"
+    - language: 2
+      sentence: "\u65B0\u305F\u306A\u53CD\u5FDC\u5F0F\u3092\u898B\u3064\u3051\u308B"
 --- !u!1 &294726581
 GameObject:
   m_ObjectHideFlags: 0
