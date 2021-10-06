@@ -6,7 +6,9 @@ using UnityEngine.UI;
 public class NewSubstanceStep : ResearchStep
 {
     [SerializeField]
-    Text messageText, nameText, threeStateText;
+    Text messageText, nameText, threeStateText, atkText, echelonPhaseText;
+    [SerializeField]
+    Image cardImage;
     [SerializeField]
     Button nextStepButton;
     public override bool IsAutomatedStep => true;
@@ -23,6 +25,9 @@ public class NewSubstanceStep : ResearchStep
     {
         nameText.text = substance.name;
         threeStateText.text = Substance.ThreeStateToString(substance.GetStateInTempreture(27));
+        atkText.text = substance.atk.ToString();
+        echelonPhaseText.text = substance.echelon.ToString();
+        cardImage.sprite = substance.image;
         nextStepButton.gameObject.SetActive(true);
     }
 }

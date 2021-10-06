@@ -144,6 +144,7 @@ GameObject:
   - component: {fileID: 3192543367539472722}
   - component: {fileID: 3192543367539472732}
   - component: {fileID: 3192543367539472723}
+  - component: {fileID: 7192597968398917006}
   m_Layer: 5
   m_Name: '"YouDiscoveredNewSubstance"'
   m_TagString: Untagged
@@ -211,7 +212,30 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You discovered New Substance!
+  m_Text: "\u4F60\u53D1\u73B0\u4E86\u65B0\u7269\u8D28\uFF01"
+--- !u!114 &7192597968398917006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3192543367539472721}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b03c1e6606bb6418172a8fd99c1de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alwaysUpdate: 0
+  scriptableObject: {fileID: 11400000, guid: 4d691266a3b40e245ae7b7106e3d68b5, type: 2}
+  sentence:
+    defaultString: DiscoverNewSubstance
+    languageAndSentences:
+    - language: 1
+      sentence: You discovered a new substance!
+    - language: 0
+      sentence: "\u4F60\u53D1\u73B0\u4E86\u65B0\u7269\u8D28\uFF01"
+    - language: 2
+      sentence: "\u65B0\u305F\u306A\u7269\u8CEA\u3092\u767A\u898B\u3057\u305F\uFF01"
 --- !u!1 &3192543368286950205
 GameObject:
   m_ObjectHideFlags: 0
@@ -386,6 +410,7 @@ GameObject:
   - component: {fileID: 3192543369006364621}
   - component: {fileID: 3192543369006364623}
   - component: {fileID: 3192543369006364622}
+  - component: {fileID: 5634102127385285066}
   m_Layer: 5
   m_Name: '"YouDiscoveredNewReaction"'
   m_TagString: Untagged
@@ -453,7 +478,30 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: You discovered New Reaction!
+  m_Text: "\u4F60\u53D1\u73B0\u4E86\u65B0\u53CD\u5E94\u5F0F\uFF01"
+--- !u!114 &5634102127385285066
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3192543369006364620}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 60b03c1e6606bb6418172a8fd99c1de9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  alwaysUpdate: 0
+  scriptableObject: {fileID: 11400000, guid: 0ddd4d2752df6ea4381e1672ed563316, type: 2}
+  sentence:
+    defaultString: DiscoverNewReaction
+    languageAndSentences:
+    - language: 1
+      sentence: You discovered a new reaction!
+    - language: 0
+      sentence: "\u4F60\u53D1\u73B0\u4E86\u65B0\u53CD\u5E94\u5F0F\uFF01"
+    - language: 2
+      sentence: "\u65B0\u305F\u306A\u53CD\u5FDC\u5F0F\u3092\u767A\u898B\u3057\u305F\uFF01"
 --- !u!1 &4200097146583886852
 GameObject:
   m_ObjectHideFlags: 0
@@ -549,7 +597,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &4200097147451396095
 RectTransform:
   m_ObjectHideFlags: 0
@@ -590,6 +638,7 @@ MonoBehaviour:
     defaultString: ?missing?
     languageAndSentences: []
   formulaText: {fileID: 4200097146583886850}
+  discoverNewSubstanceText: {fileID: 3192543367539472723}
   discoveredSubstanceListTransform: {fileID: 3192543368618152608}
   discoveredSubstancePreviewPrefab: {fileID: 5926305145017312484, guid: 0c60b62fd03bbe54287f65e67c00bca9,
     type: 3}
