@@ -19,6 +19,8 @@ public class ReactionAnalyzer : MonoBehaviour, IPointerDownHandler
     Text reactionText, messageText, nearEqReactionAmountText;
     [SerializeField]
     CardPoolDisplay playerStorage;
+    [SerializeField]
+    ReactionResearchWindow reactionResearchWindow;
 
     List<Reaction> allReactions;
     List<Reaction> AllReactions {
@@ -27,6 +29,7 @@ public class ReactionAnalyzer : MonoBehaviour, IPointerDownHandler
             return allReactions ?? (allReactions = Reaction.GetAll());
         }
     }
+    Reaction displayingValidReaction;
     private void Start()
     {
         foreach(var eachCard in PlayerSave.SubstanceStorage)
@@ -37,6 +40,7 @@ public class ReactionAnalyzer : MonoBehaviour, IPointerDownHandler
     }
     public void OnCardsChange()
     {
+        displayingValidReaction = null;
         StackedElementList<Substance> puttedSubstances = new StackedElementList<Substance>();
         string puttedSubstancesStr = "";
         foreach(CardSlot slot in slots)
@@ -52,7 +56,10 @@ public class ReactionAnalyzer : MonoBehaviour, IPointerDownHandler
                 puttedSubstancesStr += card.Symbol;
             }
         }
-        reactionText.text = puttedSubstancesStr + " == ?";
+        if(puttedSubstancesStr.Length == 0)
+            reactionText.text = ChemicalSummonManager.LoadSentence("PleaseSetCards");
+        else
+            reactionText.text = puttedSubstancesStr + " == ?";
         int nearEqReactionCount = 0;
         int discoveredNearEqReactionCount = 0;
         Reaction nearestEqReaction = null;
@@ -99,6 +106,7 @@ public class ReactionAnalyzer : MonoBehaviour, IPointerDownHandler
             {
                 messageText.text = ChemicalSummonManager.LoadSentence("NewReactionFound");
                 magicCircleImage.color = magiCircleDiscoverNewColor;
+                displayingValidReaction = nearestEqReaction;
             }
         }
         else if (nearEqReactionCount > 0) {
@@ -141,54 +149,46 @@ public class ReactionAnalyzer : MonoBehaviour, IPointerDownHandler
             SubstanceCard card = obj.GetComponent<SubstanceCard>();
             if (card != null)
             {
-                if (eventData.button == PointerEventData.InputButton.Left)
+                CardSlot slot = slots.Find(each => card.Equals(each.Card));
+                if(slot != null)
                 {
-                    //CardInfoDisplay.gameObject.SetActive(true);
-                    //CardInfoDisplay.SetSubstance(card.Substance);
-                }
-                else if (eventData.button == PointerEventData.InputButton.Right)
-                {
-                    CardSlot slot = slots.Find(each => card.Equals(each.Card));
-                    if(slot != null)
+                    playerStorage.AddCard(card.Substance, 1);
+                    card.RemoveAmount(1);
+                    if(card.IsDisposing)
                     {
-                        playerStorage.AddCard(card.Substance, 1);
-                        card.RemoveAmount(1);
-                        if(card.IsDisposing)
-                        {
-                            slot.SlotTopClear();
-                        }
-                        OnCardsChange();
-                        return;
+                        slot.SlotTopClear();
                     }
-                    CardPoolDisplay belongCardPool = card.transform.GetComponentInParent<CardPoolDisplay>();
-                    if (playerStorage.Equals(belongCardPool))
+                    OnCardsChange();
+                    return;
+                }
+                CardPoolDisplay belongCardPool = card.transform.GetComponentInParent<CardPoolDisplay>();
+                if (playerStorage.Equals(belongCardPool))
+                {
+                    foreach (CardSlot eachSlot in slots)
                     {
-                        foreach (CardSlot eachSlot in slots)
+                        SubstanceCard slotCard = eachSlot.Card;
+                        if (slotCard == null)
                         {
-                            SubstanceCard slotCard = eachSlot.Card;
-                            if (slotCard == null)
+                            SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(card.Substance, 1);
+                            newCard.SetDraggable(false);
+                            newCard.transform.position = card.transform.position;
+                            eachSlot.SlotSet(newCard, OnCardsChange);
+                            playerStorage.RemoveOneCard(card);
+                            return;
+                        }
+                        else if (slotCard.IsSameSubstance(card))
+                        {
+                            SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(card.Substance, 1);
+                            newCard.transform.SetParent(ChemicalSummonManager.MainCanvas.transform);
+                            newCard.SetDraggable(false);
+                            newCard.transform.position = card.transform.position;
+                            newCard.TracePosition(slotCard.transform, () =>
                             {
-                                SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(card.Substance, 1);
-                                newCard.SetDraggable(false);
-                                newCard.transform.position = card.transform.position;
-                                eachSlot.SlotSet(newCard, OnCardsChange);
-                                playerStorage.RemoveOneCard(card);
-                                return;
-                            }
-                            else if (slotCard.IsSameSubstance(card))
-                            {
-                                SubstanceCard newCard = SubstanceCard.GenerateSubstanceCard(card.Substance, 1);
-                                newCard.transform.SetParent(ChemicalSummonManager.MainCanvas.transform);
-                                newCard.SetDraggable(false);
-                                newCard.transform.position = card.transform.position;
-                                newCard.TracePosition(slotCard.transform, () =>
-                                {
-                                    slotCard.UnionSameCard(newCard);
-                                    OnCardsChange();
-                                });
-                                playerStorage.RemoveOneCard(card);
-                                return;
-                            }
+                                slotCard.UnionSameCard(newCard);
+                                OnCardsChange();
+                            });
+                            playerStorage.RemoveOneCard(card);
+                            return;
                         }
                     }
                 }
@@ -196,5 +196,11 @@ public class ReactionAnalyzer : MonoBehaviour, IPointerDownHandler
             }
             //CardInfoDisplay.gameObject.SetActive(false);
         }
+    }
+    public void ResearchReaction()
+    {
+        if (displayingValidReaction == null)
+            return;
+        reactionResearchWindow.Init(displayingValidReaction);
     }
 }

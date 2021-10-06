@@ -36,6 +36,7 @@ public class Substance : ChemicalObject
     public bool isOre;
     public CardAbility[] abilities = new CardAbility[0];
     public TranslatableSentence description = new TranslatableSentence();
+    public List<ResearchStep> researchSteps = new List<ResearchStep>();
 
     //data
     public Sprite Image => image;
@@ -91,6 +92,19 @@ public class Substance : ChemicalObject
             return ThreeState.Liquid;
         }
         return ThreeState.Gas;
+    }
+    public static string ThreeStateToString(ThreeState state)
+    {
+        switch(state)
+        {
+            case ThreeState.Gas:
+                return ChemicalSummonManager.LoadSentence("Gas");
+            case ThreeState.Solid:
+                return ChemicalSummonManager.LoadSentence("Solid");
+            case ThreeState.Liquid:
+                return ChemicalSummonManager.LoadSentence("Liquid");
+        }
+        return "InvalidState";
     }
     public static Substance GetByName(string name)
     {

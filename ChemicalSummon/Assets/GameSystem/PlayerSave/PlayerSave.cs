@@ -74,6 +74,11 @@ public class PlayerSave : MonoBehaviour
     /// 新发现的反应式
     /// </summary>
     public static List<Reaction> NewDicoveredReactions => Instance.newDiscoveredReactions;
+    List<Substance> discoveredSubstances = new List<Substance>();
+    /// <summary>
+    /// 已发现的物质
+    /// </summary>
+    public static List<Substance> DiscoveredSubstances => Instance.discoveredSubstances;
     /// <summary>
     /// 选定的游戏者
     /// </summary>
@@ -120,6 +125,10 @@ public class PlayerSave : MonoBehaviour
         initialDeck.name = ChemicalSummonManager.LoadSentence("Initiater");
         savedDecks.Add(initialDeck);
         activeDeck = initialDeck;
+        foreach(var substanceStack in SubstanceStorage)
+        {
+            discoveredSubstances.Add(substanceStack.type);
+        }
     }
     private void Update()
     {
